@@ -59,9 +59,9 @@ Knowledge Card turns a source URL into a structured, versioned knowledge artifac
 - [x] Main-branch validation and production build gate
 - [x] Built-site output smoke verification
 - [x] GitHub Pages artifact/deployment workflow
-- [ ] First-time repository Pages source enablement and confirmed live deployment
+- [x] First-time repository Pages source enablement and confirmed live deployment
 
-The remaining unchecked item is a GitHub repository setting: **Settings → Pages → Build and deployment → Source → GitHub Actions**. After that one-time enablement, the existing `Deploy Knowledge Radar` workflow publishes every successful `main` build.
+Public site: https://estherairp.github.io/Knowledge-Card/
 
 ## Repository structure
 
