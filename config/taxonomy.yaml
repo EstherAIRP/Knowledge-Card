@@ -1,0 +1,65 @@
+schema_version: 1
+
+categories:
+  - AI / ML
+  - AOI × AI
+  - LLM
+  - Agent
+  - RAG / Memory / Knowledge
+  - AI Coding / DevTools
+  - SillyTavern / AI RPG
+  - Image Generation
+  - Infrastructure / Deployment
+  - General Tools
+
+relevance_dimensions:
+  overall:
+    label: Overall
+    description: Overall practical and research value to the public technical profile.
+  ai_rd:
+    label: AI RD
+    description: AI research, model engineering, evaluation, data pipelines, inference, and AI systems work.
+  aoi_ai:
+    label: AOI × AI
+    description: Computer vision and industrial inspection applications such as detection, classification, segmentation, OCR, and manufacturing AI.
+  llm_agent:
+    label: LLM / Agent
+    description: LLMs, agents, tool use, MCP, memory, RAG, orchestration, and agent infrastructure.
+  sillytavern_ai_rpg:
+    label: SillyTavern / AI RPG
+    description: Character AI, roleplay, persona, long-term character memory, narrative agents, world models, and AI RPG systems.
+  image_gen:
+    label: Image Gen
+    description: Image generation, diffusion, LoRA, ControlNet, multimodal creative workflows, and prompt/image tooling.
+
+relevance_scale:
+  1: Almost unrelated
+  2: Weakly related
+  3: Useful reference
+  4: Highly relevant
+  5: Core relevance
+
+actions:
+  TRY: Directly install, run, or experience it.
+  BUILD: Worth prototyping, reproducing, or implementing.
+  INTEGRATE: Worth integrating into an existing technical workflow or project.
+  LEARN: Worth studying for architecture, methods, or implementation details.
+  WATCH: Not necessary to adopt now, but worth monitoring.
+  REFERENCE: Useful as a design, architecture, or technical reference.
+  ARCHIVE: Worth preserving, but with no clear current action.
+
+statuses:
+  - active
+  - watch
+  - deprecated
+  - archived
+  - unavailable
+
+source_types:
+  - github
+  - article
+  - paper
+  - documentation
+  - tool
+  - video
+  - other
