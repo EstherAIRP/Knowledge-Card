@@ -2,7 +2,7 @@
 
 AI-curated personal technology knowledge radar built on GitHub.
 
-Knowledge Card turns a source URL into a structured, versioned knowledge artifact that can later be rendered as a public visual website. The repository is the source of truth; AI/Codex performs ingestion and maintenance; a later VitePress phase will provide the presentation layer.
+Knowledge Card turns a source URL into a structured, versioned knowledge artifact and renders the repository as a searchable VitePress technology radar. The repository is the source of truth; AI/Codex performs ingestion and maintenance; VitePress is only the presentation layer.
 
 ## Product goals
 
@@ -14,6 +14,7 @@ Knowledge Card turns a source URL into a structured, versioned knowledge artifac
 - Update an existing Knowledge Card when the same canonical source is submitted again.
 - Preserve user-owned overrides when AI re-analyzes a card.
 - Keep all published personalization within the boundaries of `profile/public-profile.yaml`.
+- Project all Knowledge Cards into a public searchable visual website without duplicating source content.
 
 ## Phase status
 
@@ -39,14 +40,22 @@ Knowledge Card turns a source URL into a structured, versioned knowledge artifac
 
 ### Phase 3 — Website
 
-- [ ] VitePress application
-- [ ] Knowledge cards and detail pages
-- [ ] Category / tag / relevance / action filters
-- [ ] Search
+- [x] VitePress application
+- [x] Build-time Knowledge Card data projection
+- [x] Dynamic Knowledge Card detail pages
+- [x] Category filter
+- [x] Tag filter
+- [x] Relevance dimension / score filter
+- [x] Action filter
+- [x] Metadata search and sorting
+- [x] VitePress local full-page search
+- [x] Effective user-override rendering
+- [x] Responsive custom theme
+- [x] Website projection / route tests
 
 ### Phase 4 — Automation
 
-- [ ] GitHub Actions validation
+- [ ] GitHub Actions validation/build gate
 - [ ] GitHub Pages deployment
 
 ## Repository structure
@@ -64,7 +73,21 @@ Knowledge-Card/
 │       └── 2026/
 │           └── github-intuition-lab-personal-model.md
 ├── docs/
-│   └── INGESTION.md
+│   ├── index.md
+│   ├── INGESTION.md
+│   ├── WEBSITE.md
+│   ├── knowledge.data.js
+│   ├── knowledge/
+│   │   ├── [id].md
+│   │   └── [id].paths.js
+│   └── .vitepress/
+│       ├── config.mjs
+│       └── theme/
+│           ├── index.js
+│           ├── custom.css
+│           └── components/
+│               ├── KnowledgeRadar.vue
+│               └── KnowledgeMeta.vue
 ├── profile/
 │   └── public-profile.yaml
 ├── schema/
@@ -77,24 +100,23 @@ Knowledge-Card/
 ├── templates/
 │   └── knowledge-card.example.md
 └── tests/
-    └── ingestion.test.mjs
+    ├── ingestion.test.mjs
+    └── site.test.mjs
 ```
 
-## Phase 2 commands
-
-Install dependencies once:
+## Install
 
 ```bash
 npm install
 ```
+
+## Ingestion commands
 
 Resolve a URL before ingestion:
 
 ```bash
 npm run ingest:resolve -- https://github.com/Intuition-Lab/personal-model
 ```
-
-The resolver returns a machine-readable plan containing `canonical_url`, `source_identity`, stable `id`, `mode` (`create` or `update`), and the target path.
 
 Validate every Knowledge Card and repository contract:
 
@@ -108,13 +130,50 @@ Before committing an update to an existing card, verify that AI did not overwrit
 npm run validate:ownership -- content/knowledge/2026/<card>.md
 ```
 
-Run resolver/ownership unit tests:
+Run ingestion and website projection tests:
 
 ```bash
 npm test
 ```
 
 See `docs/INGESTION.md` for the complete Phase 2 operating flow.
+
+## Website commands
+
+Start the local VitePress development server:
+
+```bash
+npm run docs:dev
+```
+
+Build the static website:
+
+```bash
+npm run docs:build
+```
+
+Preview the production build:
+
+```bash
+npm run docs:preview
+```
+
+See `docs/WEBSITE.md` for the Phase 3 website architecture.
+
+## Website model
+
+```text
+content/knowledge/**/*.md
+        │
+        ├─ metadata projection → Knowledge Radar homepage
+        └─ Markdown body       → dynamic detail pages
+                              ↓
+                           VitePress
+                              ↓
+                    static public website
+```
+
+`content/knowledge/` remains the only content source of truth. New or updated Cards appear in the site automatically at the next VitePress build; no generated article copy is committed under `docs/`.
 
 ## Core data-governance rule
 
@@ -126,7 +185,7 @@ For fields that support overrides, the effective value is:
 effective_value = user_override ?? ai_value
 ```
 
-A later AI refresh may update `ai` values, but it must never silently overwrite an existing `user` override.
+For relevance, that resolution occurs independently for every dimension. The website consumes the effective values, so manual user corrections take precedence without destroying the AI-generated score.
 
 ## Public-safety boundary
 
@@ -140,7 +199,7 @@ See `config/taxonomy.yaml` for the fixed categories, relevance dimensions, actio
 
 Every card uses YAML frontmatter followed by Markdown analysis. The normative machine-readable contract is `schema/knowledge-card.schema.json`; the authoring example is `templates/knowledge-card.example.md`.
 
-## Current ingestion experience
+## Current end-to-end flow
 
 ```text
 URL
@@ -151,8 +210,8 @@ URL
  → npm run validate
  → for updates: npm run validate:ownership
  → commit and push
- → report the result
- → Phase 3: render on public website
+ → VitePress build projects current Cards
+ → Phase 4: GitHub Actions deploys to GitHub Pages
 ```
 
-The first real ingestion fixture is `content/knowledge/2026/github-intuition-lab-personal-model.md`.
+The first real ingestion and UI fixture is `content/knowledge/2026/github-intuition-lab-personal-model.md`.
