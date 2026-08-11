@@ -55,13 +55,22 @@ Knowledge Card turns a source URL into a structured, versioned knowledge artifac
 
 ### Phase 4 — Automation
 
-- [ ] GitHub Actions validation/build gate
-- [ ] GitHub Pages deployment
+- [x] Pull request / branch validation workflow
+- [x] Main-branch validation and production build gate
+- [x] Built-site output smoke verification
+- [x] GitHub Pages artifact/deployment workflow
+- [ ] First-time repository Pages source enablement and confirmed live deployment
+
+The remaining unchecked item is a GitHub repository setting: **Settings → Pages → Build and deployment → Source → GitHub Actions**. After that one-time enablement, the existing `Deploy Knowledge Radar` workflow publishes every successful `main` build.
 
 ## Repository structure
 
 ```text
 Knowledge-Card/
+├── .github/
+│   └── workflows/
+│       ├── validate.yml
+│       └── deploy-pages.yml
 ├── AGENTS.md
 ├── README.md
 ├── package.json
@@ -76,6 +85,7 @@ Knowledge-Card/
 │   ├── index.md
 │   ├── INGESTION.md
 │   ├── WEBSITE.md
+│   ├── AUTOMATION.md
 │   ├── knowledge.data.js
 │   ├── knowledge/
 │   │   ├── [id].md
@@ -96,7 +106,8 @@ Knowledge-Card/
 │   ├── lib/knowledge.mjs
 │   ├── resolve-source.mjs
 │   ├── validate-content.mjs
-│   └── check-ownership.mjs
+│   ├── check-ownership.mjs
+│   └── verify-site-output.mjs
 ├── templates/
 │   └── knowledge-card.example.md
 └── tests/
@@ -152,13 +163,19 @@ Build the static website:
 npm run docs:build
 ```
 
+Verify the generated homepage, Knowledge Card detail pages, and asset bundles:
+
+```bash
+npm run verify:site
+```
+
 Preview the production build:
 
 ```bash
 npm run docs:preview
 ```
 
-See `docs/WEBSITE.md` for the Phase 3 website architecture.
+See `docs/WEBSITE.md` for the Phase 3 website architecture and `docs/AUTOMATION.md` for CI/CD and Pages deployment.
 
 ## Website model
 
@@ -174,6 +191,24 @@ content/knowledge/**/*.md
 ```
 
 `content/knowledge/` remains the only content source of truth. New or updated Cards appear in the site automatically at the next VitePress build; no generated article copy is committed under `docs/`.
+
+## CI/CD model
+
+```text
+PR / non-main push
+       ↓
+Tests → Knowledge validation → VitePress build → output smoke check
+
+main push
+       ↓
+Tests → Knowledge validation → VitePress build → output smoke check
+       ↓
+GitHub Pages artifact
+       ↓
+Deploy to github-pages environment
+```
+
+A failed test, invalid Knowledge Card, failed VitePress build, or missing generated detail page blocks deployment.
 
 ## Core data-governance rule
 
@@ -210,8 +245,10 @@ URL
  → npm run validate
  → for updates: npm run validate:ownership
  → commit and push
- → VitePress build projects current Cards
- → Phase 4: GitHub Actions deploys to GitHub Pages
+ → GitHub Actions runs tests / validation / build
+ → built-output smoke check
+ → GitHub Pages artifact
+ → deploy public Knowledge Radar
 ```
 
 The first real ingestion and UI fixture is `content/knowledge/2026/github-intuition-lab-personal-model.md`.
