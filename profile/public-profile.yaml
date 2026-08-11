@@ -1,0 +1,42 @@
+schema_version: 1
+
+profile_name: Esther Public Technical Profile
+
+profession:
+  - AI R&D
+  - Computer Vision
+  - AOI / Automated Optical Inspection
+
+technical_domains:
+  - AI
+  - AOI × AI
+  - LLM
+  - Agent
+
+interests:
+  - SillyTavern
+  - AI RPG
+  - AI Image Generation
+
+publication_policy:
+  purpose: >-
+    This file is the complete public personalization context that AI may use when
+    writing the "relevance" and "recommendation" sections of public Knowledge Cards.
+  allowed_context:
+    - This file
+    - Existing public Knowledge Cards in this repository
+    - Publicly accessible source material being analyzed
+  forbidden_context:
+    - Private chat history
+    - Employer identity or internal company information
+    - Non-public project details
+    - Salary or financial information
+    - Personal relationships or family information
+    - Private identity details not explicitly listed in this file
+    - Any remembered personal information outside this public profile
+
+rules:
+  - Do not infer additional personal facts from the allowed profile.
+  - Do not enrich this profile from chat memory automatically.
+  - A fact may be added to this file only through an explicit repository edit.
+  - When uncertain whether a personal detail is public-safe, omit it.
