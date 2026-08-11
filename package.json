@@ -9,6 +9,7 @@
   "scripts": {
     "ingest:resolve": "node scripts/resolve-source.mjs",
     "validate": "node scripts/validate-content.mjs",
+    "validate:ownership": "node scripts/check-ownership.mjs",
     "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
