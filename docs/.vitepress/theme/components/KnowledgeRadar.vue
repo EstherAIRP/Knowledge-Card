@@ -5,6 +5,7 @@ import { data as cards } from '../../../knowledge.data.js';
 
 const query = ref('');
 const category = ref('ALL');
+const tag = ref('ALL');
 const action = ref('ALL');
 const dimension = ref('overall');
 const minScore = ref(1);
@@ -27,6 +28,14 @@ const categories = computed(() => {
   return [...count.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh-TW'));
 });
 
+const tags = computed(() => {
+  const count = new Map();
+  for (const card of cards) {
+    for (const item of card.tags) count.set(item, (count.get(item) ?? 0) + 1);
+  }
+  return [...count.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh-TW'));
+});
+
 const actions = computed(() => {
   const values = new Set(cards.flatMap((card) => card.actions));
   return [...values].sort();
@@ -44,6 +53,7 @@ const filteredCards = computed(() => {
   const selectedDimension = dimension.value;
   const result = cards.filter((card) => {
     if (category.value !== 'ALL' && !card.categories.includes(category.value)) return false;
+    if (tag.value !== 'ALL' && !card.tags.includes(tag.value)) return false;
     if (action.value !== 'ALL' && !card.actions.includes(action.value)) return false;
     if ((card.relevance[selectedDimension] ?? 0) < minScore.value) return false;
 
@@ -73,9 +83,14 @@ function scoreLabel(score) {
   return '★'.repeat(score) + '☆'.repeat(5 - score);
 }
 
+function selectTag(value) {
+  tag.value = value;
+}
+
 function resetFilters() {
   query.value = '';
   category.value = 'ALL';
+  tag.value = 'ALL';
   action.value = 'ALL';
   dimension.value = 'overall';
   minScore.value = 1;
@@ -102,6 +117,13 @@ function resetFilters() {
         <label class="radar-search">
           <span>搜尋</span>
           <input v-model="query" type="search" placeholder="專案、技術、Tag、Action…" />
+        </label>
+        <label>
+          <span>Tag</span>
+          <select v-model="tag">
+            <option value="ALL">全部</option>
+            <option v-for="([item, count]) in tags" :key="item" :value="item">{{ item }} ({{ count }})</option>
+          </select>
         </label>
         <label>
           <span>Action</span>
@@ -174,7 +196,7 @@ function resetFilters() {
         </div>
 
         <div class="knowledge-tags">
-          <button v-for="tag in card.tags.slice(0, 6)" :key="tag" @click="query = tag">#{{ tag }}</button>
+          <button v-for="item in card.tags.slice(0, 6)" :key="item" @click="selectTag(item)">#{{ item }}</button>
         </div>
 
         <footer>
