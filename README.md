@@ -28,11 +28,14 @@ Knowledge Card turns a source URL into a structured, versioned knowledge artifac
 
 ### Phase 2 — Ingestion
 
-- [ ] URL canonicalization and deduplication
-- [ ] Source analysis workflow
-- [ ] Existing-card merge/update workflow
-- [ ] Validation command
-- [ ] Commit/push workflow
+- [x] URL canonicalization and deduplication
+- [x] Source analysis workflow
+- [x] Existing-card merge/update ownership rules
+- [x] Automated schema/content validation command
+- [x] User-owned state protection command
+- [x] Ingestion resolver tests
+- [x] First real end-to-end Knowledge Card
+- [x] Commit/push workflow through Codex/GitHub
 
 ### Phase 3 — Website
 
@@ -52,18 +55,66 @@ Knowledge Card turns a source URL into a structured, versioned knowledge artifac
 Knowledge-Card/
 ├── AGENTS.md
 ├── README.md
+├── package.json
 ├── config/
 │   └── taxonomy.yaml
 ├── content/
 │   └── knowledge/
-│       └── README.md
+│       ├── README.md
+│       └── 2026/
+│           └── github-intuition-lab-personal-model.md
+├── docs/
+│   └── INGESTION.md
 ├── profile/
 │   └── public-profile.yaml
 ├── schema/
 │   └── knowledge-card.schema.json
-└── templates/
-    └── knowledge-card.example.md
+├── scripts/
+│   ├── lib/knowledge.mjs
+│   ├── resolve-source.mjs
+│   ├── validate-content.mjs
+│   └── check-ownership.mjs
+├── templates/
+│   └── knowledge-card.example.md
+└── tests/
+    └── ingestion.test.mjs
 ```
+
+## Phase 2 commands
+
+Install dependencies once:
+
+```bash
+npm install
+```
+
+Resolve a URL before ingestion:
+
+```bash
+npm run ingest:resolve -- https://github.com/Intuition-Lab/personal-model
+```
+
+The resolver returns a machine-readable plan containing `canonical_url`, `source_identity`, stable `id`, `mode` (`create` or `update`), and the target path.
+
+Validate every Knowledge Card and repository contract:
+
+```bash
+npm run validate
+```
+
+Before committing an update to an existing card, verify that AI did not overwrite user-owned state:
+
+```bash
+npm run validate:ownership -- content/knowledge/2026/<card>.md
+```
+
+Run resolver/ownership unit tests:
+
+```bash
+npm test
+```
+
+See `docs/INGESTION.md` for the complete Phase 2 operating flow.
 
 ## Core data-governance rule
 
@@ -89,18 +140,19 @@ See `config/taxonomy.yaml` for the fixed categories, relevance dimensions, actio
 
 Every card uses YAML frontmatter followed by Markdown analysis. The normative machine-readable contract is `schema/knowledge-card.schema.json`; the authoring example is `templates/knowledge-card.example.md`.
 
-## Planned ingestion experience
+## Current ingestion experience
 
 ```text
 URL
- → read source
- → canonicalize identity
- → find existing card
- → analyze
- → classify / tag / score / recommend action
- → merge user overrides
- → validate
- → create or update Markdown
+ → npm run ingest:resolve
+ → read primary source
+ → create/update analysis
+ → preserve user-owned state
+ → npm run validate
+ → for updates: npm run validate:ownership
  → commit and push
- → later: rebuild public website
+ → report the result
+ → Phase 3: render on public website
 ```
+
+The first real ingestion fixture is `content/knowledge/2026/github-intuition-lab-personal-model.md`.
