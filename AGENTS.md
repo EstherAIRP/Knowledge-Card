@@ -4,128 +4,158 @@ This file defines how Codex or any AI agent must work inside this repository. It
 
 ## 1. Repository purpose
 
-This repository is a public-oriented personal technology knowledge radar. The primary workflow is:
+Knowledge Card is a public-oriented personal technology knowledge radar. The normal workflow is:
 
 ```text
 User supplies URL
-→ read the source
-→ canonicalize source identity
-→ detect an existing Knowledge Card
-→ create or update structured analysis
-→ preserve user-owned overrides
+→ resolve/canonicalize source
+→ read primary evidence
+→ detect create vs update
+→ create or refresh structured analysis
+→ preserve user-owned state
 → validate
 → commit/push
 → report the result
 ```
 
-The user should not need to manually author Markdown for normal ingestion.
+The user should not need to manually author Markdown for ordinary ingestion. In this knowledge-collection repository, a bare URL is an ingestion request unless the surrounding request clearly says otherwise.
 
 ## 2. Authoritative contracts
 
-Before creating or updating a Knowledge Card, read these files:
+Before creating or updating a Knowledge Card, use these contracts:
 
 1. `schema/knowledge-card.schema.json` — normative frontmatter schema.
-2. `config/taxonomy.yaml` — allowed categories, actions, statuses, source types, and relevance dimensions.
+2. `config/taxonomy.yaml` — controlled categories, actions, statuses, source types, and relevance dimensions.
 3. `profile/public-profile.yaml` — the only personal context allowed in public personalized analysis.
-4. `templates/knowledge-card.example.md` — canonical authoring structure and section order.
+4. `templates/knowledge-card.example.md` — canonical body structure.
+5. `docs/INGESTION.md` — Phase 2 executable workflow.
 
-If these files disagree, use this precedence:
+Precedence:
 
 ```text
 JSON Schema
 > taxonomy.yaml
-> public-profile.yaml for personalization/public-safety questions
+> public-profile.yaml for personalization/public safety
+> AGENTS.md / ingestion workflow
 > example/template
-> existing generated content
+> existing AI-generated content
 ```
 
-Do not silently expand controlled enums. If a new top-level category, action, relevance dimension, status, or source type is genuinely needed, modify the contract deliberately rather than inventing a value inside one card.
+Do not silently invent new controlled enum values. Change the repository contract deliberately if a new category/action/status/source type/relevance dimension is genuinely required.
 
-## 3. Ingestion trigger and default behavior
+## 3. Mandatory Phase 2 preflight
 
-When the user supplies a URL for collection, the default behavior is automatic ingestion:
+Before authoring from a URL, run:
 
-```text
-URL → analyze → create/update → validate → commit/push → tell the user what changed
+```bash
+npm run ingest:resolve -- <URL>
 ```
 
-Do not ask for confirmation before writing unless the requested operation is ambiguous, unsafe, or conflicts with repository rules.
+Use the resolver output as the mechanical source identity contract:
 
-A bare URL in the knowledge-collection context should be treated as an ingestion request.
+- `canonical_url`
+- `source_identity`
+- stable `id`
+- `mode`: `create` or `update`
+- `existing_path`
+- `suggested_path`
+
+Do not create a second card when the resolver identifies an existing source.
+
+If dependencies are not installed in the current environment, install them from `package.json` before using the repository scripts.
 
 ## 4. Source-reading rule
 
-Never create substantive analysis from a URL slug, search-result snippet, repository name, or prior model memory alone.
+Never produce substantive analysis from a URL slug, search snippet, repository name, or model memory alone.
 
 Before writing a card:
 
-- Open and read the primary source.
-- For GitHub repositories, inspect at minimum the repository description and README; inspect relevant docs/config/source files when needed to support architectural claims.
-- For papers, prefer the paper/abstract and official project material.
-- For articles/documentation, read the actual page or authoritative source.
-- Separate verified facts from inference.
-- Do not invent features, architecture, maturity, licenses, compatibility, benchmarks, or maintenance status.
+- open and read the primary source;
+- for GitHub repositories, inspect repository metadata and README at minimum;
+- inspect architecture/security/docs/config/source files when needed to support technical claims;
+- for papers, prefer the paper/abstract and official project material;
+- for articles/documentation, read the actual authoritative page;
+- separate verified facts from inference;
+- do not invent features, architecture, maturity, licenses, compatibility, benchmarks, or maintenance status.
 
-If the source cannot be accessed well enough to produce a reliable card, do not fabricate a card. Report `SOURCE_UNAVAILABLE` or the concrete access limitation.
+If the source cannot be read sufficiently, do not fabricate a card. Report `SOURCE_UNAVAILABLE` or the concrete access limitation.
 
 ## 5. Canonicalization and deduplication
 
-Every source must have a stable identity.
+The resolver in `scripts/resolve-source.mjs` is the mechanical authority for routine URL normalization.
 
-For a GitHub repository:
+GitHub repository identity:
 
 ```text
-source.identity = github:{owner}/{repo}
+source.identity = github:{owner-lowercase}/{repo-lowercase}
 canonical_url   = https://github.com/{owner}/{repo}
 ```
 
-Normalize away irrelevant URL variants such as:
+Repository URL variants such as trailing slashes, `.git`, README/repository subpaths, query parameters, or fragments must not create duplicate cards.
 
-- trailing `/`
-- README anchors
-- `?tab=readme-*`
-- tracking parameters
-- `www` differences where the source is otherwise identical
+For normal web sources, use the resolver's stable canonical URL and `url:{canonical_url}` identity. Known tracking parameters are removed conservatively while meaningful query parameters are preserved.
 
-For non-GitHub sources, use a stable canonical URL identity:
-
-```text
-source.identity = url:{canonical_url}
-```
-
-Before creating a new card, search existing cards under `content/knowledge/` for:
-
-1. exact `source.identity`
-2. exact normalized `canonical_url`
-3. obvious equivalent source identity
-
-If an existing card is found, update it instead of creating a duplicate.
+Before a new write completes, duplicate `id`, `source.identity`, and `canonical_url` are also checked by `npm run validate`.
 
 ## 6. Stable IDs and paths
 
-For GitHub repositories, prefer:
+For GitHub repositories, prefer the resolver-derived ID:
 
 ```text
 id = github-{owner}-{repo}
 ```
 
-Convert to lowercase and normalize unsupported punctuation to hyphens while satisfying the JSON Schema.
-
-For other sources, derive a stable lowercase slug from the domain/source title and avoid date-dependent IDs unless required for uniqueness.
-
-New real cards belong under:
+New cards live under:
 
 ```text
-content/knowledge/{YYYY}/{slug}.md
+content/knowledge/{YYYY}/{id}.md
 ```
 
-`YYYY` is the card's original creation year. Once created, keep `id`, `created_at`, and file path stable during routine updates.
+Once created, routine updates must preserve:
 
-## 7. Frontmatter ownership model
+- `id`
+- `created_at`
+- file path
 
-AI-generated values and user-owned overrides are separate.
+Do not rename historical cards merely because a title or recommendation changes.
 
-Fields with ownership wrappers include:
+## 7. Create protocol
+
+When resolver `mode` is `create`:
+
+1. Read `templates/knowledge-card.example.md`.
+2. Read current primary evidence.
+3. Read `profile/public-profile.yaml` for personalized relevance only.
+4. Produce valid frontmatter and the canonical body sections.
+5. Write to resolver `suggested_path`.
+6. Run `npm run validate`.
+7. Commit only after validation succeeds.
+
+## 8. Existing-card update protocol
+
+When resolver `mode` is `update`:
+
+1. Read the existing card completely.
+2. Re-read the current primary source.
+3. Preserve stable and user-owned state.
+4. Refresh only AI-owned metadata/analysis from current evidence.
+5. Set `last_checked_at` to the current date for a real re-check.
+6. Set `updated_at` only when the Knowledge Card changes materially.
+7. Append a changelog entry only for meaningful changes.
+8. Before commit, run:
+
+```bash
+npm run validate:ownership -- <existing_path>
+npm run validate
+```
+
+Meaningful changes include major features/architecture, provider/runtime support, project lifecycle changes, or relevance/action changes backed by substantive evidence. If no substantive knowledge changed, update only `last_checked_at` and avoid a noisy changelog entry.
+
+## 9. AI/User ownership model
+
+AI-generated state and user-owned overrides are separate.
+
+Ownership wrappers include:
 
 - `classification.categories`
 - `classification.tags`
@@ -135,43 +165,24 @@ Fields with ownership wrappers include:
 
 Rules:
 
-- AI may freely refresh `ai` values when re-analyzing a source.
-- AI must preserve `user` values exactly unless the user explicitly asks to change or remove them.
-- For `relevance.user`, preserve every existing key/value; it is a partial per-dimension override map.
-- `null` means no user override for wrapper fields that use nullable overrides.
-- The effective value used by later UI code is `user ?? ai`; for partial relevance, resolve each dimension independently.
+- AI may refresh `ai` values during re-analysis.
+- AI must preserve `user` values exactly unless the user explicitly asks to change/remove them.
+- `relevance.user` is a partial per-dimension override map.
+- effective wrapper value is `user ?? ai`;
+- effective relevance is resolved dimension-by-dimension.
+- `## 使用者備註` is user-owned and must be preserved verbatim.
 
-Never infer that a user override is obsolete merely because the source changed.
+The executable ownership check compares an edited existing card against `HEAD:<path>` and rejects accidental changes to stable/user-owned state.
 
-## 8. Fixed multi-category classification
+## 10. Fixed multi-category classification and tags
 
-Cards may belong to multiple categories. Use only categories defined in `config/taxonomy.yaml`.
+Cards may have multiple categories, but every category must come from `config/taxonomy.yaml`.
 
-Categories are broad navigation concepts. Tags are fine-grained technical descriptors.
+Categories are broad navigation concepts; tags are fine-grained technical descriptors. AI may create free-form tags but must not create ad-hoc top-level categories.
 
-Good example:
+## 11. Relevance scoring
 
-```yaml
-classification:
-  categories:
-    ai:
-      - LLM
-      - Agent
-      - RAG / Memory / Knowledge
-    user: null
-  tags:
-    ai:
-      - long-term-memory
-      - personal-ai
-      - tool-calling
-    user: null
-```
-
-Do not create a new category just because a precise free-form tag would be useful.
-
-## 9. Relevance scoring
-
-Score all six AI relevance values from 1 to 5:
+Score all AI relevance fields from 1 to 5:
 
 - `overall`
 - `ai_rd`
@@ -180,15 +191,13 @@ Score all six AI relevance values from 1 to 5:
 - `sillytavern_ai_rpg`
 - `image_gen`
 
-Use the definitions in `config/taxonomy.yaml` and the public technical profile only.
+Use `config/taxonomy.yaml` definitions and only the public technical profile for personalization.
 
-`overall` is a holistic judgment, not an arithmetic average of the five dimensions.
+`overall` is a holistic practical/research judgment, not the arithmetic mean of the five dimensions. When uncertain, score conservatively and explain the reasoning in the body.
 
-When uncertain, score conservatively and explain the practical reasoning in the card body.
+## 12. Action labels
 
-## 10. Action labels
-
-Use one or more fixed labels from `config/taxonomy.yaml`:
+Use one or more fixed actions only:
 
 - `TRY`
 - `BUILD`
@@ -198,11 +207,11 @@ Use one or more fixed labels from `config/taxonomy.yaml`:
 - `REFERENCE`
 - `ARCHIVE`
 
-Actions should express what the user can reasonably do with the item, not merely whether the source is interesting.
+Actions express what the user can reasonably do with the item, not merely whether it is interesting.
 
-## 11. Public-safety boundary
+## 13. Public-safety boundary
 
-This repository is designed for public publishing.
+This repository is intended for public publishing.
 
 Personalized sections may use only:
 
@@ -210,19 +219,17 @@ Personalized sections may use only:
 - public source material being analyzed
 - existing public Knowledge Cards in this repository
 
-Do not write facts derived from private chat memory or hidden personal context into repository content.
-
-In particular, never introduce private employer/internal information, salary/financial information, personal relationships, family information, private project details, or other non-public identity details unless they have first been explicitly added to the public profile or the user explicitly instructs that specific information to be published.
+Do not publish facts from private chat memory or hidden personal context. In particular, never introduce private employer/internal information, salary/financial information, personal relationships/family information, private project details, or other non-public identity details unless that exact information has been explicitly approved for publication.
 
 Core rule:
 
 > The agent knowing something does not make it publishable.
 
-## 12. Card body structure
+## 14. Canonical body structure
 
 Use Traditional Chinese (`zh-TW`) for explanatory prose by default while retaining official project names and technical terms when clearer in English.
 
-Follow this section order:
+Required section order:
 
 1. `# Title`
 2. `## 一句話介紹`
@@ -238,93 +245,61 @@ Follow this section order:
 12. `## 使用者備註`
 13. `## 更新紀錄`
 
-The body should provide real analysis rather than restating README marketing copy.
+The body must provide actual analysis rather than simply paraphrasing marketing copy.
 
-### User notes
+## 15. Related Knowledge
 
-`## 使用者備註` is user-owned content. Preserve it verbatim during AI refreshes unless the user explicitly asks to edit it.
+Only link to Knowledge Cards that actually exist. Search existing cards for shared categories, tags, architecture, purpose, or direct conceptual relationships when useful. Do not invent future cards.
 
-## 13. Existing-card update protocol
+## 16. Mandatory validation
 
-When a source already exists:
+Automated validation now exists. Do not substitute a casual manual inspection for it.
 
-1. Read the current card completely.
-2. Re-read the current primary source.
-3. Preserve:
-   - `id`
-   - `created_at`
-   - file path
-   - all `user` override values
-   - `## 使用者備註`
-   - prior `## 更新紀錄`
-4. Refresh AI-owned metadata and analysis based on current evidence.
-5. Set `last_checked_at` to the current date.
-6. Set `updated_at` only when the Knowledge Card itself changes materially.
-7. Append a changelog entry only for meaningful changes.
+Before committing any card creation/update, run:
 
-Examples of meaningful changes:
-
-- major new feature or architecture
-- supported provider/runtime changed
-- project archived or revived
-- significant maturity/status change
-- relevance/action recommendation changed for a substantive reason
-
-If no substantive knowledge changed, update only `last_checked_at`; do not add noisy changelog entries.
-
-## 14. Related Knowledge
-
-When useful, search existing cards for related items using shared categories, tags, architecture, purpose, or direct conceptual relationships.
-
-Only link to cards that actually exist. Do not invent future cards.
-
-## 15. Validation before write completion
-
-Until an automated validator exists, manually verify at least:
-
-- frontmatter parses as YAML
-- required fields exist
-- `schema_version` is `1`
-- `id` obeys the schema and is unique
-- `source.identity` and `canonical_url` do not duplicate another card unless updating it
-- categories belong to the fixed taxonomy
-- relevance values are integers from 1 through 5
-- actions/status/source type belong to fixed enums
-- date values use `YYYY-MM-DD`
-- `updated_at >= created_at`
-- user overrides and user notes were preserved
-- public-safety rules were followed
-
-Do not push knowingly invalid content.
-
-## 16. Commit behavior
-
-For a new card, prefer:
-
-```text
-knowledge: add <title>
+```bash
+npm run validate
 ```
 
-For an updated card, prefer:
+For an existing-card update, also run before commit:
 
-```text
-knowledge: update <title>
+```bash
+npm run validate:ownership -- <path>
 ```
 
-For repository infrastructure, use conventional prefixes such as `chore:`, `docs:`, `feat:`, `fix:`.
+When Phase 2 tooling itself changes, also run:
 
-Keep commits scoped and understandable. Do not rewrite repository history as part of normal ingestion.
+```bash
+npm test
+```
 
-## 17. Completion report to the user
+`npm run validate` checks JSON Schema compliance, taxonomy/schema drift, body section order, title consistency, source identity normalization, duplicate IDs/identities/canonical URLs, and date ordering.
 
-After a successful ingestion, report concisely:
+Do not knowingly commit a failed ingestion as successful.
 
-- whether the card was added or updated
-- title
-- effective categories
-- overall relevance
-- actions
-- important change if updating
-- repository path
+## 17. Commit behavior
+
+Preferred knowledge commits:
+
+```text
+knowledge: add <Title>
+knowledge: update <Title>
+```
+
+Repository infrastructure uses conventional prefixes such as `feat:`, `fix:`, `test:`, `docs:`, or `chore:`.
+
+Keep commits understandable and do not rewrite repository history as part of normal ingestion.
+
+## 18. Completion report
+
+After successful ingestion, report concisely:
+
+- added or updated;
+- title;
+- effective categories;
+- overall relevance;
+- actions;
+- important change if updating;
+- repository path.
 
 Do not claim success until the repository write has actually succeeded.
