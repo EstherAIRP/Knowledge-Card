@@ -96,7 +96,7 @@
 
 .radar-search-row {
   display: grid;
-  grid-template-columns: minmax(240px, 1fr) 180px 180px;
+  grid-template-columns: minmax(260px, 1fr) 190px 150px 140px;
   gap: 12px;
 }
 
@@ -322,6 +322,11 @@
   color: var(--vp-c-brand-1);
 }
 
+.knowledge-detail-head .knowledge-tags span {
+  color: var(--vp-c-text-3);
+  font-size: 11px;
+}
+
 .knowledge-tile footer {
   display: flex;
   align-items: end;
@@ -451,11 +456,14 @@
   text-decoration: none;
 }
 
+@media (max-width: 1000px) {
+  .radar-search-row { grid-template-columns: 1fr 1fr; }
+  .radar-search { grid-column: 1 / -1; }
+}
+
 @media (max-width: 900px) {
   .radar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .radar-stats { grid-template-columns: repeat(2, 1fr); }
-  .radar-search-row { grid-template-columns: 1fr 1fr; }
-  .radar-search { grid-column: 1 / -1; }
   .radar-relevance-control { grid-template-columns: 1fr 1fr; }
   .radar-reset { grid-column: 1 / -1; }
   .relevance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
