@@ -2,6 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadCards } from '../../scripts/lib/knowledge.mjs';
 
+const repoRoot = fileURLToPath(new URL('../../', import.meta.url));
 const contentRoot = fileURLToPath(new URL('../../content/knowledge/', import.meta.url));
 
 function effectiveValue(wrapper) {
@@ -19,7 +20,7 @@ export default {
   paths() {
     return loadCards(contentRoot).map((card) => {
       const data = card.data;
-      const relativeCardPath = path.relative(process.cwd(), card.filePath).replaceAll('\\', '/');
+      const relativeCardPath = path.relative(repoRoot, card.filePath).replaceAll('\\', '/');
       return {
         params: {
           id: data.id,
