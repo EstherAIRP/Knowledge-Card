@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/EstherAIRP/Knowledge-Card/schema/knowledge-card.schema.json",
+  "title": "Knowledge Card Frontmatter",
+  "description": "Normative schema for the YAML frontmatter of a Knowledge Card.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "title",
+    "canonical_url",
+    "source",
+    "created_at",
+    "updated_at",
+    "last_checked_at",
+    "summary",
+    "classification",
+    "relevance",
+    "actions",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Stable repository-local identifier. Do not change after creation."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "url", "identity"],
+      "properties": {
+        "type": {
+          "enum": [
+            "github",
+            "article",
+            "paper",
+            "documentation",
+            "tool",
+            "video",
+            "other"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "identity": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable deduplication identity, e.g. github:owner/repo or url:https://example.com/path."
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "last_checked_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 600,
+      "description": "Concise public-safe summary used by list/card views."
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["categories", "tags"],
+      "properties": {
+        "categories": {
+          "$ref": "#/$defs/categoryOwnership"
+        },
+        "tags": {
+          "$ref": "#/$defs/tagOwnership"
+        }
+      }
+    },
+    "relevance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ai", "user"],
+      "properties": {
+        "ai": {
+          "$ref": "#/$defs/fullRelevance"
+        },
+        "user": {
+          "$ref": "#/$defs/partialRelevance"
+        }
+      }
+    },
+    "actions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ai", "user"],
+      "properties": {
+        "ai": {
+          "$ref": "#/$defs/actions"
+        },
+        "user": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/actionsAllowEmpty" }
+          ]
+        }
+      }
+    },
+    "status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ai", "user"],
+      "properties": {
+        "ai": {
+          "$ref": "#/$defs/status"
+        },
+        "user": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/status" }
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "category": {
+      "enum": [
+        "AI / ML",
+        "AOI × AI",
+        "LLM",
+        "Agent",
+        "RAG / Memory / Knowledge",
+        "AI Coding / DevTools",
+        "SillyTavern / AI RPG",
+        "Image Generation",
+        "Infrastructure / Deployment",
+        "General Tools"
+      ]
+    },
+    "categoryList": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/category"
+      }
+    },
+    "categoryOwnership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ai", "user"],
+      "properties": {
+        "ai": {
+          "$ref": "#/$defs/categoryList"
+        },
+        "user": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/categoryList" }
+          ]
+        }
+      }
+    },
+    "tagList": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64,
+        "pattern": "^[^\\n\\r]+$"
+      }
+    },
+    "tagOwnership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ai", "user"],
+      "properties": {
+        "ai": {
+          "$ref": "#/$defs/tagList"
+        },
+        "user": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/tagList" }
+          ]
+        }
+      }
+    },
+    "score": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "fullRelevance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall",
+        "ai_rd",
+        "aoi_ai",
+        "llm_agent",
+        "sillytavern_ai_rpg",
+        "image_gen"
+      ],
+      "properties": {
+        "overall": { "$ref": "#/$defs/score" },
+        "ai_rd": { "$ref": "#/$defs/score" },
+        "aoi_ai": { "$ref": "#/$defs/score" },
+        "llm_agent": { "$ref": "#/$defs/score" },
+        "sillytavern_ai_rpg": { "$ref": "#/$defs/score" },
+        "image_gen": { "$ref": "#/$defs/score" }
+      }
+    },
+    "partialRelevance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "overall": { "$ref": "#/$defs/score" },
+        "ai_rd": { "$ref": "#/$defs/score" },
+        "aoi_ai": { "$ref": "#/$defs/score" },
+        "llm_agent": { "$ref": "#/$defs/score" },
+        "sillytavern_ai_rpg": { "$ref": "#/$defs/score" },
+        "image_gen": { "$ref": "#/$defs/score" }
+      }
+    },
+    "action": {
+      "enum": [
+        "TRY",
+        "BUILD",
+        "INTEGRATE",
+        "LEARN",
+        "WATCH",
+        "REFERENCE",
+        "ARCHIVE"
+      ]
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "actionsAllowEmpty": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "status": {
+      "enum": [
+        "active",
+        "watch",
+        "deprecated",
+        "archived",
+        "unavailable"
+      ]
+    }
+  }
+}
