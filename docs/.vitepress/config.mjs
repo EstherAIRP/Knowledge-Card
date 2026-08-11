@@ -32,10 +32,6 @@ export default defineConfig({
       prev: false,
       next: false
     },
-    editLink: {
-      pattern: 'https://github.com/EstherAIRP/Knowledge-Card/edit/main/content/knowledge/:path',
-      text: '在 GitHub 編輯來源卡片'
-    },
     lastUpdated: {
       text: '最後更新',
       formatOptions: {
