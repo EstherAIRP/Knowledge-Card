@@ -18,7 +18,9 @@ jobs:
   validate:
     name: Test, validate, and build
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
+    env:
+      TRANSFORMERS_CACHE_DIR: .cache/transformers
 
     steps:
       - name: Checkout repository
@@ -31,8 +33,20 @@ jobs:
         with:
           node-version: 24
 
+      - name: Cache embedding model
+        uses: actions/cache@v4
+        with:
+          path: .cache/transformers
+          key: transformers-${{ runner.os }}-${{ hashFiles('config/relation-config.yaml', 'package.json') }}
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
+
+      - name: Build embedding index
+        run: npm run embeddings:build
+
+      - name: Validate embedding index
+        run: npm run embeddings:validate
 
       - name: Build relation index
         run: npm run relations:build
