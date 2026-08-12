@@ -1,6 +1,6 @@
 {
   "name": "knowledge-card",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -14,9 +14,12 @@
     "embeddings:validate": "node scripts/validate-embeddings.mjs",
     "relations:build": "node scripts/build-relations.mjs",
     "relations:build:semantic": "node scripts/build-relations.mjs --semantic --classify",
-    "relations:rebuild": "node scripts/build-embeddings.mjs --full && node scripts/build-relations.mjs --semantic --classify --full",
+    "relations:rebuild": "node scripts/build-embeddings.mjs --full && node scripts/build-relations.mjs --semantic --classify --full && node scripts/build-concepts.mjs",
     "relations:report": "node scripts/report-relations.mjs",
     "relations:validate": "node scripts/validate-relations.mjs",
+    "concepts:build": "node scripts/build-concepts.mjs",
+    "concepts:validate": "node scripts/validate-concepts.mjs",
+    "graph:build": "npm run concepts:build",
     "test": "node --test tests/*.test.mjs",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
