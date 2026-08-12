@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "generated_at": null,
+  "input_hash": "",
+  "card_count": 0,
+  "config": {
+    "min_score": 0.28,
+    "similar_to_min_score": 0.58,
+    "top_k": 8,
+    "weights": {
+      "categories": 0.45,
+      "tags": 0.3,
+      "relevance": 0.2,
+      "actions": 0.05
+    }
+  },
+  "edges": []
+}
