@@ -93,6 +93,12 @@ function canonicalPair(source, target) {
     : [target, source];
 }
 
+function invertDirection(direction) {
+  if (direction === 'source_to_target') return 'target_to_source';
+  if (direction === 'target_to_source') return 'source_to_target';
+  return direction;
+}
+
 export function relationPairKey(source, target) {
   const [left, right] = canonicalPair(source, target);
   return `${left}::${right}`;
@@ -181,13 +187,21 @@ export function buildGeneratedRelations(cards, config = DEFAULT_RELATION_CONFIG)
 }
 
 function normalizeManualEdge(edge, fallback = {}) {
-  const [source, target] = canonicalPair(String(edge?.source ?? ''), String(edge?.target ?? ''));
+  const rawSource = String(edge?.source ?? '');
+  const rawTarget = String(edge?.target ?? '');
+  const swapped = rawSource.localeCompare(rawTarget) > 0;
+  const [source, target] = canonicalPair(rawSource, rawTarget);
+  const explicitDirection = edge?.direction;
+  const direction = explicitDirection !== undefined
+    ? (swapped ? invertDirection(explicitDirection) : explicitDirection)
+    : fallback.direction ?? 'undirected';
+
   return {
     ...fallback,
     source,
     target,
     type: edge?.type ?? fallback.type ?? 'similar_to',
-    direction: edge?.direction ?? fallback.direction ?? 'undirected',
+    direction,
     score: Number(edge?.score ?? fallback.score ?? 1),
     signals: Array.isArray(edge?.signals)
       ? edge.signals
@@ -320,10 +334,10 @@ export function validateRelationIndex(index, cardIds = new Set()) {
       errors.push(`${label} confidence must be between 0 and 1.`);
     }
     if (edge.scores !== undefined) {
-      for (const key of ['taxonomy', 'semantic', 'llm', 'combined']) {
+      for (const key of ['taxonomy', 'semantic', 'semantic_raw', 'llm', 'combined']) {
         const value = edge.scores?.[key];
-        if (value !== null && value !== undefined && (!Number.isFinite(Number(value)) || Number(value) < 0 || Number(value) > 1)) {
-          errors.push(`${label} scores.${key} must be null or between 0 and 1.`);
+        if (value !== null && value !== undefined && (!Number.isFinite(Number(value)) || Number(value) < -1 || Number(value) > 1)) {
+          errors.push(`${label} scores.${key} must be null or between -1 and 1.`);
         }
       }
     }
