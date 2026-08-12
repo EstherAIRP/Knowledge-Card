@@ -1,35 +1,22 @@
-name: Update Relation Index
+name: Full Relation Rebuild
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "content/knowledge/**"
-      - "config/relation-overrides.yaml"
-      - "config/relation-config.yaml"
-      - "scripts/build-embeddings.mjs"
-      - "scripts/validate-embeddings.mjs"
-      - "scripts/build-relations.mjs"
-      - "scripts/validate-relations.mjs"
-      - "scripts/lib/relations.mjs"
-      - "scripts/lib/semantic-relations.mjs"
-      - "scripts/lib/model-clients.mjs"
-      - "package.json"
+  schedule:
+    - cron: "17 3 * * 0"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: relation-index-main
+  group: relation-index-full-rebuild
   cancel-in-progress: true
 
 jobs:
-  update:
-    name: Refresh semantic relation indexes
+  rebuild:
+    name: Rebuild all semantic relation data
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     env:
       TRANSFORMERS_CACHE_DIR: .cache/transformers
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -54,17 +41,11 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Build embedding index
-        run: npm run embeddings:build
+      - name: Full semantic rebuild
+        run: npm run relations:rebuild
 
       - name: Validate embedding index
         run: npm run embeddings:validate
-
-      - name: Build semantic relation index
-        run: npm run relations:build:semantic
-
-      - name: Report relation diagnostics
-        run: npm run relations:report
 
       - name: Validate relation index
         run: npm run relations:validate
@@ -72,15 +53,15 @@ jobs:
       - name: Run unit tests
         run: npm test
 
-      - name: Commit generated indexes
+      - name: Commit rebuilt indexes
         shell: bash
         run: |
           if git diff --quiet -- data/embeddings.json data/relations.json; then
-            echo "Semantic relation indexes are already current."
+            echo "Full rebuild produced no material index changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/embeddings.json data/relations.json
-          git commit -m "chore: refresh semantic relation indexes"
+          git commit -m "chore: full rebuild semantic relation indexes"
           git push

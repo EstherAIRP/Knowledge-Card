@@ -1,118 +1,352 @@
-# Relation Index — Phase 1
+# Relation Index — Phase 2
 
-Knowledge-Card Phase 1 adds a deterministic, rebuildable Card-to-Card relation layer without changing `content/knowledge/**/*.md` into a graph database.
+Knowledge-Card 的 Relation Layer 由 Phase 1 的 metadata-only Card-to-Card matching，擴充為可增量更新的 semantic relation pipeline。`content/knowledge/**/*.md` 仍是 Knowledge Card 的內容 source of truth；embedding 與 relation index 都是可重建的 generated data。
 
-## Ownership model
+## Architecture
 
 ```text
 content/knowledge/**/*.md
         │
-        │ source knowledge
-        ▼
-scripts/build-relations.mjs
+        ├─ effective categories / tags / relevance / actions
+        │                │
+        │                ▼
+        │        taxonomy candidate score
         │
-        ├─ effective categories
-        ├─ effective tags
-        ├─ high relevance dimensions
-        └─ effective actions
-        │
-        ▼
-data/relations.json          generated / disposable
-        ▲
-        │
-config/relation-overrides.yaml   human-owned
+        └─ selected public Card content
+                         │
+                         ▼
+              local multilingual embedding
+                         │
+                         ▼
+                  semantic similarity
+                         │
+                 taxonomy + semantic
+                         │
+                     candidates
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+        LLM available          LLM unavailable
+              │                     │
+       typed classifier       conservative fallback
+              │                     │
+              └──────────┬──────────┘
+                         ▼
+                 data/relations.json
+                         ▲
+                         │
+          config/relation-overrides.yaml
+                  human-owned
 ```
 
-`content/knowledge/` remains the source of truth for Knowledge Cards. `data/relations.json` is a derived index and must be reproducible from Cards, generator code, and human overrides.
+Generated files:
 
-## Relation scoring
+- `data/embeddings.json` — cached embedding vectors keyed by stable Card ID and content hash.
+- `data/relations.json` — semantic candidates, classification cache, typed effective edges, score breakdown, reasons, and pipeline metadata.
 
-Phase 1 uses deterministic metadata similarity only. No embeddings, vector database, or external LLM API is required.
+Repository configuration:
 
-Default weights:
+- `config/relation-config.yaml` — algorithm/provider/model/threshold configuration.
+- `config/relation-overrides.yaml` — human-owned pin/block/override decisions.
 
-| Signal | Weight |
-| --- | ---: |
-| Category Jaccard similarity | 0.45 |
-| Tag Jaccard similarity | 0.30 |
-| Shared high-relevance dimensions | 0.20 |
-| Action Jaccard similarity | 0.05 |
+## Embedding input
 
-A relevance dimension is considered high when its effective score is at least 4. `overall` is intentionally excluded from relation matching because it measures general usefulness rather than domain similarity.
+`buildEmbeddingText()` intentionally does not embed the entire Markdown file. The semantic representation is built from public Card fields that describe technical meaning:
 
-Relations with score below `0.28` are discarded. Each Card participates in at most eight generated edges. A relation is classified as `similar_to` only when it has a high final score plus meaningful category/tag overlap; all other retained Phase 1 relations use `related`.
+- title;
+- summary;
+- effective categories;
+- effective tags;
+- effective actions;
+- effective relevance dimensions;
+- `一句話介紹`;
+- `核心概念`;
+- `架構與技術`;
+- `技術亮點`.
+
+The default provider is local Transformers.js with `Xenova/multilingual-e5-small`. Card text is prefixed with `query:` before feature extraction and vectors are mean-pooled and normalized.
+
+The default path does not require an external embedding API. An OpenAI-compatible embedding path remains configurable through `semantic.provider: openai-compatible` if a future deployment wants to switch providers.
+
+## Incremental embedding cache
+
+Every Card embedding stores:
+
+```text
+card_id
+content_hash
+provider
+model
+dimensions
+embedding
+```
+
+`content_hash` includes the selected Card text, provider, and model. Ordinary runs reuse a vector when those inputs are unchanged. Only new or materially changed Card representations are re-embedded.
+
+A full rebuild can be forced with:
+
+```bash
+npm run embeddings:build -- --full
+```
+
+The weekly rebuild uses this path so model/runtime changes that do not alter the Card content hash are eventually refreshed.
+
+## Semantic score calibration
+
+Phase 1 taxonomy score is retained as an independent signal. Phase 2 additionally computes cosine similarity from embeddings.
+
+The default multilingual-E5 model produces cosine values in a relatively high range, so raw cosine is normalized before relation ranking:
+
+```text
+semantic_score = clamp(
+  (raw_cosine - normalization_floor)
+  / (normalization_ceiling - normalization_floor),
+  0,
+  1
+)
+```
+
+Default calibration:
+
+```yaml
+normalization_floor: 0.70
+normalization_ceiling: 0.95
+```
+
+Candidate ranking then uses:
+
+```text
+combined_score
+= taxonomy_score × 0.40
++ semantic_score × 0.60
+```
+
+The exact values are configuration, not schema. Adjust them through `config/relation-config.yaml`, not by hardcoding thresholds inside UI code.
+
+## Candidate generation
+
+The pipeline does not send every possible `N × N` pair to an LLM.
+
+It first calculates deterministic taxonomy and semantic scores, applies minimum signal gates, then caps candidate degree with `candidate.top_k`.
+
+```text
+all Card pairs
+    ↓
+taxonomy + embedding similarity
+    ↓
+minimum signal / combined-score gates
+    ↓
+Top-K candidate graph
+    ↓
+LLM classifier only for highest-value candidates
+```
+
+This keeps model calls proportional to useful candidates rather than total pair count.
+
+## Relation classifier
+
+When the configured API credential is present, `npm run relations:build:semantic` uses the OpenAI-compatible classifier configured in `relation-config.yaml`.
+
+The classifier must return structured JSON with:
+
+```json
+{
+  "related": true,
+  "type": "complements",
+  "direction": "undirected",
+  "confidence": 0.87,
+  "reason": "..."
+}
+```
+
+Allowed Phase 2 types:
+
+- `similar_to`
+- `alternative_to`
+- `complements`
+- `integrates_with`
+- `depends_on`
+- `extends`
+- `contrasts_with`
+
+Legacy `related` remains accepted only for Phase 1/manual compatibility. Automatic Phase 2 classification should use the more specific types above.
+
+### Direction
+
+Most relation types are undirected. `depends_on` and `extends` are directional and must record one of:
+
+- `source_to_target`
+- `target_to_source`
+
+Edges still use canonical Card-ID ordering for stable pair identity. Direction is stored separately so canonicalization cannot erase semantics.
+
+## Score model
+
+A Phase 2 relation retains independent evidence instead of only a final magic score:
+
+```json
+{
+  "score": 0.81,
+  "scores": {
+    "taxonomy": 0.42,
+    "semantic": 0.76,
+    "semantic_raw": 0.89,
+    "llm": 0.91,
+    "combined": 0.62
+  },
+  "confidence": 0.91
+}
+```
+
+`taxonomy`, normalized `semantic`, raw cosine, LLM confidence, and pre-classifier combined score remain inspectable for tuning and debugging.
+
+## Fallback behavior
+
+External model availability must not become a deployment dependency.
+
+If the LLM API key is absent or a classifier request fails:
+
+- semantic candidates are still available;
+- new candidates receive a conservative heuristic `similar_to` or `complements` classification;
+- existing valid LLM classifications are preserved when possible;
+- a full rebuild without an API key does not intentionally downgrade cached LLM decisions;
+- relation validation, VitePress build, and deployment can continue.
+
+This fallback is deliberately conservative. It must not infer directional `depends_on` / `extends` relationships without LLM or human evidence.
+
+## Classification cache
+
+`data/relations.json` includes a `classifications` map keyed by canonical Card pair. Each item stores a `candidate_hash` derived from the two Card embedding content hashes, semantic/taxonomy scores, configured classifier model, and relation contract.
+
+If the candidate hash is unchanged, a prior valid classification can be reused. If a Card or relation configuration materially changes, only affected candidates need classification again.
+
+Rejected LLM pairs (`related: false`) are cached as well so they are not repeatedly sent to the classifier while their evidence is unchanged.
 
 ## Human overrides
 
-`config/relation-overrides.yaml` supports three lists:
+`config/relation-overrides.yaml` remains human-owned.
 
-- `blocked`: removes a relation even if the generator finds it.
-- `overrides`: replaces the generated type/score for a pair or creates the pair manually.
-- `pinned`: guarantees a relation exists unless the same pair is blocked.
+Supported operations:
+
+- `blocked` — remove a relation.
+- `overrides` — replace generated relation metadata or create a manual relation.
+- `pinned` — guarantee a relation exists unless blocked.
 
 Precedence:
 
 ```text
 blocked
-> overrides / pinned
-> generated relation
+> human override / pinned
+> LLM classification
+> semantic fallback
 ```
 
-Phase 1 supports only `related` and `similar_to`. More semantic relation types are reserved for Phase 2.
+For `depends_on` or `extends`, a manual entry must explicitly include `direction`. If canonical Card sorting reverses the supplied ID order, the generator flips the stored direction so the author's intended subject/object relationship remains correct.
+
+Automated jobs must never rewrite `relation-overrides.yaml`.
 
 ## Commands
 
-Build or refresh the index:
+Build/update embeddings incrementally:
+
+```bash
+npm run embeddings:build
+```
+
+Validate embedding coverage and dimensions:
+
+```bash
+npm run embeddings:validate
+```
+
+Build relations using all currently available generated data without requiring an external classifier:
 
 ```bash
 npm run relations:build
 ```
 
-Validate card references, relation types, scores, duplicates, self-links, and override references:
+Build semantic relations and request LLM classification when the configured API key exists:
+
+```bash
+npm run relations:build:semantic
+```
+
+Validate the relation/config/classifier contract:
 
 ```bash
 npm run relations:validate
 ```
 
-The generator stores an `input_hash`. If effective Card metadata, overrides, and generator source code are unchanged, a rebuild leaves `data/relations.json` untouched to avoid timestamp-only Git churn.
+Force a full embedding and relation rebuild:
 
-## Website projection
-
-The dynamic Knowledge Card route reads `data/relations.json` at build time and injects the current Card's neighboring Cards into page params. `KnowledgeRelations.vue` renders a Related Knowledge section after the Card article with relation type, confidence score, summary, and matching signals.
-
-The relation index stores edges only. Titles, summaries, routes, and other Card metadata continue to come from the Knowledge Card files.
+```bash
+npm run relations:rebuild
+```
 
 ## Automation
 
-`.github/workflows/update-relations.yml` runs on relevant `main` changes:
+### Incremental update
+
+`.github/workflows/update-relations.yml` runs when Cards, relation configuration, overrides, model/generator code, or package dependencies change on `main`.
 
 ```text
-Knowledge Card / override / generator changed
+changed Card/config/code
         ↓
-npm run relations:build
+incremental embedding build
         ↓
-npm run relations:validate
+embedding validation
         ↓
-npm test
+semantic candidate generation
         ↓
-relations.json changed?
-   ├─ no  → stop
-   └─ yes → commit generated index
+LLM classification if OPENAI_API_KEY exists
+        ↓
+relation validation + tests
+        ↓
+commit embeddings.json + relations.json if changed
 ```
 
-The workflow trigger excludes `data/relations.json`, so its own generated commit cannot create an update loop.
+Generated data paths are excluded from the workflow trigger, so the bot's own index commit does not create an infinite loop.
 
-Both validation and GitHub Pages deployment also build and validate relations before building VitePress. This ensures a stale committed index cannot produce a stale deployment.
+### Weekly full rebuild
+
+`.github/workflows/rebuild-relations.yml` runs weekly and is also manually dispatchable.
+
+Its purpose is to:
+
+- rebuild every embedding;
+- recalculate every candidate;
+- reclassify candidates when an LLM credential is available;
+- remove stale generated relations;
+- restore consistency after model/config/runtime changes.
+
+### Validation and deployment
+
+PR validation and GitHub Pages builds construct local embeddings and semantic relations before VitePress build. They do not require an LLM API key. If committed high-quality LLM classifications remain current, ordinary non-classifying builds reuse them.
+
+## Website projection
+
+The detail-page route projects each edge into the current Card's perspective and exposes:
+
+- relation type;
+- direction/perspective;
+- final score;
+- taxonomy/semantic/LLM score breakdown;
+- classifier confidence;
+- Traditional-Chinese reason;
+- supporting metadata signals;
+- human override state.
+
+`KnowledgeRelations.vue` renders these fields in Related Knowledge. Directional edges are phrased relative to the current Card, for example `Depends on` versus `Depended on by`.
 
 ## Phase boundary
 
-Phase 1 intentionally does not include:
+Phase 2 intentionally does not create Concept nodes or a full knowledge graph ontology. The next relation phase may add:
 
-- embeddings;
-- vector databases;
-- LLM relation classification;
-- semantic types such as `depends_on` or `complements`;
-- Concept nodes;
-- graph visualization.
+- `data/concepts.json`;
+- concept extraction/canonicalization;
+- Card ↔ Concept mapping;
+- Concept pages;
+- `/graph` visualization;
+- knowledge lint for orphan/duplicate/stale concepts.
 
-Those belong to Phase 2 and Phase 3.
+Those belong to Relation Phase 3.
