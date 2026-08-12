@@ -1,6 +1,6 @@
 # Automation and GitHub Pages
 
-Knowledge-Card uses GitHub Actions both as a CI/CD system and as the maintenance engine for generated semantic indexes. Repository content remains authoritative; Actions may rebuild generated data but must not rewrite human-owned Knowledge Card state or relation overrides.
+Knowledge-Card uses GitHub Actions as CI/CD and as the maintenance engine for generated semantic/Concept indexes. Knowledge Cards and repository-owned configuration remain authoritative; Actions may rebuild generated data but must not rewrite user-owned Knowledge Card state or human relation overrides.
 
 ## Workflows
 
@@ -8,93 +8,87 @@ Knowledge-Card uses GitHub Actions both as a CI/CD system and as the maintenance
 
 Runs for pull requests, pushes to non-`main` branches, and manual dispatch.
 
-Pipeline:
-
 ```text
 checkout
-→ setup Node.js 24
+→ Node.js 24
 → restore/cache local embedding model
 → npm install
-→ build embedding index
-→ validate embeddings
-→ build semantic relation index without requiring paid API
-→ npm test
+→ build + validate embeddings
+→ build semantic relation index
+→ relation diagnostics
+→ build + validate Concept Graph
+→ unit tests
 → Knowledge Card validation
 → relation validation
 → VitePress production build
-→ built-output smoke verification
+→ built-output verification
 ```
 
-This workflow has read-only repository permission and does not commit or deploy. The local embedding path makes semantic CI deterministic with respect to repository inputs without requiring `OPENAI_API_KEY`.
+This workflow has read-only repository permission and does not commit or deploy. Branch CI does not require an external LLM credential.
 
 ### `.github/workflows/update-relations.yml`
 
-Runs on relevant `main` changes, including Knowledge Cards, relation config/overrides, relation scripts, and package configuration.
+The historical filename remains `update-relations.yml`, but Phase 3 changes the workflow name to **Update Knowledge Graph Indexes**.
 
-Pipeline:
+It runs on relevant `main` changes, including Knowledge Cards, relation config, Concept config, generator libraries and package configuration.
 
 ```text
-changed source/config/generator
+changed Card/config/generator
 → incremental embeddings
 → embedding validation
-→ semantic candidate build
+→ semantic candidates
 → LLM relation classification when OPENAI_API_KEY exists
-→ conservative fallback when unavailable
-→ relation validation
+→ deterministic fallback when unavailable
+→ relation diagnostics
+→ Concept Graph rebuild
+→ relation + Concept validation
 → unit tests
-→ commit generated embeddings.json / relations.json only when changed
+→ commit embeddings.json / relations.json / concepts.json when changed
 ```
 
-The workflow has `contents: write` because it owns generated-index commits. Its trigger intentionally excludes `data/embeddings.json` and `data/relations.json`, so the bot's own generated commit does not recursively trigger another index rebuild.
+Generated `data/*.json` paths are not workflow triggers, so the bot's own generated commit does not recursively rebuild the indexes.
 
 ### `.github/workflows/rebuild-relations.yml`
 
-Runs every Sunday and via manual dispatch.
+The historical filename remains `rebuild-relations.yml`, while the Phase 3 workflow is named **Full Knowledge Graph Rebuild**.
 
-It forces a full semantic rebuild:
+It runs every Sunday and via manual dispatch.
 
 ```text
 all Cards
 → rebuild every embedding
-→ recalculate every candidate
-→ reclassify when API credential is available
-→ preserve valid cached LLM decisions when classifier service is unavailable
+→ recalculate semantic candidates
+→ reclassify when API credential exists
+→ preserve valid cached LLM decisions when classifier is unavailable
+→ rebuild Concept Graph
 → remove stale generated state
-→ validate
-→ commit only material generated-data changes
+→ validate embeddings / relations / concepts
+→ unit tests
+→ commit material generated-data changes
 ```
 
-The full rebuild repairs incremental drift and refreshes embeddings after model/runtime changes that may not alter a Card content hash.
+The full rebuild repairs incremental drift and refreshes all three generated indexes.
 
 ### `.github/workflows/deploy-pages.yml`
 
-Runs for pushes to `main` and manual dispatch.
-
-Build gate:
+Runs on pushes to `main` and manual dispatch.
 
 ```text
 checkout
-→ setup Node.js 24
-→ restore/cache local embedding model
+→ Node.js 24
 → npm install
 → build + validate embeddings
-→ build + validate relations
+→ build relations
+→ build Concept Graph
 → unit tests
-→ Knowledge Card validation
+→ validate Cards / relations / concepts
 → VitePress production build
-→ built-output smoke verification
+→ verify homepage + graph + Card pages + Concept pages
 → upload Pages artifact
+→ deploy
 ```
 
-Only after the complete build gate succeeds does the deployment job run:
-
-```text
-uploaded github-pages artifact
-→ actions/deploy-pages
-→ github-pages environment
-```
-
-The workflow uses the minimum deployment permissions required by GitHub Pages:
+Deployment permissions remain minimal:
 
 ```yaml
 contents: read
@@ -104,17 +98,15 @@ id-token: write
 
 ## Model credentials
 
-The default semantic embedding provider is local and needs no API credential.
+The default semantic embedding provider is local and needs no API credential. Phase 3 Concept extraction is also deterministic and requires no external API.
 
-LLM relation classification uses the environment variable configured by `config/relation-config.yaml`, currently:
+LLM Card↔Card relation classification uses the environment variable configured by `config/relation-config.yaml`, currently:
 
 ```text
 OPENAI_API_KEY
 ```
 
-For GitHub Actions, configure this as a repository secret. Never commit API keys into YAML, Markdown, generated indexes, or workflow source.
-
-Absence of the secret is a supported state: semantic relation generation falls back to conservative deterministic classification, while previously cached valid LLM classifications are preserved when their evidence is unchanged.
+Configure it as a repository secret when desired. Its absence is supported: new semantic relations use conservative fallback and Concept generation continues normally.
 
 ## Embedding-model cache
 
@@ -124,72 +116,72 @@ Workflows set:
 TRANSFORMERS_CACHE_DIR=.cache/transformers
 ```
 
-and cache that directory with `actions/cache`. The cache key includes relation config and package configuration so embedding-model changes invalidate the appropriate cache while ordinary runs avoid repeated model downloads.
+and cache that directory with `actions/cache`. The cache key includes relation config and package configuration.
+
+## Generated data ownership
+
+Automation may commit only generated indexes:
+
+```text
+data/embeddings.json
+data/relations.json
+data/concepts.json
+```
+
+It must not modify:
+
+```text
+content/knowledge/**
+config/relation-overrides.yaml
+config/relation-config.yaml
+config/concept-config.yaml
+```
+
+as a side effect of index maintenance.
 
 ## Built-output verification
 
-`scripts/verify-site-output.mjs` verifies the production output after VitePress finishes.
+`scripts/verify-site-output.mjs` runs after VitePress and requires:
 
-It requires:
+- `docs/.vitepress/dist/index.html`;
+- `docs/.vitepress/dist/graph.html`;
+- one Knowledge Card HTML page for every Card ID;
+- one Concept HTML page for every generated Concept ID;
+- at least one JavaScript bundle;
+- at least one CSS bundle.
 
-- `docs/.vitepress/dist/index.html`
-- one generated HTML page for every Knowledge Card ID under `knowledge/`
-- at least one JavaScript bundle
-- at least one CSS bundle
-
-This catches failures where VitePress exits successfully but dynamic Knowledge Card projection is incomplete.
-
-Run locally after a build:
-
-```bash
-npm run docs:build
-npm run verify:site
-```
+This catches failures where VitePress itself exits successfully while a dynamic route family is missing.
 
 ## Deployment URL
 
-The VitePress project base is configured as:
+VitePress project base remains:
 
 ```text
 /Knowledge-Card/
 ```
 
-For the repository `EstherAIRP/Knowledge-Card`, the expected GitHub Pages project URL is:
+Expected GitHub Pages project URL:
 
 ```text
 https://estherairp.github.io/Knowledge-Card/
 ```
 
-unless a custom domain is configured later.
-
-## First-time GitHub Pages enablement
-
-The repository must have GitHub Pages configured to use **GitHub Actions** as its publishing source. This is a repository setting, not Knowledge Card content.
-
-If Pages has not been enabled yet:
-
-1. Open repository **Settings**.
-2. Open **Pages**.
-3. Under **Build and deployment → Source**, select **GitHub Actions**.
-4. Re-run the `Deploy Knowledge Radar` workflow, or push another commit to `main`.
+unless a custom domain is configured.
 
 ## Deployment invariants
 
-A broken Knowledge Card or generated relation index must never be deployed merely because Markdown renders.
-
-Deployment requires all of the following to pass:
+A deployment requires all of the following:
 
 1. embedding generation and coverage validation;
-2. relation generation and relation-contract validation;
-3. ingestion/site/relation unit tests;
-4. JSON Schema and Knowledge Card repository-contract validation;
-5. VitePress production compilation;
-6. generated-page smoke verification.
+2. semantic relation generation and validation;
+3. Concept Graph generation and validation;
+4. unit/site tests;
+5. JSON Schema and Knowledge Card validation;
+6. VitePress production compilation;
+7. homepage, graph, Card-route and Concept-route smoke verification.
 
-If any stage fails, the Pages artifact is not deployed.
+If any stage fails, the Pages artifact must not deploy.
 
 ## Dependency installation
 
-The repository currently has exact direct dependency versions in `package.json` but no committed `package-lock.json`, so workflows use `npm install` rather than `npm ci`.
-
-Once a lockfile is generated and committed from a normal Node/npm environment, change workflows to `npm ci` for fully deterministic dependency installation.
+The repository currently has exact direct dependency versions in `package.json` but no committed `package-lock.json`, so workflows use `npm install` rather than `npm ci`. Once a lockfile is committed, workflows can move to `npm ci`.
