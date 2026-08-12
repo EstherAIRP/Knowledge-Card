@@ -1,0 +1,103 @@
+.knowledge-relations {
+  margin: 42px 0 10px;
+  padding-top: 28px;
+  border-top: 1px solid var(--radar-border);
+}
+
+.knowledge-relations-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.knowledge-relations-head span {
+  color: var(--vp-c-brand-1);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+}
+
+.knowledge-relations-head h2 {
+  margin: 4px 0 0;
+  border: 0;
+  font-size: 22px;
+}
+
+.knowledge-relations-head small {
+  color: var(--vp-c-text-3);
+}
+
+.knowledge-relations-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.knowledge-relation-card {
+  display: block;
+  padding: 18px;
+  border: 1px solid var(--radar-border);
+  border-radius: 16px;
+  background: var(--radar-panel);
+  color: var(--vp-c-text-1);
+  text-decoration: none !important;
+  transition: transform .18s ease, border-color .18s ease;
+}
+
+.knowledge-relation-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--vp-c-brand-1) 55%, var(--radar-border));
+}
+
+.knowledge-relation-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--vp-c-text-3);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.knowledge-relation-top strong {
+  color: var(--vp-c-brand-1);
+}
+
+.knowledge-relation-card h3 {
+  margin: 10px 0 7px;
+  font-size: 17px;
+}
+
+.knowledge-relation-card p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: var(--vp-c-text-2);
+  font-size: 13px;
+  line-height: 1.65;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.knowledge-relation-signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 13px;
+}
+
+.knowledge-relation-signals span {
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-3);
+  font-size: 10px;
+}
+
+@media (max-width: 640px) {
+  .knowledge-relations-grid {
+    grid-template-columns: 1fr;
+  }
+}
