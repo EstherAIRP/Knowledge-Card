@@ -1,0 +1,67 @@
+name: Full Relation Rebuild
+
+on:
+  schedule:
+    - cron: "17 3 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: relation-index-full-rebuild
+  cancel-in-progress: true
+
+jobs:
+  rebuild:
+    name: Rebuild all semantic relation data
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      TRANSFORMERS_CACHE_DIR: .cache/transformers
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Cache embedding model
+        uses: actions/cache@v4
+        with:
+          path: .cache/transformers
+          key: transformers-${{ runner.os }}-${{ hashFiles('config/relation-config.yaml', 'package.json') }}
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Full semantic rebuild
+        run: npm run relations:rebuild
+
+      - name: Validate embedding index
+        run: npm run embeddings:validate
+
+      - name: Validate relation index
+        run: npm run relations:validate
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Commit rebuilt indexes
+        shell: bash
+        run: |
+          if git diff --quiet -- data/embeddings.json data/relations.json; then
+            echo "Full rebuild produced no material index changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/embeddings.json data/relations.json
+          git commit -m "chore: full rebuild semantic relation indexes"
+          git push
