@@ -1,4 +1,4 @@
-name: Full Relation Rebuild
+name: Full Knowledge Graph Rebuild
 
 on:
   schedule:
@@ -9,12 +9,12 @@ permissions:
   contents: write
 
 concurrency:
-  group: relation-index-full-rebuild
+  group: knowledge-graph-full-rebuild
   cancel-in-progress: true
 
 jobs:
   rebuild:
-    name: Rebuild all semantic relation data
+    name: Rebuild semantic and concept graph data
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
@@ -41,7 +41,7 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Full semantic rebuild
+      - name: Full semantic and concept rebuild
         run: npm run relations:rebuild
 
       - name: Validate embedding index
@@ -50,18 +50,21 @@ jobs:
       - name: Validate relation index
         run: npm run relations:validate
 
+      - name: Validate concept graph
+        run: npm run concepts:validate
+
       - name: Run unit tests
         run: npm test
 
       - name: Commit rebuilt indexes
         shell: bash
         run: |
-          if git diff --quiet -- data/embeddings.json data/relations.json; then
-            echo "Full rebuild produced no material index changes."
+          if git diff --quiet -- data/embeddings.json data/relations.json data/concepts.json; then
+            echo "Full rebuild produced no material graph index changes."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/embeddings.json data/relations.json
-          git commit -m "chore: full rebuild semantic relation indexes"
+          git add data/embeddings.json data/relations.json data/concepts.json
+          git commit -m "chore: full rebuild knowledge graph indexes"
           git push
