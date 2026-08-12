@@ -10,6 +10,15 @@
 # - extends
 # - contrasts_with
 #
+# Direction:
+# - depends_on / extends require source_to_target or target_to_source.
+# - other Phase 2 types are undirected.
+# Example:
+#   source: card-a
+#   target: card-b
+#   type: depends_on
+#   direction: source_to_target   # card-a depends on card-b
+#
 # Legacy `related` remains accepted for existing/manual Phase 1 compatibility.
 # blocked has highest precedence, followed by overrides/pinned, then generated relations.
 
