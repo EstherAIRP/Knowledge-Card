@@ -1,4 +1,17 @@
-import { RELATION_CLASSIFIER_SCHEMA, PHASE2_RELATION_TYPES } from './semantic-relations.mjs';
+import { PHASE2_RELATION_TYPES } from './semantic-relations.mjs';
+
+const OPENAI_RELATION_SCHEMA = Object.freeze({
+  type: 'object',
+  additionalProperties: false,
+  required: ['related', 'type', 'direction', 'confidence', 'reason'],
+  properties: {
+    related: { type: 'boolean' },
+    type: { type: 'string', enum: PHASE2_RELATION_TYPES },
+    direction: { type: 'string', enum: ['undirected', 'source_to_target', 'target_to_source'] },
+    confidence: { type: 'number' },
+    reason: { type: 'string' }
+  }
+});
 
 function endpoint(baseUrl, path) {
   return `${String(baseUrl).replace(/\/+$/, '')}/${String(path).replace(/^\/+/, '')}`;
@@ -53,7 +66,11 @@ export async function createLocalTransformerEmbeddings(texts, { model }) {
   if (process.env.TRANSFORMERS_CACHE_DIR) env.cacheDir = process.env.TRANSFORMERS_CACHE_DIR;
   const extractor = await pipeline('feature-extraction', model, { dtype: 'q8' });
   const inputs = texts.map((text) => `query: ${text}`);
-  const tensor = await extractor(inputs, { pooling: 'mean', normalize: true });
+  const tensor = await extractor(inputs, {
+    pooling: 'mean',
+    normalize: true,
+    truncation: true
+  });
   const vectors = tensor.tolist();
   if (!Array.isArray(vectors) || vectors.length !== texts.length) {
     throw new Error(`Local embedding model returned ${vectors?.length ?? 0} vectors for ${texts.length} inputs.`);
@@ -115,7 +132,7 @@ function classifierPrompt({ left, right, candidate }) {
     `CARD B / target (${candidate.target})`,
     right,
     '',
-    '若只有非常泛化的共同標籤而沒有實質關係，related 應為 false。reason 使用繁體中文，簡潔說明關係與方向。'
+    '若只有非常泛化的共同標籤而沒有實質關係，related 應為 false。confidence 必須介於 0 到 1。reason 使用繁體中文，簡潔說明關係與方向。'
   ].join('\n');
 }
 
@@ -150,7 +167,7 @@ export async function classifyRelationWithOpenAICompatible({
         json_schema: {
           name: 'knowledge_relation',
           strict: true,
-          schema: RELATION_CLASSIFIER_SCHEMA
+          schema: OPENAI_RELATION_SCHEMA
         }
       }
     }
