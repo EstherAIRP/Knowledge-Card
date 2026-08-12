@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   lang: 'zh-TW',
   title: 'Knowledge Radar',
-  description: 'Esther 的 AI 技術知識雷達：分類、相關性、Action 與長期更新紀錄。',
+  description: 'Esther 的 AI 技術知識雷達：分類、相關性、Concept Graph、Action 與長期更新紀錄。',
   base: '/Knowledge-Card/',
   cleanUrls: true,
   lastUpdated: true,
@@ -16,6 +16,7 @@ export default defineConfig({
     siteTitle: 'Knowledge Radar',
     nav: [
       { text: '知識雷達', link: '/' },
+      { text: 'Knowledge Graph', link: '/graph' },
       { text: 'GitHub', link: 'https://github.com/EstherAIRP/Knowledge-Card' }
     ],
     socialLinks: [
