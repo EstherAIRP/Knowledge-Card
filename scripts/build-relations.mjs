@@ -48,7 +48,7 @@ function hashJson(value) {
   return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 }
 
-function classificationCandidateHash(candidate, embeddings, config, classifierMode) {
+function classificationCandidateHash(candidate, embeddings, config) {
   const embeddingEntries = new Map((embeddings?.entries ?? []).map((entry) => [entry.card_id, entry]));
   return hashJson({
     source: candidate.source,
@@ -58,7 +58,6 @@ function classificationCandidateHash(candidate, embeddings, config, classifierMo
     taxonomy_score: candidate.taxonomy_score,
     semantic_score: candidate.semantic_score,
     combined_score: candidate.combined_score,
-    classifier_mode: classifierMode,
     classifier_model: config.classifier?.model ?? null,
     relation_types: config.relations?.allowed_types ?? []
   });
@@ -85,6 +84,7 @@ function classifierEligibility(candidates, maxPerCard) {
 function normalizePhase1Edges(cards) {
   return buildGeneratedRelations(cards).map((edge) => ({
     ...edge,
+    direction: 'undirected',
     scores: {
       taxonomy: edge.score,
       semantic: null,
@@ -143,8 +143,7 @@ if (!useSemantic) {
   for (const candidate of candidates) {
     const pairKey = relationPairKey(candidate.source, candidate.target);
     const wantsLlm = canUseLlm && eligibleForLlm.has(pairKey);
-    const desiredMode = wantsLlm ? 'llm' : 'heuristic-fallback';
-    const candidateHash = classificationCandidateHash(candidate, embeddings, config, desiredMode);
+    const candidateHash = classificationCandidateHash(candidate, embeddings, config);
     const cached = existingClassifications[pairKey];
 
     let decision = null;
@@ -182,6 +181,7 @@ if (!useSemantic) {
       candidate_hash: candidateHash,
       related: decision.related,
       type: decision.type,
+      direction: decision.direction,
       confidence: Number(decision.confidence),
       reason: decision.reason,
       classifier: decision.classifier ?? 'heuristic-fallback'
