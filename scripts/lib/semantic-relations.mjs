@@ -18,14 +18,17 @@ export const PHASE2_RELATION_TYPES = Object.freeze([
 ]);
 
 export const PHASE2_RELATION_TYPE_SET = new Set(PHASE2_RELATION_TYPES);
+export const RELATION_DIRECTIONS = new Set(['undirected', 'source_to_target', 'target_to_source']);
+export const DIRECTIONAL_RELATION_TYPES = new Set(['depends_on', 'extends']);
 
 export const RELATION_CLASSIFIER_SCHEMA = Object.freeze({
   type: 'object',
   additionalProperties: false,
-  required: ['related', 'type', 'confidence', 'reason'],
+  required: ['related', 'type', 'direction', 'confidence', 'reason'],
   properties: {
     related: { type: 'boolean' },
     type: { type: 'string', enum: PHASE2_RELATION_TYPES },
+    direction: { type: 'string', enum: ['undirected', 'source_to_target', 'target_to_source'] },
     confidence: { type: 'number', minimum: 0, maximum: 1 },
     reason: { type: 'string', minLength: 1, maxLength: 600 }
   }
@@ -204,11 +207,18 @@ export function validateClassifierOutput(value) {
     return ['classifier output must be an object.'];
   }
 
-  for (const key of ['related', 'type', 'confidence', 'reason']) {
+  for (const key of ['related', 'type', 'direction', 'confidence', 'reason']) {
     if (!(key in value)) errors.push(`classifier output missing ${key}.`);
   }
   if (typeof value.related !== 'boolean') errors.push('classifier related must be boolean.');
   if (!PHASE2_RELATION_TYPE_SET.has(value.type)) errors.push(`classifier type is unsupported: ${value.type}`);
+  if (!RELATION_DIRECTIONS.has(value.direction)) errors.push(`classifier direction is unsupported: ${value.direction}`);
+  if (DIRECTIONAL_RELATION_TYPES.has(value.type) && value.direction === 'undirected') {
+    errors.push(`classifier direction must be directional for ${value.type}.`);
+  }
+  if (!DIRECTIONAL_RELATION_TYPES.has(value.type) && value.direction !== 'undirected') {
+    errors.push(`classifier direction must be undirected for ${value.type}.`);
+  }
   if (!Number.isFinite(Number(value.confidence)) || Number(value.confidence) < 0 || Number(value.confidence) > 1) {
     errors.push('classifier confidence must be between 0 and 1.');
   }
@@ -230,6 +240,7 @@ export function fallbackClassifyCandidate(candidate) {
   return {
     related: true,
     type,
+    direction: 'undirected',
     confidence,
     reason,
     classifier: 'heuristic-fallback'
@@ -250,6 +261,7 @@ export function materializeClassifiedRelation(candidate, classification, config 
     source: candidate.source,
     target: candidate.target,
     type: classification.type,
+    direction: classification.direction,
     score,
     scores: {
       taxonomy: Number(candidate.taxonomy_score ?? 0),
