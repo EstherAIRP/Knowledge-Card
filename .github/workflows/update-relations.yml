@@ -63,6 +63,9 @@ jobs:
       - name: Build semantic relation index
         run: npm run relations:build:semantic
 
+      - name: Report relation diagnostics
+        run: npm run relations:report
+
       - name: Validate relation index
         run: npm run relations:validate
 
