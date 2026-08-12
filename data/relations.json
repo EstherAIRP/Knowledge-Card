@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": null,
-  "input_hash": "",
-  "card_count": 0,
+  "generated_at": "2026-08-12T06:49:43.081Z",
+  "input_hash": "9430320e041b002e404b119e126ef9c3e894f25c21749e45a06cfaccc251e79c",
+  "card_count": 5,
   "config": {
     "min_score": 0.28,
     "similar_to_min_score": 0.58,
@@ -14,5 +14,68 @@
       "actions": 0.05
     }
   },
-  "edges": []
+  "edges": [
+    {
+      "source": "github-intuition-lab-personal-model",
+      "target": "github-minijinai75-tavern-claude-bridge",
+      "type": "related",
+      "score": 0.3125,
+      "signals": [
+        "category:Agent",
+        "relevance:ai_rd",
+        "relevance:llm_agent",
+        "relevance:sillytavern_ai_rpg",
+        "action:LEARN",
+        "action:REFERENCE",
+        "action:TRY"
+      ]
+    },
+    {
+      "source": "github-intuition-lab-personal-model",
+      "target": "github-moeru-ai-airi",
+      "type": "related",
+      "score": 0.3875,
+      "signals": [
+        "category:Agent",
+        "category:RAG / Memory / Knowledge",
+        "relevance:ai_rd",
+        "relevance:llm_agent",
+        "relevance:sillytavern_ai_rpg",
+        "action:LEARN",
+        "action:REFERENCE",
+        "action:TRY"
+      ]
+    },
+    {
+      "source": "github-intuition-lab-personal-model",
+      "target": "github-nutlope-hallmark",
+      "type": "related",
+      "score": 0.3417,
+      "signals": [
+        "category:Agent",
+        "category:AI Coding / DevTools",
+        "relevance:llm_agent",
+        "action:LEARN",
+        "action:REFERENCE",
+        "action:TRY"
+      ]
+    },
+    {
+      "source": "github-minijinai75-tavern-claude-bridge",
+      "target": "github-moeru-ai-airi",
+      "type": "related",
+      "score": 0.455,
+      "signals": [
+        "category:Agent",
+        "category:LLM",
+        "category:SillyTavern / AI RPG",
+        "relevance:ai_rd",
+        "relevance:llm_agent",
+        "relevance:sillytavern_ai_rpg",
+        "action:LEARN",
+        "action:REFERENCE",
+        "action:TRY"
+      ]
+    }
+  ]
 }
