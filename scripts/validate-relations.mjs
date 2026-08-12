@@ -18,6 +18,12 @@ function validateUnitInterval(value, label, errors) {
   }
 }
 
+function validatePositiveInteger(value, label, errors) {
+  if (!Number.isInteger(Number(value)) || Number(value) < 1) {
+    errors.push(`${label} must be a positive integer.`);
+  }
+}
+
 function validateConfig(config, errors) {
   if (!config || typeof config !== 'object' || Array.isArray(config)) {
     errors.push('relation config must be an object.');
@@ -52,14 +58,13 @@ function validateConfig(config, errors) {
     errors.push('scoring.fallback_min_combined_score must be greater than or equal to scoring.min_combined_score.');
   }
 
-  if (!Number.isInteger(Number(config.candidate?.top_k)) || Number(config.candidate?.top_k) < 1) {
-    errors.push('candidate.top_k must be a positive integer.');
-  }
-  if (!Number.isInteger(Number(config.classifier?.max_candidates_per_card)) || Number(config.classifier?.max_candidates_per_card) < 1) {
-    errors.push('classifier.max_candidates_per_card must be a positive integer.');
-  }
-  if (!Number.isInteger(Number(config.semantic?.batch_size)) || Number(config.semantic?.batch_size) < 1) {
-    errors.push('semantic.batch_size must be a positive integer.');
+  validatePositiveInteger(config.candidate?.top_k, 'candidate.top_k', errors);
+  validatePositiveInteger(config.candidate?.fallback_top_k, 'candidate.fallback_top_k', errors);
+  validatePositiveInteger(config.classifier?.max_candidates_per_card, 'classifier.max_candidates_per_card', errors);
+  validatePositiveInteger(config.semantic?.batch_size, 'semantic.batch_size', errors);
+
+  if (Number(config.candidate?.fallback_top_k ?? 0) > Number(config.candidate?.top_k ?? 0)) {
+    errors.push('candidate.fallback_top_k must be less than or equal to candidate.top_k.');
   }
 
   const allowed = config.relations?.allowed_types;
