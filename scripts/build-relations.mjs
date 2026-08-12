@@ -58,6 +58,7 @@ function classificationCandidateHash(candidate, embeddings, config) {
     taxonomy_score: candidate.taxonomy_score,
     semantic_score: candidate.semantic_score,
     combined_score: candidate.combined_score,
+    fallback_publishable: candidate.fallback_publishable,
     classifier_model: config.classifier?.model ?? null,
     relation_types: config.relations?.allowed_types ?? []
   });
