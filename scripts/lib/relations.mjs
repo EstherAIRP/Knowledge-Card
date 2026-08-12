@@ -9,6 +9,8 @@ export const PHASE2_RELATION_TYPES = new Set([
   'contrasts_with'
 ]);
 export const RELATION_TYPES = new Set([...PHASE1_RELATION_TYPES, ...PHASE2_RELATION_TYPES]);
+export const RELATION_DIRECTIONS = new Set(['undirected', 'source_to_target', 'target_to_source']);
+export const DIRECTIONAL_RELATION_TYPES = new Set(['depends_on', 'extends']);
 
 export const DEFAULT_RELATION_CONFIG = Object.freeze({
   minScore: 0.28,
@@ -185,6 +187,7 @@ function normalizeManualEdge(edge, fallback = {}) {
     source,
     target,
     type: edge?.type ?? fallback.type ?? 'similar_to',
+    direction: edge?.direction ?? fallback.direction ?? 'undirected',
     score: Number(edge?.score ?? fallback.score ?? 1),
     signals: Array.isArray(edge?.signals)
       ? edge.signals
@@ -192,6 +195,19 @@ function normalizeManualEdge(edge, fallback = {}) {
     ...(edge?.reason ? { reason: String(edge.reason) } : {}),
     ...(edge?.confidence !== undefined ? { confidence: Number(edge.confidence) } : {})
   };
+}
+
+function validateDirection(type, direction, label, errors) {
+  if (!RELATION_DIRECTIONS.has(direction)) {
+    errors.push(`${label} has unsupported direction: ${direction}`);
+    return;
+  }
+  if (DIRECTIONAL_RELATION_TYPES.has(type) && direction === 'undirected') {
+    errors.push(`${label} direction must be directional for ${type}.`);
+  }
+  if (!DIRECTIONAL_RELATION_TYPES.has(type) && direction !== 'undirected') {
+    errors.push(`${label} direction must be undirected for ${type}.`);
+  }
 }
 
 export function applyRelationOverrides(generatedEdges, overrides = {}) {
@@ -255,6 +271,9 @@ export function validateRelationOverrides(overrides, cardIds = new Set()) {
       if (cardIds.size > 0 && !cardIds.has(edge.source)) errors.push(`${label} source card does not exist: ${edge.source}`);
       if (cardIds.size > 0 && !cardIds.has(edge.target)) errors.push(`${label} target card does not exist: ${edge.target}`);
       if (edge.type && !RELATION_TYPES.has(edge.type)) errors.push(`${label} has unsupported type: ${edge.type}`);
+      if (edge.type && (edge.direction !== undefined || DIRECTIONAL_RELATION_TYPES.has(edge.type))) {
+        validateDirection(edge.type, edge.direction ?? 'undirected', label, errors);
+      }
       if (edge.score !== undefined && (!Number.isFinite(Number(edge.score)) || Number(edge.score) < 0 || Number(edge.score) > 1)) {
         errors.push(`${label} score must be between 0 and 1.`);
       }
@@ -285,6 +304,9 @@ export function validateRelationIndex(index, cardIds = new Set()) {
     if (cardIds.size > 0 && !cardIds.has(edge.source)) errors.push(`${label} source card does not exist: ${edge.source}`);
     if (cardIds.size > 0 && !cardIds.has(edge.target)) errors.push(`${label} target card does not exist: ${edge.target}`);
     if (!RELATION_TYPES.has(edge.type)) errors.push(`${label} has unsupported type: ${edge.type}`);
+    if (index.schema_version >= 2 || edge.direction !== undefined) {
+      validateDirection(edge.type, edge.direction ?? 'undirected', label, errors);
+    }
     if (!Number.isFinite(Number(edge.score)) || Number(edge.score) < 0 || Number(edge.score) > 1) {
       errors.push(`${label} score must be between 0 and 1.`);
     }
