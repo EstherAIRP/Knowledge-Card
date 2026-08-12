@@ -44,6 +44,13 @@ function loadRelationEdges() {
   return Array.isArray(index.edges) ? index.edges : [];
 }
 
+function relationPerspective(edge, currentId) {
+  if (!edge.direction || edge.direction === 'undirected') return 'undirected';
+  if (edge.direction === 'source_to_target') return currentId === edge.source ? 'outgoing' : 'incoming';
+  if (edge.direction === 'target_to_source') return currentId === edge.target ? 'outgoing' : 'incoming';
+  return 'undirected';
+}
+
 export default {
   watch: ['../../content/knowledge/**/*.md', '../../data/relations.json'],
   paths() {
@@ -67,7 +74,13 @@ export default {
             summary: neighbor.summary,
             route: neighbor.route,
             type: edge.type,
+            direction: edge.direction ?? 'undirected',
+            perspective: relationPerspective(edge, data.id),
             score: edge.score,
+            confidence: edge.confidence ?? edge.score,
+            scores: edge.scores ?? null,
+            reason: edge.reason ?? null,
+            classifier: edge.classifier ?? 'metadata-fallback',
             signals: edge.signals ?? [],
             pinned: edge.pinned ?? false,
             overridden: edge.overridden ?? false
