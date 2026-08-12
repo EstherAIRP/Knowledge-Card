@@ -88,6 +88,7 @@ function normalizePhase1Edges(cards) {
     scores: {
       taxonomy: edge.score,
       semantic: null,
+      semantic_raw: null,
       llm: null,
       combined: edge.score
     },
@@ -102,6 +103,15 @@ function stableMaterial(index) {
   const copy = structuredClone(index);
   delete copy.generated_at;
   return copy;
+}
+
+function actualClassifierMode(classifications) {
+  const values = Object.values(classifications);
+  const llmCount = values.filter((item) => item?.classifier === 'llm').length;
+  const fallbackCount = values.filter((item) => item?.classifier !== 'llm').length;
+  if (llmCount && fallbackCount) return 'llm-with-fallback';
+  if (llmCount) return 'llm';
+  return 'semantic-fallback';
 }
 
 const cards = loadCards(contentRoot).sort((a, b) => a.data.id.localeCompare(b.data.id));
@@ -138,19 +148,17 @@ if (!useSemantic) {
   candidateCount = candidates.length;
   const eligibleForLlm = classifierEligibility(candidates, Math.max(1, Number(classifierConfig.max_candidates_per_card ?? 6)));
   const existingClassifications = existing?.classifications ?? {};
-  classifierMode = canUseLlm ? 'llm-with-fallback' : 'semantic-fallback';
 
   for (const candidate of candidates) {
     const pairKey = relationPairKey(candidate.source, candidate.target);
     const wantsLlm = canUseLlm && eligibleForLlm.has(pairKey);
     const candidateHash = classificationCandidateHash(candidate, embeddings, config);
     const cached = existingClassifications[pairKey];
+    const cachedValid = cached?.candidate_hash === candidateHash && validateClassifierOutput(cached).length === 0;
+    const preserveLlmWithoutApi = fullRebuild && !canUseLlm && cachedValid && cached.classifier === 'llm';
+    const cacheMatches = cachedValid && ((!fullRebuild || preserveLlmWithoutApi) && (!wantsLlm || cached.classifier === 'llm'));
 
     let decision = null;
-    const cacheMatches = !fullRebuild && cached?.candidate_hash === candidateHash &&
-      validateClassifierOutput(cached).length === 0 &&
-      (!wantsLlm || cached.classifier === 'llm');
-
     if (cacheMatches) {
       decision = cached;
     } else if (wantsLlm) {
@@ -171,7 +179,12 @@ if (!useSemantic) {
         if (errors.length) throw new Error(errors.join(' '));
       } catch (error) {
         console.warn(`LLM relation classification failed for ${pairKey}: ${error.message}`);
-        decision = fallbackClassifyCandidate(candidate);
+        if (cachedValid && cached.classifier === 'llm') {
+          console.warn(`Preserving previous LLM classification for ${pairKey}.`);
+          decision = cached;
+        } else {
+          decision = fallbackClassifyCandidate(candidate);
+        }
       }
     } else {
       decision = fallbackClassifyCandidate(candidate);
@@ -190,8 +203,11 @@ if (!useSemantic) {
     const edge = materializeClassifiedRelation(candidate, classifications[pairKey], config);
     if (edge) generatedEdges.push({ ...edge, candidate_hash: candidateHash });
   }
+
+  classifierMode = actualClassifierMode(classifications);
 }
 
+const hasLlmClassifications = Object.values(classifications).some((item) => item?.classifier === 'llm');
 const edges = applyRelationOverrides(generatedEdges, overrides);
 const newIndex = {
   schema_version: 2,
@@ -210,11 +226,16 @@ const newIndex = {
     semantic_provider: useSemantic ? embeddings.provider : null,
     semantic_model: useSemantic ? embeddings.model : null,
     classifier_mode: classifierMode,
-    classifier_model: canUseLlm ? classifierConfig.model : null,
+    classifier_model: hasLlmClassifications ? classifierConfig.model : null,
     candidate_count: candidateCount
   },
   config: {
     candidate: config.candidate ?? null,
+    semantic: useSemantic ? {
+      normalization_floor: config.semantic?.normalization_floor ?? null,
+      normalization_ceiling: config.semantic?.normalization_ceiling ?? null,
+      min_score: config.semantic?.min_score ?? null
+    } : null,
     scoring: config.scoring ?? null,
     relation_types: config.relations?.allowed_types ?? []
   },
@@ -232,5 +253,5 @@ fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 fs.writeFileSync(outputPath, `${JSON.stringify(newIndex, null, 2)}\n`, 'utf8');
 console.log(`Relation index generated: ${edges.length} edges from ${candidateCount || generatedEdges.length} candidates across ${cards.length} cards (${classifierMode}).`);
 if (classifyRequested && !canUseLlm) {
-  console.log(`LLM classifier not activated because ${classifierKeyEnv} is unavailable or provider is disabled; semantic fallback remains valid.`);
+  console.log(`LLM classifier not activated because ${classifierKeyEnv} is unavailable or provider is disabled; cached LLM decisions are preserved and new candidates use semantic fallback.`);
 }
