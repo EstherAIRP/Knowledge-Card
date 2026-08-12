@@ -139,7 +139,8 @@ function resolveScoring(config = {}) {
     taxonomyWeight: Number(scoring.taxonomy_weight ?? 0.4),
     semanticWeight: Number(scoring.semantic_weight ?? 0.6),
     llmWeight: Number(scoring.llm_weight ?? 0.35),
-    minCombinedScore: Number(scoring.min_combined_score ?? 0.3)
+    minCombinedScore: Number(scoring.min_combined_score ?? 0.3),
+    fallbackMinCombinedScore: Number(scoring.fallback_min_combined_score ?? 0.48)
   };
 }
 
@@ -161,7 +162,7 @@ export function buildSemanticCandidates(cards, embeddingIndex, config = {}) {
   const minTaxonomy = Number(candidateConfig.min_taxonomy_score ?? 0.08);
   const minSemantic = Number(semanticConfig.min_score ?? 0.3);
   const topK = Number(candidateConfig.top_k ?? 12);
-  const { minCombinedScore } = resolveScoring(config);
+  const { minCombinedScore, fallbackMinCombinedScore } = resolveScoring(config);
 
   const candidates = [];
   for (let left = 0; left < cards.length; left += 1) {
@@ -187,6 +188,7 @@ export function buildSemanticCandidates(cards, embeddingIndex, config = {}) {
         semantic_score: semantic,
         semantic_raw_score: Number.isFinite(semanticRaw) ? Number(semanticRaw.toFixed(4)) : null,
         combined_score: combined,
+        fallback_publishable: combined >= fallbackMinCombinedScore,
         signals: taxonomy.signals
       });
     }
@@ -242,8 +244,21 @@ export function validateClassifierOutput(value) {
 export function fallbackClassifyCandidate(candidate) {
   const semantic = Number(candidate.semantic_score ?? 0);
   const taxonomy = Number(candidate.taxonomy_score ?? 0);
+  const publishable = candidate.fallback_publishable !== false;
   const type = semantic >= 0.62 && taxonomy >= 0.32 ? 'similar_to' : 'complements';
   const confidence = Number(Math.max(0.35, Math.min(0.78, candidate.combined_score)).toFixed(4));
+
+  if (!publishable) {
+    return {
+      related: false,
+      type,
+      direction: 'undirected',
+      confidence,
+      reason: '此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。',
+      classifier: 'heuristic-fallback'
+    };
+  }
+
   const reason = type === 'similar_to'
     ? 'Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。'
     : '兩張 Card 具有足夠的 metadata／語意相近度，但無法僅靠 deterministic signals 判斷更細的方向性關係；目前以 complements 作為保守 fallback。';
