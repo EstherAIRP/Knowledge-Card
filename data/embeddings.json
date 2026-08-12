@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "generated_at": null,
+  "provider": "local-transformers",
+  "model": "Xenova/multilingual-e5-small",
+  "card_count": 0,
+  "input_hash": null,
+  "entries": []
+}
