@@ -94,21 +94,27 @@ function classifierPrompt({ left, right, candidate }) {
     '- alternative_to: 在相同用途下可互相替代。',
     '- complements: 位於不同層次或能力面，但組合後互補。',
     '- integrates_with: 有明確可整合、橋接或互通關係。',
-    '- depends_on: A 的核心能力依賴 B；只有證據足夠時使用。',
-    '- extends: A 明確建立在 B 上並擴充其能力；只有證據足夠時使用。',
+    '- depends_on: 其中一張 Card 的核心能力依賴另一張；只有證據足夠時使用。',
+    '- extends: 其中一張 Card 明確建立在另一張之上並擴充其能力；只有證據足夠時使用。',
     '- contrasts_with: 同領域但設計取向、抽象層或方法形成有意義對照。',
+    '',
+    'direction 規則：',
+    '- similar_to / alternative_to / complements / integrates_with / contrasts_with 必須使用 undirected。',
+    '- depends_on / extends 必須使用 source_to_target 或 target_to_source。',
+    '- source_to_target 表示 relation 的主詞是 CARD A（source），受詞是 CARD B（target）。例如 type=depends_on + source_to_target = CARD A depends on CARD B。',
+    '- target_to_source 表示 CARD B 是主詞。例如 type=extends + target_to_source = CARD B extends CARD A。',
     '',
     `Candidate taxonomy score: ${candidate.taxonomy_score}`,
     `Candidate semantic score: ${candidate.semantic_score ?? 'unavailable'}`,
     `Candidate combined score: ${candidate.combined_score}`,
     '',
-    `CARD A (${candidate.source})`,
+    `CARD A / source (${candidate.source})`,
     left,
     '',
-    `CARD B (${candidate.target})`,
+    `CARD B / target (${candidate.target})`,
     right,
     '',
-    '若只有非常泛化的共同標籤而沒有實質關係，related 應為 false。reason 使用繁體中文，簡潔說明關係。'
+    '若只有非常泛化的共同標籤而沒有實質關係，related 應為 false。reason 使用繁體中文，簡潔說明關係與方向。'
   ].join('\n');
 }
 
