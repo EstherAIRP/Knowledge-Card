@@ -49,7 +49,8 @@ async function postJson(url, { apiKey, body, timeoutMs = 45000, retries = 2 } = 
 }
 
 export async function createLocalTransformerEmbeddings(texts, { model }) {
-  const { pipeline } = await import('@huggingface/transformers');
+  const { pipeline, env } = await import('@huggingface/transformers');
+  if (process.env.TRANSFORMERS_CACHE_DIR) env.cacheDir = process.env.TRANSFORMERS_CACHE_DIR;
   const extractor = await pipeline('feature-extraction', model, { dtype: 'q8' });
   const inputs = texts.map((text) => `query: ${text}`);
   const tensor = await extractor(inputs, { pooling: 'mean', normalize: true });
