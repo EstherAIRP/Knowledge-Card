@@ -113,6 +113,18 @@ export function cosineSimilarity(left, right) {
   return dot / (Math.sqrt(leftNorm) * Math.sqrt(rightNorm));
 }
 
+export function normalizeSemanticSimilarity(rawScore, config = {}) {
+  if (!Number.isFinite(rawScore)) return null;
+  const semantic = config.semantic ?? {};
+  const floor = Number(semantic.normalization_floor ?? 0);
+  const ceiling = Number(semantic.normalization_ceiling ?? 1);
+  if (!Number.isFinite(floor) || !Number.isFinite(ceiling) || ceiling <= floor) {
+    return Number(Math.max(0, Math.min(1, rawScore)).toFixed(4));
+  }
+  const normalized = (Number(rawScore) - floor) / (ceiling - floor);
+  return Number(Math.max(0, Math.min(1, normalized)).toFixed(4));
+}
+
 function embeddingMap(index) {
   return new Map(
     asArray(index?.entries)
@@ -162,9 +174,7 @@ export function buildSemanticCandidates(cards, embeddingIndex, config = {}) {
       const leftEmbedding = embeddings.get(source)?.embedding;
       const rightEmbedding = embeddings.get(target)?.embedding;
       const semanticRaw = cosineSimilarity(leftEmbedding, rightEmbedding);
-      const semantic = Number.isFinite(semanticRaw)
-        ? Number(Math.max(0, Math.min(1, semanticRaw)).toFixed(4))
-        : null;
+      const semantic = normalizeSemanticSimilarity(semanticRaw, config);
       const combined = combineTaxonomySemantic(taxonomy.score, semantic, config);
 
       const passesSignalGate = taxonomy.score >= minTaxonomy || (semantic !== null && semantic >= minSemantic);
@@ -175,6 +185,7 @@ export function buildSemanticCandidates(cards, embeddingIndex, config = {}) {
         target,
         taxonomy_score: taxonomy.score,
         semantic_score: semantic,
+        semantic_raw_score: Number.isFinite(semanticRaw) ? Number(semanticRaw.toFixed(4)) : null,
         combined_score: combined,
         signals: taxonomy.signals
       });
@@ -231,7 +242,7 @@ export function validateClassifierOutput(value) {
 export function fallbackClassifyCandidate(candidate) {
   const semantic = Number(candidate.semantic_score ?? 0);
   const taxonomy = Number(candidate.taxonomy_score ?? 0);
-  const type = semantic >= 0.82 && taxonomy >= 0.32 ? 'similar_to' : 'complements';
+  const type = semantic >= 0.62 && taxonomy >= 0.32 ? 'similar_to' : 'complements';
   const confidence = Number(Math.max(0.35, Math.min(0.78, candidate.combined_score)).toFixed(4));
   const reason = type === 'similar_to'
     ? 'Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。'
@@ -266,6 +277,7 @@ export function materializeClassifiedRelation(candidate, classification, config 
     scores: {
       taxonomy: Number(candidate.taxonomy_score ?? 0),
       semantic: Number.isFinite(candidate.semantic_score) ? Number(candidate.semantic_score) : null,
+      semantic_raw: Number.isFinite(candidate.semantic_raw_score) ? Number(candidate.semantic_raw_score) : null,
       llm: classification.classifier === 'llm' ? confidence : null,
       combined: base
     },
