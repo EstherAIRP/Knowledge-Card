@@ -15,6 +15,7 @@
     "relations:build": "node scripts/build-relations.mjs",
     "relations:build:semantic": "node scripts/build-relations.mjs --semantic --classify",
     "relations:rebuild": "node scripts/build-embeddings.mjs --full && node scripts/build-relations.mjs --semantic --classify --full",
+    "relations:report": "node scripts/report-relations.mjs",
     "relations:validate": "node scripts/validate-relations.mjs",
     "test": "node --test tests/*.test.mjs",
     "docs:dev": "vitepress dev docs",
