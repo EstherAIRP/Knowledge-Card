@@ -54,6 +54,12 @@ jobs:
       - name: Report relation diagnostics
         run: npm run relations:report
 
+      - name: Build concept graph
+        run: npm run concepts:build
+
+      - name: Validate concept graph
+        run: npm run concepts:validate
+
       - name: Run unit tests
         run: npm test
 
