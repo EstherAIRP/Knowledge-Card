@@ -1,4 +1,14 @@
 export const PHASE1_RELATION_TYPES = new Set(['related', 'similar_to']);
+export const PHASE2_RELATION_TYPES = new Set([
+  'similar_to',
+  'alternative_to',
+  'complements',
+  'integrates_with',
+  'depends_on',
+  'extends',
+  'contrasts_with'
+]);
+export const RELATION_TYPES = new Set([...PHASE1_RELATION_TYPES, ...PHASE2_RELATION_TYPES]);
 
 export const DEFAULT_RELATION_CONFIG = Object.freeze({
   minScore: 0.28,
@@ -171,13 +181,16 @@ export function buildGeneratedRelations(cards, config = DEFAULT_RELATION_CONFIG)
 function normalizeManualEdge(edge, fallback = {}) {
   const [source, target] = canonicalPair(String(edge?.source ?? ''), String(edge?.target ?? ''));
   return {
+    ...fallback,
     source,
     target,
-    type: edge?.type ?? fallback.type ?? 'related',
+    type: edge?.type ?? fallback.type ?? 'similar_to',
     score: Number(edge?.score ?? fallback.score ?? 1),
     signals: Array.isArray(edge?.signals)
       ? edge.signals
-      : fallback.signals ?? ['manual:override']
+      : fallback.signals ?? ['manual:override'],
+    ...(edge?.reason ? { reason: String(edge.reason) } : {}),
+    ...(edge?.confidence !== undefined ? { confidence: Number(edge.confidence) } : {})
   };
 }
 
@@ -201,7 +214,8 @@ export function applyRelationOverrides(generatedEdges, overrides = {}) {
     const existing = edgeMap.get(key) ?? {};
     edgeMap.set(key, {
       ...normalizeManualEdge(edge, existing),
-      overridden: true
+      overridden: true,
+      classifier: 'human'
     });
   }
 
@@ -212,7 +226,8 @@ export function applyRelationOverrides(generatedEdges, overrides = {}) {
     const existing = edgeMap.get(key) ?? {};
     edgeMap.set(key, {
       ...normalizeManualEdge(edge, existing),
-      pinned: true
+      pinned: true,
+      classifier: existing.classifier ?? 'human'
     });
   }
 
@@ -239,9 +254,12 @@ export function validateRelationOverrides(overrides, cardIds = new Set()) {
       if (edge.source === edge.target) errors.push(`${label} cannot self-reference.`);
       if (cardIds.size > 0 && !cardIds.has(edge.source)) errors.push(`${label} source card does not exist: ${edge.source}`);
       if (cardIds.size > 0 && !cardIds.has(edge.target)) errors.push(`${label} target card does not exist: ${edge.target}`);
-      if (edge.type && !PHASE1_RELATION_TYPES.has(edge.type)) errors.push(`${label} has unsupported type: ${edge.type}`);
+      if (edge.type && !RELATION_TYPES.has(edge.type)) errors.push(`${label} has unsupported type: ${edge.type}`);
       if (edge.score !== undefined && (!Number.isFinite(Number(edge.score)) || Number(edge.score) < 0 || Number(edge.score) > 1)) {
         errors.push(`${label} score must be between 0 and 1.`);
+      }
+      if (edge.confidence !== undefined && (!Number.isFinite(Number(edge.confidence)) || Number(edge.confidence) < 0 || Number(edge.confidence) > 1)) {
+        errors.push(`${label} confidence must be between 0 and 1.`);
       }
     }
   }
@@ -253,7 +271,7 @@ export function validateRelationIndex(index, cardIds = new Set()) {
   if (!index || typeof index !== 'object' || Array.isArray(index)) {
     return ['relation index must be an object.'];
   }
-  if (index.schema_version !== 1) errors.push('schema_version must equal 1.');
+  if (![1, 2].includes(index.schema_version)) errors.push('schema_version must equal 1 or 2.');
   if (!Array.isArray(index.edges)) return [...errors, 'edges must be an array.'];
 
   const seenPairs = new Set();
@@ -266,12 +284,26 @@ export function validateRelationIndex(index, cardIds = new Set()) {
     if (edge.source === edge.target) errors.push(`${label} cannot self-reference.`);
     if (cardIds.size > 0 && !cardIds.has(edge.source)) errors.push(`${label} source card does not exist: ${edge.source}`);
     if (cardIds.size > 0 && !cardIds.has(edge.target)) errors.push(`${label} target card does not exist: ${edge.target}`);
-    if (!PHASE1_RELATION_TYPES.has(edge.type)) errors.push(`${label} has unsupported type: ${edge.type}`);
+    if (!RELATION_TYPES.has(edge.type)) errors.push(`${label} has unsupported type: ${edge.type}`);
     if (!Number.isFinite(Number(edge.score)) || Number(edge.score) < 0 || Number(edge.score) > 1) {
       errors.push(`${label} score must be between 0 and 1.`);
     }
     if (!Array.isArray(edge.signals) || edge.signals.some((value) => typeof value !== 'string')) {
       errors.push(`${label} signals must be an array of strings.`);
+    }
+    if (edge.reason !== undefined && (typeof edge.reason !== 'string' || edge.reason.trim().length === 0 || edge.reason.length > 600)) {
+      errors.push(`${label} reason must be a non-empty string up to 600 characters.`);
+    }
+    if (edge.confidence !== undefined && (!Number.isFinite(Number(edge.confidence)) || Number(edge.confidence) < 0 || Number(edge.confidence) > 1)) {
+      errors.push(`${label} confidence must be between 0 and 1.`);
+    }
+    if (edge.scores !== undefined) {
+      for (const key of ['taxonomy', 'semantic', 'llm', 'combined']) {
+        const value = edge.scores?.[key];
+        if (value !== null && value !== undefined && (!Number.isFinite(Number(value)) || Number(value) < 0 || Number(value) > 1)) {
+          errors.push(`${label} scores.${key} must be null or between 0 and 1.`);
+        }
+      }
     }
 
     const key = relationPairKey(edge.source, edge.target);
