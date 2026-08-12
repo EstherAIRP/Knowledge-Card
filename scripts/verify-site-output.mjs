@@ -5,6 +5,7 @@ import { loadCards } from './lib/knowledge.mjs';
 
 const root = process.cwd();
 const contentRoot = path.join(root, 'content/knowledge');
+const conceptPath = path.join(root, 'data/concepts.json');
 const distRoot = path.join(root, 'docs/.vitepress/dist');
 const errors = [];
 
@@ -27,10 +28,26 @@ if (!fs.existsSync(distRoot)) {
 }
 
 requireFile('index.html');
+requireFile('graph.html');
 
 const cards = loadCards(contentRoot);
 for (const card of cards) {
   requireFile(path.join('knowledge', `${card.data.id}.html`));
+}
+
+let concepts = [];
+if (!fs.existsSync(conceptPath)) {
+  errors.push('Missing data/concepts.json before site verification.');
+} else {
+  try {
+    concepts = JSON.parse(fs.readFileSync(conceptPath, 'utf8')).concepts ?? [];
+  } catch (error) {
+    errors.push(`Cannot parse data/concepts.json: ${error.message}`);
+  }
+}
+
+for (const concept of concepts) {
+  requireFile(path.join('concepts', `${concept.id}.html`));
 }
 
 const assetsRoot = path.join(distRoot, 'assets');
@@ -52,4 +69,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-console.log(`Site output verified: homepage + ${cards.length} Knowledge Card detail page${cards.length === 1 ? '' : 's'} + JS/CSS assets.`);
+console.log(`Site output verified: homepage + graph + ${cards.length} Knowledge Card pages + ${concepts.length} Concept pages + JS/CSS assets.`);
