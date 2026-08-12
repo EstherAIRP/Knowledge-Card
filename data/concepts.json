@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-12T10:47:37.172Z",
-  "input_hash": "eb874a9e3b136ffc6c8fd9a19d5b44ab4b3464dc8b0ef63ed646e735d03c6275",
+  "generated_at": "2026-08-12T13:11:46.414Z",
+  "input_hash": "a2dcf2f4fafdf91fa6ba6fd887f262f121f7c17f8e20799103f34daefa27771f",
   "concepts": [
     {
       "id": "category-agent",
@@ -20,6 +20,21 @@
         "github-nutlope-hallmark"
       ],
       "card_count": 7
+    },
+    {
+      "id": "agent-api-bridge",
+      "label": "Agent API Bridge",
+      "type": "integration",
+      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ],
+      "card_count": 4
     },
     {
       "id": "character-runtime",
@@ -52,18 +67,19 @@
       "card_count": 4
     },
     {
-      "id": "agent-api-bridge",
-      "label": "Agent API Bridge",
-      "type": "integration",
-      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
-      "origin": "promoted",
+      "id": "category-llm",
+      "label": "LLM",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：LLM",
+      "origin": "category",
       "aliases": [],
       "card_ids": [
-        "github-intuition-lab-personal-model",
+        "github-cynthianani-a-simple-nest",
+        "github-drumih-turbo-fieldfare",
         "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
+        "github-moeru-ai-airi"
       ],
-      "card_count": 3
+      "card_count": 4
     },
     {
       "id": "agent-memory",
@@ -75,6 +91,20 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
       ],
       "card_count": 3
@@ -122,20 +152,6 @@
       "card_count": 3
     },
     {
-      "id": "category-llm",
-      "label": "LLM",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：LLM",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-moeru-ai-airi"
-      ],
-      "card_count": 3
-    },
-    {
       "id": "local-ai-integration",
       "label": "Local AI Integration",
       "type": "integration",
@@ -178,19 +194,6 @@
       "card_count": 3
     },
     {
-      "id": "category-ai-ml",
-      "label": "AI / ML",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI / ML",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
-      ],
-      "card_count": 2
-    },
-    {
       "id": "tag-claude-code",
       "label": "Claude-Code",
       "type": "topic",
@@ -217,6 +220,19 @@
       "card_count": 2
     },
     {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-minijinai75-tavern-claude-bridge"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-long-term-memory",
       "label": "long-term-memory",
       "type": "topic",
@@ -226,6 +242,19 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-openai-compatible-api",
+      "label": "OpenAI-compatible API",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-minijinai75-tavern-claude-bridge"
       ],
       "card_count": 2
     },
@@ -263,18 +292,6 @@
       "aliases": [],
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app"
-      ],
-      "card_count": 1
-    },
-    {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge"
       ],
       "card_count": 1
     }
@@ -376,6 +393,66 @@
         {
           "kind": "tag",
           "value": "prompt-caching"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-drumih-turbo-fieldfare",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "OpenAI-compatible-API"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-drumih-turbo-fieldfare",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-drumih-turbo-fieldfare",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-drumih-turbo-fieldfare",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-drumih-turbo-fieldfare",
+      "concept_id": "tag-openai-compatible-api",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "OpenAI-compatible API"
         }
       ],
       "origin": "shared-tag"
@@ -680,6 +757,18 @@
         {
           "kind": "tag",
           "value": "Claude-Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "tag-openai-compatible-api",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "OpenAI-compatible-API"
         }
       ],
       "origin": "shared-tag"
@@ -1067,25 +1156,24 @@
     },
     {
       "source": "agent-api-bridge",
-      "target": "category-agent",
+      "target": "category-ai-ml",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
+      "support": 2,
+      "weight": 0.6667,
       "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-minijinai75-tavern-claude-bridge",
+        "github-drumih-turbo-fieldfare",
         "github-mirabarukaso-character-select-stand-alone-app"
       ]
     },
     {
       "source": "agent-api-bridge",
-      "target": "character-runtime",
+      "target": "category-infrastructure-deployment",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
+        "github-drumih-turbo-fieldfare",
+        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -1093,7 +1181,7 @@
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge"
@@ -1109,6 +1197,17 @@
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -1159,6 +1258,17 @@
     },
     {
       "source": "agent-memory",
+      "target": "character-runtime",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "agent-memory",
       "target": "tag-long-term-memory",
       "type": "co_occurs_with",
       "support": 2,
@@ -1185,7 +1295,7 @@
       "target": "category-ai-ml",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
@@ -1273,7 +1383,19 @@
     },
     {
       "source": "category-agent",
-      "target": "category-llm",
+      "target": "category-rag-memory-knowledge",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "category-sillytavern-ai-rpg",
       "type": "co_occurs_with",
       "support": 3,
       "weight": 1,
@@ -1334,10 +1456,21 @@
     },
     {
       "source": "category-ai-ml",
+      "target": "category-llm",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
       "target": "character-runtime",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
@@ -1366,14 +1499,25 @@
       ]
     },
     {
-      "source": "category-llm",
-      "target": "category-rag-memory-knowledge",
+      "source": "category-infrastructure-deployment",
+      "target": "category-llm",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-moeru-ai-airi"
+        "github-drumih-turbo-fieldfare",
+        "github-minijinai75-tavern-claude-bridge"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -1393,11 +1537,22 @@
       "target": "character-runtime",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 1,
+      "weight": 0.75,
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-llm",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -1502,9 +1657,9 @@
     }
   ],
   "stats": {
-    "card_count": 7,
-    "concept_count": 20,
-    "card_concept_edge_count": 55,
-    "concept_relation_edge_count": 39
+    "card_count": 8,
+    "concept_count": 21,
+    "card_concept_edge_count": 61,
+    "concept_relation_edge_count": 45
   }
 }
