@@ -1,16 +1,23 @@
-# Phase 3 — Website Architecture
+# Website Architecture
 
 ## Goal
 
-Render the repository's Knowledge Cards as a public, searchable technology radar without creating a second content database.
+Render the repository's Knowledge Cards and generated Concept Graph as a public, searchable technology radar without creating a second content database.
 
-The source of truth remains:
+Content source of truth remains:
 
 ```text
 content/knowledge/**/*.md
 ```
 
-The `docs/` directory is only the VitePress presentation layer.
+Generated graph indexes remain rebuildable presentation/query data:
+
+```text
+data/relations.json
+data/concepts.json
+```
+
+The `docs/` directory is the VitePress presentation layer.
 
 ## Runtime model
 
@@ -20,8 +27,15 @@ content/knowledge/**/*.md
         ├─ docs/knowledge.data.js
         │      └─ homepage metadata projection
         │
-        └─ docs/knowledge/[id].paths.js
-               └─ dynamic detail routes + raw Markdown content
+        ├─ docs/knowledge/[id].paths.js
+        │      └─ Knowledge Card detail + semantic relations + Concepts
+        │
+        ├─ data/concepts.json
+        │      ├─ docs/concepts/[id].paths.js
+        │      └─ docs/graph.data.js
+        │
+        └─ data/relations.json
+               └─ docs/graph.data.js
 
                          ↓
                     VitePress
@@ -29,138 +43,139 @@ content/knowledge/**/*.md
                   static website
 ```
 
-No generated Markdown copy is committed under `docs/knowledge/`.
+No generated Markdown copy of Knowledge Cards is committed under `docs/knowledge/`.
 
-## Homepage
+## Homepage — Knowledge Radar
 
 `docs/index.md` mounts `KnowledgeRadar.vue`.
 
-The radar provides:
+The radar provides metadata filtering over title, summary, source type, categories, tags and actions; relevance dimension selection; minimum score filtering; sorting; automatically calculated statistics; and a responsive Card grid.
 
-- full-text client-side filtering over title, summary, source type, categories, tags and actions
-- fixed multi-category navigation
-- dedicated Tag filter
-- Action filter
-- relevance dimension selector
-- minimum relevance score from 1 through 5
-- sorting by relevance, update date or title
-- automatically calculated summary statistics
-- responsive card grid
-
-The selected relevance dimension changes both filtering and the score displayed on each card.
-
-## Relevance dimensions
-
-The UI consumes the effective relevance values from the Knowledge Card ownership model:
-
-```text
-effective dimension = user override ?? AI score
-```
-
-Available dimensions:
-
-- Overall
-- AI RD
-- AOI × AI
-- LLM / Agent
-- SillyTavern / AI RPG
-- Image Gen
+The selected relevance dimension changes both filtering and the score displayed on each Card.
 
 ## Effective user overrides
 
 The data projection layer resolves user-owned fields before sending metadata to the UI.
 
-For wrapper values:
-
 ```text
-effective = user ?? ai
+effective wrapper value = user ?? ai
 ```
 
-For relevance, resolution happens independently per dimension.
+Relevance is resolved independently per dimension. A manual correction therefore appears on the website without overwriting AI-owned values.
 
-This means a manual user correction is reflected on the website without changing the AI-owned score.
+## Knowledge Card detail routes
 
-## Dynamic detail pages
-
-`docs/knowledge/[id].paths.js` reads each real Knowledge Card and generates:
+`docs/knowledge/[id].paths.js` creates:
 
 ```text
 /knowledge/{card.id}
 ```
 
-The route params contain only lightweight metadata used by the detail header. The full Markdown body is supplied using VitePress dynamic route `content`, so the source article is not serialized into route params.
+Each route projects:
 
-`docs/knowledge/[id].md` contains the common page template:
+- Card metadata and full Markdown body;
+- Phase 2 typed Card↔Card semantic relations;
+- Phase 3 Card↔Concept mappings with strength/evidence;
+- source/edit/navigation links.
 
-1. structured metadata panel
-2. raw Knowledge Card Markdown content
+`KnowledgeConcepts.vue` provides the Concept neighborhood and links each node to its Concept detail page or the full graph.
 
-The detail panel exposes:
+## Concept detail routes
 
-- status/source type
-- categories
-- actions
-- all six relevance scores
-- tags
-- created / updated / checked dates
-- original source link
-- exact GitHub edit link to the source Knowledge Card
+`docs/concepts/[id].paths.js` creates:
+
+```text
+/concepts/{concept.id}
+```
+
+A Concept page exposes:
+
+- stable Concept ID, type and origin;
+- description;
+- supporting Knowledge Cards;
+- mapping strength and Category/Tag evidence;
+- Concept↔Concept neighbors derived from cross-Card co-occurrence;
+- navigation back to `/graph`.
+
+The route is generated directly from `data/concepts.json`; Concept pages do not create a second manually maintained Concept article store.
+
+## Knowledge Graph
+
+`docs/graph.md` mounts `KnowledgeGraph.vue`, backed by `docs/graph.data.js`.
+
+The graph data loader unifies three edge families:
+
+```text
+Card ↔ Concept       has_concept
+Concept ↔ Concept    co_occurs_with
+Card ↔ Card          Phase 2 semantic relation
+```
+
+The default visualization uses deterministic concentric layout:
+
+```text
+outer ring = Knowledge Cards
+inner ring = Concepts
+center     = Knowledge Radar
+```
+
+This geometry is a presentation layout and does not claim that visual distance equals embedding distance.
+
+The graph supports:
+
+- Concept/Card keyword search;
+- node-kind filtering;
+- optional Card↔Card semantic edge display;
+- direct navigation from graph nodes to Card/Concept detail routes;
+- responsive horizontal scrolling on narrow screens.
+
+The visualization is implemented with Vue + SVG and adds no D3/Cytoscape runtime dependency.
 
 ## Search
 
-Two search surfaces exist:
+Three navigation/search surfaces exist:
 
-1. Radar filtering on the homepage, optimized for metadata and quick narrowing.
-2. VitePress local search in the navigation bar, intended for full static page content.
+1. Homepage Radar metadata filtering.
+2. `/graph` Concept/Card graph filtering.
+3. VitePress local search over static page content.
 
-No server-side or vector search is used in Phase 3.
+No server-side search service is required for site operation.
 
 ## GitHub Pages base path
 
-The current repository is a project Pages site, therefore VitePress is configured with:
+The repository is a project Pages site, therefore VitePress uses:
 
 ```js
 base: '/Knowledge-Card/'
 ```
 
-Internal custom links use VitePress `withBase()` so the same components work under the repository sub-path.
+Custom links use `withBase()` so routes work under the repository sub-path. `cleanUrls` remains enabled.
 
-`cleanUrls` is enabled because GitHub Pages supports mapping extensionless paths to generated `.html` pages.
+## Theme components
 
-## Theme
-
-The site extends VitePress DefaultTheme rather than replacing it completely.
-
-Custom code lives under:
+Custom presentation code lives under:
 
 ```text
-docs/.vitepress/theme/
-├── index.js
-├── custom.css
-└── components/
-    ├── KnowledgeRadar.vue
-    └── KnowledgeMeta.vue
+docs/.vitepress/theme/components/
+├── KnowledgeRadar.vue
+├── KnowledgeMeta.vue
+├── KnowledgeRelations.vue
+├── KnowledgeConcepts.vue
+├── ConceptPage.vue
+└── KnowledgeGraph.vue
 ```
 
-This retains VitePress navigation, local search, outline, dark mode and Markdown rendering while allowing a dedicated radar interface.
+The site still extends VitePress DefaultTheme, retaining navigation, local search, outline, dark mode and Markdown rendering.
 
-## Commands
+## Build commands
+
+Graph data must exist before static generation:
 
 ```bash
-npm install
-npm run docs:dev
+npm run concepts:build
+npm run concepts:validate
 npm run docs:build
-npm run docs:preview
+npm run verify:site
 ```
 
-Repository tests also cover the site data projection and route generation:
-
-```bash
-npm test
-```
-
-## Phase boundary
-
-Phase 3 builds the website application and static-generation model.
-
-Phase 4 is responsible for automated validation/build/deployment with GitHub Actions and enabling GitHub Pages deployment.
+`verify:site` requires homepage, `/graph`, every Knowledge Card page, every Concept page, and JS/CSS assets to exist in the final VitePress output.

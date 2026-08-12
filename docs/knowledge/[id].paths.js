@@ -6,6 +6,7 @@ import { loadCards } from '../../scripts/lib/knowledge.mjs';
 const repoRoot = fileURLToPath(new URL('../../', import.meta.url));
 const contentRoot = fileURLToPath(new URL('../../content/knowledge/', import.meta.url));
 const relationPath = fileURLToPath(new URL('../../data/relations.json', import.meta.url));
+const conceptPath = fileURLToPath(new URL('../../data/concepts.json', import.meta.url));
 
 function effectiveValue(wrapper) {
   return wrapper?.user ?? wrapper?.ai ?? null;
@@ -38,10 +39,13 @@ function normalizeCard(card) {
   };
 }
 
-function loadRelationEdges() {
-  if (!fs.existsSync(relationPath)) return [];
-  const index = JSON.parse(fs.readFileSync(relationPath, 'utf8'));
-  return Array.isArray(index.edges) ? index.edges : [];
+function readJson(filePath, fallback) {
+  if (!fs.existsSync(filePath)) return fallback;
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch {
+    return fallback;
+  }
 }
 
 function relationPerspective(edge, currentId) {
@@ -52,12 +56,15 @@ function relationPerspective(edge, currentId) {
 }
 
 export default {
-  watch: ['../../content/knowledge/**/*.md', '../../data/relations.json'],
+  watch: ['../../content/knowledge/**/*.md', '../../data/relations.json', '../../data/concepts.json'],
   paths() {
     const cards = loadCards(contentRoot);
     const normalizedCards = cards.map(normalizeCard);
     const cardById = new Map(normalizedCards.map((card) => [card.id, card]));
-    const edges = loadRelationEdges();
+    const relationIndex = readJson(relationPath, { edges: [] });
+    const conceptIndex = readJson(conceptPath, { concepts: [], card_concepts: [] });
+    const edges = Array.isArray(relationIndex.edges) ? relationIndex.edges : [];
+    const conceptById = new Map(conceptIndex.concepts.map((concept) => [concept.id, concept]));
 
     return cards.map((card, index) => {
       const data = card.data;
@@ -89,13 +96,34 @@ export default {
         .filter(Boolean)
         .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title, 'zh-TW'));
 
+      const concepts = conceptIndex.card_concepts
+        .filter((mapping) => mapping.card_id === data.id)
+        .map((mapping) => {
+          const concept = conceptById.get(mapping.concept_id);
+          if (!concept) return null;
+          return {
+            id: concept.id,
+            label: concept.label,
+            type: concept.type,
+            origin: concept.origin,
+            description: concept.description,
+            route: `/concepts/${concept.id}`,
+            cardCount: concept.card_count,
+            strength: mapping.strength,
+            evidence: mapping.evidence ?? []
+          };
+        })
+        .filter(Boolean)
+        .sort((a, b) => b.strength - a.strength || b.cardCount - a.cardCount || a.label.localeCompare(b.label, 'zh-TW'));
+
       return {
         params: {
           id: data.id,
           card: {
             ...normalizedCards[index],
             cardPath: relativeCardPath,
-            related
+            related,
+            concepts
           }
         },
         content: card.body
