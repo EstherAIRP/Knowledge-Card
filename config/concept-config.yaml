@@ -1,0 +1,109 @@
+# Phase 3 Concept Graph configuration.
+# Repository-owned ontology/extraction policy. Generated graph state belongs in data/concepts.json.
+
+schema_version: 1
+
+extraction:
+  include_categories: true
+  include_shared_tags: true
+  minimum_tag_support: 2
+  concept_relation_min_support: 2
+  concept_relation_top_k: 8
+
+# Curated higher-order concepts bridge raw taxonomy/tags into reusable knowledge concepts.
+# Matching is deterministic and public-data-only; no private context belongs here.
+promoted_concepts:
+  - id: agent-memory
+    label: Agent Memory
+    type: architecture
+    description: Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。
+    match:
+      categories_any:
+        - RAG / Memory / Knowledge
+      tags_any:
+        - agent-memory
+        - long-term-memory
+        - provenance
+        - memory
+
+  - id: character-runtime
+    label: Character Runtime
+    type: architecture
+    description: 讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。
+    match:
+      categories_any:
+        - SillyTavern / AI RPG
+      tags_any:
+        - virtual-character
+        - character-selector
+        - roleplay-inference
+        - ai-vtuber
+        - digital-companion
+
+  - id: coding-agent-tooling
+    label: Coding Agent Tooling
+    type: workflow
+    description: 圍繞 Codex、Claude Code、Cursor 等 coding agent 的能力擴充、Skill、context 或介面工具。
+    match:
+      categories_any:
+        - AI Coding / DevTools
+      tags_any:
+        - Claude-Code
+        - Codex
+        - Cursor
+        - coding-agent
+        - Claude-Agent-SDK
+
+  - id: local-ai-integration
+    label: Local AI Integration
+    type: integration
+    description: 將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。
+    match:
+      tags_any:
+        - local-first
+        - local-bridge
+        - websocket-api
+        - openclaw
+        - mcp
+        - saa-agent
+
+  - id: image-generation-workflow
+    label: Image Generation Workflow
+    type: workflow
+    description: 從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。
+    match:
+      categories_any:
+        - Image Generation
+      tags_any:
+        - comfyui
+        - diffusion-models
+        - controlnet
+        - ip-adapter
+        - regional-prompting
+        - adetailer
+
+  - id: ai-character-interface
+    label: AI Character Interface
+    type: experience
+    description: AI 角色面向使用者的聊天、視覺角色、語音、RP 或互動介面層。
+    match:
+      tags_any:
+        - SillyTavern
+        - virtual-character
+        - ai-vtuber
+        - Live2D
+        - VRM
+        - roleplay-inference
+        - character-selector
+
+  - id: agent-api-bridge
+    label: Agent API Bridge
+    type: integration
+    description: 透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。
+    match:
+      tags_any:
+        - OpenAI-compatible-API
+        - websocket-api
+        - mcp
+        - local-bridge
+        - Claude-Agent-SDK
