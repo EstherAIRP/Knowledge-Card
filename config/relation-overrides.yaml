@@ -1,0 +1,12 @@
+# Human-owned relation decisions.
+# generated relations are disposable; this file is authoritative for manual relation intent.
+#
+# Phase 1 supported types:
+# - related
+# - similar_to
+#
+# blocked has highest precedence, followed by overrides/pinned, then generated relations.
+
+pinned: []
+blocked: []
+overrides: []

@@ -25,6 +25,7 @@ test('dynamic route loader emits one route per Knowledge Card', () => {
   assert.ok(route);
   assert.equal(route.params.card.title, 'Personal Model');
   assert.equal(route.params.card.cardPath, 'content/knowledge/2026/github-intuition-lab-personal-model.md');
+  assert.ok(Array.isArray(route.params.card.related));
   assert.match(route.content, /^# Personal Model/m);
   assert.match(route.content, /^## 與你的相關性/m);
 });

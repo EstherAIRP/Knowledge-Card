@@ -1,0 +1,62 @@
+name: Update Relation Index
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "content/knowledge/**"
+      - "config/relation-overrides.yaml"
+      - "scripts/build-relations.mjs"
+      - "scripts/validate-relations.mjs"
+      - "scripts/lib/relations.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: relation-index-main
+  cancel-in-progress: true
+
+jobs:
+  update:
+    name: Rebuild relation index
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build relation index
+        run: npm run relations:build
+
+      - name: Validate relation index
+        run: npm run relations:validate
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Commit generated relation index
+        shell: bash
+        run: |
+          if git diff --quiet -- data/relations.json; then
+            echo "Relation index is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/relations.json
+          git commit -m "chore: refresh relation index"
+          git push

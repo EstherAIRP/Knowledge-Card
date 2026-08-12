@@ -34,11 +34,17 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Build relation index
+        run: npm run relations:build
+
       - name: Run unit tests
         run: npm test
 
       - name: Validate Knowledge Cards
         run: npm run validate
+
+      - name: Validate relation index
+        run: npm run relations:validate
 
       - name: Build VitePress site
         run: npm run docs:build

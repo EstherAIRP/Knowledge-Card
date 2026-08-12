@@ -1,9 +1,11 @@
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadCards } from '../../scripts/lib/knowledge.mjs';
 
 const repoRoot = fileURLToPath(new URL('../../', import.meta.url));
 const contentRoot = fileURLToPath(new URL('../../content/knowledge/', import.meta.url));
+const relationPath = fileURLToPath(new URL('../../data/relations.json', import.meta.url));
 
 function effectiveValue(wrapper) {
   return wrapper?.user ?? wrapper?.ai ?? null;
@@ -15,31 +17,72 @@ function effectiveRelevance(relevance) {
   return Object.fromEntries(Object.keys(ai).map((key) => [key, user[key] ?? ai[key]]));
 }
 
+function normalizeCard(card) {
+  const data = card.data;
+  return {
+    id: data.id,
+    title: data.title,
+    summary: data.summary,
+    canonicalUrl: data.canonical_url,
+    sourceType: data.source?.type,
+    sourceIdentity: data.source?.identity,
+    createdAt: data.created_at,
+    updatedAt: data.updated_at,
+    lastCheckedAt: data.last_checked_at,
+    categories: effectiveValue(data.classification?.categories) ?? [],
+    tags: effectiveValue(data.classification?.tags) ?? [],
+    relevance: effectiveRelevance(data.relevance),
+    actions: effectiveValue(data.actions) ?? [],
+    status: effectiveValue(data.status),
+    route: `/knowledge/${data.id}`
+  };
+}
+
+function loadRelationEdges() {
+  if (!fs.existsSync(relationPath)) return [];
+  const index = JSON.parse(fs.readFileSync(relationPath, 'utf8'));
+  return Array.isArray(index.edges) ? index.edges : [];
+}
+
 export default {
-  watch: ['../../content/knowledge/**/*.md'],
+  watch: ['../../content/knowledge/**/*.md', '../../data/relations.json'],
   paths() {
-    return loadCards(contentRoot).map((card) => {
+    const cards = loadCards(contentRoot);
+    const normalizedCards = cards.map(normalizeCard);
+    const cardById = new Map(normalizedCards.map((card) => [card.id, card]));
+    const edges = loadRelationEdges();
+
+    return cards.map((card, index) => {
       const data = card.data;
       const relativeCardPath = path.relative(repoRoot, card.filePath).replaceAll('\\', '/');
+      const related = edges
+        .filter((edge) => edge.source === data.id || edge.target === data.id)
+        .map((edge) => {
+          const neighborId = edge.source === data.id ? edge.target : edge.source;
+          const neighbor = cardById.get(neighborId);
+          if (!neighbor) return null;
+          return {
+            id: neighbor.id,
+            title: neighbor.title,
+            summary: neighbor.summary,
+            route: neighbor.route,
+            type: edge.type,
+            score: edge.score,
+            signals: edge.signals ?? [],
+            pinned: edge.pinned ?? false,
+            overridden: edge.overridden ?? false
+          };
+        })
+        .filter(Boolean)
+        .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title, 'zh-TW'));
+
       return {
         params: {
           id: data.id,
           card: {
-            id: data.id,
-            title: data.title,
-            summary: data.summary,
-            canonicalUrl: data.canonical_url,
-            sourceType: data.source?.type,
-            sourceIdentity: data.source?.identity,
-            createdAt: data.created_at,
-            updatedAt: data.updated_at,
-            lastCheckedAt: data.last_checked_at,
-            categories: effectiveValue(data.classification?.categories) ?? [],
-            tags: effectiveValue(data.classification?.tags) ?? [],
-            relevance: effectiveRelevance(data.relevance),
-            actions: effectiveValue(data.actions) ?? [],
-            status: effectiveValue(data.status),
-            cardPath: relativeCardPath
+            ...normalizedCards[index],
+            cardPath: relativeCardPath,
+            related
           }
         },
         content: card.body
