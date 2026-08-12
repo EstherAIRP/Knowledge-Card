@@ -1,0 +1,1182 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-12T08:48:36.878Z",
+  "input_hash": "ca94d0588730da13df3bf5d925b90d3a14f4e3a44f1eafd1cf48fed2ea171c89",
+  "concepts": [
+    {
+      "id": "category-agent",
+      "label": "Agent",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Agent",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-nutlope-hallmark"
+      ],
+      "card_count": 5
+    },
+    {
+      "id": "agent-api-bridge",
+      "label": "Agent API Bridge",
+      "type": "integration",
+      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "ai-character-interface",
+      "label": "AI Character Interface",
+      "type": "experience",
+      "description": "AI 角色面向使用者的聊天、視覺角色、語音、RP 或互動介面層。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "character-runtime",
+      "label": "Character Runtime",
+      "type": "architecture",
+      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "coding-agent-tooling",
+      "label": "Coding Agent Tooling",
+      "type": "workflow",
+      "description": "圍繞 Codex、Claude Code、Cursor 等 coding agent 的能力擴充、Skill、context 或介面工具。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-nutlope-hallmark"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "local-ai-integration",
+      "label": "Local AI Integration",
+      "type": "integration",
+      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "agent-memory",
+      "label": "Agent Memory",
+      "type": "architecture",
+      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "category-ai-coding-devtools",
+      "label": "AI Coding / DevTools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI Coding / DevTools",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-nutlope-hallmark"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-claude-code",
+      "label": "Claude-Code",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-nutlope-hallmark"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-electron",
+      "label": "electron",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "category-general-tools",
+      "label": "General Tools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：General Tools",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nutlope-hallmark"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "category-llm",
+      "label": "LLM",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：LLM",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "category-rag-memory-knowledge",
+      "label": "RAG / Memory / Knowledge",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "category-sillytavern-ai-rpg",
+      "label": "SillyTavern / AI RPG",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：SillyTavern / AI RPG",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "category-image-generation",
+      "label": "Image Generation",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Image Generation",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ],
+      "card_count": 1
+    },
+    {
+      "id": "image-generation-workflow",
+      "label": "Image Generation Workflow",
+      "type": "workflow",
+      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ],
+      "card_count": 1
+    },
+    {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge"
+      ],
+      "card_count": 1
+    }
+  ],
+  "card_concepts": [
+    {
+      "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "agent-memory",
+      "strength": 0.96,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        },
+        {
+          "kind": "tag",
+          "value": "agent-memory"
+        },
+        {
+          "kind": "tag",
+          "value": "long-term-memory"
+        },
+        {
+          "kind": "tag",
+          "value": "provenance"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "local-ai-integration",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        },
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "OpenAI-compatible-API"
+        },
+        {
+          "kind": "tag",
+          "value": "local-bridge"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Agent-SDK"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "ai-character-interface",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SillyTavern"
+        },
+        {
+          "kind": "tag",
+          "value": "roleplay-inference"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "category-sillytavern-ai-rpg",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "character-runtime",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        },
+        {
+          "kind": "tag",
+          "value": "roleplay-inference"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Agent-SDK"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-bridge"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "websocket-api"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "ai-character-interface",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "character-selector"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "category-image-generation",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "character-runtime",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "character-selector"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "image-generation-workflow",
+      "strength": 0.96,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        },
+        {
+          "kind": "tag",
+          "value": "comfyui"
+        },
+        {
+          "kind": "tag",
+          "value": "diffusion-models"
+        },
+        {
+          "kind": "tag",
+          "value": "controlnet"
+        },
+        {
+          "kind": "tag",
+          "value": "ip-adapter"
+        },
+        {
+          "kind": "tag",
+          "value": "regional-prompting"
+        },
+        {
+          "kind": "tag",
+          "value": "adetailer"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "local-ai-integration",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "websocket-api"
+        },
+        {
+          "kind": "tag",
+          "value": "openclaw"
+        },
+        {
+          "kind": "tag",
+          "value": "saa-agent"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "tag-electron",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "electron"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-moeru-ai-airi",
+      "concept_id": "agent-memory",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-moeru-ai-airi",
+      "concept_id": "ai-character-interface",
+      "strength": 0.96,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "virtual-character"
+        },
+        {
+          "kind": "tag",
+          "value": "ai-vtuber"
+        },
+        {
+          "kind": "tag",
+          "value": "Live2D"
+        },
+        {
+          "kind": "tag",
+          "value": "VRM"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-moeru-ai-airi",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-moeru-ai-airi",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-moeru-ai-airi",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-moeru-ai-airi",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-moeru-ai-airi",
+      "concept_id": "category-sillytavern-ai-rpg",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-moeru-ai-airi",
+      "concept_id": "character-runtime",
+      "strength": 0.96,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        },
+        {
+          "kind": "tag",
+          "value": "virtual-character"
+        },
+        {
+          "kind": "tag",
+          "value": "ai-vtuber"
+        },
+        {
+          "kind": "tag",
+          "value": "digital-companion"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-moeru-ai-airi",
+      "concept_id": "tag-electron",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Electron"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-nutlope-hallmark",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nutlope-hallmark",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nutlope-hallmark",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nutlope-hallmark",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.96,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        },
+        {
+          "kind": "tag",
+          "value": "Codex"
+        },
+        {
+          "kind": "tag",
+          "value": "Cursor"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-nutlope-hallmark",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "shared-tag"
+    }
+  ],
+  "concept_relations": [
+    {
+      "source": "agent-api-bridge",
+      "target": "ai-character-interface",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "category-agent",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "character-runtime",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "coding-agent-tooling",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "local-ai-integration",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "category-agent",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "category-rag-memory-knowledge",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "ai-character-interface",
+      "target": "category-agent",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "ai-character-interface",
+      "target": "category-ai-ml",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "ai-character-interface",
+      "target": "category-llm",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "ai-character-interface",
+      "target": "category-sillytavern-ai-rpg",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "ai-character-interface",
+      "target": "character-runtime",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "ai-character-interface",
+      "target": "local-ai-integration",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "ai-character-interface",
+      "target": "tag-electron",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "category-ai-coding-devtools",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-nutlope-hallmark"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "category-ai-ml",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "character-runtime",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "coding-agent-tooling",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-nutlope-hallmark"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "local-ai-integration",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "coding-agent-tooling",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-nutlope-hallmark"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "character-runtime",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-electron",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-llm",
+      "target": "category-sillytavern-ai-rpg",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-llm",
+      "target": "character-runtime",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-sillytavern-ai-rpg",
+      "target": "character-runtime",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "character-runtime",
+      "target": "local-ai-integration",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "character-runtime",
+      "target": "tag-electron",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
+      "target": "local-ai-integration",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
+      "target": "tag-claude-code",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-nutlope-hallmark"
+      ]
+    }
+  ],
+  "stats": {
+    "card_count": 5,
+    "concept_count": 18,
+    "card_concept_edge_count": 41,
+    "concept_relation_edge_count": 29
+  }
+}
