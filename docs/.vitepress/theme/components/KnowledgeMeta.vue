@@ -35,10 +35,17 @@ function width(score) {
           <span v-for="item in card.categories" :key="item">{{ item }}</span>
         </div>
       </div>
+    </div>
+
+    <details v-if="card.actions?.length" class="knowledge-action-collapse">
+      <summary>
+        <span>Action</span>
+        <small>{{ card.actions.length }} 項</small>
+      </summary>
       <div class="knowledge-detail-actions">
         <span v-for="item in card.actions" :key="item">{{ item }}</span>
       </div>
-    </div>
+    </details>
 
     <div class="relevance-grid" aria-label="Relevance scores">
       <div v-for="([key, label]) in dimensions" :key="key" class="relevance-item">
@@ -64,3 +71,55 @@ function width(score) {
     </div>
   </section>
 </template>
+
+<style scoped>
+.knowledge-action-collapse {
+  margin-top: 16px;
+  overflow: hidden;
+  border: 1px solid var(--radar-border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--vp-c-bg) 70%, transparent);
+}
+
+.knowledge-action-collapse summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 13px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--vp-c-text-2);
+  font-size: 12px;
+  font-weight: 800;
+  user-select: none;
+}
+
+.knowledge-action-collapse summary::-webkit-details-marker {
+  display: none;
+}
+
+.knowledge-action-collapse summary::after {
+  content: '⌄';
+  margin-left: auto;
+  color: var(--vp-c-text-3);
+  font-size: 17px;
+  line-height: 1;
+  transition: transform .18s ease;
+}
+
+.knowledge-action-collapse[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.knowledge-action-collapse summary small {
+  color: var(--vp-c-text-3);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.knowledge-action-collapse .knowledge-detail-actions {
+  margin-top: 0;
+  padding: 0 13px 13px;
+}
+</style>

@@ -9,7 +9,7 @@ const tag = ref('ALL');
 const action = ref('ALL');
 const dimension = ref('overall');
 const minScore = ref(1);
-const sortBy = ref('relevance');
+const sortBy = ref('newest');
 
 const dimensions = [
   ['overall', 'Overall'],
@@ -72,6 +72,10 @@ const filteredCards = computed(() => {
   });
 
   return [...result].sort((a, b) => {
+    if (sortBy.value === 'newest') {
+      const byCreated = String(b.createdAt).localeCompare(String(a.createdAt));
+      return byCreated || String(b.updatedAt).localeCompare(String(a.updatedAt)) || a.title.localeCompare(b.title, 'zh-TW');
+    }
     if (sortBy.value === 'updated') return String(b.updatedAt).localeCompare(String(a.updatedAt));
     if (sortBy.value === 'title') return a.title.localeCompare(b.title, 'zh-TW');
     const score = (b.relevance[selectedDimension] ?? 0) - (a.relevance[selectedDimension] ?? 0);
@@ -94,7 +98,7 @@ function resetFilters() {
   action.value = 'ALL';
   dimension.value = 'overall';
   minScore.value = 1;
-  sortBy.value = 'relevance';
+  sortBy.value = 'newest';
 }
 </script>
 
@@ -112,63 +116,74 @@ function resetFilters() {
       </div>
     </section>
 
-    <section class="radar-controls" aria-label="Knowledge filters">
-      <div class="radar-search-row">
-        <label class="radar-search">
-          <span>搜尋</span>
-          <input v-model="query" type="search" placeholder="專案、技術、Tag、Action…" />
-        </label>
-        <label>
-          <span>Tag</span>
-          <select v-model="tag">
-            <option value="ALL">全部</option>
-            <option v-for="([item, count]) in tags" :key="item" :value="item">{{ item }} ({{ count }})</option>
-          </select>
-        </label>
-        <label>
-          <span>Action</span>
-          <select v-model="action">
-            <option value="ALL">全部</option>
-            <option v-for="item in actions" :key="item" :value="item">{{ item }}</option>
-          </select>
-        </label>
-        <label>
-          <span>排序</span>
-          <select v-model="sortBy">
-            <option value="relevance">相關性</option>
-            <option value="updated">最近更新</option>
-            <option value="title">名稱</option>
-          </select>
-        </label>
-      </div>
+    <details class="radar-controls" aria-label="Knowledge filters">
+      <summary class="radar-controls-summary">
+        <span>
+          <strong>搜尋與篩選</strong>
+          <small>搜尋、Tag、Action、Category、相關性與排序</small>
+        </span>
+        <span class="radar-controls-chevron" aria-hidden="true">⌄</span>
+      </summary>
 
-      <div class="radar-control-group">
-        <div class="radar-control-label">Category</div>
-        <div class="radar-pills">
-          <button :class="{ active: category === 'ALL' }" @click="category = 'ALL'">全部 <small>{{ cards.length }}</small></button>
-          <button
-            v-for="([item, count]) in categories"
-            :key="item"
-            :class="{ active: category === item }"
-            @click="category = item"
-          >{{ item }} <small>{{ count }}</small></button>
+      <div class="radar-controls-body">
+        <div class="radar-search-row">
+          <label class="radar-search">
+            <span>搜尋</span>
+            <input v-model="query" type="search" placeholder="專案、技術、Tag、Action…" />
+          </label>
+          <label>
+            <span>Tag</span>
+            <select v-model="tag">
+              <option value="ALL">全部</option>
+              <option v-for="([item, count]) in tags" :key="item" :value="item">{{ item }} ({{ count }})</option>
+            </select>
+          </label>
+          <label>
+            <span>Action</span>
+            <select v-model="action">
+              <option value="ALL">全部</option>
+              <option v-for="item in actions" :key="item" :value="item">{{ item }}</option>
+            </select>
+          </label>
+          <label>
+            <span>排序</span>
+            <select v-model="sortBy">
+              <option value="newest">新到舊</option>
+              <option value="relevance">相關性</option>
+              <option value="updated">最近更新</option>
+              <option value="title">名稱</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="radar-control-group">
+          <div class="radar-control-label">Category</div>
+          <div class="radar-pills">
+            <button :class="{ active: category === 'ALL' }" @click="category = 'ALL'">全部 <small>{{ cards.length }}</small></button>
+            <button
+              v-for="([item, count]) in categories"
+              :key="item"
+              :class="{ active: category === item }"
+              @click="category = item"
+            >{{ item }} <small>{{ count }}</small></button>
+          </div>
+        </div>
+
+        <div class="radar-relevance-control">
+          <label>
+            <span>相關性維度</span>
+            <select v-model="dimension">
+              <option v-for="([key, label]) in dimensions" :key="key" :value="key">{{ label }}</option>
+            </select>
+          </label>
+          <label class="radar-score-range">
+            <span>最低分數：<strong>{{ minScore }}</strong> / 5</span>
+            <input v-model.number="minScore" type="range" min="1" max="5" step="1" />
+          </label>
+          <button class="radar-reset" @click="resetFilters">重設篩選</button>
         </div>
       </div>
-
-      <div class="radar-relevance-control">
-        <label>
-          <span>相關性維度</span>
-          <select v-model="dimension">
-            <option v-for="([key, label]) in dimensions" :key="key" :value="key">{{ label }}</option>
-          </select>
-        </label>
-        <label class="radar-score-range">
-          <span>最低分數：<strong>{{ minScore }}</strong> / 5</span>
-          <input v-model.number="minScore" type="range" min="1" max="5" step="1" />
-        </label>
-        <button class="radar-reset" @click="resetFilters">重設篩選</button>
-      </div>
-    </section>
+    </details>
 
     <section class="radar-results-head">
       <div><strong>{{ filteredCards.length }}</strong> 筆結果</div>
@@ -213,3 +228,72 @@ function resetFilters() {
     </section>
   </main>
 </template>
+
+<style scoped>
+.radar-controls {
+  padding: 0;
+  overflow: hidden;
+}
+
+.radar-controls-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.radar-controls-summary::-webkit-details-marker {
+  display: none;
+}
+
+.radar-controls-summary > span:first-child {
+  min-width: 0;
+}
+
+.radar-controls-summary strong,
+.radar-controls-summary small {
+  display: block;
+}
+
+.radar-controls-summary strong {
+  color: var(--vp-c-text-1);
+  font-size: 14px;
+}
+
+.radar-controls-summary small {
+  margin-top: 3px;
+  color: var(--radar-muted);
+  font-size: 11px;
+}
+
+.radar-controls-chevron {
+  flex: 0 0 auto;
+  color: var(--vp-c-text-3);
+  font-size: 20px;
+  line-height: 1;
+  transition: transform .18s ease;
+}
+
+.radar-controls[open] .radar-controls-chevron {
+  transform: rotate(180deg);
+}
+
+.radar-controls-body {
+  padding: 20px 22px 22px;
+  border-top: 1px solid var(--radar-border);
+}
+
+@media (max-width: 640px) {
+  .radar-controls-summary {
+    padding: 15px 16px;
+  }
+
+  .radar-controls-body {
+    padding: 16px;
+  }
+}
+</style>
