@@ -7,9 +7,15 @@ on:
     paths:
       - "content/knowledge/**"
       - "config/relation-overrides.yaml"
+      - "config/relation-config.yaml"
+      - "scripts/build-embeddings.mjs"
+      - "scripts/validate-embeddings.mjs"
       - "scripts/build-relations.mjs"
       - "scripts/validate-relations.mjs"
       - "scripts/lib/relations.mjs"
+      - "scripts/lib/semantic-relations.mjs"
+      - "scripts/lib/model-clients.mjs"
+      - "package.json"
   workflow_dispatch:
 
 permissions:
@@ -21,9 +27,12 @@ concurrency:
 
 jobs:
   update:
-    name: Rebuild relation index
+    name: Refresh semantic relation indexes
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
+    env:
+      TRANSFORMERS_CACHE_DIR: .cache/transformers
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
       - name: Checkout repository
@@ -36,11 +45,23 @@ jobs:
         with:
           node-version: 24
 
+      - name: Cache embedding model
+        uses: actions/cache@v4
+        with:
+          path: .cache/transformers
+          key: transformers-${{ runner.os }}-${{ hashFiles('config/relation-config.yaml', 'package.json') }}
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Build relation index
-        run: npm run relations:build
+      - name: Build embedding index
+        run: npm run embeddings:build
+
+      - name: Validate embedding index
+        run: npm run embeddings:validate
+
+      - name: Build semantic relation index
+        run: npm run relations:build:semantic
 
       - name: Validate relation index
         run: npm run relations:validate
@@ -48,15 +69,15 @@ jobs:
       - name: Run unit tests
         run: npm test
 
-      - name: Commit generated relation index
+      - name: Commit generated indexes
         shell: bash
         run: |
-          if git diff --quiet -- data/relations.json; then
-            echo "Relation index is already current."
+          if git diff --quiet -- data/embeddings.json data/relations.json; then
+            echo "Semantic relation indexes are already current."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/relations.json
-          git commit -m "chore: refresh relation index"
+          git add data/embeddings.json data/relations.json
+          git commit -m "chore: refresh semantic relation indexes"
           git push
