@@ -32,6 +32,7 @@ function validateConfig(config, errors) {
   validateUnitInterval(config.scoring?.semantic_weight ?? 0, 'scoring.semantic_weight', errors);
   validateUnitInterval(config.scoring?.llm_weight ?? 0, 'scoring.llm_weight', errors);
   validateUnitInterval(config.scoring?.min_combined_score ?? 0, 'scoring.min_combined_score', errors);
+  validateUnitInterval(config.scoring?.fallback_min_combined_score ?? 0, 'scoring.fallback_min_combined_score', errors);
 
   const floor = Number(config.semantic?.normalization_floor ?? 0);
   const ceiling = Number(config.semantic?.normalization_ceiling ?? 1);
@@ -46,6 +47,9 @@ function validateConfig(config, errors) {
   }
   if (Number(config.scoring?.taxonomy_weight ?? 0) + Number(config.scoring?.semantic_weight ?? 0) <= 0) {
     errors.push('taxonomy_weight + semantic_weight must be greater than 0.');
+  }
+  if (Number(config.scoring?.fallback_min_combined_score ?? 0) < Number(config.scoring?.min_combined_score ?? 0)) {
+    errors.push('scoring.fallback_min_combined_score must be greater than or equal to scoring.min_combined_score.');
   }
 
   if (!Number.isInteger(Number(config.candidate?.top_k)) || Number(config.candidate?.top_k) < 1) {
