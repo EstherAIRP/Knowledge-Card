@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-12T09:41:18.628Z",
-  "input_hash": "b00d5aa3d44912ffb6fb2390e519d733c818ad3ce42fb9e69effc8fa6c5bf162",
+  "generated_at": "2026-08-12T10:47:37.172Z",
+  "input_hash": "eb874a9e3b136ffc6c8fd9a19d5b44ab4b3464dc8b0ef63ed646e735d03c6275",
   "concepts": [
     {
       "id": "category-agent",
@@ -12,13 +12,14 @@
       "aliases": [],
       "card_ids": [
         "github-cynthianani-a-simple-nest",
+        "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi",
         "github-nutlope-hallmark"
       ],
-      "card_count": 6
+      "card_count": 7
     },
     {
       "id": "character-runtime",
@@ -32,6 +33,21 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
+      ],
+      "card_count": 4
+    },
+    {
+      "id": "coding-agent-tooling",
+      "label": "Coding Agent Tooling",
+      "type": "workflow",
+      "description": "圍繞 Codex、Claude Code、Cursor 等 coding agent 的能力擴充、Skill、context 或介面工具。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-hugohe3-ppt-master",
+        "github-intuition-lab-personal-model",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-nutlope-hallmark"
       ],
       "card_count": 4
     },
@@ -78,15 +94,29 @@
       "card_count": 3
     },
     {
-      "id": "coding-agent-tooling",
-      "label": "Coding Agent Tooling",
-      "type": "workflow",
-      "description": "圍繞 Codex、Claude Code、Cursor 等 coding agent 的能力擴充、Skill、context 或介面工具。",
-      "origin": "promoted",
+      "id": "category-ai-coding-devtools",
+      "label": "AI Coding / DevTools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI Coding / DevTools",
+      "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
-        "github-minijinai75-tavern-claude-bridge",
+        "github-nutlope-hallmark"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "category-general-tools",
+      "label": "General Tools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：General Tools",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-hugohe3-ppt-master",
+        "github-mirabarukaso-character-select-stand-alone-app",
         "github-nutlope-hallmark"
       ],
       "card_count": 3
@@ -161,19 +191,6 @@
       "card_count": 2
     },
     {
-      "id": "category-ai-coding-devtools",
-      "label": "AI Coding / DevTools",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI Coding / DevTools",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-nutlope-hallmark"
-      ],
-      "card_count": 2
-    },
-    {
       "id": "tag-claude-code",
       "label": "Claude-Code",
       "type": "topic",
@@ -196,19 +213,6 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "category-general-tools",
-      "label": "General Tools",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：General Tools",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nutlope-hallmark"
       ],
       "card_count": 2
     },
@@ -375,6 +379,54 @@
         }
       ],
       "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-hugohe3-ppt-master",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hugohe3-ppt-master",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hugohe3-ppt-master",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hugohe3-ppt-master",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
     },
     {
       "card_id": "github-intuition-lab-personal-model",
@@ -1197,31 +1249,31 @@
     },
     {
       "source": "category-agent",
-      "target": "category-llm",
+      "target": "category-ai-coding-devtools",
       "type": "co_occurs_with",
       "support": 3,
       "weight": 1,
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-moeru-ai-airi"
-      ]
-    },
-    {
-      "source": "category-agent",
-      "target": "category-rag-memory-knowledge",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "github-cynthianani-a-simple-nest",
+        "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi"
+        "github-nutlope-hallmark"
       ]
     },
     {
       "source": "category-agent",
-      "target": "category-sillytavern-ai-rpg",
+      "target": "category-general-tools",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-hugohe3-ppt-master",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nutlope-hallmark"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "category-llm",
       "type": "co_occurs_with",
       "support": 3,
       "weight": 1,
@@ -1248,9 +1300,10 @@
       "source": "category-agent",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark"
@@ -1258,11 +1311,23 @@
     },
     {
       "source": "category-ai-coding-devtools",
-      "target": "coding-agent-tooling",
+      "target": "category-general-tools",
       "type": "co_occurs_with",
       "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-hugohe3-ppt-master",
+        "github-nutlope-hallmark"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "coding-agent-tooling",
+      "type": "co_occurs_with",
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-nutlope-hallmark"
       ]
@@ -1287,6 +1352,17 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-general-tools",
+      "target": "coding-agent-tooling",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-hugohe3-ppt-master",
+        "github-nutlope-hallmark"
       ]
     },
     {
@@ -1426,9 +1502,9 @@
     }
   ],
   "stats": {
-    "card_count": 6,
+    "card_count": 7,
     "concept_count": 20,
-    "card_concept_edge_count": 51,
-    "concept_relation_edge_count": 37
+    "card_concept_edge_count": 55,
+    "concept_relation_edge_count": 39
   }
 }
