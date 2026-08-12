@@ -30,22 +30,18 @@ function width(score) {
   <section class="knowledge-detail-head">
     <div class="knowledge-detail-top">
       <div>
-        <div class="knowledge-detail-source">{{ card.sourceType }} · {{ card.status }}</div>
+        <details class="knowledge-source-collapse">
+          <summary>來源與狀態</summary>
+          <div class="knowledge-detail-source">{{ card.sourceType }} · {{ card.status }}</div>
+        </details>
         <div class="knowledge-detail-categories">
           <span v-for="item in card.categories" :key="item">{{ item }}</span>
         </div>
       </div>
-    </div>
-
-    <details v-if="card.actions?.length" class="knowledge-action-collapse">
-      <summary>
-        <span>Action</span>
-        <small>{{ card.actions.length }} 項</small>
-      </summary>
       <div class="knowledge-detail-actions">
         <span v-for="item in card.actions" :key="item">{{ item }}</span>
       </div>
-    </details>
+    </div>
 
     <div class="relevance-grid" aria-label="Relevance scores">
       <div v-for="([key, label]) in dimensions" :key="key" class="relevance-item">
@@ -73,53 +69,38 @@ function width(score) {
 </template>
 
 <style scoped>
-.knowledge-action-collapse {
-  margin-top: 16px;
-  overflow: hidden;
-  border: 1px solid var(--radar-border);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--vp-c-bg) 70%, transparent);
+.knowledge-source-collapse {
+  width: fit-content;
 }
 
-.knowledge-action-collapse summary {
-  display: flex;
+.knowledge-source-collapse summary {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 11px 13px;
+  gap: 6px;
   cursor: pointer;
   list-style: none;
-  color: var(--vp-c-text-2);
+  color: var(--vp-c-text-3);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 700;
   user-select: none;
 }
 
-.knowledge-action-collapse summary::-webkit-details-marker {
+.knowledge-source-collapse summary::-webkit-details-marker {
   display: none;
 }
 
-.knowledge-action-collapse summary::after {
+.knowledge-source-collapse summary::after {
   content: '⌄';
-  margin-left: auto;
-  color: var(--vp-c-text-3);
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1;
   transition: transform .18s ease;
 }
 
-.knowledge-action-collapse[open] summary::after {
+.knowledge-source-collapse[open] summary::after {
   transform: rotate(180deg);
 }
 
-.knowledge-action-collapse summary small {
-  color: var(--vp-c-text-3);
-  font-size: 10px;
-  font-weight: 600;
-}
-
-.knowledge-action-collapse .knowledge-detail-actions {
-  margin-top: 0;
-  padding: 0 13px 13px;
+.knowledge-source-collapse .knowledge-detail-source {
+  margin-top: 7px;
 }
 </style>
