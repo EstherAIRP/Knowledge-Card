@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-12T08:48:36.878Z",
-  "input_hash": "ca94d0588730da13df3bf5d925b90d3a14f4e3a44f1eafd1cf48fed2ea171c89",
+  "generated_at": "2026-08-12T09:41:18.628Z",
+  "input_hash": "b00d5aa3d44912ffb6fb2390e519d733c818ad3ce42fb9e69effc8fa6c5bf162",
   "concepts": [
     {
       "id": "category-agent",
@@ -11,13 +11,29 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi",
         "github-nutlope-hallmark"
       ],
-      "card_count": 5
+      "card_count": 6
+    },
+    {
+      "id": "character-runtime",
+      "label": "Character Runtime",
+      "type": "architecture",
+      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 4
     },
     {
       "id": "agent-api-bridge",
@@ -34,24 +50,24 @@
       "card_count": 3
     },
     {
-      "id": "ai-character-interface",
-      "label": "AI Character Interface",
-      "type": "experience",
-      "description": "AI 角色面向使用者的聊天、視覺角色、語音、RP 或互動介面層。",
+      "id": "agent-memory",
+      "label": "Agent Memory",
+      "type": "architecture",
+      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
         "github-moeru-ai-airi"
       ],
       "card_count": 3
     },
     {
-      "id": "character-runtime",
-      "label": "Character Runtime",
-      "type": "architecture",
-      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
+      "id": "ai-character-interface",
+      "label": "AI Character Interface",
+      "type": "experience",
+      "description": "AI 角色面向使用者的聊天、視覺角色、語音、RP 或互動介面層。",
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
@@ -76,6 +92,20 @@
       "card_count": 3
     },
     {
+      "id": "category-llm",
+      "label": "LLM",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：LLM",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "local-ai-integration",
       "label": "Local AI Integration",
       "type": "integration",
@@ -90,17 +120,32 @@
       "card_count": 3
     },
     {
-      "id": "agent-memory",
-      "label": "Agent Memory",
-      "type": "architecture",
-      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
-      "origin": "promoted",
+      "id": "category-rag-memory-knowledge",
+      "label": "RAG / Memory / Knowledge",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
+      "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi"
       ],
-      "card_count": 2
+      "card_count": 3
+    },
+    {
+      "id": "category-sillytavern-ai-rpg",
+      "label": "SillyTavern / AI RPG",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：SillyTavern / AI RPG",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 3
     },
     {
       "id": "category-ai-ml",
@@ -168,41 +213,28 @@
       "card_count": 2
     },
     {
-      "id": "category-llm",
-      "label": "LLM",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：LLM",
-      "origin": "category",
+      "id": "tag-long-term-memory",
+      "label": "long-term-memory",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-moeru-ai-airi"
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model"
       ],
       "card_count": 2
     },
     {
-      "id": "category-rag-memory-knowledge",
-      "label": "RAG / Memory / Knowledge",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
-      "origin": "category",
+      "id": "tag-prompt-caching",
+      "label": "prompt-caching",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "category-sillytavern-ai-rpg",
-      "label": "SillyTavern / AI RPG",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：SillyTavern / AI RPG",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-moeru-ai-airi"
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge"
       ],
       "card_count": 2
     },
@@ -244,6 +276,106 @@
     }
   ],
   "card_concepts": [
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "agent-memory",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        },
+        {
+          "kind": "tag",
+          "value": "long-term-memory"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "category-sillytavern-ai-rpg",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "character-runtime",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "tag-long-term-memory",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "long-term-memory"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "tag-prompt-caching",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "prompt-caching"
+        }
+      ],
+      "origin": "shared-tag"
+    },
     {
       "card_id": "github-intuition-lab-personal-model",
       "concept_id": "agent-api-bridge",
@@ -347,6 +479,18 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "tag-long-term-memory",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "long-term-memory"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "github-minijinai75-tavern-claude-bridge",
@@ -484,6 +628,18 @@
         {
           "kind": "tag",
           "value": "Claude-Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "tag-prompt-caching",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "prompt-caching"
         }
       ],
       "origin": "shared-tag"
@@ -907,10 +1063,22 @@
       "source": "agent-memory",
       "target": "category-agent",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "category-llm",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
         "github-moeru-ai-airi"
       ]
     },
@@ -918,11 +1086,34 @@
       "source": "agent-memory",
       "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "category-sillytavern-ai-rpg",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "tag-long-term-memory",
+      "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi"
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -953,7 +1144,7 @@
       "target": "category-llm",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi"
@@ -964,7 +1155,7 @@
       "target": "category-sillytavern-ai-rpg",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi"
@@ -1006,23 +1197,37 @@
     },
     {
       "source": "category-agent",
-      "target": "category-ai-coding-devtools",
+      "target": "category-llm",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-nutlope-hallmark"
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
       ]
     },
     {
       "source": "category-agent",
-      "target": "category-ai-ml",
+      "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "category-sillytavern-ai-rpg",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi"
       ]
     },
@@ -1030,9 +1235,10 @@
       "source": "category-agent",
       "target": "character-runtime",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
@@ -1048,18 +1254,6 @@
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark"
-      ]
-    },
-    {
-      "source": "category-agent",
-      "target": "local-ai-integration",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
       ]
     },
     {
@@ -1097,11 +1291,23 @@
     },
     {
       "source": "category-llm",
-      "target": "category-sillytavern-ai-rpg",
+      "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
       "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-llm",
+      "target": "category-sillytavern-ai-rpg",
+      "type": "co_occurs_with",
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi"
       ]
@@ -1110,33 +1316,68 @@
       "source": "category-llm",
       "target": "character-runtime",
       "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-llm",
+      "target": "tag-prompt-caching",
+      "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "category-sillytavern-ai-rpg",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
         "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "tag-long-term-memory",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
       "source": "category-sillytavern-ai-rpg",
       "target": "character-runtime",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi"
       ]
     },
     {
-      "source": "character-runtime",
-      "target": "local-ai-integration",
+      "source": "category-sillytavern-ai-rpg",
+      "target": "tag-prompt-caching",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -1148,6 +1389,17 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "character-runtime",
+      "target": "tag-prompt-caching",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -1174,9 +1426,9 @@
     }
   ],
   "stats": {
-    "card_count": 5,
-    "concept_count": 18,
-    "card_concept_edge_count": 41,
-    "concept_relation_edge_count": 29
+    "card_count": 6,
+    "concept_count": 20,
+    "card_concept_edge_count": 51,
+    "concept_relation_edge_count": 37
   }
 }
