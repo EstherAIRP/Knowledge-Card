@@ -1,6 +1,6 @@
 {
   "name": "knowledge-card",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -10,7 +10,11 @@
     "ingest:resolve": "node scripts/resolve-source.mjs",
     "validate": "node scripts/validate-content.mjs",
     "validate:ownership": "node scripts/check-ownership.mjs",
+    "embeddings:build": "node scripts/build-embeddings.mjs",
+    "embeddings:validate": "node scripts/validate-embeddings.mjs",
     "relations:build": "node scripts/build-relations.mjs",
+    "relations:build:semantic": "node scripts/build-relations.mjs --semantic --classify",
+    "relations:rebuild": "node scripts/build-embeddings.mjs --full && node scripts/build-relations.mjs --semantic --classify --full",
     "relations:validate": "node scripts/validate-relations.mjs",
     "test": "node --test tests/*.test.mjs",
     "docs:dev": "vitepress dev docs",
@@ -19,6 +23,7 @@
     "verify:site": "node scripts/verify-site-output.mjs"
   },
   "dependencies": {
+    "@huggingface/transformers": "3.8.1",
     "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
     "vitepress": "1.6.4",
