@@ -64,7 +64,7 @@ function classificationCandidateHash(candidate, embeddings, config) {
   });
 }
 
-function classifierEligibility(candidates, maxPerCard) {
+function degreeLimitedPairs(candidates, maxPerCard) {
   const degree = new Map();
   const allowed = new Set();
   const sorted = [...candidates].sort((a, b) =>
@@ -147,13 +147,18 @@ if (!useSemantic) {
 } else {
   const candidates = buildSemanticCandidates(cards, embeddings, config);
   candidateCount = candidates.length;
-  const eligibleForLlm = classifierEligibility(candidates, Math.max(1, Number(classifierConfig.max_candidates_per_card ?? 6)));
+  const eligibleForLlm = degreeLimitedPairs(candidates, Math.max(1, Number(classifierConfig.max_candidates_per_card ?? 6)));
+  const eligibleForFallback = degreeLimitedPairs(candidates, Math.max(1, Number(config.candidate?.fallback_top_k ?? 3)));
   const existingClassifications = existing?.classifications ?? {};
 
   for (const candidate of candidates) {
     const pairKey = relationPairKey(candidate.source, candidate.target);
+    const effectiveCandidate = {
+      ...candidate,
+      fallback_publishable: candidate.fallback_publishable && eligibleForFallback.has(pairKey)
+    };
     const wantsLlm = canUseLlm && eligibleForLlm.has(pairKey);
-    const candidateHash = classificationCandidateHash(candidate, embeddings, config);
+    const candidateHash = classificationCandidateHash(effectiveCandidate, embeddings, config);
     const cached = existingClassifications[pairKey];
     const cachedValid = cached?.candidate_hash === candidateHash && validateClassifierOutput(cached).length === 0;
     const preserveLlmWithoutApi = fullRebuild && !canUseLlm && cachedValid && cached.classifier === 'llm';
@@ -169,7 +174,7 @@ if (!useSemantic) {
         decision = await classifyRelationWithOpenAICompatible({
           left,
           right,
-          candidate,
+          candidate: effectiveCandidate,
           baseUrl: classifierConfig.base_url,
           model: classifierConfig.model,
           apiKey: classifierApiKey,
@@ -184,11 +189,11 @@ if (!useSemantic) {
           console.warn(`Preserving previous LLM classification for ${pairKey}.`);
           decision = cached;
         } else {
-          decision = fallbackClassifyCandidate(candidate);
+          decision = fallbackClassifyCandidate(effectiveCandidate);
         }
       }
     } else {
-      decision = fallbackClassifyCandidate(candidate);
+      decision = fallbackClassifyCandidate(effectiveCandidate);
     }
 
     classifications[pairKey] = {
@@ -201,7 +206,7 @@ if (!useSemantic) {
       classifier: decision.classifier ?? 'heuristic-fallback'
     };
 
-    const edge = materializeClassifiedRelation(candidate, classifications[pairKey], config);
+    const edge = materializeClassifiedRelation(effectiveCandidate, classifications[pairKey], config);
     if (edge) generatedEdges.push({ ...edge, candidate_hash: candidateHash });
   }
 
