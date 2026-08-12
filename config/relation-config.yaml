@@ -12,7 +12,10 @@ semantic:
   provider: local-transformers
   model: Xenova/multilingual-e5-small
   batch_size: 16
-  min_score: 0.30
+  # Multilingual-E5 cosine values are concentrated high; normalize raw cosine into a more useful 0..1 range.
+  normalization_floor: 0.70
+  normalization_ceiling: 0.95
+  min_score: 0.20
   openai_compatible:
     base_url: https://api.openai.com/v1
     model: text-embedding-3-small
