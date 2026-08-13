@@ -1,7 +1,7 @@
 import path from 'node:path';
 import process from 'node:process';
 import { extractExternalSource } from './lib/source-extraction.mjs';
-import { resolveIngestion } from './lib/knowledge.mjs';
+import { resolveExtractedSourceIngestion } from './lib/source-ingestion.mjs';
 
 const rawUrl = process.argv[2];
 if (!rawUrl) {
@@ -13,7 +13,7 @@ try {
   const result = await extractExternalSource(rawUrl);
   const contentRoot = path.resolve('content/knowledge');
   const ingestion = result.source?.canonical_url
-    ? resolveIngestion(result.source.canonical_url, contentRoot)
+    ? resolveExtractedSourceIngestion(result.source, contentRoot)
     : null;
   console.log(JSON.stringify({ ...result, ingestion }, null, 2));
 } catch (error) {

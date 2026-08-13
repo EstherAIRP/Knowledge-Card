@@ -1,9 +1,13 @@
 import { classifyThreadsUrl, resolveThreadsUrl } from './sources/threads/resolve-url.mjs';
 
+function mergedThreadsOptions(options) {
+  return options.threads ? { ...options, ...options.threads } : options;
+}
+
 export async function resolveExternalSourceUrl(rawUrl, options = {}) {
   const threads = classifyThreadsUrl(rawUrl);
   if (threads.isThreads) {
-    return resolveThreadsUrl(rawUrl, options.threads || options);
+    return resolveThreadsUrl(rawUrl, mergedThreadsOptions(options));
   }
 
   return {
