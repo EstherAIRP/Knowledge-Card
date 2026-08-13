@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "provider": "threads",
+  "source_identity": "threads:Db-WLkKgTU_",
+  "canonical_url": "https://threads.com/@licca_bobo/post/Db-WLkKgTU_",
+  "root_post_id": "3962702273901049151_66441045267",
+  "root_shortcode": "Db-WLkKgTU_",
+  "author": "licca_bobo",
+  "thread_total": 1,
+  "captured_at": "2026-08-13T09:53:35.831Z",
+  "source_hash": "18427ed25b7205861ab55557bdfe12d91298658fa4778c6c70f08a1ece4d1091",
+  "parts": [
+    {
+      "index": 1,
+      "key": "id:3962702273901049151_66441045267",
+      "id": "3962702273901049151_66441045267",
+      "shortcode": "Db-WLkKgTU_",
+      "canonical_url": "https://threads.com/@licca_bobo/post/Db-WLkKgTU_",
+      "timestamp": "2026-08-13T08:49:04.000Z",
+      "reply_to": null,
+      "root_post": null,
+      "text_hash": "5c816c70066ab864ab63bfce5b5b2c608d42c042b5d847423a1bb9812f8c9822",
+      "media_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "references_hash": "6f19703542c95f260e6d00f17c7323922211afee219d4b4892352701d4fae2f0",
+      "structure_hash": "296ad4177a13bb8499065da69924e9abad4ce6ee79a7f435ad32b1e161ffc423",
+      "content_hash": "97ed54e083a2b3b789659cab5c220ac996aa4c397d7eb79be41ff3be41294783"
+    }
+  ]
+}
