@@ -58,7 +58,7 @@ input/share/middle post
 → Phase 2 exact post extraction
 → Phase 3 strict conversation reconstruction
 → Phase 5 browser evidence when required
-→ Phase 7 continuation recovery when structural metadata is insufficient and all gates pass
+→ Phase 7 continuation/root-only recovery when structural metadata is insufficient and all gates pass
 → verify thread.complete + conversation_complete
 → verify root canonical URL ↔ source_identity consistency
 → Knowledge Card dedup/create-update resolution
@@ -99,7 +99,7 @@ Formal Knowledge Card ingestion stops on incomplete, ambiguous, invalid or ident
 - `THREADS_PRIMARY_SOURCE_INCOMPLETE`
 - `THREADS_PRIMARY_SOURCE_INVALID`
 - `EXTRACTED_SOURCE_IDENTITY_MISMATCH`
-- failed Phase 7 continuation acceptance
+- failed Phase 7 continuation/root-only acceptance
 
 No incomplete source may reach create/update resolution.
 
@@ -239,7 +239,7 @@ ingest:resolve
 
 Failed, incomplete, ambiguous or identity-mismatched source extraction never overwrites the last accepted snapshot.
 
-## Phase 7 — LLM-assisted continuation recovery
+## Phase 7 — LLM-assisted continuation and root-only recovery
 
 Phase 7 is a fallback for the live-web case where Threads exposes enough public post evidence to see same-author replies, but normalized objects lack native `reply_to` / `root_post` relationships.
 
@@ -283,11 +283,14 @@ and returns structured output including:
 
 ```text
 selected_shortcodes
+root_only
 confidence
 complete
 rationale
 candidate_labels
 ```
+
+`root_only=true` is a distinct judgement: the root post itself is the complete original article body and every captured same-author candidate is only `followup` or `unrelated`. It is not equivalent to “no continuation was found.” If any candidate is `continuation` or `uncertain`, or if the original body may still be missing, the model must not return an accepted root-only judgement.
 
 Phase 7 supports an injected `continuationRanker` or an opt-in OpenAI-compatible endpoint configured with:
 
@@ -301,13 +304,15 @@ THREADS_CONTINUATION_LLM_API_KEY   # optional
 
 No configured ranker means fail closed; the system must not fall back to pure timestamp guessing.
 
-### Deterministic acceptance gate
+### Deterministic acceptance gate — continuation mode
 
-LLM output is accepted only when all mechanical checks pass. Defaults include:
+A continuation judgement is accepted only when all mechanical checks pass. Defaults include:
 
 ```text
 complete == true
+root_only != true
 confidence >= 0.90
+selected_shortcodes is non-empty and unique
 first selected candidate metadata_score >= 0.60
 all selected shortcodes exist in captured evidence
 same author as root
@@ -315,22 +320,54 @@ no selected candidate has is_reply=false
 selected sequence is chronological
 ```
 
+### Deterministic acceptance gate — root-only mode
+
+A root-only judgement is accepted only when all of these hold:
+
+```text
+complete == true
+root_only == true
+confidence >= 0.90
+selected_shortcodes == []
+at least one filtered candidate exists
+candidate_labels covers every filtered candidate exactly once
+every candidate label is followup or unrelated
+no continuation or uncertain label exists
+every candidate-label confidence >= 0.90
+```
+
+This means a root with `has_replies=true` may be accepted as a standalone source only when the captured same-author replies have been explicitly and confidently excluded from the original article body. Empty evidence, partial labels, low-confidence labels or any uncertainty remain fail closed.
+
 Failure of any gate returns incomplete/failed recovery rather than silently accepting the model judgement.
 
 ### Verification provenance
 
-An accepted recovered source is explicitly marked:
+Accepted Phase 7 sources are always explicit about inference provenance.
+
+Recovered multi-part source:
 
 ```text
 thread.status = INFERRED_THREAD_HIGH_CONFIDENCE
 thread.verification = llm_assisted
+extraction.method = llm_assisted_continuation
 extraction.inferred = true
 ```
 
-It may be used as a formal ingestion source because the deterministic acceptance gate passed, but it must never be described as if Threads supplied a native verified parent/root graph.
+Recovered standalone root:
+
+```text
+thread.status = INFERRED_SINGLE_POST_HIGH_CONFIDENCE
+thread.verification = llm_assisted
+thread.total = 1
+thread.recovery.root_only = true
+extraction.method = llm_assisted_root_only
+extraction.inferred = true
+```
+
+Both may be used as formal ingestion sources because deterministic acceptance gates passed, but neither may be described as if Threads supplied a native verified parent/root graph.
 
 ## Test strategy
 
-CI fixtures cover URL variants, exact-post selection, root/middle/last input, reader reply exclusion, same-author branches, `n/N`, missing-part rejection, root identity, mandatory resolver root dedup, non-Threads compatibility, browser GraphQL capture, JS-only share navigation, sparse-HTML recovery, unsafe browser redirects, deterministic source hashing, volatile media-signature suppression, append-only extension detection, edited/removed parts, snapshot no-op behavior, mandatory-preflight change reporting and Phase 7 continuation recovery acceptance/rejection.
+CI fixtures cover URL variants, exact-post selection, root/middle/last input, reader reply exclusion, same-author branches, `n/N`, missing-part rejection, root identity, mandatory resolver root dedup, non-Threads compatibility, browser GraphQL capture, JS-only share navigation, sparse-HTML recovery, unsafe browser redirects, deterministic source hashing, volatile media-signature suppression, append-only extension detection, edited/removed parts, snapshot no-op behavior, mandatory-preflight change reporting, Phase 7 continuation recovery acceptance/rejection, and root-only acceptance/rejection with complete candidate-label coverage.
 
 Browser fixture tests use an injected session factory, so ordinary CI does not require downloading Chromium merely to validate adapter logic. Live acceptance tests may install Chromium explicitly and must remain isolated from production Card/snapshot writes.
