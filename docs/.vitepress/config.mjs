@@ -10,6 +10,7 @@ export default defineConfig({
   appearance: true,
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/Knowledge-Card/favicon.svg' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/Knowledge-Card/apple-touch-icon.png' }],
     ['meta', { name: 'theme-color', content: '#111318' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }]
   ],
