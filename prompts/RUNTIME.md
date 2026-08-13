@@ -1,5 +1,5 @@
 ---
-prompt_version: 1.7.0
+prompt_version: 1.7.1
 updated_at: 2026-08-13
 repository: EstherAIRP/Knowledge-Card
 ---
@@ -34,6 +34,25 @@ Repository 內容是本專案最新規則來源。
 
 ## 3. URL Ingestion
 
+### 3.1 URL 路由 Hard Gate
+
+在任何 provider-specific extraction、Browser fallback 或 LLM recovery 之前，必須先判定來源路由。**Threads 與非 Threads 流程互斥，不得混用。**
+
+| 輸入來源 | 必須走的流程 | 禁止事項 |
+| --- | --- | --- |
+| `threads.com` / `threads.net`，包含 `www`、其他子網域、`/share/*`、`/t/*`、`/@user/post/*`；或 transient URL 解析後 primary resource 落在 Threads | Threads 專用 Phase 1–7：URL resolution → exact post → conversation reconstruction → Browser evidence → 必要時 LLM-assisted continuation recovery → root identity/dedup → source snapshot/change detection | 不得把 Threads 當普通 article，只抓目前分享的單篇就建立 Card |
+| GitHub Repository URL | 一般 ingestion + GitHub source identity；至少讀 repository metadata 與 README | 不得啟動 Threads Browser、conversation reconstruction、continuation ranker、Threads snapshot |
+| Paper / arXiv / DOI、一般文章、documentation、tool/product page、其他非 Threads URL | 一般 ingestion：canonicalize → primary source → dedup/create-update → analysis | 不得啟動 Threads Browser、conversation reconstruction、continuation ranker、Threads snapshot |
+
+路由判定規則：
+
+1. raw URL hostname 已是 `threads.com` / `threads.net`（含子網域）時，直接選 Threads route。
+2. 若 raw URL 是一般 transient / short URL，先解析到 primary resource；解析後 hostname 是 Threads 才切換到 Threads route。
+3. 其餘 URL 一律走 non-Threads route。不得因正文提到 Threads、含有 Threads 連結、或模型認為「像串文」而自行切換 route。
+4. route 一旦確定，在同一次 ingestion 中不得把 Threads-specific completeness 規則套到 non-Threads，也不得把 generic article extraction 當 Threads completeness 的替代方案。
+
+### 3.2 共通 mandatory preflight
+
 收到 URL 後：
 
 1. 執行 `npm run ingest:resolve -- <URL>` 作為 mandatory preflight。resolver 的 `canonical_url`、`source_identity`、stable `id`、`mode`、`existing_path`、`suggested_path` 是 create/update 的機械契約。
@@ -44,7 +63,7 @@ Repository 內容是本專案最新規則來源。
 6. Phase 4 起，Threads mandatory resolver 只有在 `thread.complete: true` 與 `extraction.conversation_complete: true` 時才進入 dedup/create/update。`INCOMPLETE_THREAD`、`AMBIGUOUS_THREAD` 或 identity mismatch 都不得建立正式 Card。
 7. Phase 5 起，若 public HTTP / hydration data 無法完成 URL 或 conversation extraction，resolver 會自動嘗試 Playwright browser fallback。Browser adapter 只處理公開 Threads 頁面，使用隔離、無登入狀態的 browser context，不使用私人 cookies/session。
 8. Browser fallback 會擷取 render 後 DOM hydration 與 Threads same-origin JSON / GraphQL responses，交回既有 post normalizer、reply graph 與 `n/N` 驗證。不得因「瀏覽器成功開頁」本身就宣告完整；仍需通過 completeness contract。
-9. Browser fallback 預設在一般 live ingestion 自動啟用；fixture/custom-fetch 測試保持 deterministic，除非明確設 `browserFallback: true` 或提供 `browserSessionFactory`。若 Playwright browser 不可用，應回報明確 browser error；可執行 `npm run threads:browser:install` 安裝 Chromium，或設定 `THREADS_BROWSER_EXECUTABLE` / `THREADS_BROWSER_CHANNEL`。
+9. Browser fallback 預設在一般 live Threads ingestion 自動啟用；fixture/custom-fetch 測試保持 deterministic，除非明確設 `browserFallback: true` 或提供 `browserSessionFactory`。若 Playwright browser 不可用，應回報明確 browser error；可執行 `npm run threads:browser:install` 安裝 Chromium，或設定 `THREADS_BROWSER_EXECUTABLE` / `THREADS_BROWSER_CHANNEL`。
 10. Phase 6 起，完整 Threads source 會在 mandatory preflight 中與最後一次 accepted source snapshot 比較。若 repository snapshot 存在，resolver 會輸出 `source_change`，狀態可為 `UNCHANGED`、`THREAD_EXTENDED`、`PART_CHANGED`、`PART_REMOVED`、`STRUCTURE_CHANGED` 或 `MULTIPLE_CHANGES`；沒有 baseline 時為 `FIRST_SEEN`，不得把 `FIRST_SEEN` 誤判成來源已變更。
 11. Phase 6 snapshot 只保存 public provenance 與 SHA-256 fingerprints，不保存 Threads 原文、raw GraphQL payload、登入 cookies/session 或私人內容。Media CDN query signature 屬 volatile transport metadata，不得單獨觸發內容變更。
 12. `source_change.status === UNCHANGED` 時，若沒有其他實質理由，不應重寫 AI analysis / Update Log，只更新 `last_checked_at`。`THREAD_EXTENDED`、`PART_CHANGED`、`PART_REMOVED`、`STRUCTURE_CHANGED`、`MULTIPLE_CHANGES` 視為 material source change，應以最新完整 `combined_text` 重新分析。
@@ -59,11 +78,11 @@ Repository 內容是本專案最新規則來源。
 21. 完整 Threads source 以 root post 為 canonical source：`canonical_url = root permalink`、`source.identity = threads:{root_shortcode}`。不同 share token 或串文任意 part 必須落到同一 root identity。
 22. Threads resolver 會輸出 `source_document`，保留 `parts[]`、`combined_text`、root/input metadata、media、thread verification 與 extraction provenance。正式分析必須以 `source_document.combined_text` 為主要文字來源，並保留 `parts[].media` 作媒體證據；不得只分析分享時指到的單篇。
 23. `source_document.source_identity` 必須與 root `canonical_url` 經 repository canonicalizer 算出的 identity 一致；不一致時 fail closed。
-24. 非 Threads 來源維持既有 resolver 行為：canonicalize URL、檢查相同 `source.identity` / `canonical_url`、判定 create/update，再由 agent 讀取 primary source。
+24. 非 Threads 來源維持既有 resolver 行為：canonicalize URL、檢查相同 `source.identity` / `canonical_url`、判定 create/update，再由 agent 讀取 primary source。非 Threads route 不得建立或更新 Threads source snapshot。
 25. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
 26. 優先讀取 primary source；GitHub 專案至少讀 README，必要時再讀官方 docs / architecture / release 等來源。不得只根據搜尋摘要或第三方介紹建立正式 Card。
 
-Threads source adapter 分工：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = complete conversation reconstruction；Phase 4 = mandatory resolver / Knowledge Card identity、dedup 與 analysis-source integration；Phase 5 = Playwright browser / web-data fallback，用於 JS-only share resolution、DOM hydration 與 same-origin JSON/GraphQL conversation evidence；Phase 6 = accepted source snapshot / change detection，用於後續 extension、edit、removal 與 unchanged re-check 判定；Phase 7 = LLM-assisted continuation recovery，在原生 parent/root relationship 缺失時以 deterministic candidate filter + semantic ranker + acceptance gate 恢復高可信 self-thread。
+Threads source adapter 分工只適用於 Threads route：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = complete conversation reconstruction；Phase 4 = mandatory resolver / Knowledge Card identity、dedup 與 analysis-source integration；Phase 5 = Playwright browser / web-data fallback，用於 JS-only share resolution、DOM hydration 與 same-origin JSON/GraphQL conversation evidence；Phase 6 = accepted source snapshot / change detection，用於後續 extension、edit、removal 與 unchanged re-check 判定；Phase 7 = LLM-assisted continuation recovery，在原生 parent/root relationship 缺失時以 deterministic candidate filter + semantic ranker + acceptance gate 恢復高可信 self-thread。
 
 ## 4. Analysis Standard
 
