@@ -85,6 +85,36 @@ const olderPost = normalizedPost({
   hasReplies: true
 });
 
+const voxRoot = normalizedPost({
+  id: 'vox-root',
+  shortcode: 'DZM-GSYlLXj',
+  username: 'junyan5400',
+  text: 'VoxCPM 提供 Voice Design、Controllable Cloning、Ultimate Cloning 三種模式，專案連結 https://github.com/OpenBMB/VoxCPM',
+  timestamp: '2026-06-05T11:33:03.000Z',
+  isReply: false,
+  hasReplies: true
+});
+
+const voxFollowupOne = normalizedPost({
+  id: 'vox-followup-1',
+  shortcode: 'DZOJXoUk04Y',
+  username: 'junyan5400',
+  text: 'VibeVoice 核心的語音識別模組，官方技術報告指出原生支援 50+ 種語言。',
+  timestamp: '2026-06-05T22:30:47.000Z',
+  isReply: true,
+  hasReplies: true
+});
+
+const voxFollowupTwo = normalizedPost({
+  id: 'vox-followup-2',
+  shortcode: 'DZOe_OXD3QV',
+  username: 'junyan5400',
+  text: '大多中文訓練資料來自中國，這個是台灣專用的模型。',
+  timestamp: '2026-06-06T01:39:42.000Z',
+  isReply: true,
+  hasReplies: true
+});
+
 test('candidate collection keeps same-author replies after root and ranks by time metadata', () => {
   const otherAuthor = normalizedPost({
     id: 'reader',
@@ -111,8 +141,10 @@ test('high-confidence LLM judgement selects only the article continuation', asyn
     continuationRanker: async ({ candidates, prompt }) => {
       assert.equal(candidates.length, 2);
       assert.match(prompt.system, /untrusted quoted data/i);
+      assert.match(prompt.system, /root_only=true/i);
       return {
         selected_shortcodes: ['DFysLsahhe_'],
+        root_only: false,
         confidence: 0.98,
         complete: true,
         rationale: 'The root promises a spell in replies and the first reply provides that spell.',
@@ -125,8 +157,71 @@ test('high-confidence LLM judgement selects only the article continuation', asyn
   });
 
   assert.equal(recovery.accepted, true);
+  assert.equal(recovery.root_only, false);
   assert.deepEqual(recovery.selected_shortcodes, ['DFysLsahhe_']);
   assert.equal(recovery.confidence, 0.98);
+});
+
+test('high-confidence root-only judgement accepts a standalone root with follow-up replies', async () => {
+  const recovery = await recoverThreadsContinuation(voxRoot, [voxFollowupOne, voxFollowupTwo], {
+    continuationRanker: async ({ candidates }) => {
+      assert.deepEqual(candidates.map((candidate) => candidate.shortcode), ['DZOJXoUk04Y', 'DZOe_OXD3QV']);
+      return {
+        selected_shortcodes: [],
+        root_only: true,
+        confidence: 0.97,
+        complete: true,
+        rationale: 'The root is a complete VoxCPM post; both later replies move to VibeVoice or Taiwan-accent discussion.',
+        candidate_labels: [
+          { shortcode: 'DZOJXoUk04Y', label: 'followup', confidence: 0.98 },
+          { shortcode: 'DZOe_OXD3QV', label: 'followup', confidence: 0.96 }
+        ]
+      };
+    }
+  });
+
+  assert.equal(recovery.accepted, true);
+  assert.equal(recovery.mode, 'root_only');
+  assert.equal(recovery.root_only, true);
+  assert.deepEqual(recovery.selected_shortcodes, []);
+  assert.equal(recovery.confidence, 0.97);
+});
+
+test('root-only judgement fails closed when any candidate remains uncertain', async () => {
+  const recovery = await recoverThreadsContinuation(voxRoot, [voxFollowupOne, voxFollowupTwo], {
+    continuationRanker: async () => ({
+      selected_shortcodes: [],
+      root_only: true,
+      confidence: 0.98,
+      complete: true,
+      rationale: 'One reply may still be part of the article.',
+      candidate_labels: [
+        { shortcode: 'DZOJXoUk04Y', label: 'followup', confidence: 0.98 },
+        { shortcode: 'DZOe_OXD3QV', label: 'uncertain', confidence: 0.95 }
+      ]
+    })
+  });
+
+  assert.equal(recovery.accepted, false);
+  assert.equal(recovery.reason, 'root_only_candidate_not_excluded');
+});
+
+test('root-only judgement fails closed when candidate labels do not cover all evidence', async () => {
+  const recovery = await recoverThreadsContinuation(voxRoot, [voxFollowupOne, voxFollowupTwo], {
+    continuationRanker: async () => ({
+      selected_shortcodes: [],
+      root_only: true,
+      confidence: 0.98,
+      complete: true,
+      rationale: 'Incomplete labelling.',
+      candidate_labels: [
+        { shortcode: 'DZOJXoUk04Y', label: 'followup', confidence: 0.98 }
+      ]
+    })
+  });
+
+  assert.equal(recovery.accepted, false);
+  assert.equal(recovery.reason, 'root_only_candidate_labels_incomplete');
 });
 
 test('low-confidence LLM judgement fails closed', async () => {
@@ -158,6 +253,7 @@ test('OpenAI-compatible ranker adapter is opt-in and parses JSON-only judgement'
               message: {
                 content: JSON.stringify({
                   selected_shortcodes: ['DFysLsahhe_'],
+                  root_only: false,
                   confidence: 0.97,
                   complete: true,
                   rationale: 'semantic continuation',
@@ -219,6 +315,7 @@ test('recovery layer converts browser candidates plus LLM judgement into an infe
     }),
     continuationRanker: async () => ({
       selected_shortcodes: ['DFysLsahhe_'],
+      root_only: false,
       confidence: 0.98,
       complete: true,
       rationale: 'The immediate same-author reply fulfills the root post promise; later reply is follow-up.',
@@ -233,8 +330,51 @@ test('recovery layer converts browser candidates plus LLM judgement into an infe
   assert.equal(source.thread.verification, 'llm_assisted');
   assert.equal(source.thread.complete, true);
   assert.equal(source.thread.total, 2);
+  assert.equal(source.thread.recovery.root_only, false);
   assert.deepEqual(source.parts.map((part) => part.shortcode), ['DFyr62jB6Wr', 'DFysLsahhe_']);
   assert.match(source.combined_text, /資料表生成咒語/);
   assert.doesNotMatch(source.combined_text, /第一發咒語/);
+  assert.equal(source.extraction.inferred, true);
+});
+
+test('recovery layer emits inferred single-post status when all same-author replies are excluded', async () => {
+  const html = jsonHtml({ post: {
+    pk: voxRoot.id,
+    code: voxRoot.shortcode,
+    user: { username: voxRoot.username },
+    caption: { text: voxRoot.text },
+    timestamp: voxRoot.timestamp,
+    has_replies: true,
+    is_reply: false
+  } });
+
+  const source = await extractResolvedThreadsConversationWithRecovery(voxRoot.canonical_url, {
+    html,
+    browserConversationExtractor: async () => ({
+      posts: [voxRoot, voxFollowupOne, voxFollowupTwo],
+      complete: false
+    }),
+    continuationRanker: async () => ({
+      selected_shortcodes: [],
+      root_only: true,
+      confidence: 0.97,
+      complete: true,
+      rationale: 'The root is complete; later replies are follow-up discussion on different systems.',
+      candidate_labels: [
+        { shortcode: 'DZOJXoUk04Y', label: 'followup', confidence: 0.98 },
+        { shortcode: 'DZOe_OXD3QV', label: 'followup', confidence: 0.96 }
+      ]
+    })
+  });
+
+  assert.equal(source.thread.status, 'INFERRED_SINGLE_POST_HIGH_CONFIDENCE');
+  assert.equal(source.thread.verification, 'llm_assisted');
+  assert.equal(source.thread.complete, true);
+  assert.equal(source.thread.total, 1);
+  assert.equal(source.thread.recovery.root_only, true);
+  assert.deepEqual(source.parts.map((part) => part.shortcode), ['DZM-GSYlLXj']);
+  assert.match(source.combined_text, /VoxCPM/);
+  assert.doesNotMatch(source.combined_text, /VibeVoice/);
+  assert.equal(source.extraction.method, 'llm_assisted_root_only');
   assert.equal(source.extraction.inferred, true);
 });
