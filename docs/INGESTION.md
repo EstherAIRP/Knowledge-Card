@@ -1,121 +1,63 @@
-# Phase 2 — Ingestion Pipeline
+# Ingestion Pipeline
 
-This document defines the executable ingestion flow for Knowledge Card. The AI agent performs source reading and analysis; repository scripts enforce deterministic identity, deduplication, schema validity, and user-owned state preservation.
+Knowledge Card separates semantic analysis from deterministic repository invariants. AI/Codex reads and analyzes primary evidence; repository scripts resolve identities, deduplicate, validate schema/taxonomy and protect user-owned state.
 
-## Design boundary
+## 1. Mandatory preflight
 
-Phase 2 deliberately does **not** call a separate LLM API. Codex/AI is the reasoning and source-analysis layer. Repository tooling is responsible for the mechanical invariants that should not depend on model judgment.
-
-```text
-AI / Codex
-  ├─ read source
-  ├─ understand architecture
-  ├─ classify / tag / score
-  └─ write analysis
-
-Repository scripts
-  ├─ canonicalize URL
-  ├─ derive stable source identity
-  ├─ detect create vs update
-  ├─ validate schema/contracts
-  ├─ detect duplicates
-  └─ protect user-owned state
-```
-
-## 1. Resolve the source
-
-Run before authoring:
+Before authoring any Card, run:
 
 ```bash
 npm run ingest:resolve -- <URL>
 ```
 
-Example:
+Use its `canonical_url`, `source_identity`, stable `id`, `mode`, `existing_path` and `suggested_path` as the mechanical create/update contract.
 
-```bash
-npm run ingest:resolve -- https://github.com/Intuition-Lab/personal-model?tab=readme-ov-file
+### Generic and GitHub sources
+
+GitHub repository variants resolve to one `github:{owner}/{repo}` identity. Normal web URLs remove fragments and known tracking parameters while preserving meaningful query parameters. The agent then opens and reads the authoritative primary source.
+
+### Threads sources
+
+Threads is source-aware. The mandatory resolver does not stop after expanding `/share/*` or `/t/*`. Before create/update resolution it must obtain a verified complete source:
+
+```text
+share / arbitrary part
+→ canonical target post
+→ exact post extraction
+→ conversation graph
+→ root + author-chain reconstruction
+→ n/N completeness check
+→ root canonical URL + threads:{root_shortcode}
+→ dedup/create-update resolution
 ```
 
-Representative output:
-
-```json
-{
-  "source_type": "github",
-  "canonical_url": "https://github.com/Intuition-Lab/personal-model",
-  "source_identity": "github:intuition-lab/personal-model",
-  "id": "github-intuition-lab-personal-model",
-  "mode": "update",
-  "existing_path": "content/knowledge/2026/github-intuition-lab-personal-model.md",
-  "suggested_path": "content/knowledge/2026/github-intuition-lab-personal-model.md"
-}
-```
-
-For GitHub repository URLs, repository subpaths, query strings, fragments, trailing slashes, and `.git` variants resolve to the repository identity.
-
-For normal web URLs, the resolver removes fragments and known tracking parameters such as `utm_*`, `fbclid`, and `gclid`, while preserving query parameters that may affect the actual resource.
-
-The resolver is intentionally conservative. The AI still owns semantic source classification and may correct an inferred non-GitHub `source.type` if the actual source is, for example, a paper rather than a general article.
+A successful Threads result includes `source_document.parts[]` and `source_document.combined_text`. Use `combined_text` as the primary article text. If the conversation is incomplete or ambiguous, stop rather than authoring from a partial post.
 
 ## 2. Read primary evidence
 
-Before writing substantive analysis:
+Never write substantive analysis from a slug, search snippet or model memory. For GitHub read repository metadata and README at minimum; inspect architecture/security/docs/source when needed. For papers/articles read the actual authoritative source. Separate verified facts from inference.
 
-- open the primary URL;
-- for GitHub, read the repository metadata and README at minimum;
-- open architecture/security/docs/source files when a technical claim requires them;
-- distinguish verified facts from inference;
-- do not use a search snippet or remembered description as the source of truth.
+For Threads, the verified `source_document` returned by the mandatory resolver is the primary text/provenance contract. Do not downgrade it to only the originally shared part.
 
-If primary evidence cannot be read sufficiently, stop with `SOURCE_UNAVAILABLE` rather than fabricating a card.
+If primary evidence cannot be read sufficiently, report `SOURCE_UNAVAILABLE` or the concrete extraction failure.
 
 ## 3. Create or update
 
-### Create mode
+Create mode uses `templates/knowledge-card.example.md` at `suggested_path`. Update mode reads the existing card completely and preserves stable `id`, `created_at`, file path, all user overrides, `## 使用者備註` and prior changelog history.
 
-Use `templates/knowledge-card.example.md` and write the result to the resolver's `suggested_path`.
+Refresh only AI-owned analysis from current evidence. Set `last_checked_at` on real re-checks; change `updated_at` / changelog only for substantive knowledge changes.
 
-Stable fields are established at creation:
+## 4. Ownership validation
 
-- `id`
-- `created_at`
-- file path
-- `source.identity`
-
-### Update mode
-
-Read the existing card completely before editing it. Preserve:
-
-- stable `id`;
-- `created_at`;
-- file path;
-- every `user` override;
-- `## 使用者備註` verbatim;
-- previous changelog history.
-
-Refresh AI-owned analysis from current source evidence. Set `last_checked_at` on every real re-check. Change `updated_at` and append a changelog entry only for substantive knowledge changes.
-
-## 4. Validate user ownership on updates
-
-Before committing an edited existing card:
+Before committing an existing-card update:
 
 ```bash
-npm run validate:ownership -- content/knowledge/2026/<card>.md
+npm run validate:ownership -- <existing_path>
 ```
 
-The command compares the working-tree card with `HEAD:<path>` and fails if an update changed:
+The check protects stable fields, user overrides and `## 使用者備註`.
 
-- `id`;
-- `created_at`;
-- `classification.categories.user`;
-- `classification.tags.user`;
-- `relevance.user`;
-- `actions.user`;
-- `status.user`;
-- `## 使用者備註`.
-
-New files are skipped because there is no previous user-owned state to preserve.
-
-## 5. Validate repository content
+## 5. Repository validation
 
 Run:
 
@@ -123,68 +65,14 @@ Run:
 npm run validate
 ```
 
-Validation covers:
+Validation covers schema/taxonomy contract drift, body structure, title consistency, source identity normalization, duplicate id/identity/canonical URL and date ordering.
 
-- JSON Schema compliance;
-- taxonomy/schema contract drift;
-- required body sections and order;
-- H1/frontmatter title agreement;
-- canonical source identity consistency;
-- duplicate `id`;
-- duplicate `source.identity`;
-- duplicate `canonical_url`;
-- date ordering.
-
-A known-invalid card must not be committed as a successful ingestion.
-
-## 6. Tests
-
-Run:
+When ingestion/source tooling changes, also run:
 
 ```bash
 npm test
 ```
 
-Phase 2 tests cover:
+## 6. Commit and report
 
-- equivalent GitHub URL variants;
-- tracking-parameter cleanup;
-- existing-card detection;
-- user-owned override/note protection.
-
-## 7. Commit and report
-
-Preferred commit messages:
-
-```text
-knowledge: add <Title>
-knowledge: update <Title>
-```
-
-After the push succeeds, report:
-
-- added or updated;
-- title;
-- effective categories;
-- overall relevance;
-- actions;
-- important change for updates;
-- repository path.
-
-Do not claim a repository write succeeded before the write actually completes.
-
-## First end-to-end fixture
-
-Phase 2 was bootstrapped using:
-
-```text
-https://github.com/Intuition-Lab/personal-model
-```
-
-The resulting real card is:
-
-```text
-content/knowledge/2026/github-intuition-lab-personal-model.md
-```
-
-It validates the intended multi-category, free-tag, relevance-vector, public-profile, action, and source-identity data model before Phase 3 builds the visual website around it.
+Preferred Card commits are `knowledge: add <Title>` / `knowledge: update <Title>`. Infrastructure uses `feat:`, `fix:`, `test:`, `docs:` or `chore:`. Do not report success until repository writes and required validation have succeeded.
