@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "provider": "threads",
+  "source_identity": "threads:DFyr62jB6Wr",
+  "canonical_url": "https://threads.com/@esther1ooo/post/DFyr62jB6Wr",
+  "root_post_id": "3563103415502874027_70726518985",
+  "root_shortcode": "DFyr62jB6Wr",
+  "author": "esther1ooo",
+  "thread_total": 2,
+  "captured_at": "2026-08-13T08:15:16.179Z",
+  "source_hash": "b7da930643819f8613624c4218fd1e4fc922a2b49ec0e5d8efdeb280a2859511",
+  "parts": [
+    {
+      "index": 1,
+      "key": "id:3563103415502874027_70726518985",
+      "id": "3563103415502874027_70726518985",
+      "shortcode": "DFyr62jB6Wr",
+      "canonical_url": "https://threads.com/@esther1ooo/post/DFyr62jB6Wr",
+      "timestamp": "2025-02-08T00:37:28.000Z",
+      "reply_to": null,
+      "root_post": null,
+      "text_hash": "e9c31dff86432784f68f448073e669b63bbd016ba0d772e9b03c1174b499790d",
+      "media_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "references_hash": "6f19703542c95f260e6d00f17c7323922211afee219d4b4892352701d4fae2f0",
+      "structure_hash": "610fcc16caf355ccd5ece00d73e98dfdbad976c19a68f1873f6e51eb40bb97a5",
+      "content_hash": "54a6a367af1dc1730f28592951104e59237f71080ff1498d8e9169fb8dd64ee5"
+    },
+    {
+      "index": 2,
+      "key": "id:3563104572853852095_70726518985",
+      "id": "3563104572853852095_70726518985",
+      "shortcode": "DFysLsahhe_",
+      "canonical_url": "https://threads.com/@esther1ooo/post/DFysLsahhe_",
+      "timestamp": "2025-02-08T00:39:46.000Z",
+      "reply_to": null,
+      "root_post": null,
+      "text_hash": "a10f979f00f843ca34dcd2bb7a8c6fced8ff995c0986f74313cb895c950acdfa",
+      "media_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "references_hash": "6f19703542c95f260e6d00f17c7323922211afee219d4b4892352701d4fae2f0",
+      "structure_hash": "10f48f2a9f078a606a18463711f07059286cc6bea2a01437317d3a61efefed21",
+      "content_hash": "0153d162c74760d3b2267020a470b8857c5735663d4c0baaa263e15a9b2f77e5"
+    }
+  ]
+}
