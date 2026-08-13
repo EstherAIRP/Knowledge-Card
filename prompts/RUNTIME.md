@@ -1,5 +1,5 @@
 ---
-prompt_version: 1.4.0
+prompt_version: 1.5.0
 updated_at: 2026-08-13
 repository: EstherAIRP/Knowledge-Card
 ---
@@ -42,14 +42,17 @@ Repository 內容是本專案最新規則來源。
 4. Threads self-thread 只能沿 `same author + replied_to === previous post + same root` 前進；不得只靠時間接近推測正文。無法唯一決定同作者 branch 時標記 `AMBIGUOUS_THREAD` 並 fail closed。
 5. 已知 `n/N` 時，實際 `parts.length`、input index 與 total 必須一致；缺篇標記 `INCOMPLETE_THREAD` 並 fail closed。
 6. Phase 4 起，Threads mandatory resolver 只有在 `thread.complete: true` 與 `extraction.conversation_complete: true` 時才進入 dedup/create/update。`INCOMPLETE_THREAD`、`AMBIGUOUS_THREAD` 或 identity mismatch 都不得建立正式 Card。
-7. 完整 Threads source 以 root post 為 canonical source：`canonical_url = root permalink`、`source.identity = threads:{root_shortcode}`。不同 share token 或串文任意 part 必須落到同一 root identity。
-8. Threads resolver 會輸出 `source_document`，保留 `parts[]`、`combined_text`、root/input metadata、media 與 extraction provenance。正式分析必須以 `source_document.combined_text` 為主要文字來源，並保留 `parts[].media` 作媒體證據；不得只分析分享時指到的單篇。
-9. `source_document.source_identity` 必須與 root `canonical_url` 經 repository canonicalizer 算出的 identity 一致；不一致時 fail closed。
-10. 非 Threads 來源維持既有 resolver 行為：canonicalize URL、檢查相同 `source.identity` / `canonical_url`、判定 create/update，再由 agent 讀取 primary source。
-11. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
-12. 優先讀取 primary source；GitHub 專案至少讀 README，必要時再讀官方 docs / architecture / release 等來源。不得只根據搜尋摘要或第三方介紹建立正式 Card。
+7. Phase 5 起，若 public HTTP / hydration data 無法完成 URL 或 conversation extraction，resolver 會自動嘗試 Playwright browser fallback。Browser adapter 只處理公開 Threads 頁面，使用隔離、無登入狀態的 browser context，不使用私人 cookies/session。
+8. Browser fallback 會擷取 render 後 DOM hydration 與 Threads same-origin JSON / GraphQL responses，交回既有 post normalizer、reply graph 與 `n/N` 驗證。不得因「瀏覽器成功開頁」本身就宣告完整；仍需通過 Phase 3 completeness contract。
+9. Browser fallback 預設在一般 live ingestion 自動啟用；fixture/custom-fetch 測試保持 deterministic，除非明確設 `browserFallback: true` 或提供 `browserSessionFactory`。若 Playwright browser 不可用，應回報明確 browser error；可執行 `npm run threads:browser:install` 安裝 Chromium，或設定 `THREADS_BROWSER_EXECUTABLE` / `THREADS_BROWSER_CHANNEL`。
+10. 完整 Threads source 以 root post 為 canonical source：`canonical_url = root permalink`、`source.identity = threads:{root_shortcode}`。不同 share token 或串文任意 part 必須落到同一 root identity。
+11. Threads resolver 會輸出 `source_document`，保留 `parts[]`、`combined_text`、root/input metadata、media 與 extraction provenance。正式分析必須以 `source_document.combined_text` 為主要文字來源，並保留 `parts[].media` 作媒體證據；不得只分析分享時指到的單篇。
+12. `source_document.source_identity` 必須與 root `canonical_url` 經 repository canonicalizer 算出的 identity 一致；不一致時 fail closed。
+13. 非 Threads 來源維持既有 resolver 行為：canonicalize URL、檢查相同 `source.identity` / `canonical_url`、判定 create/update，再由 agent 讀取 primary source。
+14. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
+15. 優先讀取 primary source；GitHub 專案至少讀 README，必要時再讀官方 docs / architecture / release 等來源。不得只根據搜尋摘要或第三方介紹建立正式 Card。
 
-Threads source adapter 分工：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = complete conversation reconstruction；Phase 4 = mandatory resolver / Knowledge Card identity、dedup 與 analysis-source integration。
+Threads source adapter 分工：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = complete conversation reconstruction；Phase 4 = mandatory resolver / Knowledge Card identity、dedup 與 analysis-source integration；Phase 5 = Playwright browser / web-data fallback，用於 JS-only share resolution、DOM hydration 與 same-origin JSON/GraphQL conversation evidence。
 
 ## 4. Analysis Standard
 

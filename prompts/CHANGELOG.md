@@ -4,6 +4,33 @@
 
 ---
 
+## 1.5.0 — 2026-08-13
+
+### Added
+
+- 新增 Threads Phase 5 Playwright browser / web-data fallback。
+- public HTTP / hydration extraction 不足時，可用 headless browser 解析 JS-only `/share/*` / `/t/*` navigation。
+- Browser adapter 擷取 render 後 DOM hydration，以及 Threads same-origin JSON / GraphQL responses，再交回既有 post normalizer / reply graph。
+- 新增 browser session isolation：不讀取登入 session、cookies 或 user profile；只處理公開 Threads URL。
+- 新增 `npm run threads:browser:install` 安裝 Playwright Chromium。
+- 支援 `THREADS_BROWSER_EXECUTABLE` 與 `THREADS_BROWSER_CHANNEL`，可使用既有 browser executable / Chrome channel。
+- 新增 browser fixture tests，涵蓋 GraphQL capture、rendered `n/N`、JS-only share resolution、sparse HTML conversation completion 與 unsafe redirect rejection。
+
+### Changed
+
+- 一般 live Threads ingestion 會在既有 HTTP / HTML 路徑不足時自動啟用 browser fallback；custom `fetchImpl` / fixture 預設維持 deterministic，除非明確要求 browser fallback。
+- Browser 成功載入頁面不等於來源完整；Phase 3 的 `n/N`、reply graph、root identity 與 fail-closed contract 仍是唯一完整性判定標準。
+
+### Failure modes
+
+- `THREADS_BROWSER_UNAVAILABLE`：Playwright 套件不可用。
+- `THREADS_BROWSER_LAUNCH_FAILED`：找不到可啟動的 Chromium / Chrome。
+- `THREADS_BROWSER_NAVIGATION_FAILED`：Threads 頁面導覽失敗。
+- `THREADS_BROWSER_UNSAFE_REDIRECT`：browser 最終導覽離開 Threads host。
+- `THREADS_BROWSER_NO_POSTS`：頁面已 render，但 DOM / captured JSON 仍找不到可驗證 post object。
+
+---
+
 ## 1.4.0 — 2026-08-13
 
 ### Added

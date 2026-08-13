@@ -1,13 +1,26 @@
 import { classifyThreadsUrl, resolveThreadsUrl } from './sources/threads/resolve-url.mjs';
+import {
+  resolveThreadsUrlViaBrowser,
+  shouldAutoThreadsBrowserFallback
+} from './sources/threads/browser-adapter.mjs';
 
 function mergedThreadsOptions(options) {
-  return options.threads ? { ...options, ...options.threads } : options;
+  return options.threads ? { ...options, ...options.threads } : { ...options };
+}
+
+function withDefaultThreadsBrowserResolver(options) {
+  const threadsOptions = { ...options };
+  if (typeof threadsOptions.browserResolver === 'function') return threadsOptions;
+  if (!shouldAutoThreadsBrowserFallback(threadsOptions)) return threadsOptions;
+  threadsOptions.browserResolver = async (rawUrl) => resolveThreadsUrlViaBrowser(rawUrl, threadsOptions);
+  return threadsOptions;
 }
 
 export async function resolveExternalSourceUrl(rawUrl, options = {}) {
   const threads = classifyThreadsUrl(rawUrl);
   if (threads.isThreads) {
-    return resolveThreadsUrl(rawUrl, mergedThreadsOptions(options));
+    const threadsOptions = withDefaultThreadsBrowserResolver(mergedThreadsOptions(options));
+    return resolveThreadsUrl(rawUrl, threadsOptions);
   }
 
   return {
