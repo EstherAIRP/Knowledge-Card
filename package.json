@@ -1,6 +1,6 @@
 {
   "name": "knowledge-card",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "private": true,
   "type": "module",
   "engines": {
@@ -9,6 +9,7 @@
   "scripts": {
     "ingest:resolve": "node scripts/resolve-source.mjs",
     "ingest:extract": "node scripts/extract-source.mjs",
+    "ingest:snapshot": "node scripts/save-source-snapshot.mjs",
     "threads:browser:install": "playwright install chromium",
     "validate": "node scripts/validate-content.mjs",
     "validate:ownership": "node scripts/check-ownership.mjs",

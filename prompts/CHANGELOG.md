@@ -4,6 +4,31 @@
 
 ---
 
+## 1.6.0 — 2026-08-13
+
+### Added
+
+- 新增 Threads Phase 6 accepted source snapshot / change detection。
+- `ingest:resolve` 在完整 source reconstruction 後比較上一次 accepted snapshot，輸出 `source_change`。
+- 新增 `FIRST_SEEN`、`UNCHANGED`、`THREAD_EXTENDED`、`PART_CHANGED`、`PART_REMOVED`、`STRUCTURE_CHANGED`、`MULTIPLE_CHANGES` 狀態與 added/removed/changed part evidence。
+- 新增 SHA-256 source / part fingerprints；snapshot 只保存 public provenance 與 hashes，不保存 Threads 原文或 raw GraphQL payload。
+- 新增 `npm run ingest:snapshot -- <Threads URL>`，只在 matching Knowledge Card 已存在後推進 accepted baseline。
+- 新增 `state/AGENTS.md`，定義 machine-owned source state 與 user-owned state 的隔離規則。
+- 新增 source-state tests，涵蓋 deterministic hashing、volatile media query suppression、thread extension、part edit/removal、snapshot no-op 與 mandatory preflight change reporting。
+
+### Changed
+
+- Threads update flow 會使用 `source_change` 區分 material source change 與普通 re-check；`UNCHANGED` 不應製造 noisy analysis/update log。
+- Snapshot preflight 保持 read-only；只有 Card create/update 通過 validation 後才允許執行 `ingest:snapshot`。
+- Snapshot hash 未變時不重寫檔案，也不刷新 `captured_at`。
+
+### Safety
+
+- incomplete / ambiguous / identity-mismatched / extraction-failed Threads source 不得覆蓋 accepted snapshot。
+- Meta CDN media query signatures 視為 volatile transport metadata，不單獨構成 source change。
+
+---
+
 ## 1.5.0 — 2026-08-13
 
 ### Added

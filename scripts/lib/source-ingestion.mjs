@@ -1,6 +1,11 @@
+import path from 'node:path';
 import { canonicalizeSource, resolveIngestion } from './knowledge.mjs';
 import { extractExternalSource } from './source-extraction.mjs';
 import { resolveExternalSourceUrl } from './source-resolution.mjs';
+import {
+  defaultThreadsSnapshotRoot,
+  inspectThreadsSourceChange
+} from './sources/threads/source-state.mjs';
 
 function resolutionSummary(external) {
   return external?.provider
@@ -29,6 +34,29 @@ function assertCompleteThreadsSource(source) {
     error.partial = source;
     throw error;
   }
+}
+
+function displayStatePath(filePath) {
+  if (!filePath) return null;
+  const relative = path.relative(process.cwd(), filePath);
+  if (relative && !relative.startsWith('..') && !path.isAbsolute(relative)) {
+    return relative.split(path.sep).join('/');
+  }
+  return filePath;
+}
+
+function sourceChangeSummary(change) {
+  if (!change) return null;
+  const { current_snapshot: _currentSnapshot, ...summary } = change;
+  return {
+    ...summary,
+    snapshot_path: displayStatePath(summary.snapshot_path)
+  };
+}
+
+function resolveSourceStateRoot(contentRoot, options) {
+  if (options.sourceStateRoot === false || options.sourceState === false) return null;
+  return options.sourceStateRoot || defaultThreadsSnapshotRoot(contentRoot);
 }
 
 export function resolveExtractedSourceIngestion(source, contentRoot, year = new Date().getFullYear()) {
@@ -70,6 +98,10 @@ export async function prepareExternalIngestion(rawUrl, contentRoot, options = {}
   const source = extracted.source;
   assertCompleteThreadsSource(source);
   const ingestion = resolveExtractedSourceIngestion(source, contentRoot, year);
+  const stateRoot = resolveSourceStateRoot(contentRoot, options);
+  const sourceChange = stateRoot
+    ? sourceChangeSummary(inspectThreadsSourceChange(source, stateRoot, { capturedAt: options.capturedAt }))
+    : null;
 
   return {
     ...ingestion,
@@ -77,6 +109,7 @@ export async function prepareExternalIngestion(rawUrl, contentRoot, options = {}
     resolved_input_url: external.canonical_url,
     url_resolution: resolutionSummary(external),
     source_document: source,
+    source_change: sourceChange,
     analysis_input: {
       provider: 'threads',
       text_field: 'source_document.combined_text',

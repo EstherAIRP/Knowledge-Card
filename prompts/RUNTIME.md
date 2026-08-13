@@ -1,5 +1,5 @@
 ---
-prompt_version: 1.5.0
+prompt_version: 1.6.0
 updated_at: 2026-08-13
 repository: EstherAIRP/Knowledge-Card
 ---
@@ -45,14 +45,19 @@ Repository 內容是本專案最新規則來源。
 7. Phase 5 起，若 public HTTP / hydration data 無法完成 URL 或 conversation extraction，resolver 會自動嘗試 Playwright browser fallback。Browser adapter 只處理公開 Threads 頁面，使用隔離、無登入狀態的 browser context，不使用私人 cookies/session。
 8. Browser fallback 會擷取 render 後 DOM hydration 與 Threads same-origin JSON / GraphQL responses，交回既有 post normalizer、reply graph 與 `n/N` 驗證。不得因「瀏覽器成功開頁」本身就宣告完整；仍需通過 Phase 3 completeness contract。
 9. Browser fallback 預設在一般 live ingestion 自動啟用；fixture/custom-fetch 測試保持 deterministic，除非明確設 `browserFallback: true` 或提供 `browserSessionFactory`。若 Playwright browser 不可用，應回報明確 browser error；可執行 `npm run threads:browser:install` 安裝 Chromium，或設定 `THREADS_BROWSER_EXECUTABLE` / `THREADS_BROWSER_CHANNEL`。
-10. 完整 Threads source 以 root post 為 canonical source：`canonical_url = root permalink`、`source.identity = threads:{root_shortcode}`。不同 share token 或串文任意 part 必須落到同一 root identity。
-11. Threads resolver 會輸出 `source_document`，保留 `parts[]`、`combined_text`、root/input metadata、media 與 extraction provenance。正式分析必須以 `source_document.combined_text` 為主要文字來源，並保留 `parts[].media` 作媒體證據；不得只分析分享時指到的單篇。
-12. `source_document.source_identity` 必須與 root `canonical_url` 經 repository canonicalizer 算出的 identity 一致；不一致時 fail closed。
-13. 非 Threads 來源維持既有 resolver 行為：canonicalize URL、檢查相同 `source.identity` / `canonical_url`、判定 create/update，再由 agent 讀取 primary source。
-14. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
-15. 優先讀取 primary source；GitHub 專案至少讀 README，必要時再讀官方 docs / architecture / release 等來源。不得只根據搜尋摘要或第三方介紹建立正式 Card。
+10. Phase 6 起，完整 Threads source 會在 mandatory preflight 中與最後一次 accepted source snapshot 比較。若 repository snapshot 存在，resolver 會輸出 `source_change`，狀態可為 `UNCHANGED`、`THREAD_EXTENDED`、`PART_CHANGED`、`PART_REMOVED`、`STRUCTURE_CHANGED` 或 `MULTIPLE_CHANGES`；沒有 baseline 時為 `FIRST_SEEN`，不得把 `FIRST_SEEN` 誤判成來源已變更。
+11. Phase 6 snapshot 只保存 public provenance 與 SHA-256 fingerprints，不保存 Threads 原文、raw GraphQL payload、登入 cookies/session 或私人內容。Media CDN query signature 屬 volatile transport metadata，不得單獨觸發內容變更。
+12. `source_change.status === UNCHANGED` 時，若沒有其他實質理由，不應重寫 AI analysis / Update Log，只更新 `last_checked_at`。`THREAD_EXTENDED`、`PART_CHANGED`、`PART_REMOVED`、`STRUCTURE_CHANGED`、`MULTIPLE_CHANGES` 視為 material source change，應以最新完整 `combined_text` 重新分析。
+13. Source snapshot preflight 必須保持 read-only。只有對應 Knowledge Card 已完成 create/update 且 validation 成功後，才執行 `npm run ingest:snapshot -- <Threads URL>` 推進 accepted baseline；snapshot command 必須拒絕沒有既有 Card 的來源。若 source hash 未變，snapshot write 應為 no-op。
+14. 任何 incomplete、ambiguous、identity mismatch 或 browser/source extraction failure 都不得寫入或覆蓋 snapshot。Snapshot state 是 machine-owned operational state，不得覆蓋 Knowledge Card 的 user-owned state。
+15. 完整 Threads source 以 root post 為 canonical source：`canonical_url = root permalink`、`source.identity = threads:{root_shortcode}`。不同 share token 或串文任意 part 必須落到同一 root identity。
+16. Threads resolver 會輸出 `source_document`，保留 `parts[]`、`combined_text`、root/input metadata、media 與 extraction provenance。正式分析必須以 `source_document.combined_text` 為主要文字來源，並保留 `parts[].media` 作媒體證據；不得只分析分享時指到的單篇。
+17. `source_document.source_identity` 必須與 root `canonical_url` 經 repository canonicalizer 算出的 identity 一致；不一致時 fail closed。
+18. 非 Threads 來源維持既有 resolver 行為：canonicalize URL、檢查相同 `source.identity` / `canonical_url`、判定 create/update，再由 agent 讀取 primary source。
+19. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
+20. 優先讀取 primary source；GitHub 專案至少讀 README，必要時再讀官方 docs / architecture / release 等來源。不得只根據搜尋摘要或第三方介紹建立正式 Card。
 
-Threads source adapter 分工：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = complete conversation reconstruction；Phase 4 = mandatory resolver / Knowledge Card identity、dedup 與 analysis-source integration；Phase 5 = Playwright browser / web-data fallback，用於 JS-only share resolution、DOM hydration 與 same-origin JSON/GraphQL conversation evidence。
+Threads source adapter 分工：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = complete conversation reconstruction；Phase 4 = mandatory resolver / Knowledge Card identity、dedup 與 analysis-source integration；Phase 5 = Playwright browser / web-data fallback，用於 JS-only share resolution、DOM hydration 與 same-origin JSON/GraphQL conversation evidence；Phase 6 = accepted source snapshot / change detection，用於後續 extension、edit、removal 與 unchanged re-check 判定。
 
 ## 4. Analysis Standard
 
@@ -106,6 +111,7 @@ Knowledge Card 應回答：
 - 保留所有 user-owned state 與 `## 使用者備註`
 - 有實質變化才更新 `updated_at` 與新增 Update Log
 - 只有重新檢查但沒有實質變化時，可只更新 `last_checked_at`
+- Threads 有 accepted snapshot 時，優先使用 `source_change` 判斷是否存在 material source change；不得只因重新 fetch 就製造 noisy update
 
 ## 7. User-owned State
 
@@ -130,14 +136,15 @@ AI refresh 不得覆蓋 user category/tag/relevance/action/status override 或 `
 1. `npm run validate`
 2. 更新既有 Card 時執行 `npm run validate:ownership -- <card-path>`
 3. source tooling 改動時執行 `npm test`
-4. Commit 並 Push 到 `main`
-5. GitHub Actions 負責 production build 與 Pages deployment
+4. Threads Card create/update 且 validation 成功後，執行 `npm run ingest:snapshot -- <Threads URL>`；只有 snapshot 實際變更時才納入 commit
+5. Commit 並 Push 到 `main`
+6. GitHub Actions 負責 production build 與 Pages deployment
 
-若 validation 失敗，不得把失敗內容當作完成品回報。
+若 validation 失敗，不得把失敗內容當作完成品回報，也不得推進 Threads source snapshot。
 
 ## 10. 回覆格式
 
-完成 ingestion 後，回覆應簡潔包含：新增或更新、Knowledge Card 名稱、Category、Relevance Overall、Action、主要技術價值 / 更新重點、Push / CI / Pages 狀態。不要把整張 Knowledge Card 再完整貼回聊天。
+完成 ingestion 後，回覆應簡潔包含：新增或更新、Knowledge Card 名稱、Category、Relevance Overall、Action、主要技術價值 / 更新重點、Push / CI / Pages 狀態。Threads update 若有 `source_change`，應在有助於理解更新時簡述 `UNCHANGED / THREAD_EXTENDED / PART_CHANGED / PART_REMOVED / STRUCTURE_CHANGED / MULTIPLE_CHANGES`。
 
 ## 11. 規則優先級
 

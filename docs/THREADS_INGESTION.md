@@ -146,6 +146,74 @@ or inject a deterministic browser implementation through `browserSessionFactory`
 
 All browser failures remain fail closed. They never downgrade the primary-source completeness requirement.
 
+## Phase 6 — source snapshots and change detection
+
+Phase 6 adds persistent, machine-owned source state so a later submission of the same root thread can distinguish a re-check from a material source change.
+
+`npm run ingest:resolve -- <threads-url>` still performs the full Phase 1–5 source reconstruction first. Only after a complete normalized source exists does it build an in-memory fingerprint and compare it with the last accepted snapshot under `state/source-snapshots/threads/`.
+
+The resolver exposes a `source_change` contract when repository source state is available:
+
+```text
+FIRST_SEEN
+UNCHANGED
+THREAD_EXTENDED
+PART_CHANGED
+PART_REMOVED
+STRUCTURE_CHANGED
+MULTIPLE_CHANGES
+```
+
+`FIRST_SEEN` means no baseline exists yet; it is not evidence that the public source changed. `UNCHANGED` means the normalized accepted source fingerprint matches. All other statuses are material and include structured `added_parts`, `removed_parts`, `changed_parts`, totals and order-change evidence.
+
+### Fingerprint policy
+
+Snapshots deliberately do **not** archive raw Threads body text or raw GraphQL payloads. They persist public provenance plus SHA-256 fingerprints:
+
+```text
+source identity / root canonical URL
+root post id / shortcode / author
+part order, ids, shortcodes, canonical URLs
+reply/root structure
+text hash
+media hash
+reference/link/alt-text hash
+source hash
+```
+
+Media CDN query signatures are excluded from the media identity fingerprint because they are volatile and should not trigger false updates.
+
+### Update semantics
+
+An unchanged prefix with one or more new suffix parts is `THREAD_EXTENDED`. A text/media/reference/structure fingerprint change on an existing part is `PART_CHANGED`. Missing previously accepted parts are `PART_REMOVED`. Reordering/insertion without a simple append is `STRUCTURE_CHANGED`; combined signals are `MULTIPLE_CHANGES`.
+
+This status is advisory for Knowledge Card refresh policy, but it never weakens source completeness. A current source must still pass the Phase 3/4 completeness and identity gates before comparison.
+
+### Advancing the accepted baseline
+
+Preflight is read-only. It must never advance source state automatically.
+
+After the corresponding Knowledge Card create/update has been written and repository validation succeeds, run:
+
+```bash
+npm run ingest:snapshot -- <threads-url>
+```
+
+The snapshot command reruns the complete source preflight, requires that a matching Knowledge Card already exists, and only then writes the accepted fingerprint. If the source hash is unchanged it performs a no-op and preserves the prior `captured_at` value.
+
+Therefore the normal Threads update sequence is:
+
+```text
+ingest:resolve
+→ inspect source_change
+→ create/update Knowledge Card if needed
+→ validate Card / ownership
+→ ingest:snapshot
+→ commit Card + changed snapshot
+```
+
+Failed, incomplete, ambiguous or identity-mismatched source extraction never overwrites the last accepted snapshot.
+
 ## Test strategy
 
-CI fixtures cover URL variants, exact-post selection, root/middle/last input, reader reply exclusion, same-author branches, `n/N`, missing-part rejection, root identity, mandatory resolver root dedup, non-Threads compatibility, browser GraphQL capture, JS-only share navigation, sparse-HTML recovery and unsafe browser redirects. Browser fixture tests use an injected session factory, so CI does not require downloading Chromium merely to validate adapter logic.
+CI fixtures cover URL variants, exact-post selection, root/middle/last input, reader reply exclusion, same-author branches, `n/N`, missing-part rejection, root identity, mandatory resolver root dedup, non-Threads compatibility, browser GraphQL capture, JS-only share navigation, sparse-HTML recovery, unsafe browser redirects, deterministic source hashing, volatile media-signature suppression, append-only extension detection, edited/removed parts, snapshot no-op behavior and mandatory-preflight change reporting. Browser fixture tests use an injected session factory, so CI does not require downloading Chromium merely to validate adapter logic.
