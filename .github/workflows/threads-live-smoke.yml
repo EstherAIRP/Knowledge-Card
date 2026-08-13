@@ -30,7 +30,7 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Resolve live Threads source
+      - name: Print root Threads post text
         shell: bash
         run: |
           set -euo pipefail
@@ -41,56 +41,11 @@ jobs:
           const result = JSON.parse(fs.readFileSync('/tmp/threads-live.json', 'utf8'));
           const source = result.source_document;
           const parts = Array.isArray(source?.parts) ? source.parts : [];
-          const summary = {
-            resolved_input_url: result.resolved_input_url,
-            canonical_url: result.canonical_url,
-            source_identity: result.source_identity,
-            mode: result.mode,
-            thread: source?.thread || null,
-            extraction: source?.extraction || null,
-            part_count: parts.length,
-            parts: parts.map((part) => ({
-              index: part.index,
-              id: part.id,
-              shortcode: part.shortcode,
-              username: part.username,
-              reply_to: part.reply_to,
-              root_post: part.root_post,
-              has_replies: part.has_replies,
-              text_length: typeof part.text === 'string' ? part.text.length : 0,
-              media_count: Array.isArray(part.media) ? part.media.length : 0
-            }))
-          };
-          console.log('RESOLVER SUMMARY');
-          console.log(JSON.stringify(summary, null, 2));
-          NODE
-
-      - name: Inspect browser DOM and GraphQL evidence directly
-        shell: bash
-        run: |
-          set -euo pipefail
-          node --input-type=module <<'NODE'
-          import { extractThreadsViaBrowser } from './scripts/lib/sources/threads/browser-adapter.mjs';
-
-          const canonical = 'https://threads.com/@esther1ooo/post/DFyr62jB6Wr';
-          const browser = await extractThreadsViaBrowser(canonical);
-          const posts = Array.isArray(browser.posts) ? browser.posts : [];
-          const summary = {
-            thread_indicator: browser.thread_indicator || null,
-            browser: browser.browser || null,
-            post_count: posts.length,
-            posts: posts.map((post) => ({
-              id: post.id,
-              shortcode: post.shortcode,
-              username: post.username,
-              reply_to: post.reply_to,
-              root_post: post.root_post,
-              is_reply: post.is_reply,
-              has_replies: post.has_replies,
-              text_length: typeof post.text === 'string' ? post.text.length : 0,
-              canonical_url: post.canonical_url
-            }))
-          };
-          console.log('BROWSER EVIDENCE SUMMARY');
-          console.log(JSON.stringify(summary, null, 2));
+          const root = parts[0] || source || null;
+          console.log('CANONICAL_URL=' + (result.canonical_url || ''));
+          console.log('ROOT_SHORTCODE=' + (root?.shortcode || ''));
+          console.log('ROOT_USERNAME=' + (root?.username || ''));
+          console.log('ROOT_TEXT_BEGIN');
+          console.log(typeof root?.text === 'string' ? root.text : '');
+          console.log('ROOT_TEXT_END');
           NODE
