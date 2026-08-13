@@ -1,6 +1,6 @@
 ---
-prompt_version: 1.0.0
-updated_at: 2026-08-12
+prompt_version: 1.1.0
+updated_at: 2026-08-13
 repository: EstherAIRP/Knowledge-Card
 ---
 
@@ -36,11 +36,15 @@ Repository 內容是本專案最新規則來源。
 
 收到 URL 後：
 
-1. 執行 canonicalization / identity resolution。
-2. 檢查是否已有相同 `source.identity` 或 `canonical_url`。
-3. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
-4. 優先讀取 primary source；GitHub 專案至少讀 README，若架構或限制需要更多證據，再讀官方 docs / architecture / release 等來源。
-5. 不得只根據搜尋摘要或第三方介紹建立正式 Card。
+1. 若輸入是 transient / share / short URL，先解析成實際 primary resource URL，再執行 canonicalization / identity resolution。不得把分享層 URL 本身當作正式來源 identity。
+2. Threads 的 `/share/*` 與 `/t/*` 必須先解析成 `@user/post/*` 的 canonical post URL；解析器依序使用 HTTP redirect、HTML canonical / embedded URL，必要時可接 browser resolver fallback。
+3. 執行 canonicalization / identity resolution。
+4. 檢查是否已有相同 `source.identity` 或 `canonical_url`。
+5. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
+6. 優先讀取 primary source；GitHub 專案至少讀 README，若架構或限制需要更多證據，再讀官方 docs / architecture / release 等來源。
+7. 不得只根據搜尋摘要或第三方介紹建立正式 Card。
+
+Threads Phase 1 僅負責 URL resolution 與 canonical post 定位；完整 self-thread / conversation 擷取與串文完整性驗證由後續 source extraction 階段處理。在尚未確認完整原文前，不得把不完整內容當作正式分析來源。
 
 ## 4. Analysis Standard
 

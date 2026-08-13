@@ -10,6 +10,26 @@
 
 ---
 
+## 1.1.0 — 2026-08-13
+
+### Added
+
+- 新增 transient / share / short URL 的 external resolution 階段。
+- 新增 Threads `/share/*`、`/t/*`、`@user/post/*` URL 辨識規則。
+- Threads share URL 可透過 HTTP redirect、HTML canonical / embedded URL 解析 canonical post。
+- 定義 browser resolver fallback 介面，供 HTTP 解析失敗時接入 headless browser。
+
+### Changed
+
+- `npm run ingest:resolve -- <URL>` 會先執行 source-specific external URL resolution，再進入既有 canonicalization / deduplication。
+- Threads share URL 不得直接成為 Knowledge Card 的正式 `canonical_url` 或 source identity。
+
+### Boundary
+
+- 此版本只完成 Threads Phase 1 URL resolution；完整 self-thread / conversation 擷取、`n/N` 完整性驗證與 root-level identity 尚未納入本階段。
+
+---
+
 ## 1.0.0 — 2026-08-12
 
 初版 Runtime Prompt。
