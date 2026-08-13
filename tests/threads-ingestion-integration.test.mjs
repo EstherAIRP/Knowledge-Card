@@ -87,7 +87,8 @@ test('mandatory ingestion preparation resolves a Threads middle-part share URL t
       provider: 'threads',
       text_field: 'source_document.combined_text',
       media_field: 'source_document.parts[].media',
-      complete: true
+      complete: true,
+      thread_verification: 'structural'
     });
   } finally {
     fs.rmSync(contentRoot, { recursive: true, force: true });
