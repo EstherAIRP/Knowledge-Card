@@ -23,7 +23,7 @@ Non-Threads source
 → generic provider flow only
 ```
 
-Do not invoke Threads Playwright navigation, conversation reconstruction, continuation candidate extraction, LLM continuation ranking or Threads snapshots for a non-Threads source. Conversely, do not downgrade a Threads source to a generic article and analyze only the currently shared post.
+Do not invoke Threads Playwright navigation, conversation reconstruction, continuation candidate extraction, LLM continuation/root-only ranking or Threads snapshots for a non-Threads source. Conversely, do not downgrade a Threads source to a generic article and analyze only the currently shared post.
 
 The source route is determined from the raw URL hostname or, for a transient/short URL, from the resolved primary resource. A normal article that merely mentions or links to Threads remains a normal article.
 
@@ -67,7 +67,7 @@ share / arbitrary part
 → root + author-chain reconstruction
 → n/N completeness check
 → browser evidence when required
-→ LLM-assisted continuation recovery only when structural relationships are unavailable and acceptance gates pass
+→ LLM-assisted continuation or root-only recovery only when structural relationships are unavailable and acceptance gates pass
 → root canonical URL + threads:{root_shortcode}
 → dedup/create-update resolution
 → source change comparison
@@ -81,7 +81,7 @@ See `docs/THREADS_INGESTION.md` for the full Phase 1–7 contract.
 
 Never write substantive analysis from a slug, search snippet or model memory. For GitHub read repository metadata and README at minimum; inspect architecture/security/docs/source when needed. For papers/articles read the actual authoritative source. Separate verified facts from inference.
 
-For Threads, the complete `source_document` returned by the mandatory resolver is the primary text/provenance contract. Do not downgrade it to only the originally shared part. When recovery is LLM-assisted, preserve `thread.verification = llm_assisted` and the inference provenance rather than describing the graph as natively verified.
+For Threads, the complete `source_document` returned by the mandatory resolver is the primary text/provenance contract. Do not downgrade it to only the originally shared part. When recovery is LLM-assisted, preserve `thread.verification = llm_assisted` and the exact inferred status (`INFERRED_THREAD_HIGH_CONFIDENCE` or `INFERRED_SINGLE_POST_HIGH_CONFIDENCE`) rather than describing the graph as natively verified.
 
 If primary evidence cannot be read sufficiently, report `SOURCE_UNAVAILABLE` or the concrete extraction failure.
 
