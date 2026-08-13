@@ -1,5 +1,5 @@
 ---
-prompt_version: 1.2.0
+prompt_version: 1.3.0
 updated_at: 2026-08-13
 repository: EstherAIRP/Knowledge-Card
 ---
@@ -37,17 +37,19 @@ Repository 內容是本專案最新規則來源。
 收到 URL 後：
 
 1. 若輸入是 transient / share / short URL，先解析成實際 primary resource URL，再執行 canonicalization / identity resolution。不得把分享層 URL 本身當作正式來源 identity。
-2. Threads 的 `/share/*` 與 `/t/*` 必須先解析成 `@user/post/*` 的 canonical post URL；解析器依序使用 HTTP redirect、HTML canonical / embedded URL，必要時可接 browser resolver fallback。
-3. 對 Threads canonical post 執行 source extraction。`npm run ingest:extract -- <URL>` 應輸出 URL resolution 與 normalized single-post source；主要讀取 public HTML embedded JSON，並保留 API adapter 與 browser extractor fallback 介面。
-4. Threads normalized post 至少應盡可能保存 `id`、`shortcode`、`username`、`text`、`timestamp`、`media`、`is_reply`、`reply_to`、`root_post`、`has_replies`、引用／轉貼資訊與 extraction method。若 fallback 回傳的 post 與預期 shortcode 不一致，必須 fail closed。
-5. Threads Phase 2 只保證「單篇 post extraction」，不代表 conversation / self-thread 已完整。normalized output 必須明確保留 `conversation_complete: false`；若來源可能是 `1/N → N/N` 串文，在 Phase 3 完整串文重建與完整性驗證完成前，不得把單篇內容當作完整正式分析來源。
-6. 執行 canonicalization / identity resolution。
-7. 檢查是否已有相同 `source.identity` 或 `canonical_url`。
-8. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
-9. 優先讀取 primary source；GitHub 專案至少讀 README，若架構或限制需要更多證據，再讀官方 docs / architecture / release 等來源。
-10. 不得只根據搜尋摘要或第三方介紹建立正式 Card。
+2. Threads 的 `/share/*` 與 `/t/*` 必須先解析成 `@user/post/*` canonical post URL；解析器依序使用 HTTP redirect、HTML canonical / embedded URL，必要時可接 browser resolver fallback。
+3. 對 Threads 使用 `npm run ingest:extract -- <URL>` 執行完整 source extraction。Phase 2 single-post extractor 先取得目標 post；Phase 3 再從 HTML hydration / conversation adapter 建立 reply graph、回溯 root、重建同作者 self-thread。
+4. Self-thread 只能沿 `same author + replied_to === previous post + same root` 的結構關係前進。不得只靠時間接近推測正文。若同一層出現多個無法由 thread index 唯一判定的同作者 branch，標記 `AMBIGUOUS_THREAD` 並停止正式 ingestion。
+5. 若 Threads UI / adapter 提供 `n/N`，必須拿來驗證 `input_index`、`thread.total` 與實際 `parts.length`。已知總篇數但缺篇時標記 `INCOMPLETE_THREAD`；不得把部分內容當完整來源。
+6. 完整 Threads source 以 root post 為 canonical source。`canonical_url` 必須指向 root post，`source.identity` 使用 `threads:{root_shortcode}`；因此使用者貼 root、middle part、last part、share URL 或 threads.net variant，都應在完整重建後落到同一 source identity。
+7. Threads normalized conversation 必須保存 `parts[]` 原始分段與 `combined_text`。Knowledge Card 分析使用完整 `combined_text`，但 provenance / 更新檢查保留每個 part 的 id、shortcode、reply_to、timestamp、media 與 permalink。
+8. `thread.complete` 必須為 `true` 才可把 Threads 內容當正式 Knowledge Card primary source。`INCOMPLETE_THREAD`、`AMBIGUOUS_THREAD` 或 source extraction error 都應 fail closed。
+9. 執行 canonicalization / identity resolution，並檢查是否已有相同 `source.identity` 或 `canonical_url`。Threads 的最終 create/update 判定以 Phase 3 root canonical URL 為準，不以前置 share/middle-post URL 為準。
+10. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
+11. 優先讀取 primary source；GitHub 專案至少讀 README，若架構或限制需要更多證據，再讀官方 docs / architecture / release 等來源。
+12. 不得只根據搜尋摘要或第三方介紹建立正式 Card。
 
-Threads Phase 1 負責 URL resolution；Phase 2 負責 canonical post 的 normalized single-post extraction；完整 self-thread / conversation 擷取、`n/N` 完整性驗證與 root-level identity 由後續階段處理。在尚未確認完整原文前，不得把不完整內容當作正式分析來源。
+Threads source adapter 分工：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = root traversal、conversation graph、author-chain reconstruction、`n/N` completeness validation 與 root-level identity。
 
 ## 4. Analysis Standard
 
@@ -146,7 +148,7 @@ AI refresh 不得覆蓋：
 
 1. `npm run validate`
 2. 更新既有 Card 時執行 `npm run validate:ownership -- <card-path>`
-3. 必要時執行 `npm test`
+3. source tooling 改動時執行 `npm test`
 4. Commit 並 Push 到 `main`
 5. GitHub Actions 負責 production build 與 Pages deployment
 

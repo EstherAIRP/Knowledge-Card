@@ -10,6 +10,31 @@
 
 ---
 
+## 1.3.0 — 2026-08-13
+
+### Added
+
+- 新增 Threads Phase 3 conversation reconstruction。
+- 從 embedded JSON / conversation adapter 建立 reply graph，支援由任意 part 回溯 root。
+- 只沿同作者、直接 `replied_to`、同 root 的 self-thread chain 合併正文；同作者分支無法唯一判定時 fail closed。
+- 新增 Threads UI / adapter `n/N` indicator 解析與完整性驗證。
+- normalized conversation 保存 `parts[]`、`combined_text`、root metadata、input index、thread status / total / confidence。
+- 新增 API conversation 與 browser conversation adapter fallback 介面。
+- Threads canonical post identity 改為 `threads:{shortcode}`，Phase 3 完整重建後以 root shortcode 作最終 source identity。
+
+### Changed
+
+- `npm run ingest:extract -- <Threads URL>` 預設由單篇 extractor 升級為完整 conversation extractor；只有 `thread.complete: true` 才可作正式 ingestion source。
+- Threads share URL、root/middle/last part 在完整重建後都以 root canonical URL 進入 create/update 判定。
+- extraction CLI 額外輸出 root canonical URL 對應的 ingestion resolution。
+
+### Failure modes
+
+- `THREADS_CONVERSATION_INCOMPLETE`：已知或推定是串文，但未取得完整 parts。
+- `THREADS_CONVERSATION_AMBIGUOUS`：同作者 branch 或 indicator 衝突，無法安全決定正文鏈。
+
+---
+
 ## 1.2.0 — 2026-08-13
 
 ### Added
@@ -90,17 +115,4 @@ URL
 
 ## Future entries
 
-之後每次調整 `prompts/RUNTIME.md`，在此新增版本紀錄，例如：
-
-```markdown
-## 1.1.0 — YYYY-MM-DD
-
-### Added
-- 新增 paper-specific analysis rules
-
-### Changed
-- 調整 LEARN / WATCH 判定邏輯
-
-### Fixed
-- 修正某類來源的 ingestion 判斷
-```
+之後每次調整 `prompts/RUNTIME.md`，在此新增版本紀錄。

@@ -1,12 +1,15 @@
 import { resolveExternalSourceUrl } from './source-resolution.mjs';
 import { extractResolvedThreadsPost } from './sources/threads/extract-post.mjs';
+import { extractResolvedThreadsConversation } from './sources/threads/conversation.mjs';
 
 export async function extractExternalSource(rawUrl, options = {}) {
   const resolution = options.resolution || await resolveExternalSourceUrl(rawUrl, options);
 
   if (resolution.provider === 'threads') {
     const threadsOptions = options.threads || options;
-    const source = await extractResolvedThreadsPost(resolution.canonical_url, threadsOptions);
+    const source = threadsOptions.singlePostOnly
+      ? await extractResolvedThreadsPost(resolution.canonical_url, threadsOptions)
+      : await extractResolvedThreadsConversation(resolution.canonical_url, threadsOptions);
     return { resolution, source };
   }
 

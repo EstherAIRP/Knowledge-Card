@@ -45,6 +45,28 @@ function cleanTrackingParams(url) {
   url.searchParams.sort();
 }
 
+function isThreadsHost(hostname) {
+  const host = hostname.toLowerCase();
+  return host === 'threads.com' || host.endsWith('.threads.com') || host === 'threads.net' || host.endsWith('.threads.net');
+}
+
+function canonicalizeThreadsPost(parsed) {
+  if (!isThreadsHost(parsed.hostname)) return null;
+  const parts = parsed.pathname.split('/').filter(Boolean);
+  if (parts.length < 3 || !parts[0].startsWith('@') || parts[1].toLowerCase() !== 'post' || !parts[2]) return null;
+  const username = decodeURIComponent(parts[0]);
+  const shortcode = decodeURIComponent(parts[2]);
+  const canonicalUrl = `https://threads.com/${username}/post/${shortcode}`;
+  const identity = `threads:${shortcode}`;
+  const digest = crypto.createHash('sha256').update(identity).digest('hex').slice(0, 6);
+  return {
+    sourceType: 'article',
+    canonicalUrl,
+    identity,
+    id: `${slugify(`threads-${shortcode}`) || 'threads-post'}-${digest}`
+  };
+}
+
 export function canonicalizeSource(rawUrl) {
   const parsed = new URL(rawUrl.trim());
   parsed.hash = '';
@@ -78,6 +100,9 @@ export function canonicalizeSource(rawUrl) {
       id: slugify(`github-${owner}-${repo}`)
     };
   }
+
+  const threadsPost = canonicalizeThreadsPost(parsed);
+  if (threadsPost) return threadsPost;
 
   if (parsed.hostname.startsWith('www.')) {
     parsed.hostname = parsed.hostname.slice(4);
