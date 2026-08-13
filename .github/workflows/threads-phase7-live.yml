@@ -1,0 +1,92 @@
+name: Threads Phase 7 Live Acceptance
+
+on:
+  push:
+    branches:
+      - dev/threads-phase7
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    name: Recover live Threads continuation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Recover original live share URL
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { extractExternalSource } from './scripts/lib/source-extraction.mjs';
+
+          const rawUrl = 'https://www.threads.com/share/_qgqDMSsx/';
+          let observedCandidates = [];
+          const result = await extractExternalSource(rawUrl, {
+            continuationRanker: async ({ rootPost, candidates }) => {
+              observedCandidates = candidates.map((candidate) => ({
+                shortcode: candidate.shortcode,
+                delta_seconds: candidate.delta_seconds,
+                is_reply: candidate.is_reply,
+                metadata_score: candidate.metadata_score,
+                text_length: candidate.text?.length || 0
+              }));
+
+              assert.equal(rootPost.shortcode, 'DFyr62jB6Wr');
+              const continuation = candidates.find((candidate) => candidate.shortcode === 'DFysLsahhe_');
+              assert.ok(continuation, 'Expected live candidate DFysLsahhe_ was not captured.');
+              assert.equal(continuation.is_reply, true);
+              assert.ok(continuation.delta_seconds >= 0 && continuation.delta_seconds <= 300);
+              assert.match(continuation.text, /資料表生成咒語/);
+
+              return {
+                selected_shortcodes: ['DFysLsahhe_'],
+                confidence: 0.98,
+                complete: true,
+                rationale: 'Immediate same-author reply supplies the spell explicitly promised by the root post.',
+                candidate_labels: candidates.map((candidate) => ({
+                  shortcode: candidate.shortcode,
+                  label: candidate.shortcode === 'DFysLsahhe_' ? 'continuation' : 'followup',
+                  confidence: candidate.shortcode === 'DFysLsahhe_' ? 0.99 : 0.9
+                }))
+              };
+            }
+          });
+
+          const source = result.source;
+          assert.equal(source.canonical_url, 'https://threads.com/@esther1ooo/post/DFyr62jB6Wr');
+          assert.equal(source.source_identity, 'threads:DFyr62jB6Wr');
+          assert.equal(source.thread.status, 'INFERRED_THREAD_HIGH_CONFIDENCE');
+          assert.equal(source.thread.verification, 'llm_assisted');
+          assert.equal(source.thread.complete, true);
+          assert.deepEqual(source.parts.map((part) => part.shortcode), ['DFyr62jB6Wr', 'DFysLsahhe_']);
+          assert.match(source.combined_text, /避免角色失憶/);
+          assert.match(source.combined_text, /資料表生成咒語/);
+
+          console.log(JSON.stringify({
+            canonical_url: source.canonical_url,
+            source_identity: source.source_identity,
+            status: source.thread.status,
+            verification: source.thread.verification,
+            confidence: source.thread.recovery?.confidence,
+            parts: source.parts.map((part) => ({ shortcode: part.shortcode, text_length: part.text?.length || 0 })),
+            candidates: observedCandidates
+          }, null, 2));
+          NODE
