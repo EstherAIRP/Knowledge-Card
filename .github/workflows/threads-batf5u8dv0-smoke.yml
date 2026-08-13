@@ -1,0 +1,94 @@
+name: Threads BATF5u8Dv0 Smoke
+
+on:
+  push:
+    branches:
+      - test/threads-BATF5u8Dv0
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Inspect live Threads source
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import { extractExternalSource } from './scripts/lib/source-extraction.mjs';
+
+          const rawUrl = 'https://www.threads.com/share/BATF5u8Dv0/';
+          let rootObserved = null;
+          let candidatesObserved = [];
+
+          const result = await extractExternalSource(rawUrl, {
+            requireComplete: false,
+            continuationRanker: async ({ rootPost, candidates }) => {
+              rootObserved = rootPost;
+              candidatesObserved = candidates;
+              return {
+                selected_shortcodes: [],
+                confidence: 0,
+                complete: false,
+                rationale: 'Diagnostic pass only.',
+                candidate_labels: candidates.map((candidate) => ({
+                  shortcode: candidate.shortcode,
+                  label: 'uncertain',
+                  confidence: 0
+                }))
+              };
+            }
+          });
+
+          const source = result.source;
+          console.log('RESOLUTION_JSON=' + JSON.stringify(result.resolution));
+          console.log('SOURCE_SUMMARY_JSON=' + JSON.stringify({
+            canonical_url: source?.canonical_url,
+            source_identity: source?.source_identity,
+            shortcode: source?.shortcode,
+            username: source?.username,
+            timestamp: source?.timestamp,
+            has_replies: source?.has_replies,
+            thread: source?.thread,
+            extraction: source?.extraction,
+            parts: source?.parts?.map((part) => ({
+              index: part.index,
+              shortcode: part.shortcode,
+              username: part.username,
+              timestamp: part.timestamp,
+              is_reply: part.is_reply,
+              text: part.text
+            })) || [],
+            combined_text: source?.combined_text || null
+          }));
+          if (rootObserved) {
+            console.log('ROOT_JSON=' + JSON.stringify({
+              shortcode: rootObserved.shortcode,
+              username: rootObserved.username,
+              timestamp: rootObserved.timestamp,
+              has_replies: rootObserved.has_replies,
+              text: rootObserved.text
+            }));
+          }
+          console.log('CANDIDATES_JSON=' + JSON.stringify(candidatesObserved.map((candidate) => ({
+            shortcode: candidate.shortcode,
+            username: candidate.username,
+            timestamp: candidate.timestamp,
+            delta_seconds: candidate.delta_seconds,
+            is_reply: candidate.is_reply,
+            has_replies: candidate.has_replies,
+            metadata_score: candidate.metadata_score,
+            text: candidate.text
+          }))));
+          NODE
