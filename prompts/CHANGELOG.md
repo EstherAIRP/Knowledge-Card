@@ -10,6 +10,28 @@
 
 ---
 
+## 1.2.0 — 2026-08-13
+
+### Added
+
+- 新增 Threads Phase 2 normalized single-post extraction。
+- 新增 `npm run ingest:extract -- <URL>` source extraction CLI。
+- public HTML embedded JSON 會遞迴尋找與 canonical shortcode 相符的 post object。
+- normalized post 保存 text、author、timestamp、media、reply/root metadata、quoted/reposted post、link attachment 與 extraction method。
+- 預留 API adapter 與 browser extractor fallback，不綁定特定 OAuth 或 headless browser 套件。
+- fallback 結果必須與預期 shortcode 一致，避免誤抓同頁其他貼文或引用內容。
+
+### Changed
+
+- Threads ingestion 現在區分 URL resolution 與 source extraction 兩層。
+- normalized output 明確標示 `single_post_complete: true` 與 `conversation_complete: false`，避免把單篇擷取誤當完整 self-thread。
+
+### Boundary
+
+- Phase 2 尚未重建 `1/N → N/N` author chain，也尚未利用 UI `n/N`、conversation graph 或 root-level identity 驗證完整串文；這些工作留給 Phase 3。
+
+---
+
 ## 1.1.0 — 2026-08-13
 
 ### Added
