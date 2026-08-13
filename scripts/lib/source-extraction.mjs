@@ -1,6 +1,6 @@
 import { resolveExternalSourceUrl } from './source-resolution.mjs';
 import { extractResolvedThreadsPost } from './sources/threads/extract-post.mjs';
-import { extractResolvedThreadsConversation } from './sources/threads/conversation.mjs';
+import { extractResolvedThreadsConversationWithRecovery } from './sources/threads/conversation-recovery.mjs';
 import {
   extractThreadsViaBrowser,
   shouldAutoThreadsBrowserFallback
@@ -45,7 +45,7 @@ export async function extractExternalSource(rawUrl, options = {}) {
     const threadsOptions = withDefaultThreadsBrowserExtractors(resolution.canonical_url, merged);
     const source = threadsOptions.singlePostOnly
       ? await extractResolvedThreadsPost(resolution.canonical_url, threadsOptions)
-      : await extractResolvedThreadsConversation(resolution.canonical_url, threadsOptions);
+      : await extractResolvedThreadsConversationWithRecovery(resolution.canonical_url, threadsOptions);
     return { resolution, source };
   }
 
