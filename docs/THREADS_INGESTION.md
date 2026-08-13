@@ -1,6 +1,26 @@
 # Threads Source Ingestion
 
-This document records the source-adapter contract for Threads ingestion.
+This document records the source-adapter contract for **Threads-only ingestion**.
+
+## Scope — when this document applies
+
+Use this pipeline only when the primary source is Threads:
+
+- raw hostname is `threads.com` or `threads.net`, including `www` and other subdomains;
+- accepted path families include `/share/<token>`, `/t/<token>` and `/@user/post/<shortcode>`;
+- or a transient / short URL resolves to a primary resource on `threads.com` / `threads.net`.
+
+Do **not** use this pipeline for GitHub repositories, papers, arXiv/DOI, ordinary articles, documentation, tools, product pages or any other non-Threads source. Those sources stay on the generic route in `docs/INGESTION.md`.
+
+```text
+Threads URL / resolved Threads primary resource
+→ this Phase 1–7 pipeline
+
+anything else
+→ docs/INGESTION.md generic flow
+```
+
+A non-Threads page does not become a Threads source merely because its text mentions Threads or embeds/links to a Threads post. Provider routing is determined from the primary resource itself.
 
 ## Phase 1 — URL resolution
 
@@ -20,7 +40,7 @@ AND reply_to == previous post
 AND same root (when root metadata exists)
 ```
 
-Reader replies are excluded. Timestamp proximity is not evidence. Same-author branching without a unique part index yields `AMBIGUOUS_THREAD`.
+Reader replies are excluded. Timestamp proximity alone is not structural evidence. Same-author branching without a unique part index yields `AMBIGUOUS_THREAD`.
 
 When `n/N` is available from rendered text, structured hints or an API/browser conversation adapter, `parts.length == N` and the input part position must match `n`. Missing parts yield `INCOMPLETE_THREAD`. The extractor fails closed by default unless `thread.complete: true`.
 
@@ -36,10 +56,13 @@ For Threads it performs:
 input/share/middle post
 → Phase 1 URL resolution
 → Phase 2 exact post extraction
-→ Phase 3 complete conversation reconstruction
+→ Phase 3 strict conversation reconstruction
+→ Phase 5 browser evidence when required
+→ Phase 7 continuation recovery when structural metadata is insufficient and all gates pass
 → verify thread.complete + conversation_complete
 → verify root canonical URL ↔ source_identity consistency
 → Knowledge Card dedup/create-update resolution
+→ Phase 6 source-change comparison when snapshot state exists
 ```
 
 The returned contract contains the normal Knowledge Card resolver fields plus:
@@ -58,6 +81,7 @@ analysis_input
   text_field: source_document.combined_text
   media_field: source_document.parts[].media
   complete: true
+  thread_verification: structural | llm_assisted
 ```
 
 The agent must analyze `source_document.combined_text`, not the originally shared single post. `parts[]` remains the provenance record.
@@ -68,19 +92,20 @@ A share link or any part of the same self-thread is resolved before deduplicatio
 
 ### Fail-closed conditions
 
-Formal Knowledge Card ingestion stops on:
+Formal Knowledge Card ingestion stops on incomplete, ambiguous, invalid or identity-mismatched evidence, including:
 
 - `THREADS_CONVERSATION_INCOMPLETE`
 - `THREADS_CONVERSATION_AMBIGUOUS`
 - `THREADS_PRIMARY_SOURCE_INCOMPLETE`
 - `THREADS_PRIMARY_SOURCE_INVALID`
 - `EXTRACTED_SOURCE_IDENTITY_MISMATCH`
+- failed Phase 7 continuation acceptance
 
 No incomplete source may reach create/update resolution.
 
 ## Phase 5 — Playwright browser / Threads web-data fallback
 
-Phase 5 closes the JS-only source gap. The core ingestion path still tries HTTP and public hydration first; when normal live ingestion cannot resolve or reconstruct the source, it can launch an isolated Playwright browser and reuse the same Phase 2–4 contracts.
+Phase 5 closes the JS-only source gap. The core ingestion path still tries HTTP and public hydration first; when normal live Threads ingestion cannot resolve or reconstruct the source, it can launch an isolated Playwright browser and reuse the same completeness contracts.
 
 ### Installation
 
@@ -123,11 +148,11 @@ For a canonical post whose initial HTML is sparse, the browser adapter observes 
 
 Captured JSON is not coupled to a hard-coded GraphQL operation name. It is passed through the existing recursive Threads post candidate parser and normalizer, then merged with DOM-derived records. Payload count and payload size are bounded to avoid unbounded memory growth.
 
-The adapter returns normalized posts and a rendered `n/N` indicator when unambiguous. It deliberately reports `complete: false`: browser navigation success is **not** completeness evidence by itself. Phase 3 must still prove completeness using the reply graph, root traversal, terminal reply state or `n/N` agreement.
+The adapter returns normalized posts and a rendered `n/N` indicator when unambiguous. Browser navigation success is **not** completeness evidence by itself. Phase 3/7 must still establish an accepted complete source.
 
 ### Automatic fallback policy
 
-Normal live CLI ingestion has browser fallback available automatically when no custom fixture transport is supplied. Tests or callers that inject `fetchImpl` / static HTML remain deterministic by default. They can explicitly enable the browser path with:
+Normal live Threads CLI ingestion has browser fallback available automatically when no custom fixture transport is supplied. Tests or callers that inject `fetchImpl` / static HTML remain deterministic by default. They can explicitly enable the browser path with:
 
 ```js
 { browserFallback: true }
@@ -150,7 +175,7 @@ All browser failures remain fail closed. They never downgrade the primary-source
 
 Phase 6 adds persistent, machine-owned source state so a later submission of the same root thread can distinguish a re-check from a material source change.
 
-`npm run ingest:resolve -- <threads-url>` still performs the full Phase 1–5 source reconstruction first. Only after a complete normalized source exists does it build an in-memory fingerprint and compare it with the last accepted snapshot under `state/source-snapshots/threads/`.
+`npm run ingest:resolve -- <threads-url>` first reconstructs a complete accepted source. Only then does it build an in-memory fingerprint and compare it with the last accepted snapshot under `state/source-snapshots/threads/`.
 
 The resolver exposes a `source_change` contract when repository source state is available:
 
@@ -187,7 +212,7 @@ Media CDN query signatures are excluded from the media identity fingerprint beca
 
 An unchanged prefix with one or more new suffix parts is `THREAD_EXTENDED`. A text/media/reference/structure fingerprint change on an existing part is `PART_CHANGED`. Missing previously accepted parts are `PART_REMOVED`. Reordering/insertion without a simple append is `STRUCTURE_CHANGED`; combined signals are `MULTIPLE_CHANGES`.
 
-This status is advisory for Knowledge Card refresh policy, but it never weakens source completeness. A current source must still pass the Phase 3/4 completeness and identity gates before comparison.
+This status is advisory for Knowledge Card refresh policy, but it never weakens source completeness. A current source must still pass the completeness and identity gates before comparison.
 
 ### Advancing the accepted baseline
 
@@ -214,6 +239,98 @@ ingest:resolve
 
 Failed, incomplete, ambiguous or identity-mismatched source extraction never overwrites the last accepted snapshot.
 
+## Phase 7 — LLM-assisted continuation recovery
+
+Phase 7 is a fallback for the live-web case where Threads exposes enough public post evidence to see same-author replies, but normalized objects lack native `reply_to` / `root_post` relationships.
+
+Strict structure remains first priority. Phase 7 may run only when:
+
+- the root is known;
+- no `n/N` conflict exists;
+- there is no known missing-part condition;
+- there is no structural same-author branch ambiguity;
+- strict graph reconstruction cannot establish complete coverage because parent/root metadata is missing.
+
+### Candidate filter
+
+Before any LLM call, deterministic logic narrows browser evidence. Defaults:
+
+```text
+same author as root
+exclude root itself
+candidate timestamp is not before root
+exclude explicit is_reply=false
+within 24 hours of root when timestamp is known
+max 8 candidates
+```
+
+Metadata evidence rewards explicit reply status and short time distance, but metadata score alone never declares a continuation.
+
+### Semantic ranker
+
+The ranker receives only the root and filtered candidates. Post text is untrusted quoted data: any instruction inside the Threads content must be ignored.
+
+The model classifies candidates as:
+
+```text
+continuation
+followup
+unrelated
+uncertain
+```
+
+and returns structured output including:
+
+```text
+selected_shortcodes
+confidence
+complete
+rationale
+candidate_labels
+```
+
+Phase 7 supports an injected `continuationRanker` or an opt-in OpenAI-compatible endpoint configured with:
+
+```text
+THREADS_CONTINUATION_LLM_ENDPOINT
+# or
+THREADS_CONTINUATION_LLM_BASE_URL
+THREADS_CONTINUATION_LLM_MODEL
+THREADS_CONTINUATION_LLM_API_KEY   # optional
+```
+
+No configured ranker means fail closed; the system must not fall back to pure timestamp guessing.
+
+### Deterministic acceptance gate
+
+LLM output is accepted only when all mechanical checks pass. Defaults include:
+
+```text
+complete == true
+confidence >= 0.90
+first selected candidate metadata_score >= 0.60
+all selected shortcodes exist in captured evidence
+same author as root
+no selected candidate has is_reply=false
+selected sequence is chronological
+```
+
+Failure of any gate returns incomplete/failed recovery rather than silently accepting the model judgement.
+
+### Verification provenance
+
+An accepted recovered source is explicitly marked:
+
+```text
+thread.status = INFERRED_THREAD_HIGH_CONFIDENCE
+thread.verification = llm_assisted
+extraction.inferred = true
+```
+
+It may be used as a formal ingestion source because the deterministic acceptance gate passed, but it must never be described as if Threads supplied a native verified parent/root graph.
+
 ## Test strategy
 
-CI fixtures cover URL variants, exact-post selection, root/middle/last input, reader reply exclusion, same-author branches, `n/N`, missing-part rejection, root identity, mandatory resolver root dedup, non-Threads compatibility, browser GraphQL capture, JS-only share navigation, sparse-HTML recovery, unsafe browser redirects, deterministic source hashing, volatile media-signature suppression, append-only extension detection, edited/removed parts, snapshot no-op behavior and mandatory-preflight change reporting. Browser fixture tests use an injected session factory, so CI does not require downloading Chromium merely to validate adapter logic.
+CI fixtures cover URL variants, exact-post selection, root/middle/last input, reader reply exclusion, same-author branches, `n/N`, missing-part rejection, root identity, mandatory resolver root dedup, non-Threads compatibility, browser GraphQL capture, JS-only share navigation, sparse-HTML recovery, unsafe browser redirects, deterministic source hashing, volatile media-signature suppression, append-only extension detection, edited/removed parts, snapshot no-op behavior, mandatory-preflight change reporting and Phase 7 continuation recovery acceptance/rejection.
+
+Browser fixture tests use an injected session factory, so ordinary CI does not require downloading Chromium merely to validate adapter logic. Live acceptance tests may install Chromium explicitly and must remain isolated from production Card/snapshot writes.
