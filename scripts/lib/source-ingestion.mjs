@@ -2,6 +2,7 @@ import path from 'node:path';
 import { canonicalizeSource, resolveIngestion } from './knowledge.mjs';
 import { extractExternalSource } from './source-extraction.mjs';
 import { resolveExternalSourceUrl } from './source-resolution.mjs';
+import { isThreadsSinglePostCoverageUnverified } from './sources/threads/conversation-recovery.mjs';
 import {
   defaultThreadsSnapshotRoot,
   inspectThreadsSourceChange
@@ -20,8 +21,14 @@ function resolutionSummary(external) {
 }
 
 function assertCompleteThreadsSource(source) {
+  if (isThreadsSinglePostCoverageUnverified(source)) {
+    const error = new Error('Threads root reports replies but conversation coverage was not verified; SINGLE_POST cannot be accepted.');
+    error.code = 'THREADS_PRIMARY_SOURCE_INCOMPLETE';
+    error.partial = source || null;
+    throw error;
+  }
   if (!source?.thread?.complete || !source?.extraction?.conversation_complete) {
-    const error = new Error('Threads primary source is not a verified complete conversation.');
+    const error = new Error('Threads primary source is not a verified or high-confidence recovered complete conversation.');
     error.code = 'THREADS_PRIMARY_SOURCE_INCOMPLETE';
     error.partial = source || null;
     throw error;
@@ -114,7 +121,8 @@ export async function prepareExternalIngestion(rawUrl, contentRoot, options = {}
       provider: 'threads',
       text_field: 'source_document.combined_text',
       media_field: 'source_document.parts[].media',
-      complete: true
+      complete: true,
+      thread_verification: source?.thread?.verification || (source?.extraction?.inferred ? 'llm_assisted' : 'structural')
     }
   };
 }
