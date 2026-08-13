@@ -9,6 +9,7 @@ export default defineConfig({
   lastUpdated: true,
   appearance: true,
   head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/Knowledge-Card/favicon.svg' }],
     ['meta', { name: 'theme-color', content: '#111318' }],
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }]
   ],
