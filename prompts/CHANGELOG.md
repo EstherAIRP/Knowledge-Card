@@ -4,6 +4,17 @@
 
 ---
 
+## 1.7.1 — 2026-08-13
+
+### Clarified
+
+- 新增 URL provider routing hard gate：`threads.com` / `threads.net`（含子網域）與解析後 primary resource 落在 Threads 的 transient URL，一律走 Threads Phase 1–7；其他 URL 一律走 non-Threads generic/provider flow。
+- 明確規定 Threads 與非 Threads ingestion 互斥，不得把 Threads 當普通 article 只分析分享當下單篇，也不得對一般 URL 啟動 Threads Browser、conversation reconstruction、continuation ranker 或 Threads source snapshot。
+- `AGENTS.md`、`docs/INGESTION.md`、`docs/THREADS_INGESTION.md` 同步加入相同 routing table / scope，讓裸 URL ingestion 的入口判斷一致。
+- 明確規定一般文章即使正文提到或連到 Threads，也不因此切換 provider route；只有 primary resource 本身解析到 Threads 才走 Threads 流程。
+
+---
+
 ## 1.7.0 — 2026-08-13
 
 ### Added
