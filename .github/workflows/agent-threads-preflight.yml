@@ -1,0 +1,48 @@
+name: Agent Threads Preflight
+
+on:
+  push:
+    branches:
+      - agent/threads-preflight-batf5u8dv0-20260813
+
+permissions:
+  contents: read
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run mandatory Threads preflight
+        shell: bash
+        run: |
+          set +e
+          npm run ingest:resolve -- 'https://www.threads.com/share/BATF5u8Dv0/' > preflight.json 2> preflight.err
+          status=$?
+          echo "$status" > preflight.exit-code
+          cat preflight.json || true
+          cat preflight.err >&2 || true
+          exit 0
+
+      - name: Upload preflight evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: threads-preflight-batf5u8dv0
+          path: |
+            preflight.json
+            preflight.err
+            preflight.exit-code
+          if-no-files-found: error
