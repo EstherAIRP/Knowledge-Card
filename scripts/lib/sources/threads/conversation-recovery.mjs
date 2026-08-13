@@ -111,7 +111,8 @@ function incompleteSource(source, reason, recovery = null) {
 }
 
 function inferredSource(source, rootPost, recovery) {
-  const selectedPosts = recovery.selected.map((candidate) => candidate.post);
+  const rootOnly = recovery.root_only === true;
+  const selectedPosts = rootOnly ? [] : recovery.selected.map((candidate) => candidate.post);
   const parts = [rootPost, ...selectedPosts].map((post, index) => ({ index: index + 1, ...post }));
   const rootShortcode = rootPost.shortcode || source.root_shortcode || null;
   const selectedShortcodes = selectedPosts.map((post) => post.shortcode).filter(Boolean);
@@ -134,7 +135,7 @@ function inferredSource(source, rootPost, recovery) {
       index: 1
     },
     thread: {
-      status: 'INFERRED_THREAD_HIGH_CONFIDENCE',
+      status: rootOnly ? 'INFERRED_SINGLE_POST_HIGH_CONFIDENCE' : 'INFERRED_THREAD_HIGH_CONFIDENCE',
       total: parts.length,
       detected_parts: parts.length,
       input_index: 1,
@@ -148,6 +149,7 @@ function inferredSource(source, rootPost, recovery) {
         rationale: recovery.rationale || null,
         candidates_considered: recovery.candidates?.length || 0,
         selected_shortcodes: selectedShortcodes,
+        root_only: rootOnly,
         candidate_labels: recovery.candidate_labels || [],
         ranker: recovery.ranker || null
       }
@@ -156,7 +158,7 @@ function inferredSource(source, rootPost, recovery) {
     combined_text: parts.map((part) => part.text).filter(Boolean).join('\n\n'),
     extraction: {
       ...(source.extraction || {}),
-      method: 'llm_assisted_continuation',
+      method: rootOnly ? 'llm_assisted_root_only' : 'llm_assisted_continuation',
       conversation_complete: true,
       conversation_coverage_complete: false,
       inferred: true
