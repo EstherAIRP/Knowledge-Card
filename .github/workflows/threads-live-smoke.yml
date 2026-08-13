@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   smoke:
-    name: Resolve live Threads share URL
+    name: Inspect Threads continuation candidates
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -30,22 +30,72 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Print root Threads post text
+      - name: Print root and same-author candidate posts
         shell: bash
         run: |
           set -euo pipefail
           node scripts/resolve-source.mjs 'https://www.threads.com/share/_qgqDMSsx/' > /tmp/threads-live.json
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
+          import { extractThreadsViaBrowser } from './scripts/lib/sources/threads/browser-adapter.mjs';
 
           const result = JSON.parse(fs.readFileSync('/tmp/threads-live.json', 'utf8'));
           const source = result.source_document;
           const parts = Array.isArray(source?.parts) ? source.parts : [];
           const root = parts[0] || source || null;
-          console.log('CANONICAL_URL=' + (result.canonical_url || ''));
-          console.log('ROOT_SHORTCODE=' + (root?.shortcode || ''));
-          console.log('ROOT_USERNAME=' + (root?.username || ''));
-          console.log('ROOT_TEXT_BEGIN');
+          const canonical = result.canonical_url;
+
+          console.log('ROOT_BEGIN');
+          console.log(JSON.stringify({
+            canonical_url: canonical,
+            id: root?.id || null,
+            shortcode: root?.shortcode || null,
+            username: root?.username || null,
+            timestamp: root?.timestamp || null,
+            is_reply: root?.is_reply ?? null,
+            has_replies: root?.has_replies ?? null
+          }, null, 2));
           console.log(typeof root?.text === 'string' ? root.text : '');
-          console.log('ROOT_TEXT_END');
+          console.log('ROOT_END');
+
+          const browser = await extractThreadsViaBrowser(canonical);
+          const posts = Array.isArray(browser.posts) ? browser.posts : [];
+          const rootUser = String(root?.username || '').toLowerCase();
+          const rootShortcode = root?.shortcode || null;
+          const candidates = posts
+            .filter((post) => String(post?.username || '').toLowerCase() === rootUser)
+            .filter((post) => post?.shortcode !== rootShortcode)
+            .sort((a, b) => {
+              const at = a?.timestamp ? Date.parse(a.timestamp) : Number.POSITIVE_INFINITY;
+              const bt = b?.timestamp ? Date.parse(b.timestamp) : Number.POSITIVE_INFINITY;
+              return at - bt;
+            });
+
+          console.log('BROWSER_META=' + JSON.stringify(browser.browser || null));
+          console.log('THREAD_INDICATOR=' + JSON.stringify(browser.thread_indicator || null));
+          console.log('CANDIDATE_COUNT=' + candidates.length);
+
+          for (let index = 0; index < candidates.length; index += 1) {
+            const post = candidates[index];
+            const rootMs = root?.timestamp ? Date.parse(root.timestamp) : NaN;
+            const postMs = post?.timestamp ? Date.parse(post.timestamp) : NaN;
+            const deltaSeconds = Number.isFinite(rootMs) && Number.isFinite(postMs)
+              ? Math.round((postMs - rootMs) / 1000)
+              : null;
+            console.log(`CANDIDATE_${index + 1}_BEGIN`);
+            console.log(JSON.stringify({
+              id: post?.id || null,
+              shortcode: post?.shortcode || null,
+              canonical_url: post?.canonical_url || null,
+              username: post?.username || null,
+              timestamp: post?.timestamp || null,
+              delta_seconds_from_root: deltaSeconds,
+              is_reply: post?.is_reply ?? null,
+              reply_to: post?.reply_to ?? null,
+              root_post: post?.root_post ?? null,
+              has_replies: post?.has_replies ?? null
+            }, null, 2));
+            console.log(typeof post?.text === 'string' ? post.text : '');
+            console.log(`CANDIDATE_${index + 1}_END`);
+          }
           NODE
