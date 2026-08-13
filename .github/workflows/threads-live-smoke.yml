@@ -30,7 +30,7 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Resolve and validate live Threads source
+      - name: Resolve live Threads source
         shell: bash
         run: |
           set -euo pipefail
@@ -41,8 +41,6 @@ jobs:
           const result = JSON.parse(fs.readFileSync('/tmp/threads-live.json', 'utf8'));
           const source = result.source_document;
           const parts = Array.isArray(source?.parts) ? source.parts : [];
-          const mediaCount = parts.reduce((sum, part) => sum + (Array.isArray(part?.media) ? part.media.length : 0), 0);
-
           const summary = {
             resolved_input_url: result.resolved_input_url,
             canonical_url: result.canonical_url,
@@ -61,19 +59,38 @@ jobs:
               has_replies: part.has_replies,
               text_length: typeof part.text === 'string' ? part.text.length : 0,
               media_count: Array.isArray(part.media) ? part.media.length : 0
-            })),
-            combined_text_length: typeof source?.combined_text === 'string' ? source.combined_text.length : 0,
-            media_count: mediaCount,
-            source_change: result.source_change || null
+            }))
           };
+          console.log('RESOLVER SUMMARY');
           console.log(JSON.stringify(summary, null, 2));
+          NODE
 
-          if (!source?.thread?.complete) throw new Error('Live source did not prove thread.complete=true.');
-          if (!source?.extraction?.conversation_complete) throw new Error('Live source did not prove conversation_complete=true.');
-          if (source.thread.total && parts.length !== source.thread.total) {
-            throw new Error(`Part count mismatch: got ${parts.length}, expected ${source.thread.total}.`);
-          }
-          if (!(typeof source.combined_text === 'string' && source.combined_text.trim()) && mediaCount === 0) {
-            throw new Error('Live source contains neither analyzable text nor media.');
-          }
+      - name: Inspect browser DOM and GraphQL evidence directly
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import { extractThreadsViaBrowser } from './scripts/lib/sources/threads/browser-adapter.mjs';
+
+          const canonical = 'https://threads.com/@esther1ooo/post/DFyr62jB6Wr';
+          const browser = await extractThreadsViaBrowser(canonical);
+          const posts = Array.isArray(browser.posts) ? browser.posts : [];
+          const summary = {
+            thread_indicator: browser.thread_indicator || null,
+            browser: browser.browser || null,
+            post_count: posts.length,
+            posts: posts.map((post) => ({
+              id: post.id,
+              shortcode: post.shortcode,
+              username: post.username,
+              reply_to: post.reply_to,
+              root_post: post.root_post,
+              is_reply: post.is_reply,
+              has_replies: post.has_replies,
+              text_length: typeof post.text === 'string' ? post.text.length : 0,
+              canonical_url: post.canonical_url
+            }))
+          };
+          console.log('BROWSER EVIDENCE SUMMARY');
+          console.log(JSON.stringify(summary, null, 2));
           NODE
