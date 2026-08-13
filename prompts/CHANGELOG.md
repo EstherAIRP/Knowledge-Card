@@ -4,6 +4,24 @@
 
 ---
 
+## 1.8.0 — 2026-08-13
+
+### Added
+
+- 擴充 Threads Phase 7，新增 high-confidence root-only recovery：當 root `has_replies: true`、原生 parent/root metadata 不足，但 Browser 已捕捉同作者 reply 候選時，可由 LLM 明確判定 root 本身就是完整正文。
+- LLM structured judgement 新增 `root_only`。Root-only 只有在 `selected_shortcodes=[]` 且所有 filtered candidates 都被完整標記為 `followup` / `unrelated` 時才可能接受。
+- 新增 `INFERRED_SINGLE_POST_HIGH_CONFIDENCE`、`thread.recovery.root_only = true` 與 `extraction.method = llm_assisted_root_only`，和 `INFERRED_THREAD_HIGH_CONFIDENCE` 分開保存 provenance。
+- 新增 VoxCPM live-case 型態的 unit / mandatory-ingestion fixtures，確認後續 VibeVoice / 台灣口音 replies 不會被誤併入原始正文。
+
+### Safety
+
+- Root-only acceptance 預設要求 global LLM confidence >= 0.90，且每個 candidate-label confidence >= 0.90。
+- `candidate_labels` 必須完整且唯一覆蓋所有 filtered candidates；漏標、多標、未知 candidate、`continuation`、`uncertain` 或低信心 label 均 fail closed。
+- 沒有 filtered candidate 時不得用 root-only 通過；「沒有找到續篇」不等於「已證明 root 是完整單篇」。
+- 既有 `n/N` conflict、known missing parts、structural ambiguity 與 provider routing hard gate 不變，LLM 仍不得覆蓋結構證據。
+
+---
+
 ## 1.7.1 — 2026-08-13
 
 ### Clarified
