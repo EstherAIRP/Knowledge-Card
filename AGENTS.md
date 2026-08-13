@@ -8,6 +8,7 @@ Knowledge Card is a public-oriented personal technology knowledge radar. The nor
 
 ```text
 User supplies URL
+→ route by source provider
 → resolve/canonicalize source
 → read primary evidence
 → detect create vs update
@@ -28,7 +29,8 @@ Before creating or updating a Knowledge Card, use these contracts:
 2. `config/taxonomy.yaml` — controlled categories, actions, statuses, source types, and relevance dimensions.
 3. `profile/public-profile.yaml` — the only personal context allowed in public personalized analysis.
 4. `templates/knowledge-card.example.md` — canonical body structure.
-5. `docs/INGESTION.md` — Phase 2 executable workflow.
+5. `docs/INGESTION.md` — executable ingestion workflow.
+6. `docs/THREADS_INGESTION.md` — Threads-only source adapter contract.
 
 Precedence:
 
@@ -36,14 +38,14 @@ Precedence:
 JSON Schema
 > taxonomy.yaml
 > public-profile.yaml for personalization/public safety
-> AGENTS.md / ingestion workflow
+> RUNTIME.md / AGENTS.md / ingestion workflow
 > example/template
 > existing AI-generated content
 ```
 
 Do not silently invent new controlled enum values. Change the repository contract deliberately if a new category/action/status/source type/relevance dimension is genuinely required.
 
-## 3. Mandatory Phase 2 preflight
+## 3. Mandatory preflight and URL routing
 
 Before authoring from a URL, run:
 
@@ -62,6 +64,24 @@ Use the resolver output as the mechanical source identity contract:
 
 Do not create a second card when the resolver identifies an existing source.
 
+### 3.1 Provider routing is a hard gate
+
+The ingestion route must be selected mechanically from the source URL. **Threads and non-Threads flows are mutually exclusive.**
+
+| Source | Required route |
+| --- | --- |
+| `threads.com` / `threads.net`, including `www`, subdomains, `/share/*`, `/t/*`, and `/@user/post/*` | Threads Phase 1–7 route defined in `docs/THREADS_INGESTION.md` |
+| A transient/short URL whose resolved primary resource is on `threads.com` / `threads.net` | Switch to the Threads Phase 1–7 route after URL resolution |
+| GitHub Repository URL | Generic ingestion with GitHub canonical identity; read repository metadata + README at minimum |
+| Paper / arXiv / DOI / article / documentation / tool / product / any other non-Threads URL | Generic ingestion route defined in `docs/INGESTION.md` |
+
+Hard rules:
+
+- A Threads URL must not be treated as a generic article whose currently shared post is sufficient evidence.
+- A non-Threads URL must not invoke Threads Playwright navigation, Threads conversation reconstruction, Threads continuation candidate collection, Threads LLM ranker, or Threads source snapshots.
+- Do not switch a non-Threads source to the Threads route merely because its body mentions Threads or contains a Threads hyperlink.
+- Once provider routing is established for the primary resource, do not mix provider-specific completeness contracts in the same ingestion.
+
 If dependencies are not installed in the current environment, install them from `package.json` before using the repository scripts.
 
 ## 4. Source-reading rule
@@ -75,6 +95,7 @@ Before writing a card:
 - inspect architecture/security/docs/config/source files when needed to support technical claims;
 - for papers, prefer the paper/abstract and official project material;
 - for articles/documentation, read the actual authoritative page;
+- for Threads, use the complete `source_document` returned by the Threads route rather than only the originally shared part;
 - separate verified facts from inference;
 - do not invent features, architecture, maturity, licenses, compatibility, benchmarks, or maintenance status.
 
@@ -93,7 +114,9 @@ canonical_url   = https://github.com/{owner}/{repo}
 
 Repository URL variants such as trailing slashes, `.git`, README/repository subpaths, query parameters, or fragments must not create duplicate cards.
 
-For normal web sources, use the resolver's stable canonical URL and `url:{canonical_url}` identity. Known tracking parameters are removed conservatively while meaningful query parameters are preserved.
+For normal non-Threads web sources, use the resolver's stable canonical URL and `url:{canonical_url}` identity. Known tracking parameters are removed conservatively while meaningful query parameters are preserved.
+
+For Threads, root-level canonicalization and deduplication are defined by the Threads adapter: the complete self-thread resolves to the root permalink and `threads:{root_shortcode}` identity before create/update lookup.
 
 Before a new write completes, duplicate `id`, `source.identity`, and `canonical_url` are also checked by `npm run validate`.
 
@@ -124,19 +147,20 @@ Do not rename historical cards merely because a title or recommendation changes.
 When resolver `mode` is `create`:
 
 1. Read `templates/knowledge-card.example.md`.
-2. Read current primary evidence.
+2. Read current primary evidence using the already-selected provider route.
 3. Read `profile/public-profile.yaml` for personalized relevance only.
 4. Produce valid frontmatter and the canonical body sections.
 5. Write to resolver `suggested_path`.
 6. Run `npm run validate`.
-7. Commit only after validation succeeds.
+7. For Threads only, after Card validation succeeds, advance accepted source state with `npm run ingest:snapshot -- <Threads URL>` when the snapshot changes.
+8. Commit only after validation succeeds.
 
 ## 8. Existing-card update protocol
 
 When resolver `mode` is `update`:
 
 1. Read the existing card completely.
-2. Re-read the current primary source.
+2. Re-read the current primary source using the same provider route.
 3. Preserve stable and user-owned state.
 4. Refresh only AI-owned metadata/analysis from current evidence.
 5. Set `last_checked_at` to the current date for a real re-check.
@@ -148,6 +172,8 @@ When resolver `mode` is `update`:
 npm run validate:ownership -- <existing_path>
 npm run validate
 ```
+
+9. For Threads only, after successful Card/ownership validation, run `npm run ingest:snapshot -- <Threads URL>` if the accepted source baseline must advance.
 
 Meaningful changes include major features/architecture, provider/runtime support, project lifecycle changes, or relevance/action changes backed by substantive evidence. If no substantive knowledge changed, update only `last_checked_at` and avoid a noisy changelog entry.
 
@@ -267,11 +293,13 @@ For an existing-card update, also run before commit:
 npm run validate:ownership -- <path>
 ```
 
-When Phase 2 tooling itself changes, also run:
+When ingestion/source tooling itself changes, also run:
 
 ```bash
 npm test
 ```
+
+Documentation-only routing clarifications do not require source-tooling tests, but repository validation / CI must still pass before promoting the branch to `main`.
 
 `npm run validate` checks JSON Schema compliance, taxonomy/schema drift, body section order, title consistency, source identity normalization, duplicate IDs/identities/canonical URLs, and date ordering.
 
@@ -302,4 +330,4 @@ After successful ingestion, report concisely:
 - important change if updating;
 - repository path.
 
-Do not claim success until the repository write has actually succeeded.
+For Threads, also report inferred-vs-structural verification when relevant. Do not claim success until the repository write has actually succeeded.
