@@ -168,8 +168,11 @@ function validateRootOnlyJudgement(candidates, judgement, confidence, options = 
   const labels = normalizedCandidateLabels(judgement);
   const candidateShortcodes = candidates.map((candidate) => candidate.shortcode).filter(Boolean);
 
-  if (!candidateShortcodes.length) {
+  if (!candidates.length) {
     return { accepted: false, reason: 'root_only_requires_candidates', confidence, selected: [] };
+  }
+  if (candidateShortcodes.length !== candidates.length) {
+    return { accepted: false, reason: 'root_only_candidate_identity_missing', confidence, selected: [] };
   }
   if (labels.length !== candidateShortcodes.length) {
     return { accepted: false, reason: 'root_only_candidate_labels_incomplete', confidence, selected: [] };
