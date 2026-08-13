@@ -4,6 +4,33 @@
 
 ---
 
+## 1.7.0 — 2026-08-13
+
+### Added
+
+- 新增 Threads Phase 7 LLM-assisted continuation recovery。
+- 新增 deterministic continuation candidate filter：同作者、root 之後、reply/unknown-reply、限定時間窗與候選數量。
+- 新增 provider-neutral `continuationRanker` injection contract，以及 opt-in OpenAI-compatible HTTP ranker：`THREADS_CONTINUATION_LLM_ENDPOINT` / `THREADS_CONTINUATION_LLM_BASE_URL`、`THREADS_CONTINUATION_LLM_MODEL`、可選 API key。
+- 新增 structured LLM judgement contract：`selected_shortcodes`、`confidence`、`complete`、`rationale`、candidate labels。
+- 新增 deterministic acceptance gate：預設 LLM confidence >= 0.90、metadata evidence >= 0.60、同作者、evidence membership、reply constraint、chronological order。
+- 新增 `INFERRED_THREAD_HIGH_CONFIDENCE` 與 `thread.verification = llm_assisted`，保留 inference provenance，與原生 `COMPLETE_THREAD` 明確區分。
+- 新增 continuation recovery unit tests，涵蓋 live case 型態的 +138 秒同作者 reply、later follow-up 排除、低信心拒絕與 OpenAI-compatible adapter mock。
+
+### Changed
+
+- mandatory Threads ingestion 改經 recovery orchestration layer：strict structural graph 仍優先，只有 coverage 無法由 parent/root metadata 證明時才考慮 LLM-assisted recovery。
+- 修正 live test 發現的 false positive：root `has_replies: true` 且 `conversation_coverage_complete !== true` 時，不得直接以 `SINGLE_POST` 通過正式 ingestion。
+- `analysis_input` 額外暴露 `thread_verification`，讓 agent 可區分 structural 與 `llm_assisted` source。
+
+### Safety
+
+- LLM 不得覆蓋既有 `n/N` conflict、known missing parts 或 structural same-author branch ambiguity。
+- Threads post text 在 ranker prompt 中被視為 untrusted quoted data；不得執行貼文內指令。
+- LLM 未設定、低於門檻、候選 evidence 過弱、sequence 不合法或 ranker failure 時維持 `INCOMPLETE_THREAD` / fail closed。
+- 不允許純時間距離直接成為正式 source；時間只作 candidate narrowing / metadata evidence。
+
+---
+
 ## 1.6.0 — 2026-08-13
 
 ### Added
