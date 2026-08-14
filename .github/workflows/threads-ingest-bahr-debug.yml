@@ -8,10 +8,10 @@ on:
       - '.github/workflows/threads-ingest-bahr-debug.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  inspect:
+  snapshot:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -23,41 +23,52 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
-      - name: Verify accepted mandatory preflight
+      - name: Validate card before snapshot
+        run: npm run validate
+      - name: Advance accepted Threads snapshot with verified recovery
         shell: bash
         run: |
           node --input-type=module <<'NODE'
           import assert from 'node:assert/strict';
           import path from 'node:path';
           import { prepareExternalIngestion } from './scripts/lib/source-ingestion.mjs';
+          import { defaultThreadsSnapshotRoot, writeThreadsSourceSnapshot } from './scripts/lib/sources/threads/source-state.mjs';
 
           const rawUrl = 'https://www.threads.com/share/BAhr4lFBi8/';
           const expected = ['Db_FPlxAdrv', 'Db_FP9yAVmP', 'Db_FQWrAZuU', 'Db_FQ4-AdFk'];
-          const result = await prepareExternalIngestion(rawUrl, path.resolve('content/knowledge'), {
+          const contentRoot = path.resolve('content/knowledge');
+          const result = await prepareExternalIngestion(rawUrl, contentRoot, {
             continuationRanker: async ({ rootPost, candidates }) => {
               assert.equal(rootPost.shortcode, 'Db_FPHwgfOS');
               assert.equal(rootPost.username, 'aiposthub');
-              assert.match(rootPost.text || '', /DeepSeek Harness/i);
-              const actual = candidates.map((candidate) => candidate.shortcode);
-              assert.deepEqual(actual, expected);
+              assert.deepEqual(candidates.map((candidate) => candidate.shortcode), expected);
               return {
                 selected_shortcodes: expected,
                 root_only: false,
                 confidence: 0.99,
                 complete: true,
                 rationale: 'All four immediate same-author replies continue the same DeepSeek Harness article, covering capabilities, architecture, usage, maturity and conclusion.',
-                candidate_labels: candidates.map((candidate) => ({
-                  shortcode: candidate.shortcode,
-                  label: 'continuation',
-                  confidence: 0.99
-                }))
+                candidate_labels: candidates.map((candidate) => ({ shortcode: candidate.shortcode, label: 'continuation', confidence: 0.99 }))
               };
             }
           });
+          assert.equal(result.mode, 'update');
+          assert.equal(result.existing_path, 'content/knowledge/2026/threads-db-fphwgfos-7d09e0.md');
           assert.equal(result.source_document.thread.status, 'INFERRED_THREAD_HIGH_CONFIDENCE');
-          assert.equal(result.source_document.thread.verification, 'llm_assisted');
           assert.equal(result.source_document.thread.total, 5);
-          assert.deepEqual(result.source_document.parts.map((part) => part.shortcode), ['Db_FPHwgfOS', ...expected]);
-          console.log('RESULT');
-          console.log(JSON.stringify(result, null, 2));
+          const saved = writeThreadsSourceSnapshot(result.source_document, defaultThreadsSnapshotRoot(contentRoot));
+          console.log(JSON.stringify({ path: path.relative(process.cwd(), saved.path), written: saved.written, source_hash: saved.snapshot.source_hash }, null, 2));
           NODE
+      - name: Commit snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add state/source-snapshots/threads/
+          if git diff --cached --quiet; then
+            echo 'No snapshot change.'
+            exit 0
+          fi
+          git commit -m 'chore: snapshot DeepSeek Harness Threads source'
+          git push origin HEAD:dev/ingest-threads-bahr4lfbi8
