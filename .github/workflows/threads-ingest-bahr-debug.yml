@@ -1,0 +1,61 @@
+name: Threads Ingest BAhr Debug
+
+on:
+  push:
+    branches:
+      - dev/ingest-threads-bahr4lfbi8
+    paths:
+      - '.github/workflows/threads-ingest-bahr-debug.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  inspect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run mandatory preflight
+        shell: bash
+        run: |
+          set +e
+          npm run ingest:resolve -- 'https://www.threads.com/share/BAhr4lFBi8/'
+          echo "resolver_exit=$?"
+          exit 0
+      - name: Inspect public browser evidence
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { resolveExternalSourceUrl } from './scripts/lib/source-resolution.mjs';
+          import { extractThreadsViaBrowser } from './scripts/lib/sources/threads/browser-adapter.mjs';
+          const rawUrl = 'https://www.threads.com/share/BAhr4lFBi8/';
+          const resolution = await resolveExternalSourceUrl(rawUrl);
+          const browser = await extractThreadsViaBrowser(resolution.canonical_url);
+          console.log('RESOLUTION');
+          console.log(JSON.stringify(resolution, null, 2));
+          console.log('BROWSER');
+          console.log(JSON.stringify({
+            thread_indicator: browser.thread_indicator,
+            browser: browser.browser,
+            posts: browser.posts.map((post) => ({
+              id: post.id,
+              shortcode: post.shortcode,
+              canonical_url: post.canonical_url,
+              username: post.username,
+              timestamp: post.timestamp,
+              is_reply: post.is_reply,
+              reply_to: post.reply_to,
+              root_post: post.root_post,
+              has_replies: post.has_replies,
+              text: post.text
+            }))
+          }, null, 2));
+          NODE
