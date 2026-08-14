@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-14T06:47:59.368Z",
-  "input_hash": "f137cf2f1aab23c2295a1949a9644319691c257a4eb58e9e54f8af210d77101a",
+  "generated_at": "2026-08-14T12:10:24.877Z",
+  "input_hash": "93ac4522fcea03a660e910ea32be2adec1ae18ea89c35e9228bad29451d1e718",
   "concepts": [
     {
       "id": "category-agent",
@@ -20,9 +20,10 @@
         "github-moeru-ai-airi",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
       ],
-      "card_count": 10
+      "card_count": 11
     },
     {
       "id": "coding-agent-tooling",
@@ -38,9 +39,10 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
       ],
-      "card_count": 7
+      "card_count": 8
     },
     {
       "id": "category-ai-coding-devtools",
@@ -55,9 +57,10 @@
         "github-intuition-lab-personal-model",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
       ],
-      "card_count": 6
+      "card_count": 7
     },
     {
       "id": "character-runtime",
@@ -152,6 +155,21 @@
       "card_count": 4
     },
     {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "category-rag-memory-knowledge",
       "label": "RAG / Memory / Knowledge",
       "type": "category",
@@ -219,20 +237,6 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi",
-        "github-stablyai-orca"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-minijinai75-tavern-claude-bridge",
         "github-stablyai-orca"
       ],
       "card_count": 3
@@ -1379,6 +1383,54 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
       "card_id": "threads-db-wlkkgtu-18d1ea",
       "concept_id": "category-agent",
       "strength": 1,
@@ -1503,7 +1555,7 @@
       "target": "category-infrastructure-deployment",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-minijinai75-tavern-claude-bridge"
@@ -1675,7 +1727,7 @@
       "source": "category-agent",
       "target": "category-ai-coding-devtools",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
@@ -1683,6 +1735,7 @@
         "github-intuition-lab-personal-model",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
       ]
     },
@@ -1703,7 +1756,7 @@
       "source": "category-agent",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
@@ -1712,6 +1765,7 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
       ]
     },
@@ -1777,9 +1831,20 @@
     },
     {
       "source": "category-ai-coding-devtools",
+      "target": "category-infrastructure-deployment",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.5,
+      "card_ids": [
+        "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
@@ -1787,6 +1852,7 @@
         "github-intuition-lab-personal-model",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
       ]
     },
@@ -1895,11 +1961,12 @@
       "source": "category-infrastructure-deployment",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
         "github-minijinai75-tavern-claude-bridge",
-        "github-stablyai-orca"
+        "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -1907,7 +1974,7 @@
       "target": "tag-claude-code",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-minijinai75-tavern-claude-bridge",
         "github-stablyai-orca"
@@ -2124,9 +2191,9 @@
     }
   ],
   "stats": {
-    "card_count": 12,
+    "card_count": 13,
     "concept_count": 23,
-    "card_concept_edge_count": 84,
-    "concept_relation_edge_count": 55
+    "card_concept_edge_count": 88,
+    "concept_relation_edge_count": 56
   }
 }
