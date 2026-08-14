@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-13T09:57:17.477Z",
-  "input_hash": "ee54ed5a1568740262c112728cbd15f4c5e6c71262f522f2c8d3479389e48c0a",
+  "generated_at": "2026-08-14T06:47:59.368Z",
+  "input_hash": "f137cf2f1aab23c2295a1949a9644319691c257a4eb58e9e54f8af210d77101a",
   "concepts": [
     {
       "id": "category-agent",
@@ -12,6 +12,7 @@
       "aliases": [],
       "card_ids": [
         "github-cynthianani-a-simple-nest",
+        "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
@@ -21,7 +22,7 @@
         "github-stablyai-orca",
         "threads-db-wlkkgtu-18d1ea"
       ],
-      "card_count": 9
+      "card_count": 10
     },
     {
       "id": "coding-agent-tooling",
@@ -31,6 +32,7 @@
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
@@ -38,7 +40,7 @@
         "github-stablyai-orca",
         "threads-db-wlkkgtu-18d1ea"
       ],
-      "card_count": 6
+      "card_count": 7
     },
     {
       "id": "category-ai-coding-devtools",
@@ -48,13 +50,14 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "threads-db-wlkkgtu-18d1ea"
       ],
-      "card_count": 5
+      "card_count": 6
     },
     {
       "id": "character-runtime",
@@ -119,6 +122,36 @@
       "card_count": 4
     },
     {
+      "id": "tag-claude-code",
+      "label": "Claude Code",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-nutlope-hallmark",
+        "github-stablyai-orca"
+      ],
+      "card_count": 4
+    },
+    {
+      "id": "category-general-tools",
+      "label": "General Tools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：General Tools",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nutlope-hallmark"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "category-rag-memory-knowledge",
       "label": "RAG / Memory / Knowledge",
       "type": "category",
@@ -177,20 +210,6 @@
       "card_count": 3
     },
     {
-      "id": "tag-claude-code",
-      "label": "Claude-Code",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca"
-      ],
-      "card_count": 3
-    },
-    {
       "id": "tag-electron",
       "label": "electron",
       "type": "topic",
@@ -201,20 +220,6 @@
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi",
         "github-stablyai-orca"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "category-general-tools",
-      "label": "General Tools",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：General Tools",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-hugohe3-ppt-master",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nutlope-hallmark"
       ],
       "card_count": 3
     },
@@ -245,6 +250,19 @@
         "github-mirabarukaso-character-select-stand-alone-app"
       ],
       "card_count": 3
+    },
+    {
+      "id": "tag-agent-skill",
+      "label": "agent skill",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master"
+      ],
+      "card_count": 2
     },
     {
       "id": "tag-codex",
@@ -425,6 +443,82 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-danyuchn-iso-24495-skill",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-danyuchn-iso-24495-skill",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-danyuchn-iso-24495-skill",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-danyuchn-iso-24495-skill",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-danyuchn-iso-24495-skill",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-danyuchn-iso-24495-skill",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-drumih-turbo-fieldfare",
       "concept_id": "agent-api-bridge",
       "strength": 0.78,
@@ -531,6 +625,18 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "github-hugohe3-ppt-master",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-skill"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "github-intuition-lab-personal-model",
@@ -1405,17 +1511,6 @@
     },
     {
       "source": "agent-api-bridge",
-      "target": "coding-agent-tooling",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.5,
-      "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-minijinai75-tavern-claude-bridge"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
       "support": 3,
@@ -1580,9 +1675,10 @@
       "source": "category-agent",
       "target": "category-ai-coding-devtools",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-nutlope-hallmark",
@@ -1594,9 +1690,10 @@
       "source": "category-agent",
       "target": "category-general-tools",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-nutlope-hallmark"
@@ -1606,9 +1703,10 @@
       "source": "category-agent",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
@@ -1631,23 +1729,24 @@
     },
     {
       "source": "category-agent",
-      "target": "tag-claude-code",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca"
-      ]
-    },
-    {
-      "source": "category-agent",
-      "target": "tag-codex",
+      "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "tag-claude-code",
+      "type": "co_occurs_with",
+      "support": 4,
+      "weight": 1,
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
       ]
@@ -1668,9 +1767,10 @@
       "source": "category-ai-coding-devtools",
       "target": "category-general-tools",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-nutlope-hallmark"
       ]
@@ -1679,9 +1779,10 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-nutlope-hallmark",
@@ -1691,11 +1792,23 @@
     },
     {
       "source": "category-ai-coding-devtools",
-      "target": "tag-claude-code",
+      "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "tag-claude-code",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 0.75,
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
       ]
@@ -1748,10 +1861,33 @@
       "source": "category-general-tools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
+        "github-nutlope-hallmark"
+      ]
+    },
+    {
+      "source": "category-general-tools",
+      "target": "tag-agent-skill",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master"
+      ]
+    },
+    {
+      "source": "category-general-tools",
+      "target": "tag-claude-code",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.5,
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-nutlope-hallmark"
       ]
     },
@@ -1942,11 +2078,23 @@
     },
     {
       "source": "coding-agent-tooling",
-      "target": "tag-claude-code",
+      "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 2,
       "weight": 1,
       "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
+      "target": "tag-claude-code",
+      "type": "co_occurs_with",
+      "support": 4,
+      "weight": 1,
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
@@ -1976,9 +2124,9 @@
     }
   ],
   "stats": {
-    "card_count": 11,
-    "concept_count": 22,
-    "card_concept_edge_count": 77,
-    "concept_relation_edge_count": 52
+    "card_count": 12,
+    "concept_count": 23,
+    "card_concept_edge_count": 84,
+    "concept_relation_edge_count": 55
   }
 }
