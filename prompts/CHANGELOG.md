@@ -4,6 +4,30 @@
 
 ---
 
+## 1.9.0 — 2026-08-15
+
+### Added
+
+- 新增 Phase 8A execution-backend contract，正式分離 provider routing 與 execution routing。
+- 新增核心規則：`execution/runtime failure != source unavailable`。當前 session 缺 shell、Node/npm、outbound network、Playwright/Chromium 或必要 model endpoint 時，不得直接把來源判定為 `SOURCE_UNAVAILABLE`。
+- 定義 backend 嘗試順序：Local execution backend → Repository-defined remote execution backend → existing alias / accepted snapshot lookup（僅 identity/history 輔助）。
+- 新增 failure vocabulary：`LOCAL_EXECUTION_UNAVAILABLE`、`REMOTE_EXECUTION_UNAVAILABLE`、`SOURCE_EXTRACTION_FAILED`、`SOURCE_INCOMPLETE`、`INGESTION_BLOCKED`，並收窄 `SOURCE_UNAVAILABLE` 為真正 source-level failure。
+- `AGENTS.md`、`docs/INGESTION.md`、`docs/THREADS_INGESTION.md` 同步 execution-backend policy。
+
+### Changed
+
+- `npm run ingest:resolve -- <URL>` 仍是 mandatory preflight，但 local runtime 無法執行時必須先套用 execution-backend policy，不能直接停止並把來源宣告 unavailable。
+- Threads browser / Phase 7 model endpoint 的 local capability failure 先視為 execution-backend failure；來源完整性 gate 本身不變。
+- Existing Card / accepted snapshot 可在 live revalidation blocked 時提供已知 identity/state，但不得用來刷新 analysis、`last_checked_at` 或 accepted snapshot。
+
+### Boundary
+
+- Phase 8A 是 contract-only；尚未實作永久 RemoteBackend / remote-ingest workflow。永久 execution harness 留給後續 Phase 8B。
+- 在正式 RemoteBackend 上線前，Agent 不得自行發明 ad-hoc remote workflow 並把它當作 Repository 標準流程；無正式 remote backend 時應明確回報 `REMOTE_EXECUTION_UNAVAILABLE` / `INGESTION_BLOCKED`。
+- Provider routing、Threads Phase 1–7 completeness、user-owned state 與 public safety 規則不因 execution backend 改變。
+
+---
+
 ## 1.8.0 — 2026-08-13
 
 ### Added
