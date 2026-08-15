@@ -5,6 +5,7 @@ on:
   push:
     branches-ignore:
       - main
+      - 'runtime/ingest/**'
   workflow_dispatch:
 
 permissions:
