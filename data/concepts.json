@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-15T02:15:51.570Z",
-  "input_hash": "8f8d950edec702e77e80c47e061727a5dbcbed26787b6854e2bb25c3445d9a40",
+  "generated_at": "2026-08-15T15:20:01.113Z",
+  "input_hash": "b6ba3aa6a48c223841d5f053b4e4adb1e16fd0730654757de0f218d09f4bd627",
   "concepts": [
     {
       "id": "category-agent",
@@ -44,9 +44,10 @@
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
-        "threads-db-wlkkgtu-18d1ea"
+        "threads-db-wlkkgtu-18d1ea",
+        "threads-dcdjlucgrwf-66e463"
       ],
-      "card_count": 10
+      "card_count": 11
     },
     {
       "id": "category-ai-coding-devtools",
@@ -64,9 +65,10 @@
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
-        "threads-db-wlkkgtu-18d1ea"
+        "threads-db-wlkkgtu-18d1ea",
+        "threads-dcdjlucgrwf-66e463"
       ],
-      "card_count": 9
+      "card_count": 10
     },
     {
       "id": "category-llm",
@@ -406,6 +408,19 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-responsive-design",
+      "label": "responsive-design",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-nutlope-hallmark",
+        "threads-dcdjlucgrwf-66e463"
       ],
       "card_count": 2
     },
@@ -1717,6 +1732,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-nutlope-hallmark",
+      "concept_id": "tag-responsive-design",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "responsive-design"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-stablyai-orca",
       "concept_id": "category-agent",
       "strength": 1,
@@ -2025,6 +2052,42 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "threads-dcdjlucgrwf-66e463",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-dcdjlucgrwf-66e463",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "threads-dcdjlucgrwf-66e463",
+      "concept_id": "tag-responsive-design",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "responsive-design"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "threads-dfyr62jb6wr-b921df",
       "concept_id": "agent-memory",
       "strength": 0.78,
@@ -2272,24 +2335,6 @@
     },
     {
       "source": "category-agent",
-      "target": "category-ai-coding-devtools",
-      "type": "co_occurs_with",
-      "support": 9,
-      "weight": 1,
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-g36maid-deepseek-harness",
-        "github-hugohe3-ppt-master",
-        "github-intuition-lab-personal-model",
-        "github-mattpocock-skills",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca",
-        "threads-db-fphwgfos-7d09e0",
-        "threads-db-wlkkgtu-18d1ea"
-      ]
-    },
-    {
-      "source": "category-agent",
       "target": "category-general-tools",
       "type": "co_occurs_with",
       "support": 5,
@@ -2304,25 +2349,6 @@
     },
     {
       "source": "category-agent",
-      "target": "coding-agent-tooling",
-      "type": "co_occurs_with",
-      "support": 10,
-      "weight": 1,
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-g36maid-deepseek-harness",
-        "github-hugohe3-ppt-master",
-        "github-intuition-lab-personal-model",
-        "github-mattpocock-skills",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca",
-        "threads-db-fphwgfos-7d09e0",
-        "threads-db-wlkkgtu-18d1ea"
-      ]
-    },
-    {
-      "source": "category-agent",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
       "support": 3,
@@ -2331,6 +2357,28 @@
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "tag-agent-loop",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "tag-agent-runtime",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -2375,7 +2423,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
@@ -2386,7 +2434,8 @@
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
-        "threads-db-wlkkgtu-18d1ea"
+        "threads-db-wlkkgtu-18d1ea",
+        "threads-dcdjlucgrwf-66e463"
       ]
     },
     {
@@ -2454,6 +2503,17 @@
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "tag-cordis",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -2812,6 +2872,17 @@
     },
     {
       "source": "coding-agent-tooling",
+      "target": "tag-code-review",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mattpocock-skills",
+        "threads-db-wlkkgtu-18d1ea"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
       "support": 3,
@@ -2867,17 +2938,6 @@
       ]
     },
     {
-      "source": "tag-agent-loop",
-      "target": "tag-session-log",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
       "source": "tag-agent-runtime",
       "target": "tag-cordis",
       "type": "co_occurs_with",
@@ -2902,17 +2962,6 @@
     {
       "source": "tag-agent-runtime",
       "target": "tag-sandbox",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "tag-agent-runtime",
-      "target": "tag-session-log",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
@@ -2980,17 +3029,6 @@
     {
       "source": "tag-cordis",
       "target": "tag-tool-registry",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "tag-cordis",
-      "target": "tag-web-ui",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
@@ -3111,9 +3149,9 @@
     }
   ],
   "stats": {
-    "card_count": 15,
-    "concept_count": 34,
-    "card_concept_edge_count": 121,
-    "concept_relation_edge_count": 88
+    "card_count": 16,
+    "concept_count": 35,
+    "card_concept_edge_count": 125,
+    "concept_relation_edge_count": 87
   }
 }
