@@ -1,0 +1,92 @@
+name: Remote Ingest
+
+on:
+  push:
+    branches:
+      - 'runtime/ingest/**'
+    paths:
+      - '.runtime/requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: remote-ingest-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    name: Resolve remote ingestion request
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      RESULT_PATH: ${{ runner.temp }}/remote-ingest-result.json
+
+    steps:
+      - name: Checkout trusted harness from main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          path: app
+          fetch-depth: 1
+
+      - name: Checkout request branch as data only
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+          path: request
+          sparse-checkout: |
+            .runtime/requests
+          sparse-checkout-cone-mode: false
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Locate request
+        id: locate
+        shell: bash
+        run: |
+          mapfile -t files < <(find request/.runtime/requests -maxdepth 1 -type f -name '*.json' -print)
+          if [ "${#files[@]}" -ne 1 ]; then
+            echo "Expected exactly one remote ingestion request file; found ${#files[@]}." >&2
+            exit 2
+          fi
+          echo "request_path=${files[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate request metadata
+        id: request
+        run: node app/scripts/remote-ingest-request-meta.mjs "${{ steps.locate.outputs.request_path }}" "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        working-directory: app
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        working-directory: app
+        run: npx playwright install --with-deps chromium
+
+      - name: Execute mandatory ingestion preflight
+        run: node app/scripts/remote-ingest-runner.mjs "${{ steps.locate.outputs.request_path }}" "$RESULT_PATH"
+
+      - name: Upload remote ingestion result
+        if: always() && steps.request.outputs.request_id != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.request.outputs.artifact_name }}
+          path: ${{ env.RESULT_PATH }}
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Enforce accepted-source result
+        if: always() && steps.request.outputs.request_id != ''
+        run: node app/scripts/remote-ingest-result-check.mjs "$RESULT_PATH"
+
+      - name: Delete temporary request branch
+        if: always() && startsWith(github.ref_name, 'runtime/ingest/')
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method DELETE "repos/${{ github.repository }}/git/refs/heads/${{ github.ref_name }}"
