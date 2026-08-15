@@ -75,6 +75,15 @@ function errorMessage(error) {
   return error instanceof Error ? error.message : String(error || 'Unknown ingestion failure');
 }
 
+function directCause(error) {
+  const cause = error?.cause;
+  if (!cause || cause === error) return null;
+  return {
+    code: cause?.code || null,
+    message: errorMessage(cause)
+  };
+}
+
 const SOURCE_INCOMPLETE_CODES = new Set([
   'THREADS_CONVERSATION_INCOMPLETE',
   'THREADS_CONVERSATION_AMBIGUOUS',
@@ -95,6 +104,7 @@ const LOCAL_CAPABILITY_CODES = new Set([
 
 export function classifyIngestionFailure(error, { backend = 'local' } = {}) {
   const code = errorCode(error);
+  const cause = directCause(error);
   let classification = 'SOURCE_EXTRACTION_FAILED';
 
   if (SOURCE_INCOMPLETE_CODES.has(code)) {
@@ -109,6 +119,10 @@ export function classifyIngestionFailure(error, { backend = 'local' } = {}) {
     classification,
     code: code || 'SOURCE_RESOLUTION_FAILED',
     message: errorMessage(error),
+    ...(cause ? {
+      cause_code: cause.code,
+      cause_message: cause.message
+    } : {}),
     retry_remote: backend === 'local' && classification === 'LOCAL_EXECUTION_UNAVAILABLE'
   };
 }
