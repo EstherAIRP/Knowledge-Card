@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { normalizeThreadsSemanticHandoffRequest } from './semantic-handoff.mjs';
 
 export const EXECUTION_RESULT_SCHEMA_VERSION = 1;
 export const REMOTE_INGEST_REQUEST_SCHEMA_VERSION = 1;
@@ -39,18 +40,27 @@ export function assertRequestId(value) {
   return requestId;
 }
 
-export function createRemoteIngestRequest({ requestId, url, operation = REMOTE_INGEST_OPERATION } = {}) {
+export function createRemoteIngestRequest({
+  requestId,
+  url,
+  operation = REMOTE_INGEST_OPERATION,
+  semanticHandoff = null
+} = {}) {
   if (operation !== REMOTE_INGEST_OPERATION) {
     const error = new Error(`Unsupported remote ingestion operation: ${operation}`);
     error.code = 'REMOTE_INGEST_REQUEST_UNSUPPORTED_OPERATION';
     throw error;
   }
-  return {
+  const request = {
     schema_version: REMOTE_INGEST_REQUEST_SCHEMA_VERSION,
     request_id: assertRequestId(requestId || createRequestId()),
     operation,
     url: normalizeIngestUrl(url)
   };
+  if (semanticHandoff !== null && semanticHandoff !== undefined) {
+    request.semantic_handoff = normalizeThreadsSemanticHandoffRequest(semanticHandoff);
+  }
+  return request;
 }
 
 export function parseRemoteIngestRequest(value) {
@@ -63,7 +73,8 @@ export function parseRemoteIngestRequest(value) {
   return createRemoteIngestRequest({
     requestId: request.request_id,
     operation: request.operation,
-    url: request.url
+    url: request.url,
+    semanticHandoff: request.semantic_handoff ?? null
   });
 }
 
