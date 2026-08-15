@@ -39,11 +39,15 @@ function sanitizeDiagnostic(value, token) {
   return text.slice(-600);
 }
 
-export function buildCopilotCliArgs({ agent = THREADS_CONTINUATION_COPILOT_AGENT } = {}) {
+export function buildCopilotCliArgs({
+  agent = THREADS_CONTINUATION_COPILOT_AGENT,
+  model = DEFAULT_THREADS_CONTINUATION_COPILOT_MODEL
+} = {}) {
   return [
     '-s',
     '--no-ask-user',
-    `--agent=${agent}`
+    `--agent=${agent}`,
+    `--model=${model}`
   ];
 }
 
@@ -80,6 +84,7 @@ async function prepareIsolatedCopilotWorkspace(tempDir, agentProfileUrl = TRUSTE
 export async function invokeCopilotCli({
   prompt,
   token,
+  model = DEFAULT_THREADS_CONTINUATION_COPILOT_MODEL,
   spawnImpl = spawn,
   timeoutMs = DEFAULT_COPILOT_TIMEOUT_MS,
   maxOutputBytes = DEFAULT_COPILOT_MAX_OUTPUT_BYTES,
@@ -94,7 +99,7 @@ export async function invokeCopilotCli({
   try {
     await prepareIsolatedCopilotWorkspace(tempDir, agentProfileUrl);
 
-    const args = buildCopilotCliArgs({ agent });
+    const args = buildCopilotCliArgs({ agent, model });
     const env = buildCopilotCliEnvironment({ token, tempDir, baseEnv });
 
     const output = await new Promise((resolve, reject) => {
