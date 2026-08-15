@@ -331,7 +331,7 @@ runtime/ingest/{request_id}
 └── .runtime/requests/{request_id}.json
 ```
 
-created from current `main`. The branch carries request data only. The workflow executes trusted harness code from `main`, installs Node 24, repository dependencies, and Chromium, uploads one-day artifact `remote-ingest-{request_id}`, and attempts to delete the request branch.
+created from current `main`. The branch carries request data only. The workflow executes trusted harness code from `main`, installs Node 24, repository dependencies, and Chromium, uploads one-day artifact `remote-ingest-{request_id}`, and cleans up the request branch through a separate cleanup job.
 
 Before consuming a result require matching schema/request identity plus:
 
@@ -342,43 +342,53 @@ execution.status == success
 
 Remote transport never weakens source completeness.
 
-## Phase 8C — managed GitHub Models ranker
+## Phase 8C — managed GitHub Copilot CLI ranker
 
-Remote Ingest now has a standard Phase 7 ranker, so semantic recovery no longer depends on whichever LLM endpoint happens to exist in the current chat/runtime.
+Remote Ingest has a standard Phase 7 semantic ranker, so recovery no longer depends on whichever model endpoint happens to exist in the current chat/runtime.
 
 Managed profile:
 
 ```text
-provider: github_models
-endpoint: https://models.github.ai/inference/chat/completions
-model: openai/gpt-4.1
-permission: models: read
-auth: workflow GITHUB_TOKEN
-response_format: json_object
-temperature: 0
+provider: github_copilot
+adapter: copilot_cli
+agent: threads-continuation-ranker
+model: gpt-5.2
+resolve-job permission: copilot-requests: write + contents: read
+auth: workflow GITHUB_TOKEN → isolated COPILOT_GITHUB_TOKEN
 ```
 
-The workflow injects `GITHUB_TOKEN` only into the mandatory preflight step. The token must never appear in request branches, artifacts, Cards, snapshots, or logs.
+The workflow installs `@github/copilot` and runs the managed classifier non-interactively with `-s`, `--no-ask-user`, the repository-controlled agent, and a pinned model.
 
-The request branch cannot control endpoint, model, token, prompt, or executable ranker code. These come exclusively from the trusted `main` harness/workflow.
+### Isolation and permissions
 
-The managed adapter is injected into `prepareExternalIngestion(..., { continuationRanker })`. When Phase 7 is actually used, accepted provenance includes:
+The model-running `resolve` job has no Repository contents-write permission. Branch deletion is performed by a separate `cleanup` job with `contents: write` and no Copilot request permission.
+
+The Copilot child receives only an explicit environment whitelist. It runs in an ephemeral directory with isolated `HOME` / `COPILOT_HOME`; only the trusted custom-agent profile is copied into that workspace. The profile declares `tools: []`, so source text cannot trigger shell, file, URL, GitHub, MCP, memory, or other tools.
+
+The request branch cannot control agent instructions, model, token, tool policy, or executable ranker code. Source JSON is piped through stdin and remains untrusted quoted data.
+
+### Managed ranker output
+
+The ranker must produce the normal Phase 7 JSON judgement. The harness parses that response and then applies the same deterministic acceptance gates described above.
+
+Accepted ranker provenance is:
 
 ```text
-thread.recovery.ranker.method = github_models_chat
-thread.recovery.ranker.provider = github_models
-thread.recovery.ranker.model = openai/gpt-4.1
+thread.recovery.ranker.method = github_copilot_cli
+thread.recovery.ranker.provider = github_copilot
+thread.recovery.ranker.model = gpt-5.2
+thread.recovery.ranker.agent = threads-continuation-ranker
 ```
 
-Remote execution metadata additionally identifies:
+Remote execution metadata is:
 
 ```text
-runner = remote-ingest-v2
-managed_ranker = github_models
-managed_ranker_model = openai/gpt-4.1
+runner = remote-ingest-v3
+managed_ranker = github_copilot_cli
+managed_ranker_model = gpt-5.2
 ```
 
-GitHub Models supplies semantic judgement only. Structural conflicts and every deterministic Phase 7 acceptance gate remain authoritative. Authentication, quota, service/model errors, invalid JSON, low confidence, or rejected judgement all fail closed; they never trigger timestamp-only inference.
+The managed process has a bounded output size and timeout. CLI/auth/policy/model errors, invalid JSON, low-confidence judgement, incomplete candidate labels, or any rejected deterministic gate remain fail closed. Safe nested `cause_code` / bounded redacted `cause_message` diagnostics may be included in the execution failure envelope; provider tokens and raw provider payloads must not be persisted.
 
 ## Test and live-acceptance strategy
 
@@ -392,8 +402,8 @@ CI fixtures cover:
 - root identity/dedup integration;
 - source snapshot hashing/change detection;
 - Phase 7 continuation and root-only accept/reject gates;
-- execution request/result correlation;
-- Phase 8C managed GitHub Models token gate, endpoint/auth, JSON mode, model, and provenance.
+- execution request/result correlation and nested diagnostics;
+- Phase 8C Copilot token gate, CLI arguments, secret/environment isolation, custom-agent `tools: []`, JSON parsing, and ranker provenance.
 
 Browser fixture tests use injected sessions; ordinary unit CI does not need live Chromium navigation. Permanent Remote Ingest and Phase 8C are live-tested after landing on `main`, because the workflow intentionally executes trusted harness code from `main`.
 
