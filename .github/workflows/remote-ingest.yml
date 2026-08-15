@@ -7,10 +7,6 @@ on:
     paths:
       - '.runtime/requests/*.json'
 
-permissions:
-  contents: write
-  models: read
-
 concurrency:
   group: remote-ingest-${{ github.ref }}
   cancel-in-progress: false
@@ -20,9 +16,12 @@ jobs:
     name: Resolve remote ingestion request
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
+      copilot-requests: write
     env:
       RESULT_PATH: /tmp/remote-ingest-result.json
-      THREADS_CONTINUATION_GITHUB_MODEL: openai/gpt-4.1
+      THREADS_CONTINUATION_COPILOT_MODEL: gpt-5.2
 
     steps:
       - name: Checkout trusted harness from main
@@ -70,6 +69,11 @@ jobs:
         working-directory: app
         run: npx playwright install --with-deps chromium
 
+      - name: Install Copilot CLI
+        run: |
+          npm install -g @github/copilot
+          copilot --version
+
       - name: Execute mandatory ingestion preflight
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -88,9 +92,15 @@ jobs:
         if: always() && steps.request.outputs.request_id != ''
         run: node app/scripts/remote-ingest-result-check.mjs "$RESULT_PATH"
 
-      - name: Delete temporary request branch
-        if: always() && startsWith(github.ref_name, 'runtime/ingest/')
-        continue-on-error: true
+  cleanup:
+    name: Delete temporary request branch
+    if: always() && startsWith(github.ref_name, 'runtime/ingest/')
+    needs: resolve
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Delete request branch
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh api --method DELETE "repos/${{ github.repository }}/git/refs/heads/${{ github.ref_name }}"
