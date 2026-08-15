@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "provider": "threads",
+  "source_identity": "threads:DcDjLUcgRwF",
+  "canonical_url": "https://threads.com/@licca_bobo/post/DcDjLUcgRwF",
+  "root_post_id": "3964166806511361029_66441045267",
+  "root_shortcode": "DcDjLUcgRwF",
+  "author": "licca_bobo",
+  "thread_total": 2,
+  "captured_at": "2026-08-15T15:18:10.986Z",
+  "source_hash": "2194d42b66a9c1ad4f5f56bd3ee55bf63bbe2d220e3313b4d082319132395349",
+  "parts": [
+    {
+      "index": 1,
+      "key": "id:3964166806511361029_66441045267",
+      "id": "3964166806511361029_66441045267",
+      "shortcode": "DcDjLUcgRwF",
+      "canonical_url": "https://threads.com/@licca_bobo/post/DcDjLUcgRwF",
+      "timestamp": "2026-08-15T09:18:50.000Z",
+      "reply_to": null,
+      "root_post": null,
+      "text_hash": "84e4e1e12bb2c120d6ba1038ac9509bdae8fbcc9463819ad3d59d3fe059bec19",
+      "media_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "references_hash": "6f19703542c95f260e6d00f17c7323922211afee219d4b4892352701d4fae2f0",
+      "structure_hash": "5fceb1f8d492e387fcda3c6ae6b47f907539b0061463416afab537e3ce30f7f1",
+      "content_hash": "e89840e3b45aa3109e22e6b7f8bd4aadae321e17ad4af67b0606d9538b6a2473"
+    },
+    {
+      "index": 2,
+      "key": "id:3964166847405858550_66441045267",
+      "id": "3964166847405858550_66441045267",
+      "shortcode": "DcDjL6iAZ72",
+      "canonical_url": "https://threads.com/@licca_bobo/post/DcDjL6iAZ72",
+      "timestamp": "2026-08-15T09:18:55.000Z",
+      "reply_to": null,
+      "root_post": null,
+      "text_hash": "fdd13dfb03b34c678c4357f03f399951024164aaadd11e3b60fcef394a8a646f",
+      "media_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "references_hash": "6f19703542c95f260e6d00f17c7323922211afee219d4b4892352701d4fae2f0",
+      "structure_hash": "478ab0083b959e286426b5fa0187b1d93fe5fab99e862f7a836fd78b66c4b8f2",
+      "content_hash": "2d8675671fee5a249df130a152c822febd1aac37c35428ec70cebb47b94c1756"
+    }
+  ]
+}
