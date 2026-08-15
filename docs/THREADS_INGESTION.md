@@ -22,6 +22,8 @@ anything else
 
 A non-Threads page does not become a Threads source merely because its text mentions Threads or embeds/links to a Threads post. Provider routing is determined from the primary resource itself.
 
+Phase 8A is an execution-backend contract around this pipeline, not an additional Threads source-extraction phase. The Phase 1–7 completeness semantics remain unchanged regardless of where they execute.
+
 ## Phase 1 — URL resolution
 
 Accepted URL families include `/share/<token>`, `/t/<token>`, `/@user/post/<shortcode>` and threads.net variants. Transient URLs are resolved through HTTP redirect / HTML canonical or embedded URLs, with browser fallback when the share layer only resolves after JavaScript navigation.
@@ -103,6 +105,38 @@ Formal Knowledge Card ingestion stops on incomplete, ambiguous, invalid or ident
 
 No incomplete source may reach create/update resolution.
 
+## Execution backend boundary — Phase 8A
+
+Threads source failure and Threads execution-backend failure are different classes of failure.
+
+```text
+current runtime cannot run Threads pipeline
+!=
+Threads source is unavailable
+```
+
+The required order is:
+
+1. run the Threads Phase 1–7 contract on the local execution backend when possible;
+2. if local execution lacks required runtime capability, use the repository-defined remote execution backend when one exists and is accessible;
+3. use existing alias/Card/snapshot state only as identity/history evidence, never as a replacement for live completeness validation;
+4. if no allowed backend can produce an accepted current source, report `INGESTION_BLOCKED`.
+
+Local execution limitations include, for example:
+
+- shell / Node / npm unavailable;
+- outbound DNS/network unavailable in the current runtime;
+- Playwright package/browser binary cannot be installed or launched because of runtime capability;
+- the configured Phase 7 model endpoint is inaccessible from the current runtime.
+
+These conditions should be classified as `LOCAL_EXECUTION_UNAVAILABLE` when they prevent the pipeline from running. They are not evidence that the public Threads post itself is gone.
+
+If the repository-defined remote backend is absent or inaccessible, classify that condition as `REMOTE_EXECUTION_UNAVAILABLE`. Phase 8A only defines the contract; it does not authorize agents to silently invent an ad-hoc workflow and treat it as repository-standard remote execution. The permanent remote harness is a later implementation phase.
+
+A viable backend that actually reaches the Threads pipeline may still return source-level failures such as `SOURCE_EXTRACTION_FAILED`, `SOURCE_INCOMPLETE`, `THREADS_CONVERSATION_INCOMPLETE` or `THREADS_CONVERSATION_AMBIGUOUS`. Those remain fail closed.
+
+An existing accepted snapshot may establish that a source was previously accepted and may help find the existing Card. It does not prove current freshness. If live revalidation is blocked, do not rewrite the Card, update `last_checked_at`, or advance the snapshot as if a current source had been verified.
+
 ## Phase 5 — Playwright browser / Threads web-data fallback
 
 Phase 5 closes the JS-only source gap. The core ingestion path still tries HTTP and public hydration first; when normal live Threads ingestion cannot resolve or reconstruct the source, it can launch an isolated Playwright browser and reuse the same completeness contracts.
@@ -169,7 +203,7 @@ or inject a deterministic browser implementation through `browserSessionFactory`
 - `THREADS_BROWSER_CANONICAL_NOT_FOUND` — rendered share page still exposes no canonical post.
 - `THREADS_BROWSER_NO_POSTS` — page rendered but DOM/captured JSON exposed no verifiable post objects.
 
-All browser failures remain fail closed. They never downgrade the primary-source completeness requirement.
+All browser failures remain fail closed **for that execution attempt** and never downgrade primary-source completeness. However, environment-capability failures such as a missing/launch-impossible browser must first be treated as local-backend failure and routed through the execution-backend policy before the overall ingestion is declared blocked or the source is called unavailable.
 
 ## Phase 6 — source snapshots and change detection
 
@@ -302,7 +336,7 @@ THREADS_CONTINUATION_LLM_MODEL
 THREADS_CONTINUATION_LLM_API_KEY   # optional
 ```
 
-No configured ranker means fail closed; the system must not fall back to pure timestamp guessing.
+No configured ranker means fail closed for the current execution backend; the system must not fall back to pure timestamp guessing. If the ranker is unavailable because of runtime capability, execution routing may attempt another approved backend, but the Phase 7 acceptance rules themselves do not change.
 
 ### Deterministic acceptance gate — continuation mode
 
@@ -371,3 +405,5 @@ Both may be used as formal ingestion sources because deterministic acceptance ga
 CI fixtures cover URL variants, exact-post selection, root/middle/last input, reader reply exclusion, same-author branches, `n/N`, missing-part rejection, root identity, mandatory resolver root dedup, non-Threads compatibility, browser GraphQL capture, JS-only share navigation, sparse-HTML recovery, unsafe browser redirects, deterministic source hashing, volatile media-signature suppression, append-only extension detection, edited/removed parts, snapshot no-op behavior, mandatory-preflight change reporting, Phase 7 continuation recovery acceptance/rejection, and root-only acceptance/rejection with complete candidate-label coverage.
 
 Browser fixture tests use an injected session factory, so ordinary CI does not require downloading Chromium merely to validate adapter logic. Live acceptance tests may install Chromium explicitly and must remain isolated from production Card/snapshot writes.
+
+Phase 8A is documentation/contract-only. It does not add a permanent remote runner test yet; that belongs to the execution-harness implementation phase.
