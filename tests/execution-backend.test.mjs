@@ -22,6 +22,33 @@ test('remote request contract accepts only resolve over HTTP(S)', () => {
   assert.throws(() => createRemoteIngestRequest({ requestId: '20260815-abcdef12', url: 'https://example.com', operation: 'shell' }), /Unsupported/);
 });
 
+test('remote resolve request may carry a digest-bound agent semantic judgement', () => {
+  const semanticHandoff = {
+    schema_version: 1,
+    producer: 'knowledge_card_agent',
+    evidence_digest: `sha256:${'a'.repeat(64)}`,
+    judgement: {
+      selected_shortcodes: ['PART2'],
+      root_only: false,
+      confidence: 0.98,
+      complete: true,
+      rationale: 'direct continuation',
+      candidate_labels: [
+        { shortcode: 'PART2', label: 'continuation', confidence: 0.99 }
+      ]
+    }
+  };
+  const request = createRemoteIngestRequest({
+    requestId: '20260815-handoff1',
+    url: 'https://www.threads.com/share/BAhr4lFBi8/',
+    semanticHandoff
+  });
+  assert.equal(request.operation, 'resolve');
+  assert.equal(request.semantic_handoff.producer, 'knowledge_card_agent');
+  assert.equal(request.semantic_handoff.evidence_digest, semanticHandoff.evidence_digest);
+  assert.deepEqual(parseRemoteIngestRequest(JSON.stringify(request)), request);
+});
+
 test('remote plan uses isolated request branch and one-day artifact identity', () => {
   const plan = createRemoteIngestPlan('https://example.com/article', { requestId: '20260815-1234abcd' });
   assert.equal(plan.backend, 'github_actions');
