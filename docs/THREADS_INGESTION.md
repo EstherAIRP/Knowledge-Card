@@ -1,71 +1,62 @@
 # Threads Source Ingestion
 
-This document records the source-adapter contract for **Threads-only ingestion**.
+This document defines the source-adapter contract for **Threads-only ingestion**.
 
-## Scope — when this document applies
+## Scope
 
-Use this pipeline only when the primary source is Threads:
-
-- raw hostname is `threads.com` or `threads.net`, including `www` and other subdomains;
-- accepted path families include `/share/<token>`, `/t/<token>` and `/@user/post/<shortcode>`;
-- or a transient / short URL resolves to a primary resource on `threads.com` / `threads.net`.
-
-Do **not** use this pipeline for GitHub repositories, papers, arXiv/DOI, ordinary articles, documentation, tools, product pages or any other non-Threads source. Those sources stay on the generic route in `docs/INGESTION.md`.
+Use this pipeline only when the primary resource is on `threads.com` / `threads.net`, including `/share/<token>`, `/t/<token>`, `/@user/post/<shortcode>`, or a transient URL that resolves to one of those resources.
 
 ```text
-Threads URL / resolved Threads primary resource
-→ this Phase 1–7 pipeline
-
-anything else
-→ docs/INGESTION.md generic flow
+Threads primary resource → Phase 1–7 source pipeline
+anything else             → docs/INGESTION.md generic flow
 ```
 
-A non-Threads page does not become a Threads source merely because its text mentions Threads or embeds/links to a Threads post. Provider routing is determined from the primary resource itself.
-
-Phase 8A/8B is an execution-backend layer around this pipeline, not an additional Threads source-extraction phase. Phase 1–7 completeness semantics remain unchanged regardless of where they execute.
+A non-Threads page does not become a Threads source because its text mentions or links to Threads. Phase 8A/8B/8C are execution/harness capabilities around the same Phase 1–7 source semantics; they are not alternate extraction rules.
 
 ## Phase 1 — URL resolution
 
-Accepted URL families include `/share/<token>`, `/t/<token>`, `/@user/post/<shortcode>` and threads.net variants. Transient URLs are resolved through HTTP redirect / HTML canonical or embedded URLs, with browser fallback when the share layer only resolves after JavaScript navigation.
+Accepted URL families include `/share/*`, `/t/*`, canonical `/@user/post/*`, and threads.net variants. Transient URLs resolve through HTTP redirect / canonical metadata / embedded URLs, with browser fallback when JavaScript navigation is required.
 
-## Phase 2 — exact single-post extraction
+The final source identity is never the share token. A complete source canonicalizes to its root post.
 
-The extractor reads public HTML hydration JSON and selects the exact requested shortcode. It normalizes author, text, timestamp, media, reply/root metadata, quoted/reposted information and extraction provenance. API/browser post adapters must return the requested shortcode or fail closed.
+## Phase 2 — exact post extraction
+
+The extractor selects the exact requested shortcode from public HTML/hydration evidence and normalizes:
+
+- id / shortcode / canonical URL;
+- author and timestamp;
+- text and media;
+- reply/root metadata;
+- quoted/reposted references;
+- extraction provenance.
+
+API/browser fallback adapters must return the requested post identity or fail closed.
 
 ## Phase 3 — complete self-thread reconstruction
 
-`npm run ingest:extract -- <threads-url>` builds a conversation graph, resolves the root and reconstructs only the deterministic author chain:
+Strict reconstruction follows only structural evidence:
 
 ```text
 same author
 AND reply_to == previous post
-AND same root (when root metadata exists)
+AND same root when root metadata exists
 ```
 
-Reader replies are excluded. Timestamp proximity alone is not structural evidence. Same-author branching without a unique part index yields `AMBIGUOUS_THREAD`.
+Timestamp proximity alone is not structural proof. Same-author branching that cannot be resolved uniquely is `AMBIGUOUS_THREAD`.
 
-When `n/N` is available from rendered text, structured hints or an API/browser conversation adapter, `parts.length == N` and the input part position must match `n`. Missing parts yield `INCOMPLETE_THREAD`. The extractor fails closed by default unless `thread.complete: true`.
-
-Successful output preserves `parts[]`, ordered `combined_text`, root/input metadata, media and extraction provenance. Root identity is `threads:{root_shortcode}`.
-
-## Phase 4 — Knowledge Card integration
-
-`npm run ingest:resolve -- <threads-url>` is the mandatory end-to-end resolver executed inside an approved execution backend, not only a URL normalizer.
-
-For Threads it performs:
+When `n/N` is known, all invariants must agree:
 
 ```text
-input/share/middle post
-→ Phase 1 URL resolution
-→ Phase 2 exact post extraction
-→ Phase 3 strict conversation reconstruction
-→ Phase 5 browser evidence when required
-→ Phase 7 continuation/root-only recovery when structural metadata is insufficient and all gates pass
-→ verify thread.complete + conversation_complete
-→ verify root canonical URL ↔ source_identity consistency
-→ Knowledge Card dedup/create-update resolution
-→ Phase 6 source-change comparison when snapshot state exists
+parts.length == N
+input index == n
+known total/order is consistent
 ```
+
+Missing parts are `INCOMPLETE_THREAD` and fail closed.
+
+Successful structural reconstruction preserves ordered `parts[]`, `combined_text`, root/input metadata, media, thread status, and extraction provenance. Root identity is `threads:{root_shortcode}`.
+
+## Phase 4 — mandatory Knowledge Card integration
 
 Ordinary agents enter through:
 
@@ -73,9 +64,27 @@ Ordinary agents enter through:
 npm run ingest:dispatch -- <threads-url>
 ```
 
-The dispatcher chooses LocalBackend first and hands off to the repository-defined Remote Ingest protocol when local execution capability is unavailable.
+Every approved backend ultimately runs the mandatory resolver:
 
-The accepted resolver contract contains the normal Knowledge Card fields plus:
+```bash
+npm run ingest:resolve -- <threads-url>
+```
+
+For Threads the resolver performs:
+
+```text
+Phase 1 URL resolution
+→ Phase 2 exact post
+→ Phase 3 strict graph reconstruction
+→ Phase 5 browser evidence when required
+→ Phase 7 semantic recovery when eligible
+→ require thread.complete + conversation_complete
+→ verify root canonical URL ↔ source_identity
+→ dedup/create-update
+→ Phase 6 accepted-source change comparison
+```
+
+Accepted output includes:
 
 ```text
 source_document
@@ -94,198 +103,70 @@ analysis_input
   thread_verification: structural | llm_assisted
 ```
 
-The agent must analyze `source_document.combined_text`, not the originally shared single post. `parts[]` remains the provenance record.
+Formal analysis uses `source_document.combined_text`, not merely the shared post.
 
 ### Root-level deduplication
 
-A share link or any part of the same self-thread is resolved before deduplication. Existing-card lookup therefore uses the root canonical URL / `threads:{root_shortcode}` and preserves the original Card id/path on updates.
+Any share token or arbitrary thread part must converge to the root canonical URL and `threads:{root_shortcode}` before create/update lookup. Existing Card id/path remain stable.
 
 ### Fail-closed conditions
 
-Formal Knowledge Card ingestion stops on incomplete, ambiguous, invalid or identity-mismatched evidence, including:
+Examples include:
 
 - `THREADS_CONVERSATION_INCOMPLETE`
 - `THREADS_CONVERSATION_AMBIGUOUS`
 - `THREADS_PRIMARY_SOURCE_INCOMPLETE`
 - `THREADS_PRIMARY_SOURCE_INVALID`
 - `EXTRACTED_SOURCE_IDENTITY_MISMATCH`
-- failed Phase 7 continuation/root-only acceptance
+- failed Phase 7 judgement/acceptance gate
 
-No incomplete source may reach create/update resolution.
+No incomplete source may reach formal Card authoring or snapshot advancement.
 
-## Execution backend boundary — Phase 8B
+## Phase 5 — Playwright browser / web-data fallback
 
-Threads source failure and Threads execution-backend failure are different classes of failure.
+When HTTP/hydration evidence is insufficient, an isolated no-login browser may collect:
 
-```text
-current runtime cannot run Threads pipeline
-!=
-Threads source is unavailable
-```
+1. rendered DOM/hydration;
+2. same-origin Threads JSON/GraphQL-like responses;
+3. rendered `n/N` evidence when unambiguous.
 
-The required order is:
+Captured records are normalized and passed back into the same Phase 3/7 logic. Browser navigation success by itself is never completeness proof.
 
-1. run the Threads Phase 1–7 contract on the local execution backend when possible;
-2. if local execution lacks required runtime capability, use the permanent repository-defined `Remote Ingest` backend when GitHub repository write + Actions access is available;
-3. use existing alias/Card/snapshot state only as identity/history evidence, never as a replacement for live completeness validation;
-4. if no allowed backend can produce an accepted current source, report `INGESTION_BLOCKED`.
-
-Local execution limitations include, for example:
-
-- shell / Node / npm unavailable;
-- outbound DNS/network unavailable in the current runtime;
-- Playwright package/browser binary cannot be installed or launched because of runtime capability;
-- the configured Phase 7 model endpoint is inaccessible from the current runtime.
-
-These conditions should be classified as `LOCAL_EXECUTION_UNAVAILABLE` when they prevent the pipeline from running. They are not evidence that the public Threads post itself is gone.
-
-### Permanent Remote Ingest runner
-
-The approved remote runner is:
-
-```text
-.github/workflows/remote-ingest.yml
-```
-
-Do not create ad-hoc workflow files for ordinary Threads ingestion. A remote request is transported on an isolated branch:
-
-```text
-runtime/ingest/{request_id}
-└── .runtime/requests/{request_id}.json
-```
-
-The request branch must be created from the latest `main` and must contain exactly one request file as its only intentional change:
-
-```json
-{
-  "schema_version": 1,
-  "request_id": "20260815-example01",
-  "operation": "resolve",
-  "url": "https://www.threads.com/share/example/"
-}
-```
-
-The workflow executes **trusted harness code from `main`**, while the request branch is sparse-checked out separately as data only. It installs Node 24, repository dependencies and Playwright Chromium, then runs the same resolver/completeness contract.
-
-The remote result is uploaded as artifact:
-
-```text
-remote-ingest-{request_id}
-└── remote-ingest-result.json
-```
-
-with one-day retention. Before using it, require:
-
-```text
-schema_version == 1
-request_id == submitted request_id
-execution.backend == github_actions
-execution.status == success
-```
-
-The successful envelope's `result` is the formal resolver output. A failure envelope remains fail closed and carries execution/source classification. The request branch is operational transport only; the workflow attempts to delete it after execution and it must never merge to `main`.
-
-The complete source payload is stored in the short-lived artifact rather than committed to repository state or dumped into public logs.
-
-### Phase 8B vs Phase 8C
-
-Phase 8B guarantees a reproducible **browser-capable execution location**. It does not yet guarantee a managed Phase 7 semantic ranker.
-
-Therefore:
-
-```text
-HTTP/hydration/browser evidence sufficient
-→ RemoteBackend can complete Threads ingestion
-
-Phase 7 semantic recovery required
-+ no configured remote ranker
-→ SOURCE_INCOMPLETE / fail closed
-→ do not guess by timestamp
-```
-
-Permanent LLM provider/secrets wiring for the RemoteBackend belongs to Phase 8C. This boundary must not be bypassed by free-form agent inference outside the deterministic Phase 7 acceptance contract.
-
-A viable backend that actually reaches the Threads pipeline may still return source-level failures such as `SOURCE_EXTRACTION_FAILED`, `SOURCE_INCOMPLETE`, `THREADS_CONVERSATION_INCOMPLETE` or `THREADS_CONVERSATION_AMBIGUOUS`. Those remain fail closed.
-
-An existing accepted snapshot may establish that a source was previously accepted and may help find the existing Card. It does not prove current freshness. If live revalidation is blocked, do not rewrite the Card, update `last_checked_at`, or advance the snapshot as if a current source had been verified.
-
-## Phase 5 — Playwright browser / Threads web-data fallback
-
-Phase 5 closes the JS-only source gap. The core ingestion path still tries HTTP and public hydration first; when normal live Threads ingestion cannot resolve or reconstruct the source, it can launch an isolated Playwright browser and reuse the same completeness contracts.
-
-### Installation
-
-The JavaScript dependency is installed by normal `npm install`. Playwright browser binaries are installed separately:
+Local browser installation:
 
 ```bash
 npm run threads:browser:install
 ```
 
-The default launcher first tries Playwright's bundled Chromium. If that browser binary is unavailable it also tries the installed Chrome channel. Explicit configuration is available through:
+Optional local overrides:
 
 ```text
-THREADS_BROWSER_EXECUTABLE=/absolute/path/to/browser
+THREADS_BROWSER_EXECUTABLE=/absolute/path
 THREADS_BROWSER_CHANNEL=chrome
 ```
 
-The browser context is anonymous and isolated: the adapter does not load a persistent user profile, login cookies or private session state.
+The browser adapter does not load private cookies, persistent user profiles, or login sessions.
 
-The Phase 8B Remote Ingest runner installs Chromium automatically, so a local missing browser can be routed remotely instead of being mislabeled as source unavailability.
+Important failures include:
 
-### URL fallback
+- `THREADS_BROWSER_UNAVAILABLE`
+- `THREADS_BROWSER_LAUNCH_FAILED`
+- `THREADS_BROWSER_NAVIGATION_FAILED`
+- `THREADS_BROWSER_UNSAFE_REDIRECT`
+- `THREADS_BROWSER_CANONICAL_NOT_FOUND`
+- `THREADS_BROWSER_NO_POSTS`
 
-For a JS-only `/share/*` or `/t/*` URL:
+Missing local browser capability is an execution-backend problem first; it is not evidence the source itself is unavailable.
+
+## Phase 6 — accepted source snapshots and change detection
+
+Only a complete accepted source may be compared with state under:
 
 ```text
-HTTP redirect / metadata fails
-→ launch browser
-→ navigate share URL
-→ inspect final page URL
-→ inspect rendered canonical / og:url metadata
-→ require a Threads /@user/post/<shortcode> result
+state/source-snapshots/threads/
 ```
 
-Navigation that leaves threads.com / threads.net fails with `THREADS_BROWSER_UNSAFE_REDIRECT`.
-
-### Web-data extraction
-
-For a canonical post whose initial HTML is sparse, the browser adapter observes two evidence channels:
-
-1. rendered DOM / hydration scripts after navigation;
-2. same-origin Threads JSON responses, including GraphQL-like endpoints.
-
-Captured JSON is not coupled to a hard-coded GraphQL operation name. It is passed through the existing recursive Threads post candidate parser and normalizer, then merged with DOM-derived records. Payload count and payload size are bounded to avoid unbounded memory growth.
-
-The adapter returns normalized posts and a rendered `n/N` indicator when unambiguous. Browser navigation success is **not** completeness evidence by itself. Phase 3/7 must still establish an accepted complete source.
-
-### Automatic fallback policy
-
-Normal live Threads CLI ingestion has browser fallback available automatically when no custom fixture transport is supplied. Tests or callers that inject `fetchImpl` / static HTML remain deterministic by default. They can explicitly enable the browser path with:
-
-```js
-{ browserFallback: true }
-```
-
-or inject a deterministic browser implementation through `browserSessionFactory`.
-
-### Browser failure modes
-
-- `THREADS_BROWSER_UNAVAILABLE` — Playwright package cannot be loaded.
-- `THREADS_BROWSER_LAUNCH_FAILED` — neither configured/bundled Chromium nor Chrome can launch.
-- `THREADS_BROWSER_NAVIGATION_FAILED` — page navigation failed.
-- `THREADS_BROWSER_UNSAFE_REDIRECT` — navigation left an allowed Threads host.
-- `THREADS_BROWSER_CANONICAL_NOT_FOUND` — rendered share page still exposes no canonical post.
-- `THREADS_BROWSER_NO_POSTS` — page rendered but DOM/captured JSON exposed no verifiable post objects.
-
-All browser failures remain fail closed **for that execution attempt** and never downgrade primary-source completeness. Environment-capability failures such as a missing/launch-impossible local browser must first be routed through the execution-backend policy before the overall ingestion is declared blocked or the source is called unavailable.
-
-## Phase 6 — source snapshots and change detection
-
-Phase 6 adds persistent, machine-owned source state so a later submission of the same root thread can distinguish a re-check from a material source change.
-
-`npm run ingest:resolve -- <threads-url>` first reconstructs a complete accepted source. Only then does it build an in-memory fingerprint and compare it with the last accepted snapshot under `state/source-snapshots/threads/`.
-
-The resolver exposes a `source_change` contract when repository source state is available:
+Resolver change states:
 
 ```text
 FIRST_SEEN
@@ -297,88 +178,42 @@ STRUCTURE_CHANGED
 MULTIPLE_CHANGES
 ```
 
-`FIRST_SEEN` means no baseline exists yet; it is not evidence that the public source changed. `UNCHANGED` means the normalized accepted source fingerprint matches. All other statuses are material and include structured `added_parts`, `removed_parts`, `changed_parts`, totals and order-change evidence.
+Snapshots store public provenance and stable SHA-256 fingerprints, not raw Threads text, raw GraphQL payloads, cookies, or sessions. Volatile media query signatures do not define media identity.
 
-### Fingerprint policy
-
-Snapshots deliberately do **not** archive raw Threads body text or raw GraphQL payloads. They persist public provenance plus SHA-256 fingerprints:
-
-```text
-source identity / root canonical URL
-root post id / shortcode / author
-part order, ids, shortcodes, canonical URLs
-reply/root structure
-text hash
-media hash
-reference/link/alt-text hash
-source hash
-```
-
-Media CDN query signatures are excluded from the media identity fingerprint because they are volatile and should not trigger false updates.
-
-### Update semantics
-
-An unchanged prefix with one or more new suffix parts is `THREAD_EXTENDED`. A text/media/reference/structure fingerprint change on an existing part is `PART_CHANGED`. Missing previously accepted parts are `PART_REMOVED`. Reordering/insertion without a simple append is `STRUCTURE_CHANGED`; combined signals are `MULTIPLE_CHANGES`.
-
-This status is advisory for Knowledge Card refresh policy, but it never weakens source completeness. A current source must still pass the completeness and identity gates before comparison.
-
-### Advancing the accepted baseline
-
-Preflight is read-only. It must never advance source state automatically.
-
-After the corresponding Knowledge Card create/update has been written and repository validation succeeds, run:
+Preflight is read-only. After a corresponding Card create/update succeeds and repository validation passes, accepted state may advance with:
 
 ```bash
 npm run ingest:snapshot -- <threads-url>
 ```
 
-The snapshot command reruns the complete source preflight, requires that a matching Knowledge Card already exists, and only then writes the accepted fingerprint. If the source hash is unchanged it performs a no-op and preserves the prior `captured_at` value.
+The command requires a matching Card. Unchanged hashes are a no-op. Failed, incomplete, ambiguous, or identity-mismatched extraction never overwrites the last accepted snapshot.
 
-Therefore the normal Threads update sequence is:
+## Phase 7 — LLM-assisted continuation / root-only recovery
 
-```text
-ingest:resolve
-→ inspect source_change
-→ create/update Knowledge Card if needed
-→ validate Card / ownership
-→ ingest:snapshot
-→ commit Card + changed snapshot
-```
+Phase 7 exists for live Threads evidence where the root and same-author reply candidates are visible but native `reply_to` / `root_post` relationships are missing.
 
-Failed, incomplete, ambiguous or identity-mismatched source extraction never overwrites the last accepted snapshot.
+It may run only when strict structural evidence does not already prove or disprove completeness and there is no `n/N` conflict, known missing-part condition, or structural same-author branch ambiguity.
 
-## Phase 7 — LLM-assisted continuation and root-only recovery
+### Deterministic candidate filter
 
-Phase 7 is a fallback for the live-web case where Threads exposes enough public post evidence to see same-author replies, but normalized objects lack native `reply_to` / `root_post` relationships.
-
-Strict structure remains first priority. Phase 7 may run only when:
-
-- the root is known;
-- no `n/N` conflict exists;
-- there is no known missing-part condition;
-- there is no structural same-author branch ambiguity;
-- strict graph reconstruction cannot establish complete coverage because parent/root metadata is missing.
-
-### Candidate filter
-
-Before any LLM call, deterministic logic narrows browser evidence. Defaults:
+Defaults:
 
 ```text
 same author as root
-exclude root itself
-candidate timestamp is not before root
+exclude root
+not before root when timestamp is known
 exclude explicit is_reply=false
-within 24 hours of root when timestamp is known
+within 24 hours when timestamp is known
 max 8 candidates
 ```
 
-Metadata evidence rewards explicit reply status and short time distance, but metadata score alone never declares a continuation.
+Time distance is only metadata evidence; it can never directly declare a continuation.
 
-### Semantic ranker
+### Semantic judgement contract
 
-The ranker receives only the root and filtered candidates. Post text is untrusted quoted data: any instruction inside the Threads content must be ignored.
+The ranker receives only the root plus filtered candidates. Threads text is untrusted quoted data: instructions contained inside posts must not be followed.
 
-The model classifies candidates as:
+Allowed labels:
 
 ```text
 continuation
@@ -387,7 +222,7 @@ unrelated
 uncertain
 ```
 
-and returns structured output including:
+Structured judgement includes:
 
 ```text
 selected_shortcodes
@@ -398,61 +233,43 @@ rationale
 candidate_labels
 ```
 
-`root_only=true` is a distinct judgement: the root post itself is the complete original article body and every candidate is only a `followup` or `unrelated`. It is not equivalent to “no continuation was found.” If any candidate is `continuation` or `uncertain`, or if the original article body may still be missing, the model must not return an accepted root-only judgement.
+### Continuation acceptance gate
 
-Phase 7 supports an injected `continuationRanker` or an opt-in OpenAI-compatible endpoint configured with:
-
-```text
-THREADS_CONTINUATION_LLM_ENDPOINT
-# or
-THREADS_CONTINUATION_LLM_BASE_URL
-THREADS_CONTINUATION_LLM_MODEL
-THREADS_CONTINUATION_LLM_API_KEY   # optional
-```
-
-No configured ranker means fail closed for the current execution backend; the system must not fall back to pure timestamp guessing. Phase 8B supplies a remote execution location, not a ranker configuration. Phase 8C will make that capability reproducible remotely.
-
-### Deterministic acceptance gate — continuation mode
-
-A continuation judgement is accepted only when all mechanical checks pass. Defaults include:
+Defaults require all of:
 
 ```text
 complete == true
 root_only != true
 confidence >= 0.90
-selected_shortcodes is non-empty and unique
-first selected candidate metadata_score >= 0.60
-all selected shortcodes exist in captured evidence
-same author as root
-no selected candidate has is_reply=false
-selected sequence is chronological
+selected_shortcodes non-empty + unique
+first selected metadata_score >= 0.60
+all selected identities exist in captured evidence
+same author
+no explicit non-reply selected
+time order does not regress
 ```
 
-### Deterministic acceptance gate — root-only mode
+### Root-only acceptance gate
 
-A root-only judgement is accepted only when all of these hold:
+Defaults require:
 
 ```text
 complete == true
 root_only == true
 confidence >= 0.90
 selected_shortcodes == []
-at least one filtered candidate exists
-candidate_labels covers every filtered candidate exactly once
-every candidate label is followup or unrelated
-no continuation or uncertain label exists
-every candidate-label confidence >= 0.90
+at least one filtered candidate
+candidate_labels covers every candidate exactly once
+all labels are followup or unrelated
+no continuation / uncertain labels
+every label confidence >= 0.90
 ```
 
-This means a root with `has_replies=true` may be accepted as a standalone source only when the captured same-author replies have been explicitly and confidently excluded from the original article body. Empty evidence, partial labels, low-confidence labels or any uncertainty remain fail closed.
-
-Failure of any gate returns incomplete/failed recovery rather than silently accepting the model judgement.
+“No continuation found” is not sufficient evidence for root-only acceptance.
 
 ### Verification provenance
 
-Accepted Phase 7 sources are always explicit about inference provenance.
-
-Recovered multi-part source:
+Accepted inferred multi-part source:
 
 ```text
 thread.status = INFERRED_THREAD_HIGH_CONFIDENCE
@@ -461,23 +278,123 @@ extraction.method = llm_assisted_continuation
 extraction.inferred = true
 ```
 
-Recovered standalone root:
+Accepted inferred standalone source:
 
 ```text
 thread.status = INFERRED_SINGLE_POST_HIGH_CONFIDENCE
 thread.verification = llm_assisted
-thread.total = 1
 thread.recovery.root_only = true
 extraction.method = llm_assisted_root_only
 extraction.inferred = true
 ```
 
-Both may be used as formal ingestion sources because deterministic acceptance gates passed, but neither may be described as if Threads supplied a native verified parent/root graph.
+Neither may be described as native Threads parent/root graph verification.
 
-## Test strategy
+### Local ranker contract
 
-CI fixtures cover URL variants, exact-post selection, root/middle/last input, reader reply exclusion, same-author branches, `n/N`, missing-part rejection, root identity, mandatory resolver root dedup, non-Threads compatibility, browser GraphQL capture, JS-only share navigation, sparse-HTML recovery, unsafe browser redirects, deterministic source hashing, volatile media-signature suppression, append-only extension detection, edited/removed parts, snapshot no-op behavior, mandatory-preflight change reporting, Phase 7 continuation recovery acceptance/rejection, and root-only acceptance/rejection with complete candidate-label coverage.
+Phase 7 core is provider-neutral. Local callers can inject `continuationRanker` or configure an OpenAI-compatible endpoint:
 
-Phase 8B unit tests additionally cover request schema validation, local capability classification, dispatcher/remote plan identity and remote result correlation. The permanent `Remote Ingest` workflow is live-tested only after it is present on `main`, because the workflow deliberately executes trusted harness code from `main`.
+```text
+THREADS_CONTINUATION_LLM_ENDPOINT
+# or THREADS_CONTINUATION_LLM_BASE_URL
+THREADS_CONTINUATION_LLM_MODEL
+THREADS_CONTINUATION_LLM_API_KEY   # optional
+```
 
-Browser fixture tests use an injected session factory, so ordinary CI does not require downloading Chromium merely to validate adapter logic. Live acceptance for the RemoteBackend installs Chromium explicitly and must remain isolated from production Card/snapshot writes.
+No usable ranker means fail closed for that backend.
+
+## Phase 8A/8B — execution routing and permanent Remote Ingest
+
+Threads source failure and execution-backend failure are distinct:
+
+```text
+current runtime cannot run pipeline != source unavailable
+```
+
+Execution order:
+
+1. LocalBackend when viable;
+2. permanent `Remote Ingest` when local execution is unavailable and GitHub write/Actions access exists;
+3. existing Card/snapshot only for identity/history;
+4. `INGESTION_BLOCKED` if no approved backend can produce accepted current evidence.
+
+The permanent runner is:
+
+```text
+.github/workflows/remote-ingest.yml
+```
+
+Transport uses an isolated branch:
+
+```text
+runtime/ingest/{request_id}
+└── .runtime/requests/{request_id}.json
+```
+
+created from current `main`. The branch carries request data only. The workflow executes trusted harness code from `main`, installs Node 24, repository dependencies, and Chromium, uploads one-day artifact `remote-ingest-{request_id}`, and attempts to delete the request branch.
+
+Before consuming a result require matching schema/request identity plus:
+
+```text
+execution.backend == github_actions
+execution.status == success
+```
+
+Remote transport never weakens source completeness.
+
+## Phase 8C — managed GitHub Models ranker
+
+Remote Ingest now has a standard Phase 7 ranker, so semantic recovery no longer depends on whichever LLM endpoint happens to exist in the current chat/runtime.
+
+Managed profile:
+
+```text
+provider: github_models
+endpoint: https://models.github.ai/inference/chat/completions
+model: openai/gpt-4.1
+permission: models: read
+auth: workflow GITHUB_TOKEN
+response_format: json_object
+temperature: 0
+```
+
+The workflow injects `GITHUB_TOKEN` only into the mandatory preflight step. The token must never appear in request branches, artifacts, Cards, snapshots, or logs.
+
+The request branch cannot control endpoint, model, token, prompt, or executable ranker code. These come exclusively from the trusted `main` harness/workflow.
+
+The managed adapter is injected into `prepareExternalIngestion(..., { continuationRanker })`. When Phase 7 is actually used, accepted provenance includes:
+
+```text
+thread.recovery.ranker.method = github_models_chat
+thread.recovery.ranker.provider = github_models
+thread.recovery.ranker.model = openai/gpt-4.1
+```
+
+Remote execution metadata additionally identifies:
+
+```text
+runner = remote-ingest-v2
+managed_ranker = github_models
+managed_ranker_model = openai/gpt-4.1
+```
+
+GitHub Models supplies semantic judgement only. Structural conflicts and every deterministic Phase 7 acceptance gate remain authoritative. Authentication, quota, service/model errors, invalid JSON, low confidence, or rejected judgement all fail closed; they never trigger timestamp-only inference.
+
+## Test and live-acceptance strategy
+
+CI fixtures cover:
+
+- URL variants and exact target selection;
+- root/middle/last self-thread inputs;
+- reader-reply exclusion and same-author ambiguity;
+- `n/N` and missing-part rejection;
+- browser JSON/DOM fallback and unsafe redirects;
+- root identity/dedup integration;
+- source snapshot hashing/change detection;
+- Phase 7 continuation and root-only accept/reject gates;
+- execution request/result correlation;
+- Phase 8C managed GitHub Models token gate, endpoint/auth, JSON mode, model, and provenance.
+
+Browser fixture tests use injected sessions; ordinary unit CI does not need live Chromium navigation. Permanent Remote Ingest and Phase 8C are live-tested after landing on `main`, because the workflow intentionally executes trusted harness code from `main`.
+
+Live acceptance tests must use temporary `runtime/ingest/**` requests only and must not create/update production Cards or advance snapshots unless the user is explicitly performing a real ingestion.
