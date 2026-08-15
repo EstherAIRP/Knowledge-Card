@@ -82,7 +82,44 @@ Hard rules:
 - Do not switch a non-Threads source to the Threads route merely because its body mentions Threads or contains a Threads hyperlink.
 - Once provider routing is established for the primary resource, do not mix provider-specific completeness contracts in the same ingestion.
 
-If dependencies are not installed in the current environment, install them from `package.json` before using the repository scripts.
+If dependencies are not installed in the current environment, install them from `package.json` before using the repository scripts when the runtime permits package installation.
+
+### 3.2 Execution backend policy — runtime failure is not source failure
+
+Provider routing answers **what source pipeline is required**. Execution routing answers **where that pipeline can run**. These are separate decisions.
+
+Core invariant:
+
+```text
+execution/runtime failure != source unavailable
+```
+
+An agent must not classify a public source as unavailable merely because the current ChatGPT/Codex runtime lacks shell access, Node/npm, outbound network, Playwright/Chromium, a required model endpoint, or another execution capability.
+
+Execution backends are attempted in this order when applicable:
+
+1. **Local execution backend** — the current runtime executes the repository command directly. If dependencies or browser binaries are missing and installation is permitted, install them from the repository contract first.
+2. **Repository-defined remote execution backend** — if local execution is unavailable and the repository exposes an approved remote runner and the agent has the required GitHub/Actions access, the agent must use that runner before declaring the ingestion blocked.
+3. **Existing alias / accepted snapshot lookup** — may identify a previously accepted source, existing Card or prior source state, but is only an identity/history aid. It never substitutes for current live completeness or freshness validation.
+
+Phase 8A defines this contract only. Until the permanent remote execution harness is implemented, an agent must **not invent an ad-hoc remote workflow and silently treat it as the repository contract**. If no repository-defined remote backend exists or it cannot be invoked, report the backend limitation explicitly instead of mislabeling the source itself as unavailable.
+
+Required failure vocabulary:
+
+- `LOCAL_EXECUTION_UNAVAILABLE` — current runtime cannot execute the required repository pipeline.
+- `REMOTE_EXECUTION_UNAVAILABLE` — the repository-defined remote backend is absent, inaccessible or cannot execute the request.
+- `SOURCE_EXTRACTION_FAILED` — a viable backend reached the source pipeline, but extraction failed for a source/evidence reason rather than merely missing local runtime capability.
+- `SOURCE_INCOMPLETE` — evidence was extracted, but provider completeness/ambiguity gates did not pass.
+- `INGESTION_BLOCKED` — no allowed backend can produce an accepted source for this ingestion attempt.
+- `SOURCE_UNAVAILABLE` — reserve for a source-level condition supported by an actually viable backend, not for a missing local execution capability.
+
+Rules:
+
+- A local `THREADS_BROWSER_UNAVAILABLE` / `THREADS_BROWSER_LAUNCH_FAILED` caused by missing browser capability is an execution-backend failure first; it is not proof that the Threads source is unavailable.
+- A local network/DNS restriction is an execution-backend limitation unless the same source-level failure is established through another viable backend.
+- If a previous Card or accepted snapshot exists but live execution is blocked, the agent may report the known existing identity/state and that revalidation is blocked. It must not rewrite analysis or advance source state as though the current source had been verified.
+- No `INGESTION_BLOCKED`, execution-backend failure, incomplete source or ambiguous source may create/update a formal Card or advance a Threads snapshot.
+- Session-to-session tool differences must not weaken source-completeness requirements or change provider routing.
 
 ## 4. Source-reading rule
 
@@ -99,7 +136,7 @@ Before writing a card:
 - separate verified facts from inference;
 - do not invent features, architecture, maturity, licenses, compatibility, benchmarks, or maintenance status.
 
-If the source cannot be read sufficiently, do not fabricate a card. Report `SOURCE_UNAVAILABLE` or the concrete access limitation.
+If the source cannot be read sufficiently after applying the execution-backend policy, do not fabricate a card. Report the concrete source-level extraction/completeness failure, or `INGESTION_BLOCKED` when execution backends themselves are unavailable. Do not use `SOURCE_UNAVAILABLE` as a synonym for local runtime incapability.
 
 ## 5. Canonicalization and deduplication
 
@@ -299,7 +336,7 @@ When ingestion/source tooling itself changes, also run:
 npm test
 ```
 
-Documentation-only routing clarifications do not require source-tooling tests, but repository validation / CI must still pass before promoting the branch to `main`.
+Documentation-only routing/execution-contract clarifications do not require source-tooling tests, but repository validation / CI must still pass before promoting the branch to `main`.
 
 `npm run validate` checks JSON Schema compliance, taxonomy/schema drift, body section order, title consistency, source identity normalization, duplicate IDs/identities/canonical URLs, and date ordering.
 
