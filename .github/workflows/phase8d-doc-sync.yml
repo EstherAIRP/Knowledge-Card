@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: 24
       - name: Apply exact documentation updates
-        run: node scripts/dev-phase8d-doc-sync.mjs
+        run: node scripts/dev-phase8d-doc-sync-v2.mjs
       - name: Commit synchronized contracts
         run: |
           git config user.name github-actions[bot]
