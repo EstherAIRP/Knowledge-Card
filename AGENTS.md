@@ -108,9 +108,9 @@ Execution backends are attempted in this order when applicable:
 Required failure vocabulary:
 
 - `LOCAL_EXECUTION_UNAVAILABLE` — current runtime cannot execute the required repository pipeline.
-- `REMOTE_EXECUTION_UNAVAILABLE` — the repository-defined remote backend is inaccessible or cannot execute the request.
+- `REMOTE_EXECUTION_UNAVAILABLE` — the repository-defined remote backend is inaccessible, a required managed capability is blocked by policy/auth, or the backend cannot execute the request.
 - `SOURCE_EXTRACTION_FAILED` — a viable backend reached the source pipeline, but extraction failed for a source/evidence reason rather than merely missing local runtime capability.
-- `SOURCE_INCOMPLETE` — evidence was extracted, but provider completeness/ambiguity gates did not pass.
+- `SOURCE_INCOMPLETE` — evidence was extracted and the needed backend capabilities ran, but provider completeness/ambiguity gates did not pass.
 - `INGESTION_BLOCKED` — no allowed backend can produce an accepted source for this ingestion attempt.
 - `SOURCE_UNAVAILABLE` — reserve for a source-level condition supported by an actually viable backend, not for a missing local execution capability.
 
@@ -118,6 +118,7 @@ Rules:
 
 - A local `THREADS_BROWSER_UNAVAILABLE` / `THREADS_BROWSER_LAUNCH_FAILED` caused by missing browser capability is an execution-backend failure first; it is not proof that the Threads source is unavailable.
 - A local network/DNS restriction is an execution-backend limitation unless the same source-level failure is established through another viable backend.
+- A managed Copilot ranker policy/auth/CLI/timeout/output/invalid-response failure on Remote Ingest is `REMOTE_EXECUTION_UNAVAILABLE`, even when it is nested under `THREADS_CONVERSATION_INCOMPLETE`; do not mislabel the public Threads source as incomplete merely because the semantic backend could not run. A completed semantic judgement that then fails the deterministic Phase 7 gate may remain `SOURCE_INCOMPLETE`.
 - If a previous Card or accepted snapshot exists but live execution is blocked, the agent may report the known existing identity/state and that revalidation is blocked. It must not rewrite analysis or advance source state as though the current source had been verified.
 - No `INGESTION_BLOCKED`, execution-backend failure, incomplete source or ambiguous source may create/update a formal Card or advance a Threads snapshot.
 - Session-to-session tool differences must not weaken source-completeness requirements or change provider routing.
@@ -173,22 +174,26 @@ Managed configuration:
 provider: github_copilot
 adapter: copilot_cli
 agent: threads-continuation-ranker
-model: gpt-5.2
+model_selector: auto
 resolve permissions: contents: read + copilot-requests: write
 auth: workflow GITHUB_TOKEN → child COPILOT_GITHUB_TOKEN
 runner: remote-ingest-v3
 ```
 
+`auto` is the repository-controlled selector passed to Copilot CLI so the runtime can choose a currently available and organization-allowed model. The current provenance records the selector as `auto`; do not claim a specific underlying model unless the CLI exposes it separately.
+
 Rules:
 
 - request branches must never carry model credentials, endpoint overrides, prompts, tool policy, agent definitions or executable ranker code;
+- request branches cannot override the model selector; it is controlled by trusted `main`;
 - the model-running `resolve` job does not have contents-write permission; request-branch deletion runs in a separate `cleanup` job with `contents: write` and no Copilot request permission;
 - `GITHUB_TOKEN` is exposed only to the remote preflight step. The Copilot child receives it as `COPILOT_GITHUB_TOKEN` through an explicit environment whitelist; arbitrary workflow secrets/environment variables are not forwarded;
 - the Copilot process runs in an ephemeral workspace with isolated `HOME` / `COPILOT_HOME`; only the trusted `.github/agents/threads-continuation-ranker.agent.md` is copied into that workspace;
 - the trusted agent defines `tools: []`, so shell, file, URL, GitHub, MCP, memory and other tools are unavailable during semantic classification;
 - root/candidate source text is sent through stdin as untrusted quoted data and can never be treated as executable instructions;
 - Copilot only supplies the semantic judgement. Existing Phase 7 candidate filtering, structural conflict checks, confidence thresholds, metadata gates, chronology checks, root-only complete-label coverage, and fail-closed behavior remain authoritative;
-- accepted inferred sources preserve `thread.verification = llm_assisted` and ranker provenance: `github_copilot_cli` / `github_copilot` / model / agent;
+- accepted inferred sources preserve `thread.verification = llm_assisted` and ranker provenance: `github_copilot_cli` / `github_copilot` / `auto` / `threads-continuation-ranker`;
+- Copilot organization-policy denial is a remote execution capability failure and must surface as `REMOTE_EXECUTION_UNAVAILABLE` with `THREADS_CONTINUATION_COPILOT_POLICY_DENIED` when detected;
 - CLI/auth/policy/quota/model failure, timeout, output-limit violation, invalid JSON, low-confidence judgement or deterministic-gate rejection remains fail closed and must never be replaced with timestamp-only guessing;
 - execution failure envelopes may expose safe direct nested `cause_code` / bounded redacted `cause_message`, but never provider tokens, raw provider payloads or full source dumps;
 - local execution remains provider-neutral and may still inject a custom `continuationRanker` or use the OpenAI-compatible environment configuration defined by the Threads adapter.
