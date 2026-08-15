@@ -4,6 +4,31 @@
 
 ---
 
+## 1.11.1 — 2026-08-15
+
+### Fixed
+
+- Phase 8C live acceptance 證實原先 GitHub Models managed provider 已無法使用：API 回 `HTTP 410`。移除 `github-models-ranker.mjs` 與對應 tests，Remote Ingest 不再依賴 GitHub Models。
+- Managed provider 改為 GitHub Copilot CLI，新增 `scripts/lib/execution/copilot-cli-ranker.mjs` 與 trusted `.github/agents/threads-continuation-ranker.agent.md`。
+- 修正 Remote Ingest 的 Knowledge Card content root：不再以 workflow workspace cwd 的 `content/knowledge` 推導，而改以 trusted runner script 所在 Repository 的 `../content/knowledge/` 作準，避免 remote dedup/update lookup 指到錯誤路徑。
+- Execution failure envelope 保留安全的 direct nested `cause_code` / `cause_message`，讓 managed ranker 的 auth/policy/model/CLI failure 可診斷，同時保留外層 provider completeness classification。
+
+### Changed
+
+- Remote `resolve` job 改為 least privilege：`contents: read` + `copilot-requests: write`；Temporary request branch 刪除拆成獨立 `cleanup` job，只有 cleanup job 取得 `contents: write`。
+- Remote workflow 安裝 `@github/copilot`，managed ranker 使用 `gpt-5.2`、`--agent=threads-continuation-ranker`、`--model=gpt-5.2`、`-s`、`--no-ask-user`。
+- Remote runner 升級為 `remote-ingest-v3`，managed provenance 改為 `github_copilot_cli / github_copilot / gpt-5.2 / threads-continuation-ranker`。
+- Package version 升至 `0.16.1`；Runtime Prompt 升至 `1.11.1`。
+
+### Safety
+
+- Copilot semantic classifier 在 ephemeral workspace 執行，使用 isolated `HOME` / `COPILOT_HOME`，只複製 trusted custom-agent profile；agent 設定 `tools: []`，不得使用 shell、file、URL、GitHub、MCP、memory 或其他工具。
+- `GITHUB_TOKEN` 僅注入 mandatory-preflight step；Copilot child 只收到 `COPILOT_GITHUB_TOKEN` 與明確白名單 runtime env，不轉送任意 workflow secrets/env。
+- Request branch 仍只能提供 URL request data，不能指定 model、agent、prompt、token、tool policy 或 executable ranker code。
+- Phase 7 deterministic candidate filter / `n/N` / structural ambiguity / metadata evidence / confidence / chronology / root-only label coverage 全部不變；CLI/auth/policy/model failure、invalid JSON 或低信心 judgement 仍 fail closed，不得退化成時間猜測。
+
+---
+
 ## 1.11.0 — 2026-08-15
 
 ### Added
