@@ -163,7 +163,28 @@ Remote runner security/behavior:
 - the full execution result is stored in the short-lived Actions artifact, not committed to repository state and not dumped into logs;
 - the same resolver/provider completeness gates apply remotely as locally.
 
-Phase 8B provides the permanent runner and browser-capable execution environment. Managed Phase 7 LLM credentials/provider configuration are a later Phase 8C concern; a Threads source that specifically requires semantic recovery may still fail closed until the remote runner has a configured ranker.
+### 3.4 Phase 8C managed Threads continuation ranker
+
+Remote Ingest now has a repository-managed Phase 7 ranker. When a Threads source reaches semantic continuation/root-only recovery, the trusted `main` harness injects GitHub Models rather than requiring the request branch or current chat session to provide an LLM endpoint.
+
+Managed configuration:
+
+```text
+provider: github_models
+endpoint: https://models.github.ai/inference/chat/completions
+model: openai/gpt-4.1
+auth: workflow GITHUB_TOKEN with models: read
+response format: json_object
+```
+
+Rules:
+
+- request branches must never carry model credentials, endpoint overrides, prompts, or executable ranker code;
+- the token is available only to the remote preflight step and must not be persisted in artifacts, logs, Cards, snapshots, or repository state;
+- GitHub Models only supplies the semantic judgement. Existing Phase 7 candidate filtering, structural conflict checks, confidence thresholds, metadata gates, chronology checks, root-only complete-label coverage, and fail-closed behavior remain authoritative;
+- accepted inferred sources preserve `thread.verification = llm_assisted` and record ranker provenance as `github_models_chat` / `github_models` / model name;
+- local execution remains provider-neutral and may still inject a custom `continuationRanker` or use the OpenAI-compatible environment configuration defined by the Threads adapter;
+- managed ranker auth/service/model failures must never be replaced with timestamp-only guessing.
 
 ## 4. Source-reading rule
 
