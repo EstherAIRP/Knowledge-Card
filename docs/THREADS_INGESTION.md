@@ -352,12 +352,12 @@ Managed profile:
 provider: github_copilot
 adapter: copilot_cli
 agent: threads-continuation-ranker
-model: gpt-5.2
+model_selector: auto
 resolve-job permission: copilot-requests: write + contents: read
 auth: workflow GITHUB_TOKEN → isolated COPILOT_GITHUB_TOKEN
 ```
 
-The workflow installs `@github/copilot` and runs the managed classifier non-interactively with `-s`, `--no-ask-user`, the repository-controlled agent, and a pinned model.
+The workflow installs `@github/copilot` and runs the managed classifier non-interactively with `-s`, `--no-ask-user`, the repository-controlled agent, and `--model=auto`. `auto` is intentionally controlled by trusted `main`; request data cannot override it. It lets Copilot select a model that is currently available and organization-allowed instead of pinning the ingestion harness to a model that can be deprecated or disabled later.
 
 ### Isolation and permissions
 
@@ -365,7 +365,7 @@ The model-running `resolve` job has no Repository contents-write permission. Bra
 
 The Copilot child receives only an explicit environment whitelist. It runs in an ephemeral directory with isolated `HOME` / `COPILOT_HOME`; only the trusted custom-agent profile is copied into that workspace. The profile declares `tools: []`, so source text cannot trigger shell, file, URL, GitHub, MCP, memory, or other tools.
 
-The request branch cannot control agent instructions, model, token, tool policy, or executable ranker code. Source JSON is piped through stdin and remains untrusted quoted data.
+The request branch cannot control agent instructions, model selector, token, tool policy, or executable ranker code. Source JSON is piped through stdin and remains untrusted quoted data.
 
 ### Managed ranker output
 
@@ -376,19 +376,23 @@ Accepted ranker provenance is:
 ```text
 thread.recovery.ranker.method = github_copilot_cli
 thread.recovery.ranker.provider = github_copilot
-thread.recovery.ranker.model = gpt-5.2
+thread.recovery.ranker.model = auto
 thread.recovery.ranker.agent = threads-continuation-ranker
 ```
+
+`model = auto` records the selector sent to Copilot CLI; it does not claim the harness knows which underlying model Copilot selected internally.
 
 Remote execution metadata is:
 
 ```text
 runner = remote-ingest-v3
 managed_ranker = github_copilot_cli
-managed_ranker_model = gpt-5.2
+managed_ranker_model = auto
 ```
 
 The managed process has a bounded output size and timeout. CLI/auth/policy/model errors, invalid JSON, low-confidence judgement, incomplete candidate labels, or any rejected deterministic gate remain fail closed. Safe nested `cause_code` / bounded redacted `cause_message` diagnostics may be included in the execution failure envelope; provider tokens and raw provider payloads must not be persisted.
+
+When organization policy blocks Copilot CLI, the adapter emits `THREADS_CONTINUATION_COPILOT_POLICY_DENIED`, and Remote Ingest classifies the attempt as `REMOTE_EXECUTION_UNAVAILABLE` rather than `SOURCE_INCOMPLETE`. This distinction is required because the semantic execution backend never became viable enough to judge source completeness.
 
 ## Test and live-acceptance strategy
 
@@ -403,7 +407,7 @@ CI fixtures cover:
 - source snapshot hashing/change detection;
 - Phase 7 continuation and root-only accept/reject gates;
 - execution request/result correlation and nested diagnostics;
-- Phase 8C Copilot token gate, CLI arguments, secret/environment isolation, custom-agent `tools: []`, JSON parsing, and ranker provenance.
+- Phase 8C Copilot token gate, `--model=auto`, policy-denial detection, CLI arguments, secret/environment isolation, custom-agent `tools: []`, JSON parsing, and ranker provenance.
 
 Browser fixture tests use injected sessions; ordinary unit CI does not need live Chromium navigation. Permanent Remote Ingest and Phase 8C are live-tested after landing on `main`, because the workflow intentionally executes trusted harness code from `main`.
 
