@@ -61,6 +61,20 @@ test('provider completeness failure remains source incomplete instead of runtime
   assert.equal(failure.retry_remote, false);
 });
 
+test('nested ranker failure remains observable without replacing provider classification', () => {
+  const rankerError = new Error('Threads continuation LLM returned HTTP 403.');
+  rankerError.code = 'THREADS_CONTINUATION_LLM_HTTP_ERROR';
+  const error = new Error('Threads conversation is not complete: INCOMPLETE_THREAD (continuation_ranker_failed).');
+  error.code = 'THREADS_CONVERSATION_INCOMPLETE';
+  error.cause = rankerError;
+
+  const failure = classifyIngestionFailure(error, { backend: 'remote' });
+  assert.equal(failure.classification, 'SOURCE_INCOMPLETE');
+  assert.equal(failure.code, 'THREADS_CONVERSATION_INCOMPLETE');
+  assert.equal(failure.cause_code, 'THREADS_CONTINUATION_LLM_HTTP_ERROR');
+  assert.equal(failure.cause_message, 'Threads continuation LLM returned HTTP 403.');
+});
+
 test('remote result validator rejects mismatched request identity', () => {
   const request = createRemoteIngestRequest({ requestId: '20260815-abcdef12', url: 'https://example.com' });
   const envelope = {
