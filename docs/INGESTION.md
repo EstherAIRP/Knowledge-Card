@@ -27,15 +27,34 @@ Do not invoke Threads Playwright navigation, conversation reconstruction, contin
 
 The source route is determined from the raw URL hostname or, for a transient/short URL, from the resolved primary resource. A normal article that merely mentions or links to Threads remains a normal article.
 
-## 2. Mandatory preflight
+## 2. Mandatory preflight and dispatcher
 
-Before authoring any Card, run:
+For ordinary ingestion, prefer the execution dispatcher:
 
 ```bash
-npm run ingest:resolve -- <URL>
+npm run ingest:dispatch -- <URL>
 ```
 
-Use its `canonical_url`, `source_identity`, stable `id`, `mode`, `existing_path` and `suggested_path` as the mechanical create/update contract.
+The dispatcher runs the same repository resolver on the local execution backend first. When local execution succeeds, the normal resolver contract is returned under the execution envelope's `result` field.
+
+`npm run ingest:resolve -- <URL>` remains the low-level mandatory resolver used inside every approved backend and for debugging/tests. Its `canonical_url`, `source_identity`, stable `id`, `mode`, `existing_path` and `suggested_path` remain the mechanical create/update contract.
+
+Dispatcher outcomes:
+
+```text
+local success
+→ execution.status=success
+→ use result as resolver contract
+
+local capability unavailable
+→ status=REMOTE_EXECUTION_REQUIRED
+→ submit the returned remote plan through Phase 8B Remote Ingest
+
+source/completeness failure
+→ fail closed
+```
+
+The CLI uses exit code `75` for `REMOTE_EXECUTION_REQUIRED`. That is a handoff signal, not a source failure.
 
 ### Generic and GitHub sources
 
@@ -45,6 +64,7 @@ For non-Threads sources the normal flow is:
 
 ```text
 input URL
+→ execution dispatcher
 → canonicalize / resolve primary resource
 → derive provider-specific or generic source identity
 → dedup/create-update resolution
@@ -94,7 +114,7 @@ Execution order:
 ```text
 Local execution backend
 ↓ if unavailable
-Repository-defined remote execution backend
+Repository-defined Remote Ingest backend
 ↓ if unavailable / blocked
 Existing alias or accepted snapshot lookup for identity/history only
 ↓
@@ -107,11 +127,94 @@ Use the current runtime first when it can execute the repository contract. If de
 
 Local capability failures should be reported as `LOCAL_EXECUTION_UNAVAILABLE`, not `SOURCE_UNAVAILABLE`.
 
-### Remote backend
+### Phase 8B Remote Ingest backend
 
-If local execution is unavailable and the repository defines an approved remote execution backend, use it when the agent has the required repository/Actions access. A remote backend must execute the same provider route and completeness contract; it is not permission to weaken ingestion rules.
+The permanent remote backend is:
 
-Phase 8A defines the backend contract only. Until the permanent remote execution harness is implemented in a later phase, do not silently invent an ad-hoc workflow and present it as repository-standard behavior. If no repository-defined remote backend is available, report `REMOTE_EXECUTION_UNAVAILABLE` and then `INGESTION_BLOCKED` when no other allowed backend can complete the request.
+```text
+.github/workflows/remote-ingest.yml
+```
+
+Ordinary ingestion must not create a new ad-hoc workflow. The transport protocol uses an isolated temporary request branch.
+
+#### Request branch protocol
+
+1. Re-read the latest `main` commit.
+2. Create `runtime/ingest/{request_id}` from that exact `main` commit.
+3. Add **exactly one** file:
+
+```text
+.runtime/requests/{request_id}.json
+```
+
+4. The request body is:
+
+```json
+{
+  "schema_version": 1,
+  "request_id": "20260815-example01",
+  "operation": "resolve",
+  "url": "https://example.com/source"
+}
+```
+
+Contract:
+
+- `request_id`: 6–80 lowercase URL-safe characters;
+- `operation`: currently only `resolve`;
+- `url`: absolute HTTP(S) only;
+- the request branch must not modify source code, workflows, Cards or machine-owned state.
+
+Pushing the request triggers `Remote Ingest` because the branch matches `runtime/ingest/**` and the changed path matches `.runtime/requests/*.json`.
+
+#### Trusted execution model
+
+The workflow deliberately separates executable code from request data:
+
+```text
+main
+→ checkout trusted harness into app/
+
+runtime/ingest/{request_id}
+→ sparse-checkout only .runtime/requests into request/
+```
+
+The runner executes scripts from trusted `main`, not from the request branch. It installs Node 24, repository dependencies and Playwright Chromium, then runs the same mandatory resolver contract.
+
+The URL remains JSON data; it is not evaluated as a command or inserted into a shell command string.
+
+#### Result artifact
+
+Every validated request produces an execution envelope at:
+
+```text
+remote-ingest-result.json
+```
+
+inside artifact:
+
+```text
+remote-ingest-{request_id}
+```
+
+Artifact retention is one day. The complete resolver/source result is transport data only: it is not committed to repository state and must not be dumped into public workflow logs.
+
+Before consuming the result, verify:
+
+```text
+schema_version == 1
+request_id == submitted request_id
+execution.backend == github_actions
+execution.status == success
+```
+
+When successful, use envelope `result` exactly as the accepted resolver/preflight output. When `execution.status=failure`, use its `classification`, `code` and `message` and fail closed.
+
+The workflow attempts to delete the temporary `runtime/ingest/**` branch after execution. Request files must never be merged into `main`.
+
+#### Current Phase 8B boundary
+
+The runner is browser-capable because Chromium is installed. Managed Phase 7 LLM credentials/provider configuration is **not** part of Phase 8B; that belongs to Phase 8C. A Threads case requiring semantic continuation/root-only recovery may therefore remain `SOURCE_INCOMPLETE` until a ranker is configured. Phase 8B must not replace that missing ranker with timestamp-only inference.
 
 ### Alias / snapshot lookup
 
@@ -129,7 +232,7 @@ If live revalidation cannot run:
 Use these distinctions consistently:
 
 - `LOCAL_EXECUTION_UNAVAILABLE` — current runtime cannot execute the required repository pipeline.
-- `REMOTE_EXECUTION_UNAVAILABLE` — approved remote execution is absent, inaccessible or unable to execute the request.
+- `REMOTE_EXECUTION_UNAVAILABLE` — approved remote execution is inaccessible or unable to execute the request.
 - `SOURCE_EXTRACTION_FAILED` — a viable backend ran the source pipeline, but source/evidence extraction failed.
 - `SOURCE_INCOMPLETE` — evidence exists but provider completeness or ambiguity gates do not pass.
 - `INGESTION_BLOCKED` — no allowed backend can produce an accepted source for the attempt.
@@ -185,7 +288,7 @@ When ingestion/source tooling changes, also run:
 npm test
 ```
 
-Documentation-only execution-contract changes do not require source-tooling tests, but repository CI/validation must still pass.
+Phase 8B changes source/execution tooling, so unit tests and repository validation are mandatory before promotion to `main`.
 
 ## 8. Commit and report
 
