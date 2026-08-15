@@ -7,6 +7,10 @@ import {
   createExecutionEnvelope,
   parseRemoteIngestRequest
 } from './lib/execution/backend-contract.mjs';
+import {
+  createGitHubModelsThreadsContinuationRanker,
+  DEFAULT_THREADS_CONTINUATION_GITHUB_MODEL
+} from './lib/execution/github-models-ranker.mjs';
 
 const requestPath = process.argv[2];
 const resultPath = process.argv[3] || process.env.REMOTE_INGEST_RESULT_PATH;
@@ -28,10 +32,18 @@ try {
   process.exit(2);
 }
 
+const continuationModel = process.env.THREADS_CONTINUATION_GITHUB_MODEL
+  || DEFAULT_THREADS_CONTINUATION_GITHUB_MODEL;
+const continuationRanker = createGitHubModelsThreadsContinuationRanker({
+  model: continuationModel
+});
+
 let envelope;
 try {
   const contentRoot = path.resolve('content/knowledge');
-  const result = await prepareExternalIngestion(request.url, contentRoot);
+  const result = await prepareExternalIngestion(request.url, contentRoot, {
+    continuationRanker
+  });
   envelope = createExecutionEnvelope({
     backend: 'github_actions',
     requestId: request.request_id,
@@ -40,7 +52,9 @@ try {
     startedAt,
     metadata: {
       operation: request.operation,
-      runner: 'remote-ingest-v1'
+      runner: 'remote-ingest-v2',
+      managed_ranker: continuationRanker ? 'github_models' : 'unavailable',
+      managed_ranker_model: continuationRanker ? continuationModel : null
     }
   });
 } catch (error) {
@@ -52,7 +66,9 @@ try {
     startedAt,
     metadata: {
       operation: request.operation,
-      runner: 'remote-ingest-v1'
+      runner: 'remote-ingest-v2',
+      managed_ranker: continuationRanker ? 'github_models' : 'unavailable',
+      managed_ranker_model: continuationRanker ? continuationModel : null
     }
   });
 }
@@ -66,5 +82,6 @@ console.log(JSON.stringify({
   status: envelope.execution.status,
   failure_classification: envelope.failure?.classification || null,
   failure_code: envelope.failure?.code || null,
+  managed_ranker: envelope.execution.metadata?.managed_ranker || null,
   result_path: resultPath
 }));
