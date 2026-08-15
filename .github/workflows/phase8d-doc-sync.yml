@@ -1,0 +1,32 @@
+name: Phase 8D Doc Sync
+
+on:
+  push:
+    branches:
+      - 'dev/phase8d-semantic-handoff'
+    paths:
+      - '.github/workflows/phase8d-doc-sync.yml'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: dev/phase8d-semantic-handoff
+          fetch-depth: 1
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Apply exact documentation updates
+        run: node scripts/dev-phase8d-doc-sync.mjs
+      - name: Commit synchronized contracts
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add prompts/RUNTIME.md prompts/CHANGELOG.md AGENTS.md docs/INGESTION.md docs/THREADS_INGESTION.md
+          git diff --cached --check
+          git commit -m "docs: define Phase 8D semantic handoff"
+          git push origin HEAD:dev/phase8d-semantic-handoff
