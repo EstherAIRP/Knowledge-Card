@@ -1,5 +1,5 @@
 ---
-prompt_version: 1.9.0
+prompt_version: 1.10.0
 updated_at: 2026-08-15
 repository: EstherAIRP/Knowledge-Card
 ---
@@ -63,18 +63,24 @@ execution/runtime failure != source unavailable
 
 若目前 Agent runtime 缺少 shell、Node/npm、outbound network、Playwright/Chromium、必要 model endpoint 或其他執行能力，**不得直接把來源標記為 `SOURCE_UNAVAILABLE`**。
 
+一般 ingestion 的入口改為 execution dispatcher：
+
+```bash
+npm run ingest:dispatch -- <URL>
+```
+
+Dispatcher 使用 LocalBackend 執行同一套 resolver。Local 成功時，正式 resolver contract 位於 envelope 的 `result`；Local 因 execution capability 不足而失敗時，dispatcher 會輸出 `REMOTE_EXECUTION_REQUIRED` 與正式 remote request plan。`npm run ingest:resolve -- <URL>` 仍是 backend 內部的 mandatory resolver／低階 debug command，不是跨 session orchestration 的唯一入口。
+
 執行順序：
 
 1. **Local execution backend**：目前 runtime 可執行 repository contract 時，直接執行。若 dependencies / browser binaries 缺失且環境允許安裝，先依 Repository 規則安裝。
-2. **Repository-defined remote execution backend**：local backend 不可用時，若 Repository 已提供正式 remote runner 且 Agent 具備所需 GitHub / Actions 權限，必須先嘗試 remote backend，再判定整體 ingestion 是否 blocked。
+2. **Repository-defined remote execution backend**：local backend 不可用時，若 Agent 具備 GitHub repository write 與 Actions read/artifact access，必須使用永久 `Remote Ingest` runner，再判定 ingestion 是否 blocked。
 3. **Existing alias / accepted snapshot lookup**：只能輔助識別既有 source identity、Card 與最後一次 accepted state；不能取代 current live completeness / freshness validation。
-
-Phase 8A 只定義 execution contract，**尚未實作永久 RemoteBackend**。在永久 remote harness 上線前，Agent 不得自行發明 ad-hoc remote workflow 並把它當成 Repository 標準流程。若 Repository 沒有正式 remote backend 或當前 Agent 無法呼叫它，應回報 `REMOTE_EXECUTION_UNAVAILABLE`；所有允許 backend 都無法得到 accepted current source 時，最終回報 `INGESTION_BLOCKED`。
 
 失敗狀態必須區分：
 
 - `LOCAL_EXECUTION_UNAVAILABLE`：當前 runtime 無法執行必要 Repository pipeline。
-- `REMOTE_EXECUTION_UNAVAILABLE`：正式 remote backend 不存在、不可存取或無法執行此次要求。
+- `REMOTE_EXECUTION_UNAVAILABLE`：正式 remote backend 不可存取或無法執行此次要求。
 - `SOURCE_EXTRACTION_FAILED`：已有 viable backend 執行來源流程，但因來源/evidence 本身原因無法完成 extraction。
 - `SOURCE_INCOMPLETE`：已有 evidence，但 provider completeness / ambiguity gate 未通過。
 - `INGESTION_BLOCKED`：所有允許 backend 都無法產生 accepted current source。
@@ -88,11 +94,42 @@ Phase 8A 只定義 execution contract，**尚未實作永久 RemoteBackend**。�
 - 任何 execution-backend failure、`INGESTION_BLOCKED`、incomplete、ambiguous 或 identity mismatch 都不得建立/更新正式 Card，也不得推進 Threads snapshot。
 - 不同 ChatGPT session 的工具差異不得改變 provider route，也不得降低來源完整性要求。
 
-### 3.3 共通 mandatory preflight
+### 3.3 Phase 8B Remote Ingest Protocol
+
+永久 remote backend 是 `.github/workflows/remote-ingest.yml`。普通 ingestion **不得再臨時建立 ad-hoc workflow**。
+
+當 local backend 不可用、但 GitHub write + Actions 能力可用時：
+
+1. 重新確認最新 `main` commit。
+2. 從該 `main` 建立 `runtime/ingest/{request_id}` temporary branch。
+3. Branch 上只新增一個 `.runtime/requests/{request_id}.json`：
+
+```json
+{
+  "schema_version": 1,
+  "request_id": "20260815-example01",
+  "operation": "resolve",
+  "url": "https://example.com/source"
+}
+```
+
+4. `request_id` 必須是 6–80 個 lowercase URL-safe characters；`operation` 目前只允許 `resolve`；`url` 只允許 absolute HTTP(S)。
+5. Push request 後，等待 `Remote Ingest` workflow。
+6. Workflow 會以 `main` 的 trusted harness code 執行，而 request branch 只作 data input；runner 安裝 Node 24、repository dependencies 與 Chromium，再執行正式 mandatory preflight。
+7. 取得 artifact `remote-ingest-{request_id}`；artifact retention 為 1 day，內容 `remote-ingest-result.json`。
+8. 使用 remote result 前必須驗證：`schema_version === 1`、`request_id` 完全一致、`execution.backend === "github_actions"`、`execution.status === "success"`。
+9. 成功時使用 envelope 的 `result` 作為 resolver contract；failure envelope 必須依 `classification/code/message` fail closed。
+10. Temporary request branch / request file 不得合併到 `main`；workflow 會嘗試在結束後刪除 request branch。
+
+Remote runner 不會把完整 source result commit 進 Repository，也不應把 source body dump 到 logs；正式 result 只存在短期 Actions artifact。RemoteBackend 只能改變 execution location，不能降低任何 provider completeness、identity、ownership 或 public-safety gate。
+
+Phase 8B 已提供 browser-capable remote environment，但 **Phase 7 managed LLM ranker/secret configuration 仍屬後續 Phase 8C**。若某個 Threads source 必須依賴 semantic continuation/root-only recovery，而 remote runner 沒有可用 ranker，仍必須 fail closed，不得以時間規則取代。
+
+### 3.4 共通 mandatory preflight
 
 收到 URL 後：
 
-1. 執行 `npm run ingest:resolve -- <URL>` 作為 mandatory preflight。resolver 的 `canonical_url`、`source_identity`、stable `id`、`mode`、`existing_path`、`suggested_path` 是 create/update 的機械契約。若 local backend 無法執行，先依 3.2 execution backend policy 處理，不得直接將來源標成 unavailable。
+1. 優先執行 `npm run ingest:dispatch -- <URL>`。Local success 時取 `result`；Local execution unavailable 時依 3.3 執行 Remote Ingest。任一 approved backend 內部最後都必須執行相同 `ingest:resolve` resolver contract。resolver 的 `canonical_url`、`source_identity`、stable `id`、`mode`、`existing_path`、`suggested_path` 是 create/update 的機械契約。
 2. 若輸入是 transient / share / short URL，先解析成實際 primary resource URL，不得把分享層 URL 本身當正式 identity。
 3. Threads `/share/*`、`/t/*`、root/middle/last post 必須在 create/update 判定前完成 Phase 1–3：URL resolution、exact post extraction、conversation graph、root traversal、same-author self-thread reconstruction 與 `n/N` completeness validation。
 4. Threads self-thread 的第一優先仍是結構證據：只能沿 `same author + replied_to === previous post + same root` 前進；不得只靠時間接近直接宣告正文。無法唯一決定同作者 branch 時標記 `AMBIGUOUS_THREAD` 並 fail closed。
@@ -100,7 +137,7 @@ Phase 8A 只定義 execution contract，**尚未實作永久 RemoteBackend**。�
 6. Phase 4 起，Threads mandatory resolver 只有在 `thread.complete: true` 與 `extraction.conversation_complete: true` 時才進入 dedup/create/update。`INCOMPLETE_THREAD`、`AMBIGUOUS_THREAD` 或 identity mismatch 都不得建立正式 Card。
 7. Phase 5 起，若 public HTTP / hydration data 無法完成 URL 或 conversation extraction，resolver 會自動嘗試 Playwright browser fallback。Browser adapter 只處理公開 Threads 頁面，使用隔離、無登入狀態的 browser context，不使用私人 cookies/session。
 8. Browser fallback 會擷取 render 後 DOM hydration 與 Threads same-origin JSON / GraphQL responses，交回既有 post normalizer、reply graph 與 `n/N` 驗證。不得因「瀏覽器成功開頁」本身就宣告完整；仍需通過 completeness contract。
-9. Browser fallback 預設在一般 live Threads ingestion 自動啟用；fixture/custom-fetch 測試保持 deterministic，除非明確設 `browserFallback: true` 或提供 `browserSessionFactory`。若 Playwright browser 不可用，應先依 3.2 判斷是否屬 local execution capability failure；可執行 `npm run threads:browser:install` 安裝 Chromium，或設定 `THREADS_BROWSER_EXECUTABLE` / `THREADS_BROWSER_CHANNEL`。
+9. Browser fallback 預設在一般 live Threads ingestion 自動啟用；fixture/custom-fetch 測試保持 deterministic，除非明確設 `browserFallback: true` 或提供 `browserSessionFactory`。若 Playwright browser 不可用，應先依 3.2 判斷是否屬 local execution capability failure；Local 無法補足時切 RemoteBackend。
 10. Phase 6 起，完整 Threads source 會在 mandatory preflight 中與最後一次 accepted source snapshot 比較。若 repository snapshot 存在，resolver 會輸出 `source_change`，狀態可為 `UNCHANGED`、`THREAD_EXTENDED`、`PART_CHANGED`、`PART_REMOVED`、`STRUCTURE_CHANGED` 或 `MULTIPLE_CHANGES`；沒有 baseline 時為 `FIRST_SEEN`，不得把 `FIRST_SEEN` 誤判成來源已變更。
 11. Phase 6 snapshot 只保存 public provenance 與 SHA-256 fingerprints，不保存 Threads 原文、raw GraphQL payload、登入 cookies/session 或私人內容。Media CDN query signature 屬 volatile transport metadata，不得單獨觸發內容變更。
 12. `source_change.status === UNCHANGED` 時，若沒有其他實質理由，不應重寫 AI analysis / Update Log，只更新 `last_checked_at`。`THREAD_EXTENDED`、`PART_CHANGED`、`PART_REMOVED`、`STRUCTURE_CHANGED`、`MULTIPLE_CHANGES` 視為 material source change，應以最新完整 `combined_text` 重新分析。
@@ -120,7 +157,7 @@ Phase 8A 只定義 execution contract，**尚未實作永久 RemoteBackend**。�
 26. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
 27. 優先讀取 primary source；GitHub 專案至少讀 README，必要時再讀官方 docs / architecture / release 等來源。不得只根據搜尋摘要或第三方介紹建立正式 Card。
 
-Threads source adapter 分工只適用於 Threads route：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = complete conversation reconstruction；Phase 4 = mandatory resolver / Knowledge Card identity、dedup 與 analysis-source integration；Phase 5 = Playwright browser / web-data fallback，用於 JS-only share resolution、DOM hydration 與 same-origin JSON/GraphQL conversation evidence；Phase 6 = accepted source snapshot / change detection，用於後續 extension、edit、removal 與 unchanged re-check 判定；Phase 7 = LLM-assisted continuation / root-only recovery，在原生 parent/root relationship 缺失時以 deterministic candidate filter + semantic ranker + acceptance gate 恢復高可信 multi-part 或 standalone source。Phase 8A 是跨 provider 的 execution-backend policy，不是新的 Threads extraction phase。
+Threads source adapter 分工只適用於 Threads route：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = complete conversation reconstruction；Phase 4 = mandatory resolver / Knowledge Card identity、dedup 與 analysis-source integration；Phase 5 = Playwright browser / web-data fallback，用於 JS-only share resolution、DOM hydration 與 same-origin JSON/GraphQL conversation evidence；Phase 6 = accepted source snapshot / change detection，用於後續 extension、edit、removal 與 unchanged re-check 判定；Phase 7 = LLM-assisted continuation / root-only recovery，在原生 parent/root relationship 缺失時以 deterministic candidate filter + semantic ranker + acceptance gate 恢復高可信 multi-part 或 standalone source。Phase 8A/8B 是跨 provider 的 execution routing/harness，不是新的 Threads extraction phase。
 
 ## 4. Analysis Standard
 
