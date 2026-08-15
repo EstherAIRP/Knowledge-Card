@@ -4,6 +4,32 @@
 
 ---
 
+## 1.11.0 — 2026-08-15
+
+### Added
+
+- 實作 Phase 8C managed Threads continuation ranker，讓永久 `Remote Ingest` 在 GitHub Actions 上能直接執行 Phase 7 semantic continuation / root-only recovery。
+- 新增 `scripts/lib/execution/github-models-ranker.mjs`，以 GitHub Models 作 repository-managed provider，預設 endpoint `https://models.github.ai/inference/chat/completions`、model `openai/gpt-4.1`。
+- Remote Ingest workflow 新增 `models: read` 權限，使用該次 workflow 的 `GITHUB_TOKEN`，不需要額外 OpenAI API secret。
+- Managed adapter 強制 `response_format = json_object`、保留既有 `temperature = 0`，並保存 `github_models_chat / github_models / model` ranker provenance。
+- Remote runner 升級為 `remote-ingest-v2`，會把 managed ranker 直接注入 `prepareExternalIngestion(..., { continuationRanker })`。
+- 新增 managed-ranker unit tests，驗證 token gate、GitHub Models endpoint/auth header、JSON mode、model 與 provenance。
+
+### Changed
+
+- Phase 8B 的 browser-capable remote environment 現在同時具備 managed Phase 7 semantic ranker；`continuation_recovery_ranker_unavailable` 不再是正常 Remote Ingest 的預期終點。
+- Request branch 仍只傳 URL request data，不能指定 model endpoint、token、prompt 或 ranker implementation；managed provider configuration 只由 trusted `main` harness/workflow 控制。
+- Local Phase 7 保持 provider-neutral，可繼續使用 injected `continuationRanker` 或既有 OpenAI-compatible environment configuration。
+- Package version 升至 `0.16.0`；Runtime Prompt 升至 `1.11.0`。
+
+### Safety
+
+- `GITHUB_TOKEN` 只注入 remote mandatory-preflight step，不保存至 request branch、artifact、Card、snapshot 或 log output。
+- GitHub Models judgement 仍不是 source of truth；`n/N` conflict、known missing parts、structural ambiguity、candidate filter、metadata evidence、confidence threshold、chronology 與 root-only label coverage 全部維持 deterministic gate。
+- Managed ranker auth、quota、service/model error 或任何低信心/不完整 judgement 仍 fail closed，不得退化成純時間猜測。
+
+---
+
 ## 1.10.0 — 2026-08-15
 
 ### Added
