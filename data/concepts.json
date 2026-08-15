@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-15T15:20:01.113Z",
-  "input_hash": "b6ba3aa6a48c223841d5f053b4e4adb1e16fd0730654757de0f218d09f4bd627",
+  "generated_at": "2026-08-15T22:38:29.553Z",
+  "input_hash": "55205d6f256f428e7fd12c563dbf4bcec5c288ce5848be12bac9ca4b7355f0b4",
   "concepts": [
     {
       "id": "category-agent",
@@ -81,11 +81,28 @@
         "github-cynthianani-a-simple-nest",
         "github-drumih-turbo-fieldfare",
         "github-g36maid-deepseek-harness",
+        "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 6
+      "card_count": 7
+    },
+    {
+      "id": "agent-api-bridge",
+      "label": "Agent API Bridge",
+      "type": "integration",
+      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ],
+      "card_count": 5
     },
     {
       "id": "character-runtime",
@@ -152,21 +169,6 @@
       "card_count": 5
     },
     {
-      "id": "agent-api-bridge",
-      "label": "Agent API Bridge",
-      "type": "integration",
-      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-intuition-lab-personal-model",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
-      ],
-      "card_count": 4
-    },
-    {
       "id": "agent-memory",
       "label": "Agent Memory",
       "type": "architecture",
@@ -178,6 +180,36 @@
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
         "threads-dfyr62jb6wr-b921df"
+      ],
+      "card_count": 4
+    },
+    {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ],
+      "card_count": 4
+    },
+    {
+      "id": "local-ai-integration",
+      "label": "Local AI Integration",
+      "type": "integration",
+      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
       ],
       "card_count": 4
     },
@@ -210,20 +242,6 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 4
-    },
-    {
-      "id": "category-ai-ml",
-      "label": "AI / ML",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI / ML",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
-      ],
-      "card_count": 3
     },
     {
       "id": "ai-character-interface",
@@ -268,16 +286,16 @@
       "card_count": 3
     },
     {
-      "id": "local-ai-integration",
-      "label": "Local AI Integration",
-      "type": "integration",
-      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
-      "origin": "promoted",
+      "id": "tag-openai-compatible-api",
+      "label": "OpenAI-compatible API",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge"
       ],
       "card_count": 3
     },
@@ -360,6 +378,58 @@
       "card_count": 2
     },
     {
+      "id": "category-image-generation",
+      "label": "Image Generation",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Image Generation",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "image-generation-workflow",
+      "label": "Image Generation Workflow",
+      "type": "workflow",
+      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-local-llm",
+      "label": "local LLM",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-local-first",
+      "label": "local-first",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-long-term-memory",
       "label": "long-term-memory",
       "type": "topic",
@@ -373,15 +443,15 @@
       "card_count": 2
     },
     {
-      "id": "tag-openai-compatible-api",
-      "label": "OpenAI-compatible API",
+      "id": "tag-metal",
+      "label": "Metal",
       "type": "topic",
       "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
         "github-drumih-turbo-fieldfare",
-        "github-minijinai75-tavern-claude-bridge"
+        "github-mayocream-koharu"
       ],
       "card_count": 2
     },
@@ -451,6 +521,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-tauri",
+      "label": "tauri",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-mayocream-koharu",
+        "threads-db-wlkkgtu-18d1ea"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-tool-registry",
       "label": "tool-registry",
       "type": "topic",
@@ -490,26 +573,14 @@
       "card_count": 2
     },
     {
-      "id": "category-image-generation",
-      "label": "Image Generation",
+      "id": "category-aoi-ai",
+      "label": "AOI × AI",
       "type": "category",
-      "description": "Knowledge Card taxonomy category：Image Generation",
+      "description": "Knowledge Card taxonomy category：AOI × AI",
       "origin": "category",
       "aliases": [],
       "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app"
-      ],
-      "card_count": 1
-    },
-    {
-      "id": "image-generation-workflow",
-      "label": "Image Generation Workflow",
-      "type": "workflow",
-      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app"
+        "github-mayocream-koharu"
       ],
       "card_count": 1
     }
@@ -738,6 +809,30 @@
         }
       ],
       "origin": "category"
+    },
+    {
+      "card_id": "github-drumih-turbo-fieldfare",
+      "concept_id": "tag-local-llm",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local LLM"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-drumih-turbo-fieldfare",
+      "concept_id": "tag-metal",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Metal"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "github-drumih-turbo-fieldfare",
@@ -1085,6 +1180,18 @@
     },
     {
       "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "tag-local-first",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
       "concept_id": "tag-long-term-memory",
       "strength": 0.9,
       "evidence": [
@@ -1195,6 +1302,150 @@
         {
           "kind": "tag",
           "value": "Codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "OpenAI-compatible-API"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "category-aoi-ai",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AOI × AI"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "category-image-generation",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "image-generation-workflow",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "tag-local-first",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "tag-local-llm",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-llm"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "tag-metal",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "metal"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "tag-openai-compatible-api",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "openai-compatible-api"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "tag-tauri",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "tauri"
         }
       ],
       "origin": "shared-tag"
@@ -2052,6 +2303,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "threads-db-wlkkgtu-18d1ea",
+      "concept_id": "tag-tauri",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "tauri"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "threads-dcdjlucgrwf-66e463",
       "concept_id": "category-ai-coding-devtools",
       "strength": 1,
@@ -2151,23 +2414,35 @@
   "concept_relations": [
     {
       "source": "agent-api-bridge",
-      "target": "ai-character-interface",
+      "target": "category-ai-ml",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu",
         "github-mirabarukaso-character-select-stand-alone-app"
       ]
     },
     {
       "source": "agent-api-bridge",
-      "target": "category-ai-ml",
+      "target": "category-image-generation",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "image-generation-workflow",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mayocream-koharu",
         "github-mirabarukaso-character-select-stand-alone-app"
       ]
     },
@@ -2175,22 +2450,57 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
         "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app"
       ]
     },
     {
       "source": "agent-api-bridge",
-      "target": "tag-openai-compatible-api",
+      "target": "tag-local-first",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-local-llm",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
         "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-metal",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge"
       ]
     },
@@ -2279,17 +2589,6 @@
     },
     {
       "source": "ai-character-interface",
-      "target": "category-llm",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-moeru-ai-airi"
-      ]
-    },
-    {
-      "source": "ai-character-interface",
       "target": "category-sillytavern-ai-rpg",
       "type": "co_occurs_with",
       "support": 2,
@@ -2349,18 +2648,6 @@
     },
     {
       "source": "category-agent",
-      "target": "local-ai-integration",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
-      ]
-    },
-    {
-      "source": "category-agent",
       "target": "tag-agent-loop",
       "type": "co_occurs_with",
       "support": 2,
@@ -2379,6 +2666,17 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "tag-agent-skill",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master"
       ]
     },
     {
@@ -2518,24 +2816,36 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "category-llm",
+      "target": "category-image-generation",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "category-llm",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
         "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu",
         "github-moeru-ai-airi"
       ]
     },
     {
       "source": "category-ai-ml",
-      "target": "character-runtime",
+      "target": "image-generation-workflow",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app"
       ]
     },
     {
@@ -2547,6 +2857,28 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-local-llm",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-metal",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
       ]
     },
     {
@@ -2584,6 +2916,28 @@
       ]
     },
     {
+      "source": "category-image-generation",
+      "target": "image-generation-workflow",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "category-image-generation",
+      "target": "local-ai-integration",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
       "source": "category-infrastructure-deployment",
       "target": "tag-agent-loop",
       "type": "co_occurs_with",
@@ -2614,17 +2968,6 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "category-infrastructure-deployment",
-      "target": "tag-openai-compatible-api",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -2672,15 +3015,14 @@
       ]
     },
     {
-      "source": "category-llm",
-      "target": "category-rag-memory-knowledge",
+      "source": "category-infrastructure-deployment",
+      "target": "tag-typescript",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
+      "support": 2,
+      "weight": 1,
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
+        "github-g36maid-deepseek-harness",
+        "github-stablyai-orca"
       ]
     },
     {
@@ -2711,12 +3053,35 @@
     },
     {
       "source": "category-llm",
-      "target": "tag-openai-compatible-api",
+      "target": "tag-local-llm",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
         "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "category-llm",
+      "target": "tag-metal",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "category-llm",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge"
       ]
     },
@@ -2795,10 +3160,21 @@
       "target": "local-ai-integration",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "character-runtime",
+      "target": "tag-electron",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
       ]
     },
     {
@@ -2891,6 +3267,39 @@
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "image-generation-workflow",
+      "target": "local-ai-integration",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
+      "target": "tag-local-first",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -3038,6 +3447,39 @@
       ]
     },
     {
+      "source": "tag-local-llm",
+      "target": "tag-metal",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "tag-local-llm",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "tag-metal",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
       "source": "tag-plugin-architecture",
       "target": "tag-sandbox",
       "type": "co_occurs_with",
@@ -3149,9 +3591,9 @@
     }
   ],
   "stats": {
-    "card_count": 16,
-    "concept_count": 35,
-    "card_concept_edge_count": 125,
-    "concept_relation_edge_count": 87
+    "card_count": 17,
+    "concept_count": 40,
+    "card_concept_edge_count": 141,
+    "concept_relation_edge_count": 103
   }
 }
