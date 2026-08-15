@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      RESULT_PATH: ${{ runner.temp }}/remote-ingest-result.json
+      RESULT_PATH: /tmp/remote-ingest-result.json
 
     steps:
       - name: Checkout trusted harness from main
