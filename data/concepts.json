@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-14T12:10:24.877Z",
-  "input_hash": "93ac4522fcea03a660e910ea32be2adec1ae18ea89c35e9228bad29451d1e718",
+  "generated_at": "2026-08-15T00:58:15.981Z",
+  "input_hash": "cd22a05fb90b6847fb9e3569f3a2845372030c4821834c52b56e58c360de00b3",
   "concepts": [
     {
       "id": "category-agent",
@@ -13,6 +13,7 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-danyuchn-iso-24495-skill",
+        "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
@@ -23,7 +24,7 @@
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
       ],
-      "card_count": 11
+      "card_count": 12
     },
     {
       "id": "coding-agent-tooling",
@@ -34,6 +35,7 @@
       "aliases": [],
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
+        "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
@@ -42,7 +44,7 @@
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
       ],
-      "card_count": 8
+      "card_count": 9
     },
     {
       "id": "category-ai-coding-devtools",
@@ -53,6 +55,7 @@
       "aliases": [],
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
+        "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-nutlope-hallmark",
@@ -60,7 +63,24 @@
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
       ],
-      "card_count": 7
+      "card_count": 8
+    },
+    {
+      "id": "category-llm",
+      "label": "LLM",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：LLM",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-drumih-turbo-fieldfare",
+        "github-g36maid-deepseek-harness",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-moeru-ai-airi",
+        "threads-dfyr62jb6wr-b921df"
+      ],
+      "card_count": 6
     },
     {
       "id": "character-runtime",
@@ -79,18 +99,18 @@
       "card_count": 5
     },
     {
-      "id": "category-llm",
-      "label": "LLM",
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
       "type": "category",
-      "description": "Knowledge Card taxonomy category：LLM",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
       "origin": "category",
       "aliases": [],
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
         "github-drumih-turbo-fieldfare",
+        "github-g36maid-deepseek-harness",
         "github-minijinai75-tavern-claude-bridge",
-        "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
+        "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0"
       ],
       "card_count": 5
     },
@@ -151,21 +171,6 @@
         "github-hugohe3-ppt-master",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-nutlope-hallmark"
-      ],
-      "card_count": 4
-    },
-    {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-stablyai-orca",
-        "threads-db-fphwgfos-7d09e0"
       ],
       "card_count": 4
     },
@@ -269,6 +274,32 @@
       "card_count": 2
     },
     {
+      "id": "tag-agent-loop",
+      "label": "agent-loop",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-agent-runtime",
+      "label": "agent-runtime",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-codex",
       "label": "Codex",
       "type": "topic",
@@ -278,6 +309,19 @@
       "card_ids": [
         "github-nutlope-hallmark",
         "github-stablyai-orca"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-cordis",
+      "label": "Cordis",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ],
       "card_count": 2
     },
@@ -308,6 +352,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-plugin-architecture",
+      "label": "plugin-architecture",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-prompt-caching",
       "label": "prompt-caching",
       "type": "topic",
@@ -317,6 +374,71 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-sandbox",
+      "label": "sandbox",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-session-log",
+      "label": "session-log",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-tool-registry",
+      "label": "tool-registry",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-typescript",
+      "label": "TypeScript",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "github-stablyai-orca"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-web-ui",
+      "label": "Web UI",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ],
       "card_count": 2
     },
@@ -578,6 +700,174 @@
         {
           "kind": "tag",
           "value": "OpenAI-compatible API"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-agent-loop",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-loop"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-agent-runtime",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-runtime"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-cordis",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Cordis"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-plugin-architecture",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "plugin-architecture"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-sandbox",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "sandbox"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-session-log",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "session-log"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-tool-registry",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "tool-registry"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-typescript",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "TypeScript"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-web-ui",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Web UI"
         }
       ],
       "origin": "shared-tag"
@@ -1383,6 +1673,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-stablyai-orca",
+      "concept_id": "tag-typescript",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "TypeScript"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "threads-db-fphwgfos-7d09e0",
       "concept_id": "category-agent",
       "strength": 1,
@@ -1429,6 +1731,102 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "tag-agent-loop",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-loop"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "tag-agent-runtime",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-runtime"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "tag-cordis",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Cordis"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "tag-plugin-architecture",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "plugin-architecture"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "tag-sandbox",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "sandbox"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "tag-session-log",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "session-log"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "tag-tool-registry",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "tool-registry"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-db-fphwgfos-7d09e0",
+      "concept_id": "tag-web-ui",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Web UI"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "threads-db-wlkkgtu-18d1ea",
@@ -1548,17 +1946,6 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mirabarukaso-character-select-stand-alone-app"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
-      "target": "category-infrastructure-deployment",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.5,
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -1727,10 +2114,11 @@
       "source": "category-agent",
       "target": "category-ai-coding-devtools",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
+        "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-nutlope-hallmark",
@@ -1756,10 +2144,11 @@
       "source": "category-agent",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 8,
+      "support": 9,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
+        "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-minijinai75-tavern-claude-bridge",
@@ -1783,13 +2172,13 @@
     },
     {
       "source": "category-agent",
-      "target": "tag-agent-skill",
+      "target": "tag-agent-loop",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master"
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -1819,41 +2208,41 @@
     },
     {
       "source": "category-ai-coding-devtools",
-      "target": "category-general-tools",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-nutlope-hallmark"
-      ]
-    },
-    {
-      "source": "category-ai-coding-devtools",
-      "target": "category-infrastructure-deployment",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.5,
-      "card_ids": [
-        "github-stablyai-orca",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
+        "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "tag-agent-loop",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "tag-agent-runtime",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -1869,18 +2258,6 @@
     },
     {
       "source": "category-ai-coding-devtools",
-      "target": "tag-claude-code",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca"
-      ]
-    },
-    {
-      "source": "category-ai-coding-devtools",
       "target": "tag-codex",
       "type": "co_occurs_with",
       "support": 2,
@@ -1888,6 +2265,28 @@
       "card_ids": [
         "github-nutlope-hallmark",
         "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "tag-cordis",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "tag-plugin-architecture",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -1925,18 +2324,6 @@
     },
     {
       "source": "category-general-tools",
-      "target": "coding-agent-tooling",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-nutlope-hallmark"
-      ]
-    },
-    {
-      "source": "category-general-tools",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 2,
@@ -1959,25 +2346,35 @@
     },
     {
       "source": "category-infrastructure-deployment",
-      "target": "coding-agent-tooling",
+      "target": "tag-agent-loop",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
+      "support": 2,
+      "weight": 1,
       "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-stablyai-orca",
+        "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
       "source": "category-infrastructure-deployment",
-      "target": "tag-claude-code",
+      "target": "tag-agent-runtime",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.5,
+      "weight": 1,
       "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-stablyai-orca"
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
+      "target": "tag-cordis",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -1989,6 +2386,50 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-minijinai75-tavern-claude-bridge"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
+      "target": "tag-plugin-architecture",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
+      "target": "tag-sandbox",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
+      "target": "tag-session-log",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
+      "target": "tag-tool-registry",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -2134,13 +2575,24 @@
     },
     {
       "source": "coding-agent-tooling",
-      "target": "local-ai-integration",
+      "target": "tag-agent-loop",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-minijinai75-tavern-claude-bridge"
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
+      "target": "tag-agent-runtime",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -2179,6 +2631,105 @@
       ]
     },
     {
+      "source": "coding-agent-tooling",
+      "target": "tag-cordis",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-agent-loop",
+      "target": "tag-agent-runtime",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-agent-loop",
+      "target": "tag-cordis",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-agent-loop",
+      "target": "tag-plugin-architecture",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-agent-loop",
+      "target": "tag-sandbox",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-agent-runtime",
+      "target": "tag-cordis",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-agent-runtime",
+      "target": "tag-plugin-architecture",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-agent-runtime",
+      "target": "tag-sandbox",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-agent-runtime",
+      "target": "tag-session-log",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
       "source": "tag-claude-code",
       "target": "tag-codex",
       "type": "co_occurs_with",
@@ -2188,12 +2739,144 @@
         "github-nutlope-hallmark",
         "github-stablyai-orca"
       ]
+    },
+    {
+      "source": "tag-cordis",
+      "target": "tag-plugin-architecture",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-cordis",
+      "target": "tag-sandbox",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-cordis",
+      "target": "tag-session-log",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-plugin-architecture",
+      "target": "tag-sandbox",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-plugin-architecture",
+      "target": "tag-session-log",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-plugin-architecture",
+      "target": "tag-tool-registry",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-sandbox",
+      "target": "tag-session-log",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-sandbox",
+      "target": "tag-tool-registry",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-sandbox",
+      "target": "tag-web-ui",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-session-log",
+      "target": "tag-tool-registry",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-session-log",
+      "target": "tag-web-ui",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-tool-registry",
+      "target": "tag-web-ui",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
     }
   ],
   "stats": {
-    "card_count": 13,
-    "concept_count": 23,
-    "card_concept_edge_count": 88,
-    "concept_relation_edge_count": 56
+    "card_count": 14,
+    "concept_count": 32,
+    "card_concept_edge_count": 111,
+    "concept_relation_edge_count": 82
   }
 }
