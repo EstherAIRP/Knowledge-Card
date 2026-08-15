@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 import { prepareExternalIngestion } from './lib/source-ingestion.mjs';
 import {
   classifyIngestionFailure,
@@ -8,9 +9,9 @@ import {
   parseRemoteIngestRequest
 } from './lib/execution/backend-contract.mjs';
 import {
-  createGitHubModelsThreadsContinuationRanker,
-  DEFAULT_THREADS_CONTINUATION_GITHUB_MODEL
-} from './lib/execution/github-models-ranker.mjs';
+  createCopilotCliThreadsContinuationRanker,
+  DEFAULT_THREADS_CONTINUATION_COPILOT_MODEL
+} from './lib/execution/copilot-cli-ranker.mjs';
 
 const requestPath = process.argv[2];
 const resultPath = process.argv[3] || process.env.REMOTE_INGEST_RESULT_PATH;
@@ -32,15 +33,24 @@ try {
   process.exit(2);
 }
 
-const continuationModel = process.env.THREADS_CONTINUATION_GITHUB_MODEL
-  || DEFAULT_THREADS_CONTINUATION_GITHUB_MODEL;
-const continuationRanker = createGitHubModelsThreadsContinuationRanker({
+const continuationModel = process.env.THREADS_CONTINUATION_COPILOT_MODEL
+  || DEFAULT_THREADS_CONTINUATION_COPILOT_MODEL;
+const continuationRanker = createCopilotCliThreadsContinuationRanker({
   model: continuationModel
 });
+const contentRoot = fileURLToPath(new URL('../content/knowledge/', import.meta.url));
+
+function executionMetadata() {
+  return {
+    operation: request.operation,
+    runner: 'remote-ingest-v3',
+    managed_ranker: continuationRanker ? 'github_copilot_cli' : 'unavailable',
+    managed_ranker_model: continuationRanker ? continuationModel : null
+  };
+}
 
 let envelope;
 try {
-  const contentRoot = path.resolve('content/knowledge');
   const result = await prepareExternalIngestion(request.url, contentRoot, {
     continuationRanker
   });
@@ -50,12 +60,7 @@ try {
     status: 'success',
     result,
     startedAt,
-    metadata: {
-      operation: request.operation,
-      runner: 'remote-ingest-v2',
-      managed_ranker: continuationRanker ? 'github_models' : 'unavailable',
-      managed_ranker_model: continuationRanker ? continuationModel : null
-    }
+    metadata: executionMetadata()
   });
 } catch (error) {
   envelope = createExecutionEnvelope({
@@ -64,12 +69,7 @@ try {
     status: 'failure',
     failure: classifyIngestionFailure(error, { backend: 'remote' }),
     startedAt,
-    metadata: {
-      operation: request.operation,
-      runner: 'remote-ingest-v2',
-      managed_ranker: continuationRanker ? 'github_models' : 'unavailable',
-      managed_ranker_model: continuationRanker ? continuationModel : null
-    }
+    metadata: executionMetadata()
   });
 }
 
@@ -82,6 +82,7 @@ console.log(JSON.stringify({
   status: envelope.execution.status,
   failure_classification: envelope.failure?.classification || null,
   failure_code: envelope.failure?.code || null,
+  cause_code: envelope.failure?.cause_code || null,
   managed_ranker: envelope.execution.metadata?.managed_ranker || null,
   result_path: resultPath
 }));
