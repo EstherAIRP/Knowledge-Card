@@ -131,6 +131,8 @@ Use these failure classes consistently:
 - `INGESTION_BLOCKED`
 - `SOURCE_UNAVAILABLE` only for source-level unavailability established by a viable backend
 
+A managed Copilot policy/auth/CLI/timeout/output/invalid-response failure is a remote execution capability failure, even when the Threads orchestrator wraps it inside an incomplete-conversation error. It must be reported as `REMOTE_EXECUTION_UNAVAILABLE`, not as evidence that the public source itself is incomplete. A semantic judgement that actually runs but then fails the deterministic Phase 7 gate may remain `SOURCE_INCOMPLETE`.
+
 No backend failure, blocked ingestion, incomplete/ambiguous source, or identity mismatch may create/update a Card or advance accepted source state.
 
 ## 4. Phase 8B Remote Ingest
@@ -203,12 +205,14 @@ Managed profile:
 provider: github_copilot
 adapter: copilot_cli
 agent: threads-continuation-ranker
-model: gpt-5.2
+model_selector: auto
 auth: workflow GITHUB_TOKEN → child COPILOT_GITHUB_TOKEN
 permission: copilot-requests: write
 ```
 
-The workflow installs `@github/copilot`, then invokes the ranker non-interactively with a repository-controlled model and custom agent. The request branch cannot choose model, agent, prompt, token, executable code, or tool permissions.
+`auto` is a trusted repository-controlled Copilot CLI selector. It allows the CLI to choose a model that is currently available and allowed by the organization instead of pinning ingestion to a model that may later be deprecated or disabled. Current provenance records the selector as `auto`; it does not claim knowledge of the underlying model selected internally by Copilot.
+
+The workflow installs `@github/copilot`, then invokes the ranker non-interactively with the trusted selector and custom agent. The request branch cannot choose model selector, agent, prompt, token, executable code, or tool permissions.
 
 ### Least-privilege execution
 
@@ -245,7 +249,7 @@ Accepted inferred sources preserve:
 thread.verification = llm_assisted
 thread.recovery.ranker.method = github_copilot_cli
 thread.recovery.ranker.provider = github_copilot
-thread.recovery.ranker.model = gpt-5.2
+thread.recovery.ranker.model = auto
 thread.recovery.ranker.agent = threads-continuation-ranker
 ```
 
@@ -254,8 +258,10 @@ Remote execution metadata reports:
 ```text
 runner = remote-ingest-v3
 managed_ranker = github_copilot_cli
-managed_ranker_model = gpt-5.2
+managed_ranker_model = auto
 ```
+
+If organization policy blocks Copilot CLI, the safe nested cause is `THREADS_CONTINUATION_COPILOT_POLICY_DENIED` and the remote result is `REMOTE_EXECUTION_UNAVAILABLE`. This is an execution activation problem, not source incompleteness.
 
 No credential is stored in the result artifact. Failure envelopes may expose safe nested `cause_code` / redacted bounded `cause_message` diagnostics without exposing tokens or raw provider payloads.
 
