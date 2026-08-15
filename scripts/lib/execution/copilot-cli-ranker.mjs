@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
-export const DEFAULT_THREADS_CONTINUATION_COPILOT_MODEL = 'gpt-5.2';
+export const DEFAULT_THREADS_CONTINUATION_COPILOT_MODEL = 'auto';
 export const THREADS_CONTINUATION_COPILOT_AGENT = 'threads-continuation-ranker';
 export const DEFAULT_COPILOT_TIMEOUT_MS = 120_000;
 export const DEFAULT_COPILOT_MAX_OUTPUT_BYTES = 1024 * 1024;
@@ -37,6 +37,14 @@ function sanitizeDiagnostic(value, token) {
   let text = String(value || '').replace(/[\u0000-\u001f\u007f]+/g, ' ').trim();
   if (token) text = text.split(token).join('[REDACTED]');
   return text.slice(-600);
+}
+
+export function classifyCopilotCliDiagnostic(value) {
+  const diagnostic = String(value || '');
+  if (/access denied by policy settings|copilot cli policy setting may be preventing access/i.test(diagnostic)) {
+    return 'THREADS_CONTINUATION_COPILOT_POLICY_DENIED';
+  }
+  return 'THREADS_CONTINUATION_COPILOT_FAILED';
 }
 
 export function buildCopilotCliArgs({
@@ -168,7 +176,7 @@ export async function invokeCopilotCli({
         const error = new Error(
           `GitHub Copilot CLI exited with code ${code ?? 'null'}${signal ? ` (${signal})` : ''}.${suffix}`
         );
-        error.code = 'THREADS_CONTINUATION_COPILOT_FAILED';
+        error.code = classifyCopilotCliDiagnostic(diagnostic);
         finish(reject, error);
       });
 
