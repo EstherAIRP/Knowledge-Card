@@ -151,7 +151,7 @@ When local execution cannot run and GitHub write/Actions access is available:
    - `execution.backend === "github_actions"`
    - `execution.status === "success"`
 8. Use `result` as the accepted resolver/preflight output. If the envelope status is `failure`, honor its failure classification and do not author a Card.
-9. The workflow attempts to delete the temporary `runtime/ingest/**` branch after execution. Request files/results are operational transport and must never be merged to `main`.
+9. The workflow cleanup job attempts to delete the temporary `runtime/ingest/**` branch after execution. Request files/results are operational transport and must never be merged to `main`.
 
 Remote runner security/behavior:
 
@@ -165,26 +165,33 @@ Remote runner security/behavior:
 
 ### 3.4 Phase 8C managed Threads continuation ranker
 
-Remote Ingest now has a repository-managed Phase 7 ranker. When a Threads source reaches semantic continuation/root-only recovery, the trusted `main` harness injects GitHub Models rather than requiring the request branch or current chat session to provide an LLM endpoint.
+Remote Ingest has a repository-managed Phase 7 ranker implemented with **GitHub Copilot CLI**. The trusted `main` harness injects this ranker only when the Threads pipeline reaches semantic continuation/root-only recovery.
 
 Managed configuration:
 
 ```text
-provider: github_models
-endpoint: https://models.github.ai/inference/chat/completions
-model: openai/gpt-4.1
-auth: workflow GITHUB_TOKEN with models: read
-response format: json_object
+provider: github_copilot
+adapter: copilot_cli
+agent: threads-continuation-ranker
+model: gpt-5.2
+resolve permissions: contents: read + copilot-requests: write
+auth: workflow GITHUB_TOKEN → child COPILOT_GITHUB_TOKEN
+runner: remote-ingest-v3
 ```
 
 Rules:
 
-- request branches must never carry model credentials, endpoint overrides, prompts, or executable ranker code;
-- the token is available only to the remote preflight step and must not be persisted in artifacts, logs, Cards, snapshots, or repository state;
-- GitHub Models only supplies the semantic judgement. Existing Phase 7 candidate filtering, structural conflict checks, confidence thresholds, metadata gates, chronology checks, root-only complete-label coverage, and fail-closed behavior remain authoritative;
-- accepted inferred sources preserve `thread.verification = llm_assisted` and record ranker provenance as `github_models_chat` / `github_models` / model name;
-- local execution remains provider-neutral and may still inject a custom `continuationRanker` or use the OpenAI-compatible environment configuration defined by the Threads adapter;
-- managed ranker auth/service/model failures must never be replaced with timestamp-only guessing.
+- request branches must never carry model credentials, endpoint overrides, prompts, tool policy, agent definitions or executable ranker code;
+- the model-running `resolve` job does not have contents-write permission; request-branch deletion runs in a separate `cleanup` job with `contents: write` and no Copilot request permission;
+- `GITHUB_TOKEN` is exposed only to the remote preflight step. The Copilot child receives it as `COPILOT_GITHUB_TOKEN` through an explicit environment whitelist; arbitrary workflow secrets/environment variables are not forwarded;
+- the Copilot process runs in an ephemeral workspace with isolated `HOME` / `COPILOT_HOME`; only the trusted `.github/agents/threads-continuation-ranker.agent.md` is copied into that workspace;
+- the trusted agent defines `tools: []`, so shell, file, URL, GitHub, MCP, memory and other tools are unavailable during semantic classification;
+- root/candidate source text is sent through stdin as untrusted quoted data and can never be treated as executable instructions;
+- Copilot only supplies the semantic judgement. Existing Phase 7 candidate filtering, structural conflict checks, confidence thresholds, metadata gates, chronology checks, root-only complete-label coverage, and fail-closed behavior remain authoritative;
+- accepted inferred sources preserve `thread.verification = llm_assisted` and ranker provenance: `github_copilot_cli` / `github_copilot` / model / agent;
+- CLI/auth/policy/quota/model failure, timeout, output-limit violation, invalid JSON, low-confidence judgement or deterministic-gate rejection remains fail closed and must never be replaced with timestamp-only guessing;
+- execution failure envelopes may expose safe direct nested `cause_code` / bounded redacted `cause_message`, but never provider tokens, raw provider payloads or full source dumps;
+- local execution remains provider-neutral and may still inject a custom `continuationRanker` or use the OpenAI-compatible environment configuration defined by the Threads adapter.
 
 ## 4. Source-reading rule
 
