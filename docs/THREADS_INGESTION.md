@@ -385,7 +385,7 @@ thread.recovery.ranker.agent = threads-continuation-ranker
 Remote execution metadata is:
 
 ```text
-runner = remote-ingest-v3
+runner = remote-ingest-v4
 managed_ranker = github_copilot_cli
 managed_ranker_model = auto
 ```
@@ -393,6 +393,25 @@ managed_ranker_model = auto
 The managed process has a bounded output size and timeout. CLI/auth/policy/model errors, invalid JSON, low-confidence judgement, incomplete candidate labels, or any rejected deterministic gate remain fail closed. Safe nested `cause_code` / bounded redacted `cause_message` diagnostics may be included in the execution failure envelope; provider tokens and raw provider payloads must not be persisted.
 
 When organization policy blocks Copilot CLI, the adapter emits `THREADS_CONTINUATION_COPILOT_POLICY_DENIED`, and Remote Ingest classifies the attempt as `REMOTE_EXECUTION_UNAVAILABLE` rather than `SOURCE_INCOMPLETE`. This distinction is required because the semantic execution backend never became viable enough to judge source completeness.
+
+## Phase 8D — Agent semantic handoff fallback
+
+When the Phase 8C Copilot backend is unavailable, Remote Ingest may capture the exact Phase 7 root/candidate set instead of declaring the source itself incomplete. The short-lived failure artifact exposes public evidence plus a deterministic SHA-256 digest.
+
+A Knowledge Card Agent may return the standard Phase 7 judgement in a second schema-v1 `operation=resolve` request using optional `semantic_handoff`. The request contains only the digest and judgement; it cannot supply or alter root/candidate evidence.
+
+On the second run, trusted `main` re-extracts Threads, rebuilds the candidate set and recomputes the digest. Only an exact match allows the supplied judgement to enter `validateThreadsContinuationJudgement`. A mismatch fails closed with `THREADS_CONTINUATION_HANDOFF_EVIDENCE_MISMATCH` and requires a new first-stage artifact.
+
+Accepted provenance is:
+
+```text
+thread.verification = llm_assisted
+thread.recovery.ranker.method = agent_semantic_handoff
+thread.recovery.ranker.provider = knowledge_card_agent
+thread.recovery.ranker.evidence_digest = sha256:...
+```
+
+All Phase 7 structural and deterministic gates remain unchanged. The handoff exists only to move semantic classification outside a blocked managed provider; it cannot override source evidence.
 
 ## Test and live-acceptance strategy
 

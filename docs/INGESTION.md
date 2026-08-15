@@ -256,7 +256,7 @@ thread.recovery.ranker.agent = threads-continuation-ranker
 Remote execution metadata reports:
 
 ```text
-runner = remote-ingest-v3
+runner = remote-ingest-v4
 managed_ranker = github_copilot_cli
 managed_ranker_model = auto
 ```
@@ -267,7 +267,17 @@ No credential is stored in the result artifact. Failure envelopes may expose saf
 
 Local execution remains provider-neutral. It may inject `continuationRanker` or use the existing OpenAI-compatible environment contract; Phase 8C does not force local callers onto Copilot CLI.
 
-## 6. Read primary evidence
+## 6. Phase 8D Agent semantic handoff
+
+If Phase 8C cannot execute semantic judgement because the managed model backend is blocked by policy/auth/provider capability, Remote Ingest attempts a capture-only Phase 7 pass. When eligible candidate evidence exists, the failure artifact includes `failure.semantic_handoff` with public root/candidates and a SHA-256 evidence digest.
+
+The current Knowledge Card Agent may classify that evidence and submit a second ordinary schema-v1 `operation=resolve` request with optional `semantic_handoff` containing `producer=knowledge_card_agent`, the exact digest, and the normal Phase 7 judgement. The request never carries source evidence.
+
+Trusted `main` then re-extracts the current source, rebuilds the deterministic candidate set and requires an exact digest match before the judgement is injected. `THREADS_CONTINUATION_HANDOFF_EVIDENCE_MISMATCH` means the evidence changed or does not correspond to the judgement; restart from a fresh first-stage artifact.
+
+The handoff path does not weaken source semantics. The existing Phase 7 validation remains authoritative, and accepted provenance is `agent_semantic_handoff / knowledge_card_agent` with the digest and `thread.verification = llm_assisted`.
+
+## 7. Read primary evidence
 
 Never write substantive analysis from a slug, search snippet, or model memory. Read authoritative source material.
 
@@ -275,7 +285,7 @@ For Threads, use the complete accepted `source_document`. When recovery is LLM-a
 
 If current primary evidence cannot be read after execution routing is exhausted, do not fabricate a Card.
 
-## 7. Create/update, ownership, snapshot
+## 8. Create/update, ownership, snapshot
 
 Create mode uses the resolver `suggested_path` and the canonical template. Update mode preserves stable `id`, `created_at`, path, all user overrides, `## 使用者備註`, and prior changelog history.
 
@@ -305,7 +315,7 @@ npm run ingest:snapshot -- <Threads URL>
 
 Preflight itself remains read-only. Failed/incomplete/ambiguous ingestion never advances the snapshot.
 
-## 8. Commit and report
+## 9. Commit and report
 
 Knowledge commits use `knowledge: add ...` / `knowledge: update ...`; infrastructure uses conventional `feat:`, `fix:`, `test:`, `docs:`, or `chore:` prefixes.
 

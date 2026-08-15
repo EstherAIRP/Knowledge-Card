@@ -4,6 +4,30 @@
 
 ---
 
+## 1.12.0 — 2026-08-15
+
+### Added
+
+- 實作 Phase 8D Agent-mediated Semantic Handoff，作為 Phase 8C managed ranker 被 organization policy / auth / provider capability 阻擋時的正式 fallback。
+- 新增 `scripts/lib/execution/semantic-handoff.mjs`：建立 public root/candidate evidence、SHA-256 digest、capture-only ranker、handoff request validation 與 digest-bound agent ranker。
+- Remote Ingest schema v1 / `operation=resolve` 保持相容；第二階段可選擇加入 `semantic_handoff`，內容只能是 `knowledge_card_agent` producer、evidence digest 與 Phase 7 structured judgement。
+- Remote runner 升級 `remote-ingest-v4`。Managed semantic backend unavailable 時會嘗試產生 `failure.semantic_handoff`；收到 handoff judgement 時會重新擷取來源、重建候選並驗證 digest。
+- 新增 semantic-handoff tests，涵蓋 stable digest、trusted producer、bounded judgement、capture-only evidence、fresh-evidence binding 與 mismatch rejection。
+
+### Safety
+
+- Handoff request 不得提供 source evidence；trusted runner 永遠以 live re-extraction 的 root/candidates 為準。
+- Evidence digest 不一致時回 `THREADS_CONTINUATION_HANDOFF_EVIDENCE_MISMATCH` 並 fail closed，禁止 stale judgement 套用到變更後來源。
+- Agent judgement 仍必須通過既有 Phase 7 deterministic gate；不得覆蓋 `n/N`、known missing parts、structural ambiguity、candidate membership、metadata threshold、chronology、confidence 或 root-only complete-label coverage。
+- Accepted provenance 保留 `thread.verification = llm_assisted`，ranker 標示 `agent_semantic_handoff / knowledge_card_agent` + evidence digest，不冒充 native Threads graph verification。
+
+### Changed
+
+- Package version 升至 `0.17.0`；Runtime Prompt 升至 `1.12.0`。
+- Phase 8C Copilot CLI 仍是 Remote Ingest 第一順位 managed ranker；Phase 8D 只在 managed semantic backend 無法執行時提供第二條可驗證路徑。
+
+---
+
 ## 1.11.2 — 2026-08-15
 
 ### Fixed
