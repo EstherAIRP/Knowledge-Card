@@ -1,5 +1,5 @@
 ---
-prompt_version: 1.10.0
+prompt_version: 1.11.0
 updated_at: 2026-08-15
 repository: EstherAIRP/Knowledge-Card
 ---
@@ -123,13 +123,35 @@ Dispatcher 使用 LocalBackend 執行同一套 resolver。Local 成功時，正�
 
 Remote runner 不會把完整 source result commit 進 Repository，也不應把 source body dump 到 logs；正式 result 只存在短期 Actions artifact。RemoteBackend 只能改變 execution location，不能降低任何 provider completeness、identity、ownership 或 public-safety gate。
 
-Phase 8B 已提供 browser-capable remote environment，但 **Phase 7 managed LLM ranker/secret configuration 仍屬後續 Phase 8C**。若某個 Threads source 必須依賴 semantic continuation/root-only recovery，而 remote runner 沒有可用 ranker，仍必須 fail closed，不得以時間規則取代。
+### 3.4 Phase 8C Managed Continuation Ranker
 
-### 3.4 共通 mandatory preflight
+Phase 8C 將 Remote Ingest 的 Threads Phase 7 semantic recovery 變成 repository-managed capability。Remote runner 預設使用 **GitHub Models**，不要求額外 OpenAI API key：workflow 以 `models: read` 權限取得該次 run 的 `GITHUB_TOKEN`，trusted harness 再建立 managed continuation ranker。
+
+Managed profile：
+
+```text
+provider = github_models
+endpoint = https://models.github.ai/inference/chat/completions
+model = openai/gpt-4.1
+response_format = json_object
+```
+
+規則：
+
+1. `GITHUB_TOKEN` 只注入 `Execute mandatory ingestion preflight` step，不寫入 request branch、artifact、Card、snapshot 或 logs。
+2. Request branch 不能指定 endpoint、token、model 或 prompt；這些都由 trusted `main` harness / workflow 控制。
+3. Managed ranker 透過既有 Phase 7 deterministic candidate filter 與 acceptance gate；GitHub Models 只負責語意 judgement，不可繞過 `n/N` conflict、known missing parts、structural ambiguity、confidence threshold 或 metadata gate。
+4. Ranker request 強制 `response_format: {"type":"json_object"}`，並維持 `temperature: 0`。回傳仍須通過既有 JSON parser 與 deterministic validation。
+5. Accepted source 的 provenance 必須保存 `thread.verification = llm_assisted`；`thread.recovery.ranker` 額外標記 `method = github_models_chat`、`provider = github_models`、`model`。
+6. Remote execution envelope metadata 會標記 `runner = remote-ingest-v2`、`managed_ranker = github_models` 與使用的 model；不得包含 token。
+7. GitHub Models auth、quota、service 或 model failure 不得退化成時間猜測。若 Phase 7 judgement 無法取得或未過 gate，仍 fail closed。
+8. Local execution 的 Phase 7 仍保持 provider-neutral：可注入 `continuationRanker`，或使用 `THREADS_CONTINUATION_LLM_ENDPOINT` / `THREADS_CONTINUATION_LLM_BASE_URL`、`THREADS_CONTINUATION_LLM_MODEL` 與可選 API key。Phase 8C 不強迫 local backend 使用 GitHub Models。
+
+### 3.5 共通 mandatory preflight
 
 收到 URL 後：
 
-1. 優先執行 `npm run ingest:dispatch -- <URL>`。Local success 時取 `result`；Local execution unavailable 時依 3.3 執行 Remote Ingest。任一 approved backend 內部最後都必須執行相同 `ingest:resolve` resolver contract。resolver 的 `canonical_url`、`source_identity`、stable `id`、`mode`、`existing_path`、`suggested_path` 是 create/update 的機械契約。
+1. 優先執行 `npm run ingest:dispatch -- <URL>`。Local success 時取 `result`；Local execution unavailable 時依 3.3 執行 Remote Ingest。Remote Threads 若進入 Phase 7 semantic recovery，依 3.4 使用 managed ranker。任一 approved backend 內部最後都必須執行相同 `ingest:resolve` resolver contract。resolver 的 `canonical_url`、`source_identity`、stable `id`、`mode`、`existing_path`、`suggested_path` 是 create/update 的機械契約。
 2. 若輸入是 transient / share / short URL，先解析成實際 primary resource URL，不得把分享層 URL 本身當正式 identity。
 3. Threads `/share/*`、`/t/*`、root/middle/last post 必須在 create/update 判定前完成 Phase 1–3：URL resolution、exact post extraction、conversation graph、root traversal、same-author self-thread reconstruction 與 `n/N` completeness validation。
 4. Threads self-thread 的第一優先仍是結構證據：只能沿 `same author + replied_to === previous post + same root` 前進；不得只靠時間接近直接宣告正文。無法唯一決定同作者 branch 時標記 `AMBIGUOUS_THREAD` 並 fail closed。
@@ -149,7 +171,7 @@ Phase 8B 已提供 browser-capable remote environment，但 **Phase 7 managed LL
 18. Continuation mode 的 deterministic acceptance gate 預設要求：`complete === true`、`root_only !== true`、`confidence >= 0.90`、selected shortcode 非空且唯一、第一個 selected candidate metadata evidence >= 0.60、所有 selected shortcode 必須存在於已擷取 evidence、同作者、不得是明確 non-reply、時間順序不得倒退。任一條件失敗即 fail closed。
 19. Root-only mode 只用於「root 本身已是完整正文，但同作者仍有後續 replies」的情境。接受時必須同時滿足：`complete === true`、`root_only === true`、`confidence >= 0.90`、`selected_shortcodes` 為空、至少存在一個 filtered candidate、`candidate_labels` 必須完整且唯一覆蓋所有 filtered candidates、每個 label 只能是 `followup` 或 `unrelated`、不得有 `continuation` / `uncertain`，且每個 label confidence 預設皆須 `>= 0.90`。缺候選、漏標、低信心或任何不確定都必須 fail closed，不得把「沒有找到續篇」等同於 root-only 已證明。
 20. 通過 Phase 7 continuation gate 的來源標記 `thread.status = INFERRED_THREAD_HIGH_CONFIDENCE`；通過 root-only gate 的來源標記 `thread.status = INFERRED_SINGLE_POST_HIGH_CONFIDENCE`、`thread.total = 1`、`thread.recovery.root_only = true`。兩者皆標記 `thread.verification = llm_assisted`、`extraction.inferred = true`，可以作正式 ingestion source，但不得冒充具有原生 parent/root graph 的 `COMPLETE_THREAD` / `SINGLE_POST` structural verification。
-21. Phase 7 預設不硬綁特定 LLM provider。程式支援 injected `continuationRanker`，也支援 opt-in OpenAI-compatible HTTP endpoint：`THREADS_CONTINUATION_LLM_ENDPOINT` 或 `THREADS_CONTINUATION_LLM_BASE_URL`、`THREADS_CONTINUATION_LLM_MODEL`、可選 `THREADS_CONTINUATION_LLM_API_KEY`。沒有 ranker 設定時維持 fail closed；若是執行環境無法存取 ranker，先依 3.2 execution routing 處理，不得退化成純時間猜測。
+21. Phase 7 core 仍不硬綁特定 LLM provider。程式支援 injected `continuationRanker`，也支援 opt-in OpenAI-compatible HTTP endpoint；RemoteBackend 則依 Phase 8C 預設注入 GitHub Models managed ranker。任何 backend 沒有可用 ranker時維持 fail closed，不得退化成純時間猜測。
 22. 完整 Threads source 以 root post 為 canonical source：`canonical_url = root permalink`、`source.identity = threads:{root_shortcode}`。不同 share token 或串文任意 part 必須落到同一 root identity。
 23. Threads resolver 會輸出 `source_document`，保留 `parts[]`、`combined_text`、root/input metadata、media、thread verification 與 extraction provenance。正式分析必須以 `source_document.combined_text` 為主要文字來源，並保留 `parts[].media` 作媒體證據；不得只分析分享時指到的單篇。
 24. `source_document.source_identity` 必須與 root `canonical_url` 經 repository canonicalizer 算出的 identity 一致；不一致時 fail closed。
@@ -157,7 +179,7 @@ Phase 8B 已提供 browser-capable remote environment，但 **Phase 7 managed LL
 26. 新來源建立 Card；既有來源更新原 Card，不得建立重複 Card。
 27. 優先讀取 primary source；GitHub 專案至少讀 README，必要時再讀官方 docs / architecture / release 等來源。不得只根據搜尋摘要或第三方介紹建立正式 Card。
 
-Threads source adapter 分工只適用於 Threads route：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = complete conversation reconstruction；Phase 4 = mandatory resolver / Knowledge Card identity、dedup 與 analysis-source integration；Phase 5 = Playwright browser / web-data fallback，用於 JS-only share resolution、DOM hydration 與 same-origin JSON/GraphQL conversation evidence；Phase 6 = accepted source snapshot / change detection，用於後續 extension、edit、removal 與 unchanged re-check 判定；Phase 7 = LLM-assisted continuation / root-only recovery，在原生 parent/root relationship 缺失時以 deterministic candidate filter + semantic ranker + acceptance gate 恢復高可信 multi-part 或 standalone source。Phase 8A/8B 是跨 provider 的 execution routing/harness，不是新的 Threads extraction phase。
+Threads source adapter 分工只適用於 Threads route：Phase 1 = URL resolution；Phase 2 = exact single-post extraction；Phase 3 = complete conversation reconstruction；Phase 4 = mandatory resolver / Knowledge Card identity、dedup 與 analysis-source integration；Phase 5 = Playwright browser / web-data fallback，用於 JS-only share resolution、DOM hydration 與 same-origin JSON/GraphQL conversation evidence；Phase 6 = accepted source snapshot / change detection，用於後續 extension、edit、removal 與 unchanged re-check 判定；Phase 7 = LLM-assisted continuation / root-only recovery，在原生 parent/root relationship 缺失時以 deterministic candidate filter + semantic ranker + acceptance gate 恢復高可信 multi-part 或 standalone source。Phase 8A/8B/8C 是跨 provider 的 execution routing/harness 與 managed ranker capability，不是新的 Threads extraction phase。
 
 ## 4. Analysis Standard
 
