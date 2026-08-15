@@ -3,7 +3,6 @@ name: Threads Continuation Ranker
 description: Classify whether same-author Threads replies belong to the original article body or are later follow-ups.
 target: github-copilot
 tools: []
-model: gpt-5.2
 disable-model-invocation: true
 ---
 
