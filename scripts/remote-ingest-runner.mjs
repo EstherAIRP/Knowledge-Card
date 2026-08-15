@@ -12,6 +12,10 @@ import {
   createCopilotCliThreadsContinuationRanker,
   DEFAULT_THREADS_CONTINUATION_COPILOT_MODEL
 } from './lib/execution/copilot-cli-ranker.mjs';
+import {
+  createThreadsSemanticHandoffCaptureRanker,
+  createThreadsSemanticHandoffRanker
+} from './lib/execution/semantic-handoff.mjs';
 
 const requestPath = process.argv[2];
 const resultPath = process.argv[3] || process.env.REMOTE_INGEST_RESULT_PATH;
@@ -35,18 +39,50 @@ try {
 
 const continuationModel = process.env.THREADS_CONTINUATION_COPILOT_MODEL
   || DEFAULT_THREADS_CONTINUATION_COPILOT_MODEL;
-const continuationRanker = createCopilotCliThreadsContinuationRanker({
+const copilotRanker = createCopilotCliThreadsContinuationRanker({
   model: continuationModel
 });
+const continuationRanker = request.semantic_handoff
+  ? createThreadsSemanticHandoffRanker(request.semantic_handoff)
+  : copilotRanker;
 const contentRoot = fileURLToPath(new URL('../content/knowledge/', import.meta.url));
 
-function executionMetadata() {
+function executionMetadata({ handoffAvailable = false } = {}) {
+  const handoffMode = Boolean(request.semantic_handoff);
   return {
     operation: request.operation,
-    runner: 'remote-ingest-v3',
-    managed_ranker: continuationRanker ? 'github_copilot_cli' : 'unavailable',
-    managed_ranker_model: continuationRanker ? continuationModel : null
+    runner: 'remote-ingest-v4',
+    managed_ranker: handoffMode
+      ? 'agent_semantic_handoff'
+      : continuationRanker ? 'github_copilot_cli' : 'unavailable',
+    managed_ranker_model: handoffMode
+      ? null
+      : continuationRanker ? continuationModel : null,
+    semantic_handoff_submitted: handoffMode,
+    semantic_handoff_available: handoffAvailable
   };
+}
+
+function findSemanticHandoff(error) {
+  let current = error;
+  for (let depth = 0; current && depth < 5; depth += 1) {
+    if (current.semantic_handoff) return current.semantic_handoff;
+    if (!current.cause || current.cause === current) break;
+    current = current.cause;
+  }
+  return null;
+}
+
+async function captureSemanticHandoff() {
+  const captureRanker = createThreadsSemanticHandoffCaptureRanker();
+  try {
+    await prepareExternalIngestion(request.url, contentRoot, {
+      continuationRanker: captureRanker
+    });
+  } catch (error) {
+    return findSemanticHandoff(error);
+  }
+  return null;
 }
 
 let envelope;
@@ -63,13 +99,21 @@ try {
     metadata: executionMetadata()
   });
 } catch (error) {
+  const failure = classifyIngestionFailure(error, { backend: 'remote' });
+  let semanticHandoff = null;
+
+  if (!request.semantic_handoff && failure.classification === 'REMOTE_EXECUTION_UNAVAILABLE') {
+    semanticHandoff = await captureSemanticHandoff();
+    if (semanticHandoff) failure.semantic_handoff = semanticHandoff;
+  }
+
   envelope = createExecutionEnvelope({
     backend: 'github_actions',
     requestId: request.request_id,
     status: 'failure',
-    failure: classifyIngestionFailure(error, { backend: 'remote' }),
+    failure,
     startedAt,
-    metadata: executionMetadata()
+    metadata: executionMetadata({ handoffAvailable: Boolean(semanticHandoff) })
   });
 }
 
@@ -84,5 +128,6 @@ console.log(JSON.stringify({
   failure_code: envelope.failure?.code || null,
   cause_code: envelope.failure?.cause_code || null,
   managed_ranker: envelope.execution.metadata?.managed_ranker || null,
+  semantic_handoff_available: envelope.execution.metadata?.semantic_handoff_available || false,
   result_path: resultPath
 }));
