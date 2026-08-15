@@ -4,6 +4,40 @@
 
 ---
 
+## 1.10.0 — 2026-08-15
+
+### Added
+
+- 實作 Phase 8B execution harness：新增 `npm run ingest:dispatch -- <URL>`、LocalBackend、RemoteBackend request/result contract 與統一 execution envelope。
+- 新增永久 `.github/workflows/remote-ingest.yml`，使用 `runtime/ingest/{request_id}` temporary request branch 觸發 remote mandatory preflight。
+- Remote runner 固定從 `main` checkout trusted harness code，request branch 只以 sparse checkout 載入 `.runtime/requests/*.json` 作 data input，避免執行 request branch 上的任意程式碼。
+- 新增 request schema v1：`schema_version`、`request_id`、`operation=resolve`、absolute HTTP(S) `url`。
+- 新增 artifact result protocol：`remote-ingest-{request_id}` / `remote-ingest-result.json`，retention 1 day；result envelope 保留 backend/status/failure classification 與完整 resolver result。
+- Remote runner 安裝 Node 24、Repository dependencies 與 Playwright Chromium，讓 local shell/network/browser capability 不足時有正式 browser-capable execution location。
+- 新增 execution harness tests，涵蓋 request validation、local capability classification、remote plan identity 與 request/result correlation。
+
+### Changed
+
+- 普通 URL ingestion 的推薦入口由直接 `ingest:resolve` 提升為 `ingest:dispatch`；`ingest:resolve` 保留為 approved backend 內部 mandatory resolver 與 debug/test command。
+- Dispatcher local success 時以 envelope `result` 回傳既有 resolver contract；local capability failure 時以 exit code 75 + `REMOTE_EXECUTION_REQUIRED` 輸出正式 remote handoff plan。
+- `Validate Knowledge Radar` 不再對 `runtime/ingest/**` operational request branches執行完整 repository validation，避免 remote request 同時觸發不必要的 build pipeline。
+- `AGENTS.md`、`docs/INGESTION.md`、`docs/THREADS_INGESTION.md` 同步 Remote Ingest request branch / artifact consumption protocol。
+
+### Safety
+
+- Remote workflow 執行的程式碼只來自 `main`；temporary request branch 不得修改 source/workflow/Card/state，且不允許合併到 `main`。
+- Remote request operation 目前只允許 `resolve`；URL 僅允許 absolute HTTP(S)，不得將 request 內容當 shell command 執行。
+- 完整 source result 不 commit 到 Repository，也不 dump 到 workflow logs；只保存於 1-day Actions artifact。
+- Workflow 結束後會嘗試刪除 `runtime/ingest/**` temporary branch。
+- RemoteBackend 只改變 execution location，不降低 provider completeness、identity、ownership 或 public-safety gate。
+
+### Boundary
+
+- Phase 8B 提供 permanent browser-capable RemoteBackend，但尚未提供 managed Phase 7 LLM provider/secrets。需要 semantic continuation/root-only recovery 的 Threads source 若 remote ranker 未設定，仍 fail closed；managed ranker 留給 Phase 8C。
+- Alias persistence / share-token identity cache 尚未在本階段新增。
+
+---
+
 ## 1.9.0 — 2026-08-15
 
 ### Added
@@ -114,7 +148,7 @@
 ### Added
 
 - 新增 Threads Phase 5 Playwright browser / web-data fallback。
-- public HTTP / hydration extraction 不足時，可用 headless browser 解析 JS-only `/share/*` / `/t/*` navigation。
+- public HTTP / hydration extraction不足時，可用 headless browser 解析 JS-only `/share/*` / `/t/*` navigation。
 - Browser adapter 擷取 render 後 DOM hydration，以及 Threads same-origin JSON / GraphQL responses，再交回既有 post normalizer / reply graph。
 - 新增 browser session isolation：不讀取登入 session、cookies 或 user profile；只處理公開 Threads URL。
 - 新增 `npm run threads:browser:install` 安裝 Playwright Chromium。
