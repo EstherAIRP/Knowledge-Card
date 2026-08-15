@@ -77,15 +77,75 @@ A successful Threads result includes `source_document.parts[]` and `source_docum
 
 See `docs/THREADS_INGESTION.md` for the full Phase 1–7 contract.
 
-## 3. Read primary evidence
+## 3. Execution backend policy
+
+Provider routing and execution routing are separate. Provider routing selects the required source pipeline; execution routing selects where that exact pipeline can run.
+
+Core rule:
+
+```text
+runtime unavailable != source unavailable
+```
+
+Do not turn a missing local shell, Node/npm runtime, outbound network path, Playwright/Chromium installation, LLM endpoint or similar execution capability into a source-level conclusion.
+
+Execution order:
+
+```text
+Local execution backend
+↓ if unavailable
+Repository-defined remote execution backend
+↓ if unavailable / blocked
+Existing alias or accepted snapshot lookup for identity/history only
+↓
+INGESTION_BLOCKED if no allowed backend can produce an accepted current source
+```
+
+### Local backend
+
+Use the current runtime first when it can execute the repository contract. If dependencies or browser binaries are missing and installation is allowed, install them before declaring the local backend unavailable.
+
+Local capability failures should be reported as `LOCAL_EXECUTION_UNAVAILABLE`, not `SOURCE_UNAVAILABLE`.
+
+### Remote backend
+
+If local execution is unavailable and the repository defines an approved remote execution backend, use it when the agent has the required repository/Actions access. A remote backend must execute the same provider route and completeness contract; it is not permission to weaken ingestion rules.
+
+Phase 8A defines the backend contract only. Until the permanent remote execution harness is implemented in a later phase, do not silently invent an ad-hoc workflow and present it as repository-standard behavior. If no repository-defined remote backend is available, report `REMOTE_EXECUTION_UNAVAILABLE` and then `INGESTION_BLOCKED` when no other allowed backend can complete the request.
+
+### Alias / snapshot lookup
+
+Existing aliases, Cards and accepted snapshots may help identify a known source or explain prior accepted state. They do not prove that the source is currently unchanged or complete.
+
+If live revalidation cannot run:
+
+- it is acceptable to report the known existing identity/Card/snapshot;
+- do not refresh analysis, dates or source state as if current evidence had been verified;
+- do not advance a Threads snapshot;
+- do not use prior accepted state to bypass current provider completeness requirements.
+
+### Failure vocabulary
+
+Use these distinctions consistently:
+
+- `LOCAL_EXECUTION_UNAVAILABLE` — current runtime cannot execute the required repository pipeline.
+- `REMOTE_EXECUTION_UNAVAILABLE` — approved remote execution is absent, inaccessible or unable to execute the request.
+- `SOURCE_EXTRACTION_FAILED` — a viable backend ran the source pipeline, but source/evidence extraction failed.
+- `SOURCE_INCOMPLETE` — evidence exists but provider completeness or ambiguity gates do not pass.
+- `INGESTION_BLOCKED` — no allowed backend can produce an accepted source for the attempt.
+- `SOURCE_UNAVAILABLE` — source-level unavailability established by a viable execution path; never a synonym for missing local capabilities.
+
+No execution-backend failure, blocked ingestion, incomplete source or ambiguous source may create/update a formal Card or advance accepted source state.
+
+## 4. Read primary evidence
 
 Never write substantive analysis from a slug, search snippet or model memory. For GitHub read repository metadata and README at minimum; inspect architecture/security/docs/source when needed. For papers/articles read the actual authoritative source. Separate verified facts from inference.
 
 For Threads, the complete `source_document` returned by the mandatory resolver is the primary text/provenance contract. Do not downgrade it to only the originally shared part. When recovery is LLM-assisted, preserve `thread.verification = llm_assisted` and the exact inferred status (`INFERRED_THREAD_HIGH_CONFIDENCE` or `INFERRED_SINGLE_POST_HIGH_CONFIDENCE`) rather than describing the graph as natively verified.
 
-If primary evidence cannot be read sufficiently, report `SOURCE_UNAVAILABLE` or the concrete extraction failure.
+If primary evidence cannot be read sufficiently after execution routing is exhausted, report the concrete source-level failure or `INGESTION_BLOCKED` for backend unavailability. Do not fabricate a Card and do not use `SOURCE_UNAVAILABLE` for a local runtime limitation.
 
-## 4. Create or update
+## 5. Create or update
 
 Create mode uses `templates/knowledge-card.example.md` at `suggested_path`. Update mode reads the existing card completely and preserves stable `id`, `created_at`, file path, all user overrides, `## 使用者備註` and prior changelog history.
 
@@ -99,7 +159,7 @@ npm run ingest:snapshot -- <Threads URL>
 
 Do not run the Threads snapshot command for non-Threads sources.
 
-## 5. Ownership validation
+## 6. Ownership validation
 
 Before committing an existing-card update:
 
@@ -109,7 +169,7 @@ npm run validate:ownership -- <existing_path>
 
 The check protects stable fields, user overrides and `## 使用者備註`.
 
-## 6. Repository validation
+## 7. Repository validation
 
 Run:
 
@@ -125,6 +185,8 @@ When ingestion/source tooling changes, also run:
 npm test
 ```
 
-## 7. Commit and report
+Documentation-only execution-contract changes do not require source-tooling tests, but repository CI/validation must still pass.
+
+## 8. Commit and report
 
 Preferred Card commits are `knowledge: add <Title>` / `knowledge: update <Title>`. Infrastructure uses `feat:`, `fix:`, `test:`, `docs:` or `chore:`. Do not report success until repository writes and required validation have succeeded.
