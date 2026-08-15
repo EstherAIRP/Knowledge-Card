@@ -21,7 +21,7 @@ jobs:
       copilot-requests: write
     env:
       RESULT_PATH: /tmp/remote-ingest-result.json
-      THREADS_CONTINUATION_COPILOT_MODEL: gpt-5.2
+      THREADS_CONTINUATION_COPILOT_MODEL: auto
 
     steps:
       - name: Checkout trusted harness from main
