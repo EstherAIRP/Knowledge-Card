@@ -4,6 +4,27 @@
 
 ---
 
+## 1.11.2 — 2026-08-15
+
+### Fixed
+
+- Phase 8C live acceptance 證實 organization-owned `GITHUB_TOKEN` 可成功進入 Copilot CLI，但目前 Repository 所屬組織 policy 回 `Access denied by policy settings`。新增 `THREADS_CONTINUATION_COPILOT_POLICY_DENIED`，不再把這種 managed-backend activation failure 誤判成 Threads `SOURCE_INCOMPLETE`。
+- `classifyIngestionFailure()` 會檢查 remote direct/nested Copilot capability error；policy/auth/CLI/timeout/output/invalid-response 等 managed execution failure 統一分類為 `REMOTE_EXECUTION_UNAVAILABLE`。只有 semantic judgement 真正完成後仍未通過來源 deterministic gate，才維持 `SOURCE_INCOMPLETE`。
+- 移除 managed ranker 對 `gpt-5.2` 的固定依賴，改用 Copilot CLI `--model=auto`，避免模型 deprecated / organization model policy 變更再次讓 Harness 失效。
+
+### Changed
+
+- Managed model provenance / execution metadata 由 `gpt-5.2` 改為 selector `auto`。`auto` 只表示 Repository 交給 Copilot CLI 自動選擇目前可用且允許的模型；Harness 不宣稱知道 CLI 內部實際選到的模型。
+- Phase 8C tests 新增 `--model=auto`、policy-denial diagnostic 與 remote failure classification regression coverage。
+- Package version 升至 `0.16.2`；Runtime Prompt 升至 `1.11.2`。
+
+### Activation boundary
+
+- Phase 8C code、workflow、browser、Copilot CLI 安裝、isolated custom agent、artifact/cleanup pipeline 都已可執行；若 organization policy 尚未允許 Copilot CLI billed to the organization，Remote Ingest 會安全回 `REMOTE_EXECUTION_UNAVAILABLE / THREADS_CONTINUATION_COPILOT_POLICY_DENIED`，不建立/更新 Card，也不推進 snapshot。
+- 開啟 organization Copilot CLI policy 後，仍必須由 live acceptance 驗證實際 semantic judgement 與 Phase 7 deterministic gate；policy 開啟本身不等於來源自動通過。
+
+---
+
 ## 1.11.1 — 2026-08-15
 
 ### Fixed
