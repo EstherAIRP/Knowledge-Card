@@ -102,17 +102,29 @@ const LOCAL_CAPABILITY_CODES = new Set([
   'UND_ERR_HEADERS_TIMEOUT'
 ]);
 
+const REMOTE_CAPABILITY_CODES = new Set([
+  'THREADS_BROWSER_UNAVAILABLE',
+  'THREADS_BROWSER_LAUNCH_FAILED',
+  'ERR_MODULE_NOT_FOUND',
+  'THREADS_CONTINUATION_COPILOT_UNAVAILABLE',
+  'THREADS_CONTINUATION_COPILOT_POLICY_DENIED',
+  'THREADS_CONTINUATION_COPILOT_FAILED',
+  'THREADS_CONTINUATION_COPILOT_TIMEOUT',
+  'THREADS_CONTINUATION_COPILOT_OUTPUT_LIMIT',
+  'THREADS_CONTINUATION_COPILOT_INVALID_RESPONSE'
+]);
+
 export function classifyIngestionFailure(error, { backend = 'local' } = {}) {
   const code = errorCode(error);
   const cause = directCause(error);
   let classification = 'SOURCE_EXTRACTION_FAILED';
 
-  if (SOURCE_INCOMPLETE_CODES.has(code)) {
+  if (backend === 'remote' && (REMOTE_CAPABILITY_CODES.has(code) || REMOTE_CAPABILITY_CODES.has(cause?.code))) {
+    classification = 'REMOTE_EXECUTION_UNAVAILABLE';
+  } else if (SOURCE_INCOMPLETE_CODES.has(code)) {
     classification = 'SOURCE_INCOMPLETE';
   } else if (backend === 'local' && LOCAL_CAPABILITY_CODES.has(code)) {
     classification = 'LOCAL_EXECUTION_UNAVAILABLE';
-  } else if (backend === 'remote' && ['THREADS_BROWSER_UNAVAILABLE', 'THREADS_BROWSER_LAUNCH_FAILED', 'ERR_MODULE_NOT_FOUND'].includes(code)) {
-    classification = 'REMOTE_EXECUTION_UNAVAILABLE';
   }
 
   return {
