@@ -22,7 +22,7 @@ anything else
 
 A non-Threads page does not become a Threads source merely because its text mentions Threads or embeds/links to a Threads post. Provider routing is determined from the primary resource itself.
 
-Phase 8A is an execution-backend contract around this pipeline, not an additional Threads source-extraction phase. The Phase 1–7 completeness semantics remain unchanged regardless of where they execute.
+Phase 8A/8B is an execution-backend layer around this pipeline, not an additional Threads source-extraction phase. Phase 1–7 completeness semantics remain unchanged regardless of where they execute.
 
 ## Phase 1 — URL resolution
 
@@ -50,7 +50,7 @@ Successful output preserves `parts[]`, ordered `combined_text`, root/input metad
 
 ## Phase 4 — Knowledge Card integration
 
-`npm run ingest:resolve -- <threads-url>` is the mandatory end-to-end preflight, not only a URL normalizer.
+`npm run ingest:resolve -- <threads-url>` is the mandatory end-to-end resolver executed inside an approved execution backend, not only a URL normalizer.
 
 For Threads it performs:
 
@@ -67,7 +67,15 @@ input/share/middle post
 → Phase 6 source-change comparison when snapshot state exists
 ```
 
-The returned contract contains the normal Knowledge Card resolver fields plus:
+Ordinary agents enter through:
+
+```bash
+npm run ingest:dispatch -- <threads-url>
+```
+
+The dispatcher chooses LocalBackend first and hands off to the repository-defined Remote Ingest protocol when local execution capability is unavailable.
+
+The accepted resolver contract contains the normal Knowledge Card fields plus:
 
 ```text
 source_document
@@ -105,7 +113,7 @@ Formal Knowledge Card ingestion stops on incomplete, ambiguous, invalid or ident
 
 No incomplete source may reach create/update resolution.
 
-## Execution backend boundary — Phase 8A
+## Execution backend boundary — Phase 8B
 
 Threads source failure and Threads execution-backend failure are different classes of failure.
 
@@ -118,7 +126,7 @@ Threads source is unavailable
 The required order is:
 
 1. run the Threads Phase 1–7 contract on the local execution backend when possible;
-2. if local execution lacks required runtime capability, use the repository-defined remote execution backend when one exists and is accessible;
+2. if local execution lacks required runtime capability, use the permanent repository-defined `Remote Ingest` backend when GitHub repository write + Actions access is available;
 3. use existing alias/Card/snapshot state only as identity/history evidence, never as a replacement for live completeness validation;
 4. if no allowed backend can produce an accepted current source, report `INGESTION_BLOCKED`.
 
@@ -131,7 +139,71 @@ Local execution limitations include, for example:
 
 These conditions should be classified as `LOCAL_EXECUTION_UNAVAILABLE` when they prevent the pipeline from running. They are not evidence that the public Threads post itself is gone.
 
-If the repository-defined remote backend is absent or inaccessible, classify that condition as `REMOTE_EXECUTION_UNAVAILABLE`. Phase 8A only defines the contract; it does not authorize agents to silently invent an ad-hoc workflow and treat it as repository-standard remote execution. The permanent remote harness is a later implementation phase.
+### Permanent Remote Ingest runner
+
+The approved remote runner is:
+
+```text
+.github/workflows/remote-ingest.yml
+```
+
+Do not create ad-hoc workflow files for ordinary Threads ingestion. A remote request is transported on an isolated branch:
+
+```text
+runtime/ingest/{request_id}
+└── .runtime/requests/{request_id}.json
+```
+
+The request branch must be created from the latest `main` and must contain exactly one request file as its only intentional change:
+
+```json
+{
+  "schema_version": 1,
+  "request_id": "20260815-example01",
+  "operation": "resolve",
+  "url": "https://www.threads.com/share/example/"
+}
+```
+
+The workflow executes **trusted harness code from `main`**, while the request branch is sparse-checked out separately as data only. It installs Node 24, repository dependencies and Playwright Chromium, then runs the same resolver/completeness contract.
+
+The remote result is uploaded as artifact:
+
+```text
+remote-ingest-{request_id}
+└── remote-ingest-result.json
+```
+
+with one-day retention. Before using it, require:
+
+```text
+schema_version == 1
+request_id == submitted request_id
+execution.backend == github_actions
+execution.status == success
+```
+
+The successful envelope's `result` is the formal resolver output. A failure envelope remains fail closed and carries execution/source classification. The request branch is operational transport only; the workflow attempts to delete it after execution and it must never merge to `main`.
+
+The complete source payload is stored in the short-lived artifact rather than committed to repository state or dumped into public logs.
+
+### Phase 8B vs Phase 8C
+
+Phase 8B guarantees a reproducible **browser-capable execution location**. It does not yet guarantee a managed Phase 7 semantic ranker.
+
+Therefore:
+
+```text
+HTTP/hydration/browser evidence sufficient
+→ RemoteBackend can complete Threads ingestion
+
+Phase 7 semantic recovery required
++ no configured remote ranker
+→ SOURCE_INCOMPLETE / fail closed
+→ do not guess by timestamp
+```
+
+Permanent LLM provider/secrets wiring for the RemoteBackend belongs to Phase 8C. This boundary must not be bypassed by free-form agent inference outside the deterministic Phase 7 acceptance contract.
 
 A viable backend that actually reaches the Threads pipeline may still return source-level failures such as `SOURCE_EXTRACTION_FAILED`, `SOURCE_INCOMPLETE`, `THREADS_CONVERSATION_INCOMPLETE` or `THREADS_CONVERSATION_AMBIGUOUS`. Those remain fail closed.
 
@@ -157,6 +229,8 @@ THREADS_BROWSER_CHANNEL=chrome
 ```
 
 The browser context is anonymous and isolated: the adapter does not load a persistent user profile, login cookies or private session state.
+
+The Phase 8B Remote Ingest runner installs Chromium automatically, so a local missing browser can be routed remotely instead of being mislabeled as source unavailability.
 
 ### URL fallback
 
@@ -203,7 +277,7 @@ or inject a deterministic browser implementation through `browserSessionFactory`
 - `THREADS_BROWSER_CANONICAL_NOT_FOUND` — rendered share page still exposes no canonical post.
 - `THREADS_BROWSER_NO_POSTS` — page rendered but DOM/captured JSON exposed no verifiable post objects.
 
-All browser failures remain fail closed **for that execution attempt** and never downgrade primary-source completeness. However, environment-capability failures such as a missing/launch-impossible browser must first be treated as local-backend failure and routed through the execution-backend policy before the overall ingestion is declared blocked or the source is called unavailable.
+All browser failures remain fail closed **for that execution attempt** and never downgrade primary-source completeness. Environment-capability failures such as a missing/launch-impossible local browser must first be routed through the execution-backend policy before the overall ingestion is declared blocked or the source is called unavailable.
 
 ## Phase 6 — source snapshots and change detection
 
@@ -324,7 +398,7 @@ rationale
 candidate_labels
 ```
 
-`root_only=true` is a distinct judgement: the root post itself is the complete original article body and every captured same-author candidate is only `followup` or `unrelated`. It is not equivalent to “no continuation was found.” If any candidate is `continuation` or `uncertain`, or if the original body may still be missing, the model must not return an accepted root-only judgement.
+`root_only=true` is a distinct judgement: the root post itself is the complete original article body and every candidate is only a `followup` or `unrelated`. It is not equivalent to “no continuation was found.” If any candidate is `continuation` or `uncertain`, or if the original article body may still be missing, the model must not return an accepted root-only judgement.
 
 Phase 7 supports an injected `continuationRanker` or an opt-in OpenAI-compatible endpoint configured with:
 
@@ -336,7 +410,7 @@ THREADS_CONTINUATION_LLM_MODEL
 THREADS_CONTINUATION_LLM_API_KEY   # optional
 ```
 
-No configured ranker means fail closed for the current execution backend; the system must not fall back to pure timestamp guessing. If the ranker is unavailable because of runtime capability, execution routing may attempt another approved backend, but the Phase 7 acceptance rules themselves do not change.
+No configured ranker means fail closed for the current execution backend; the system must not fall back to pure timestamp guessing. Phase 8B supplies a remote execution location, not a ranker configuration. Phase 8C will make that capability reproducible remotely.
 
 ### Deterministic acceptance gate — continuation mode
 
@@ -404,6 +478,6 @@ Both may be used as formal ingestion sources because deterministic acceptance ga
 
 CI fixtures cover URL variants, exact-post selection, root/middle/last input, reader reply exclusion, same-author branches, `n/N`, missing-part rejection, root identity, mandatory resolver root dedup, non-Threads compatibility, browser GraphQL capture, JS-only share navigation, sparse-HTML recovery, unsafe browser redirects, deterministic source hashing, volatile media-signature suppression, append-only extension detection, edited/removed parts, snapshot no-op behavior, mandatory-preflight change reporting, Phase 7 continuation recovery acceptance/rejection, and root-only acceptance/rejection with complete candidate-label coverage.
 
-Browser fixture tests use an injected session factory, so ordinary CI does not require downloading Chromium merely to validate adapter logic. Live acceptance tests may install Chromium explicitly and must remain isolated from production Card/snapshot writes.
+Phase 8B unit tests additionally cover request schema validation, local capability classification, dispatcher/remote plan identity and remote result correlation. The permanent `Remote Ingest` workflow is live-tested only after it is present on `main`, because the workflow deliberately executes trusted harness code from `main`.
 
-Phase 8A is documentation/contract-only. It does not add a permanent remote runner test yet; that belongs to the execution-harness implementation phase.
+Browser fixture tests use an injected session factory, so ordinary CI does not require downloading Chromium merely to validate adapter logic. Live acceptance for the RemoteBackend installs Chromium explicitly and must remain isolated from production Card/snapshot writes.
