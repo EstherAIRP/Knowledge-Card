@@ -195,35 +195,71 @@ On success, use envelope `result` as the formal resolver/preflight output. Failu
 
 ## 5. Phase 8C Managed Threads ranker
 
-Remote Ingest now includes a repository-managed Phase 7 semantic ranker using **GitHub Models**.
+Remote Ingest includes a repository-managed Phase 7 semantic ranker using **GitHub Copilot CLI**. The managed path is intentionally separate from local provider-neutral rankers.
 
 Managed profile:
 
 ```text
-provider: github_models
-endpoint: https://models.github.ai/inference/chat/completions
-model: openai/gpt-4.1
-auth: workflow GITHUB_TOKEN
-permission: models: read
-response_format: json_object
+provider: github_copilot
+adapter: copilot_cli
+agent: threads-continuation-ranker
+model: gpt-5.2
+auth: workflow GITHUB_TOKEN → child COPILOT_GITHUB_TOKEN
+permission: copilot-requests: write
 ```
 
-The workflow token is injected only into the mandatory-preflight step. It must not be stored in request branches, artifacts, Cards, snapshots, or logs.
+The workflow installs `@github/copilot`, then invokes the ranker non-interactively with a repository-controlled model and custom agent. The request branch cannot choose model, agent, prompt, token, executable code, or tool permissions.
 
-Security and behavior:
+### Least-privilege execution
 
-- executable ranker code/configuration comes only from trusted `main`;
-- request branches cannot choose endpoint, token, prompt, or model;
-- the adapter forces JSON mode and keeps `temperature: 0`;
-- GitHub Models provides only semantic judgement;
-- Phase 7 deterministic candidate filtering and acceptance gates remain authoritative;
-- `n/N` conflicts, known missing parts, structural ambiguity, low confidence, weak metadata evidence, invalid chronology, or incomplete root-only labels still fail closed;
-- accepted inferred sources preserve `thread.verification = llm_assisted` and ranker provenance (`github_models_chat`, `github_models`, model name);
-- Remote execution metadata uses `remote-ingest-v2` and reports the managed ranker/model without credentials.
+The `resolve` job that performs browser extraction and semantic ranking receives only:
 
-Local execution remains provider-neutral. It may inject `continuationRanker` or use the existing OpenAI-compatible environment contract; Phase 8C does not force local callers onto GitHub Models.
+```text
+contents: read
+copilot-requests: write
+```
 
-Managed-model auth/quota/service/model failure must never fall back to timestamp-only guessing.
+It does **not** receive Repository contents-write permission. Temporary-branch deletion is a separate `cleanup` job with `contents: write` and no model request permission.
+
+`GITHUB_TOKEN` is injected only into the mandatory-preflight step. The ranker child receives it as `COPILOT_GITHUB_TOKEN` through a deliberately whitelisted environment. Arbitrary workflow secrets/environment variables are not forwarded.
+
+### Ranker isolation
+
+The Copilot child process runs in a newly created temporary directory with:
+
+- an isolated `HOME` and `COPILOT_HOME`;
+- only the trusted `.github/agents/threads-continuation-ranker.agent.md` profile copied into the temporary workspace;
+- custom-agent `tools: []`, so shell, file, URL, MCP, memory, GitHub and other tools are unavailable to the semantic classifier;
+- source evidence passed through stdin, not interpolated into a shell command;
+- bounded stdout, timeout, and temporary-directory cleanup.
+
+Threads source text remains untrusted quoted data. The custom agent may classify only the supplied root/candidates and must return one JSON judgement object.
+
+### Acceptance authority and provenance
+
+Copilot supplies only semantic judgement. Existing Phase 7 deterministic candidate filtering and acceptance gates remain authoritative. `n/N` conflicts, known missing parts, structural ambiguity, low confidence, weak metadata evidence, invalid chronology, incomplete root-only labels, invalid JSON, timeout, CLI failure, policy/auth failure, or model failure all remain fail closed.
+
+Accepted inferred sources preserve:
+
+```text
+thread.verification = llm_assisted
+thread.recovery.ranker.method = github_copilot_cli
+thread.recovery.ranker.provider = github_copilot
+thread.recovery.ranker.model = gpt-5.2
+thread.recovery.ranker.agent = threads-continuation-ranker
+```
+
+Remote execution metadata reports:
+
+```text
+runner = remote-ingest-v3
+managed_ranker = github_copilot_cli
+managed_ranker_model = gpt-5.2
+```
+
+No credential is stored in the result artifact. Failure envelopes may expose safe nested `cause_code` / redacted bounded `cause_message` diagnostics without exposing tokens or raw provider payloads.
+
+Local execution remains provider-neutral. It may inject `continuationRanker` or use the existing OpenAI-compatible environment contract; Phase 8C does not force local callers onto Copilot CLI.
 
 ## 6. Read primary evidence
 
