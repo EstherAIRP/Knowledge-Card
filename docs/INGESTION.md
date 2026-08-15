@@ -1,133 +1,139 @@
 # Ingestion Pipeline
 
-Knowledge Card separates semantic analysis from deterministic repository invariants. AI/Codex reads and analyzes primary evidence; repository scripts resolve identities, deduplicate, validate schema/taxonomy and protect user-owned state.
+Knowledge Card separates provider/source semantics from execution location. AI/Codex reads and analyzes primary evidence; repository scripts resolve identities, enforce provider completeness, deduplicate, validate schema/taxonomy, and protect user-owned state.
 
-## 1. Route the URL before source-specific extraction
+## 1. Route the source first
 
-Every ingestion begins with a provider routing decision. The routing rule is intentionally simple and mutually exclusive.
+Every ingestion starts with a mutually exclusive provider route.
 
 | URL / resolved primary resource | Route |
 | --- | --- |
-| `threads.com` / `threads.net` (including `www`, subdomains, `/share/*`, `/t/*`, `/@user/post/*`) | Threads-specific ingestion in `docs/THREADS_INGESTION.md` |
-| A transient / short URL that resolves to a Threads primary resource | Switch to the Threads-specific route after resolution |
-| GitHub Repository | Generic ingestion with GitHub repository identity and repository primary evidence |
-| Paper / arXiv / DOI / normal article / documentation / tool / product / any other non-Threads source | Generic ingestion described below |
+| `threads.com` / `threads.net` including `/share/*`, `/t/*`, `/@user/post/*` | Threads Phase 1–7 in `docs/THREADS_INGESTION.md` |
+| transient/short URL resolving to Threads | switch to Threads route after resolution |
+| GitHub Repository | generic ingestion with GitHub repository identity; read metadata + README at minimum |
+| paper / DOI / article / docs / tool / product / other non-Threads source | generic ingestion |
 
 Hard boundary:
 
 ```text
-Threads source
-→ Threads Phase 1–7 only
-
-Non-Threads source
-→ generic provider flow only
+Threads source → Threads Phase 1–7
+Non-Threads source → generic/provider flow
 ```
 
-Do not invoke Threads Playwright navigation, conversation reconstruction, continuation candidate extraction, LLM continuation/root-only ranking or Threads snapshots for a non-Threads source. Conversely, do not downgrade a Threads source to a generic article and analyze only the currently shared post.
+Do not invoke Threads browser/reconstruction/ranker/snapshot logic for non-Threads sources. Do not downgrade a Threads source to a generic single article merely because one post is immediately visible.
 
-The source route is determined from the raw URL hostname or, for a transient/short URL, from the resolved primary resource. A normal article that merely mentions or links to Threads remains a normal article.
+## 2. Mandatory dispatcher and resolver
 
-## 2. Mandatory preflight and dispatcher
-
-For ordinary ingestion, prefer the execution dispatcher:
+Ordinary ingestion enters through:
 
 ```bash
 npm run ingest:dispatch -- <URL>
 ```
 
-The dispatcher runs the same repository resolver on the local execution backend first. When local execution succeeds, the normal resolver contract is returned under the execution envelope's `result` field.
+The dispatcher tries LocalBackend first. A successful execution envelope contains the normal resolver contract under `result`.
 
-`npm run ingest:resolve -- <URL>` remains the low-level mandatory resolver used inside every approved backend and for debugging/tests. Its `canonical_url`, `source_identity`, stable `id`, `mode`, `existing_path` and `suggested_path` remain the mechanical create/update contract.
+Every approved backend ultimately executes the same low-level mandatory resolver:
+
+```bash
+npm run ingest:resolve -- <URL>
+```
+
+The resolver's fields remain the mechanical create/update contract:
+
+- `canonical_url`
+- `source_identity`
+- stable `id`
+- `mode`
+- `existing_path`
+- `suggested_path`
 
 Dispatcher outcomes:
 
 ```text
 local success
-→ execution.status=success
-→ use result as resolver contract
+→ use envelope.result
 
-local capability unavailable
-→ status=REMOTE_EXECUTION_REQUIRED
-→ submit the returned remote plan through Phase 8B Remote Ingest
+local execution capability unavailable
+→ REMOTE_EXECUTION_REQUIRED
+→ use Phase 8B/8C Remote Ingest
 
 source/completeness failure
 → fail closed
 ```
 
-The CLI uses exit code `75` for `REMOTE_EXECUTION_REQUIRED`. That is a handoff signal, not a source failure.
+The dispatcher uses exit code `75` for `REMOTE_EXECUTION_REQUIRED`; this is a handoff signal, not a source-level failure.
 
-### Generic and GitHub sources
-
-GitHub repository variants resolve to one `github:{owner}/{repo}` identity. Normal web URLs remove fragments and known tracking parameters while preserving meaningful query parameters. The agent then opens and reads the authoritative primary source.
-
-For non-Threads sources the normal flow is:
+### Generic and GitHub flow
 
 ```text
 input URL
 → execution dispatcher
 → canonicalize / resolve primary resource
-→ derive provider-specific or generic source identity
+→ derive source identity
 → dedup/create-update resolution
 → read authoritative primary evidence
 → analyze
 → validate
 ```
 
-No Threads conversation-completeness or source-snapshot requirement applies to this route unless a future provider contract explicitly adds one.
+For GitHub, URL variants resolve to one `github:{owner}/{repo}` identity. Normal web URLs remove fragments and known tracking parameters while preserving meaningful query parameters.
 
-### Threads sources
+### Threads flow
 
-Threads is source-aware. The mandatory resolver does not stop after expanding `/share/*` or `/t/*`. Before create/update resolution it must obtain a complete accepted source under the Threads contract:
+Before create/update resolution, Threads must produce a complete accepted source:
 
 ```text
 share / arbitrary part
-→ canonical target post
+→ canonical target
 → exact post extraction
 → strict conversation graph
-→ root + author-chain reconstruction
-→ n/N completeness check
-→ browser evidence when required
-→ LLM-assisted continuation or root-only recovery only when structural relationships are unavailable and acceptance gates pass
+→ root + same-author chain
+→ n/N completeness
+→ browser evidence when needed
+→ Phase 7 semantic continuation/root-only recovery only when eligible
 → root canonical URL + threads:{root_shortcode}
-→ dedup/create-update resolution
-→ source change comparison
+→ dedup/create-update
+→ source-change comparison
 ```
 
-A successful Threads result includes `source_document.parts[]` and `source_document.combined_text`. Use `combined_text` as the primary article text. If the conversation is incomplete or ambiguous, stop rather than authoring from a partial post.
-
-See `docs/THREADS_INGESTION.md` for the full Phase 1–7 contract.
+Successful output includes `source_document.parts[]` and `source_document.combined_text`. Formal analysis uses `combined_text`, never just the originally shared part.
 
 ## 3. Execution backend policy
 
-Provider routing and execution routing are separate. Provider routing selects the required source pipeline; execution routing selects where that exact pipeline can run.
+Provider routing answers **what pipeline must run**. Execution routing answers **where it runs**.
 
-Core rule:
+Core invariant:
 
 ```text
-runtime unavailable != source unavailable
+execution/runtime failure != source unavailable
 ```
 
-Do not turn a missing local shell, Node/npm runtime, outbound network path, Playwright/Chromium installation, LLM endpoint or similar execution capability into a source-level conclusion.
+Do not classify a public source as unavailable merely because the current session lacks shell, Node/npm, outbound network, Playwright/Chromium, or an LLM endpoint.
 
 Execution order:
 
 ```text
-Local execution backend
+LocalBackend
 ↓ if unavailable
-Repository-defined Remote Ingest backend
+Repository-defined Remote Ingest
 ↓ if unavailable / blocked
-Existing alias or accepted snapshot lookup for identity/history only
+Existing Card / accepted snapshot only for identity/history
 ↓
-INGESTION_BLOCKED if no allowed backend can produce an accepted current source
+INGESTION_BLOCKED if no approved backend can produce accepted current evidence
 ```
 
-### Local backend
+Use these failure classes consistently:
 
-Use the current runtime first when it can execute the repository contract. If dependencies or browser binaries are missing and installation is allowed, install them before declaring the local backend unavailable.
+- `LOCAL_EXECUTION_UNAVAILABLE`
+- `REMOTE_EXECUTION_UNAVAILABLE`
+- `SOURCE_EXTRACTION_FAILED`
+- `SOURCE_INCOMPLETE`
+- `INGESTION_BLOCKED`
+- `SOURCE_UNAVAILABLE` only for source-level unavailability established by a viable backend
 
-Local capability failures should be reported as `LOCAL_EXECUTION_UNAVAILABLE`, not `SOURCE_UNAVAILABLE`.
+No backend failure, blocked ingestion, incomplete/ambiguous source, or identity mismatch may create/update a Card or advance accepted source state.
 
-### Phase 8B Remote Ingest backend
+## 4. Phase 8B Remote Ingest
 
 The permanent remote backend is:
 
@@ -135,19 +141,19 @@ The permanent remote backend is:
 .github/workflows/remote-ingest.yml
 ```
 
-Ordinary ingestion must not create a new ad-hoc workflow. The transport protocol uses an isolated temporary request branch.
+Ordinary ingestion must not invent ad-hoc workflows.
 
-#### Request branch protocol
+### Request branch protocol
 
-1. Re-read the latest `main` commit.
+1. Re-read latest `main`.
 2. Create `runtime/ingest/{request_id}` from that exact `main` commit.
-3. Add **exactly one** file:
+3. Add exactly one request file:
 
 ```text
 .runtime/requests/{request_id}.json
 ```
 
-4. The request body is:
+with:
 
 ```json
 {
@@ -161,45 +167,22 @@ Ordinary ingestion must not create a new ad-hoc workflow. The transport protocol
 Contract:
 
 - `request_id`: 6–80 lowercase URL-safe characters;
-- `operation`: currently only `resolve`;
-- `url`: absolute HTTP(S) only;
-- the request branch must not modify source code, workflows, Cards or machine-owned state.
+- operation: only `resolve`;
+- URL: absolute HTTP(S);
+- request branch must not modify source code, workflow code, Cards, or machine-owned state.
 
-Pushing the request triggers `Remote Ingest` because the branch matches `runtime/ingest/**` and the changed path matches `.runtime/requests/*.json`.
+The workflow executes trusted code from `main` and sparse-checks the request branch separately as data. It installs Node 24, repository dependencies, and Chromium.
 
-#### Trusted execution model
+### Result artifact
 
-The workflow deliberately separates executable code from request data:
-
-```text
-main
-→ checkout trusted harness into app/
-
-runtime/ingest/{request_id}
-→ sparse-checkout only .runtime/requests into request/
-```
-
-The runner executes scripts from trusted `main`, not from the request branch. It installs Node 24, repository dependencies and Playwright Chromium, then runs the same mandatory resolver contract.
-
-The URL remains JSON data; it is not evaluated as a command or inserted into a shell command string.
-
-#### Result artifact
-
-Every validated request produces an execution envelope at:
-
-```text
-remote-ingest-result.json
-```
-
-inside artifact:
+Each validated request produces:
 
 ```text
 remote-ingest-{request_id}
+└── remote-ingest-result.json
 ```
 
-Artifact retention is one day. The complete resolver/source result is transport data only: it is not committed to repository state and must not be dumped into public workflow logs.
-
-Before consuming the result, verify:
+with one-day retention. Before consumption require:
 
 ```text
 schema_version == 1
@@ -208,88 +191,80 @@ execution.backend == github_actions
 execution.status == success
 ```
 
-When successful, use envelope `result` exactly as the accepted resolver/preflight output. When `execution.status=failure`, use its `classification`, `code` and `message` and fail closed.
+On success, use envelope `result` as the formal resolver/preflight output. Failure envelopes remain fail closed. The workflow attempts to delete the temporary request branch; request transport must never merge into `main`.
 
-The workflow attempts to delete the temporary `runtime/ingest/**` branch after execution. Request files must never be merged into `main`.
+## 5. Phase 8C Managed Threads ranker
 
-#### Current Phase 8B boundary
+Remote Ingest now includes a repository-managed Phase 7 semantic ranker using **GitHub Models**.
 
-The runner is browser-capable because Chromium is installed. Managed Phase 7 LLM credentials/provider configuration is **not** part of Phase 8B; that belongs to Phase 8C. A Threads case requiring semantic continuation/root-only recovery may therefore remain `SOURCE_INCOMPLETE` until a ranker is configured. Phase 8B must not replace that missing ranker with timestamp-only inference.
+Managed profile:
 
-### Alias / snapshot lookup
-
-Existing aliases, Cards and accepted snapshots may help identify a known source or explain prior accepted state. They do not prove that the source is currently unchanged or complete.
-
-If live revalidation cannot run:
-
-- it is acceptable to report the known existing identity/Card/snapshot;
-- do not refresh analysis, dates or source state as if current evidence had been verified;
-- do not advance a Threads snapshot;
-- do not use prior accepted state to bypass current provider completeness requirements.
-
-### Failure vocabulary
-
-Use these distinctions consistently:
-
-- `LOCAL_EXECUTION_UNAVAILABLE` — current runtime cannot execute the required repository pipeline.
-- `REMOTE_EXECUTION_UNAVAILABLE` — approved remote execution is inaccessible or unable to execute the request.
-- `SOURCE_EXTRACTION_FAILED` — a viable backend ran the source pipeline, but source/evidence extraction failed.
-- `SOURCE_INCOMPLETE` — evidence exists but provider completeness or ambiguity gates do not pass.
-- `INGESTION_BLOCKED` — no allowed backend can produce an accepted source for the attempt.
-- `SOURCE_UNAVAILABLE` — source-level unavailability established by a viable execution path; never a synonym for missing local capabilities.
-
-No execution-backend failure, blocked ingestion, incomplete source or ambiguous source may create/update a formal Card or advance accepted source state.
-
-## 4. Read primary evidence
-
-Never write substantive analysis from a slug, search snippet or model memory. For GitHub read repository metadata and README at minimum; inspect architecture/security/docs/source when needed. For papers/articles read the actual authoritative source. Separate verified facts from inference.
-
-For Threads, the complete `source_document` returned by the mandatory resolver is the primary text/provenance contract. Do not downgrade it to only the originally shared part. When recovery is LLM-assisted, preserve `thread.verification = llm_assisted` and the exact inferred status (`INFERRED_THREAD_HIGH_CONFIDENCE` or `INFERRED_SINGLE_POST_HIGH_CONFIDENCE`) rather than describing the graph as natively verified.
-
-If primary evidence cannot be read sufficiently after execution routing is exhausted, report the concrete source-level failure or `INGESTION_BLOCKED` for backend unavailability. Do not fabricate a Card and do not use `SOURCE_UNAVAILABLE` for a local runtime limitation.
-
-## 5. Create or update
-
-Create mode uses `templates/knowledge-card.example.md` at `suggested_path`. Update mode reads the existing card completely and preserves stable `id`, `created_at`, file path, all user overrides, `## 使用者備註` and prior changelog history.
-
-Refresh only AI-owned analysis from current evidence. Set `last_checked_at` on real re-checks; change `updated_at` / changelog only for substantive knowledge changes.
-
-For Threads only, after a successful create/update and validation, advance the accepted source snapshot with:
-
-```bash
-npm run ingest:snapshot -- <Threads URL>
+```text
+provider: github_models
+endpoint: https://models.github.ai/inference/chat/completions
+model: openai/gpt-4.1
+auth: workflow GITHUB_TOKEN
+permission: models: read
+response_format: json_object
 ```
 
-Do not run the Threads snapshot command for non-Threads sources.
+The workflow token is injected only into the mandatory-preflight step. It must not be stored in request branches, artifacts, Cards, snapshots, or logs.
 
-## 6. Ownership validation
+Security and behavior:
 
-Before committing an existing-card update:
+- executable ranker code/configuration comes only from trusted `main`;
+- request branches cannot choose endpoint, token, prompt, or model;
+- the adapter forces JSON mode and keeps `temperature: 0`;
+- GitHub Models provides only semantic judgement;
+- Phase 7 deterministic candidate filtering and acceptance gates remain authoritative;
+- `n/N` conflicts, known missing parts, structural ambiguity, low confidence, weak metadata evidence, invalid chronology, or incomplete root-only labels still fail closed;
+- accepted inferred sources preserve `thread.verification = llm_assisted` and ranker provenance (`github_models_chat`, `github_models`, model name);
+- Remote execution metadata uses `remote-ingest-v2` and reports the managed ranker/model without credentials.
+
+Local execution remains provider-neutral. It may inject `continuationRanker` or use the existing OpenAI-compatible environment contract; Phase 8C does not force local callers onto GitHub Models.
+
+Managed-model auth/quota/service/model failure must never fall back to timestamp-only guessing.
+
+## 6. Read primary evidence
+
+Never write substantive analysis from a slug, search snippet, or model memory. Read authoritative source material.
+
+For Threads, use the complete accepted `source_document`. When recovery is LLM-assisted, preserve the exact inferred status and `thread.verification = llm_assisted`; do not describe it as a native Threads graph verification.
+
+If current primary evidence cannot be read after execution routing is exhausted, do not fabricate a Card.
+
+## 7. Create/update, ownership, snapshot
+
+Create mode uses the resolver `suggested_path` and the canonical template. Update mode preserves stable `id`, `created_at`, path, all user overrides, `## 使用者備註`, and prior changelog history.
+
+For existing Cards run:
 
 ```bash
 npm run validate:ownership -- <existing_path>
 ```
 
-The check protects stable fields, user overrides and `## 使用者備註`.
-
-## 7. Repository validation
-
-Run:
+All writes require:
 
 ```bash
 npm run validate
 ```
 
-Validation covers schema/taxonomy contract drift, body structure, title consistency, source identity normalization, duplicate id/identity/canonical URL and date ordering.
-
-When ingestion/source tooling changes, also run:
+Source/execution tooling changes additionally require:
 
 ```bash
 npm test
 ```
 
-Phase 8B changes source/execution tooling, so unit tests and repository validation are mandatory before promotion to `main`.
+For Threads only, after Card create/update and validation succeed, advance accepted state when appropriate:
+
+```bash
+npm run ingest:snapshot -- <Threads URL>
+```
+
+Preflight itself remains read-only. Failed/incomplete/ambiguous ingestion never advances the snapshot.
 
 ## 8. Commit and report
 
-Preferred Card commits are `knowledge: add <Title>` / `knowledge: update <Title>`. Infrastructure uses `feat:`, `fix:`, `test:`, `docs:` or `chore:`. Do not report success until repository writes and required validation have succeeded.
+Knowledge commits use `knowledge: add ...` / `knowledge: update ...`; infrastructure uses conventional `feat:`, `fix:`, `test:`, `docs:`, or `chore:` prefixes.
+
+Do not report completion until required repository writes, tests/validation, push, and production workflow checks have actually succeeded.
