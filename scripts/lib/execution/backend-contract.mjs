@@ -60,7 +60,11 @@ export function parseRemoteIngestRequest(value) {
     error.code = 'REMOTE_INGEST_REQUEST_INVALID_SCHEMA';
     throw error;
   }
-  return createRemoteIngestRequest(request);
+  return createRemoteIngestRequest({
+    requestId: request.request_id,
+    operation: request.operation,
+    url: request.url
+  });
 }
 
 function errorCode(error) {
