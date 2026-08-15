@@ -9,6 +9,7 @@ Knowledge Card is a public-oriented personal technology knowledge radar. The nor
 ```text
 User supplies URL
 → route by source provider
+→ dispatch to an allowed execution backend
 → resolve/canonicalize source
 → read primary evidence
 → detect create vs update
@@ -47,13 +48,13 @@ Do not silently invent new controlled enum values. Change the repository contrac
 
 ## 3. Mandatory preflight and URL routing
 
-Before authoring from a URL, run:
+For normal URL ingestion, use the execution dispatcher when the current runtime can run repository commands:
 
 ```bash
-npm run ingest:resolve -- <URL>
+npm run ingest:dispatch -- <URL>
 ```
 
-Use the resolver output as the mechanical source identity contract:
+`ingest:dispatch` uses the local backend first. A successful local envelope contains the normal resolver result under `result`. The resolver result remains the mechanical source identity contract:
 
 - `canonical_url`
 - `source_identity`
@@ -62,7 +63,9 @@ Use the resolver output as the mechanical source identity contract:
 - `existing_path`
 - `suggested_path`
 
-Do not create a second card when the resolver identifies an existing source.
+`npm run ingest:resolve -- <URL>` remains the low-level mandatory resolver executed inside an approved backend and may still be used directly for debugging/tests. Ordinary agents should prefer `ingest:dispatch` so execution routing is explicit.
+
+Do not create a second card when the accepted resolver result identifies an existing source.
 
 ### 3.1 Provider routing is a hard gate
 
@@ -98,16 +101,14 @@ An agent must not classify a public source as unavailable merely because the cur
 
 Execution backends are attempted in this order when applicable:
 
-1. **Local execution backend** — the current runtime executes the repository command directly. If dependencies or browser binaries are missing and installation is permitted, install them from the repository contract first.
-2. **Repository-defined remote execution backend** — if local execution is unavailable and the repository exposes an approved remote runner and the agent has the required GitHub/Actions access, the agent must use that runner before declaring the ingestion blocked.
+1. **Local execution backend** — the current runtime executes `ingest:dispatch` / resolver code directly. If dependencies or browser binaries are missing and installation is permitted, install them from the repository contract first.
+2. **Repository-defined remote execution backend** — when local execution is unavailable and GitHub repository write + Actions read access are available, use the permanent `Remote Ingest` request-branch protocol below.
 3. **Existing alias / accepted snapshot lookup** — may identify a previously accepted source, existing Card or prior source state, but is only an identity/history aid. It never substitutes for current live completeness or freshness validation.
-
-Phase 8A defines this contract only. Until the permanent remote execution harness is implemented, an agent must **not invent an ad-hoc remote workflow and silently treat it as the repository contract**. If no repository-defined remote backend exists or it cannot be invoked, report the backend limitation explicitly instead of mislabeling the source itself as unavailable.
 
 Required failure vocabulary:
 
 - `LOCAL_EXECUTION_UNAVAILABLE` — current runtime cannot execute the required repository pipeline.
-- `REMOTE_EXECUTION_UNAVAILABLE` — the repository-defined remote backend is absent, inaccessible or cannot execute the request.
+- `REMOTE_EXECUTION_UNAVAILABLE` — the repository-defined remote backend is inaccessible or cannot execute the request.
 - `SOURCE_EXTRACTION_FAILED` — a viable backend reached the source pipeline, but extraction failed for a source/evidence reason rather than merely missing local runtime capability.
 - `SOURCE_INCOMPLETE` — evidence was extracted, but provider completeness/ambiguity gates did not pass.
 - `INGESTION_BLOCKED` — no allowed backend can produce an accepted source for this ingestion attempt.
@@ -120,6 +121,49 @@ Rules:
 - If a previous Card or accepted snapshot exists but live execution is blocked, the agent may report the known existing identity/state and that revalidation is blocked. It must not rewrite analysis or advance source state as though the current source had been verified.
 - No `INGESTION_BLOCKED`, execution-backend failure, incomplete source or ambiguous source may create/update a formal Card or advance a Threads snapshot.
 - Session-to-session tool differences must not weaken source-completeness requirements or change provider routing.
+
+### 3.3 Phase 8B permanent Remote Ingest protocol
+
+The repository-defined remote backend is `.github/workflows/remote-ingest.yml`. Do **not** create ad-hoc workflow files for ordinary ingestion.
+
+When local execution cannot run and GitHub write/Actions access is available:
+
+1. Re-read current `main` and create a temporary branch named `runtime/ingest/{request_id}` from that exact current `main` commit.
+2. Add exactly one request file at `.runtime/requests/{request_id}.json` on that branch. Do not modify source code, workflow code, Cards or state on the request branch.
+3. The request schema is:
+
+```json
+{
+  "schema_version": 1,
+  "request_id": "20260815-example01",
+  "operation": "resolve",
+  "url": "https://example.com/source"
+}
+```
+
+`request_id` must be 6–80 lowercase URL-safe characters; `operation` is currently only `resolve`; `url` must be absolute HTTP(S).
+4. Push/commit the request file. The permanent `Remote Ingest` workflow is triggered by `runtime/ingest/**` + `.runtime/requests/*.json`.
+5. Find the matching `Remote Ingest` workflow run by branch/request identity and wait for completion.
+6. Fetch the artifact named `remote-ingest-{request_id}`. It contains `remote-ingest-result.json` for one day.
+7. Verify all of the following before using it:
+   - `schema_version === 1`
+   - `request_id` exactly matches the submitted request
+   - `execution.backend === "github_actions"`
+   - `execution.status === "success"`
+8. Use `result` as the accepted resolver/preflight output. If the envelope status is `failure`, honor its failure classification and do not author a Card.
+9. The workflow attempts to delete the temporary `runtime/ingest/**` branch after execution. Request files/results are operational transport and must never be merged to `main`.
+
+Remote runner security/behavior:
+
+- the workflow checks out **trusted harness code from `main`** into `app/`;
+- the request branch is checked out separately as **data only**;
+- Node 24 + repository dependencies are installed;
+- Chromium is installed for provider flows that may require Playwright;
+- the URL is parsed as request data and is never interpreted as a shell command;
+- the full execution result is stored in the short-lived Actions artifact, not committed to repository state and not dumped into logs;
+- the same resolver/provider completeness gates apply remotely as locally.
+
+Phase 8B provides the permanent runner and browser-capable execution environment. Managed Phase 7 LLM credentials/provider configuration are a later Phase 8C concern; a Threads source that specifically requires semantic recovery may still fail closed until the remote runner has a configured ranker.
 
 ## 4. Source-reading rule
 
