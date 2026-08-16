@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-15T22:38:29.553Z",
-  "input_hash": "55205d6f256f428e7fd12c563dbf4bcec5c288ce5848be12bac9ca4b7355f0b4",
+  "generated_at": "2026-08-16T11:37:56.364Z",
+  "input_hash": "03ecec4efd1ca2aaa669e7ecb4fe28ddcb4585ed1879fa2b0d7a8aea0f5428b4",
   "concepts": [
     {
       "id": "category-agent",
@@ -11,6 +11,7 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
@@ -25,7 +26,7 @@
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea"
       ],
-      "card_count": 13
+      "card_count": 14
     },
     {
       "id": "coding-agent-tooling",
@@ -35,6 +36,7 @@
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
+        "github-akitaonrails-ai-memory",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
@@ -47,7 +49,7 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463"
       ],
-      "card_count": 11
+      "card_count": 12
     },
     {
       "id": "category-ai-coding-devtools",
@@ -57,6 +59,7 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-akitaonrails-ai-memory",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
@@ -68,7 +71,7 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463"
       ],
-      "card_count": 10
+      "card_count": 11
     },
     {
       "id": "category-llm",
@@ -78,6 +81,7 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
         "github-drumih-turbo-fieldfare",
         "github-g36maid-deepseek-harness",
@@ -86,7 +90,7 @@
         "github-moeru-ai-airi",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 7
+      "card_count": 8
     },
     {
       "id": "agent-api-bridge",
@@ -96,11 +100,28 @@
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
+        "github-akitaonrails-ai-memory",
         "github-drumih-turbo-fieldfare",
         "github-intuition-lab-personal-model",
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app"
+      ],
+      "card_count": 6
+    },
+    {
+      "id": "agent-memory",
+      "label": "Agent Memory",
+      "type": "architecture",
+      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi",
+        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 5
     },
@@ -169,19 +190,36 @@
       "card_count": 5
     },
     {
-      "id": "agent-memory",
-      "label": "Agent Memory",
-      "type": "architecture",
-      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "id": "local-ai-integration",
+      "label": "Local AI Integration",
+      "type": "integration",
+      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ],
+      "card_count": 5
+    },
+    {
+      "id": "category-rag-memory-knowledge",
+      "label": "RAG / Memory / Knowledge",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 4
+      "card_count": 5
     },
     {
       "id": "category-ai-ml",
@@ -195,36 +233,6 @@
         "github-mayocream-koharu",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
-      ],
-      "card_count": 4
-    },
-    {
-      "id": "local-ai-integration",
-      "label": "Local AI Integration",
-      "type": "integration",
-      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
-      ],
-      "card_count": 4
-    },
-    {
-      "id": "category-rag-memory-knowledge",
-      "label": "RAG / Memory / Knowledge",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 4
     },
@@ -286,6 +294,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-long-term-memory",
+      "label": "long-term-memory",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-openai-compatible-api",
       "label": "OpenAI-compatible API",
       "type": "topic",
@@ -326,6 +348,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-agent-memory",
+      "label": "agent-memory",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-agent-runtime",
       "label": "agent-runtime",
       "type": "topic",
@@ -361,6 +396,19 @@
       "card_ids": [
         "github-mattpocock-skills",
         "threads-db-wlkkgtu-18d1ea"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-coding-agent",
+      "label": "coding-agent",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ],
       "card_count": 2
     },
@@ -430,15 +478,28 @@
       "card_count": 2
     },
     {
-      "id": "tag-long-term-memory",
-      "label": "long-term-memory",
+      "id": "tag-mcp",
+      "label": "MCP",
       "type": "topic",
       "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
+        "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-memory-consolidation",
+      "label": "memory-consolidation",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
       ],
       "card_count": 2
     },
@@ -495,6 +556,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-rust",
+      "label": "Rust",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-mayocream-koharu"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-sandbox",
       "label": "sandbox",
       "type": "topic",
@@ -517,6 +591,19 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-sqlite",
+      "label": "SQLite",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
       ],
       "card_count": 2
     },
@@ -586,6 +673,198 @@
     }
   ],
   "card_concepts": [
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "agent-memory",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        },
+        {
+          "kind": "tag",
+          "value": "agent-memory"
+        },
+        {
+          "kind": "tag",
+          "value": "long-term-memory"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "tag-agent-memory",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-memory"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "tag-coding-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "tag-long-term-memory",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "long-term-memory"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "tag-memory-consolidation",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "memory-consolidation"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "tag-rust",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Rust"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "tag-sqlite",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SQLite"
+        }
+      ],
+      "origin": "shared-tag"
+    },
     {
       "card_id": "github-cynthianani-a-simple-nest",
       "concept_id": "agent-memory",
@@ -676,12 +955,36 @@
     },
     {
       "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "tag-memory-consolidation",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "memory-consolidation"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
       "concept_id": "tag-prompt-caching",
       "strength": 0.9,
       "evidence": [
         {
           "kind": "tag",
           "value": "prompt-caching"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "tag-sqlite",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SQLite"
         }
       ],
       "origin": "shared-tag"
@@ -1180,6 +1483,30 @@
     },
     {
       "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "tag-agent-memory",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-memory"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "tag-coding-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
       "concept_id": "tag-local-first",
       "strength": 0.9,
       "evidence": [
@@ -1198,6 +1525,18 @@
         {
           "kind": "tag",
           "value": "long-term-memory"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-intuition-lab-personal-model",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
         }
       ],
       "origin": "shared-tag"
@@ -1434,6 +1773,18 @@
         {
           "kind": "tag",
           "value": "openai-compatible-api"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mayocream-koharu",
+      "concept_id": "tag-rust",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "rust"
         }
       ],
       "origin": "shared-tag"
@@ -2414,18 +2765,6 @@
   "concept_relations": [
     {
       "source": "agent-api-bridge",
-      "target": "category-ai-ml",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
       "target": "category-image-generation",
       "type": "co_occurs_with",
       "support": 2,
@@ -2450,13 +2789,36 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
+        "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-agent-memory",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-coding-agent",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -2483,17 +2845,6 @@
     },
     {
       "source": "agent-api-bridge",
-      "target": "tag-metal",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mayocream-koharu"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
       "target": "tag-openai-compatible-api",
       "type": "co_occurs_with",
       "support": 3,
@@ -2506,23 +2857,12 @@
     },
     {
       "source": "agent-memory",
-      "target": "category-llm",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
-      "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
-      ]
-    },
-    {
-      "source": "agent-memory",
       "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
+        "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
@@ -2543,25 +2883,69 @@
     },
     {
       "source": "agent-memory",
-      "target": "character-runtime",
+      "target": "tag-agent-memory",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
+      "support": 2,
+      "weight": 1,
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "tag-coding-agent",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
       "source": "agent-memory",
       "target": "tag-long-term-memory",
       "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
+        "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "tag-memory-consolidation",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "tag-sqlite",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
       ]
     },
     {
@@ -2612,17 +2996,6 @@
     },
     {
       "source": "ai-character-interface",
-      "target": "local-ai-integration",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
-      ]
-    },
-    {
-      "source": "ai-character-interface",
       "target": "tag-electron",
       "type": "co_occurs_with",
       "support": 2,
@@ -2659,24 +3032,13 @@
     },
     {
       "source": "category-agent",
-      "target": "tag-agent-runtime",
+      "target": "tag-agent-memory",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "category-agent",
-      "target": "tag-agent-skill",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master"
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -2718,12 +3080,25 @@
       ]
     },
     {
+      "source": "category-agent",
+      "target": "tag-long-term-memory",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 10,
+      "support": 11,
       "weight": 1,
       "card_ids": [
+        "github-akitaonrails-ai-memory",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
@@ -2745,6 +3120,17 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "tag-agent-memory",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -2804,17 +3190,6 @@
       ]
     },
     {
-      "source": "category-ai-coding-devtools",
-      "target": "tag-cordis",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
       "source": "category-ai-ml",
       "target": "category-image-generation",
       "type": "co_occurs_with",
@@ -2827,13 +3202,12 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "category-llm",
+      "target": "character-runtime",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
+      "support": 2,
+      "weight": 0.5,
       "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
       ]
     },
@@ -2876,6 +3250,17 @@
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
@@ -3040,19 +3425,6 @@
     },
     {
       "source": "category-llm",
-      "target": "character-runtime",
-      "type": "co_occurs_with",
-      "support": 4,
-      "weight": 0.8,
-      "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
-      ]
-    },
-    {
-      "source": "category-llm",
       "target": "tag-local-llm",
       "type": "co_occurs_with",
       "support": 2,
@@ -3060,6 +3432,17 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "category-llm",
+      "target": "tag-memory-consolidation",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
       ]
     },
     {
@@ -3097,6 +3480,28 @@
       ]
     },
     {
+      "source": "category-llm",
+      "target": "tag-rust",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "category-llm",
+      "target": "tag-sqlite",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
+      ]
+    },
+    {
       "source": "category-rag-memory-knowledge",
       "target": "category-sillytavern-ai-rpg",
       "type": "co_occurs_with",
@@ -3110,25 +3515,69 @@
     },
     {
       "source": "category-rag-memory-knowledge",
-      "target": "character-runtime",
+      "target": "tag-agent-memory",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
+      "support": 2,
+      "weight": 1,
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "tag-coding-agent",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
       "source": "category-rag-memory-knowledge",
       "target": "tag-long-term-memory",
       "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
+        "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "tag-memory-consolidation",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "tag-sqlite",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
       ]
     },
     {
@@ -3153,17 +3602,6 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge"
-      ]
-    },
-    {
-      "source": "character-runtime",
-      "target": "local-ai-integration",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.5,
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
       ]
     },
     {
@@ -3197,6 +3635,17 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
+      "target": "tag-agent-memory",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -3248,17 +3697,6 @@
     },
     {
       "source": "coding-agent-tooling",
-      "target": "tag-code-review",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-mattpocock-skills",
-        "threads-db-wlkkgtu-18d1ea"
-      ]
-    },
-    {
-      "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
       "support": 3,
@@ -3282,6 +3720,28 @@
     },
     {
       "source": "local-ai-integration",
+      "target": "tag-agent-memory",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
+      "target": "tag-coding-agent",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
@@ -3293,13 +3753,24 @@
     },
     {
       "source": "local-ai-integration",
-      "target": "tag-openai-compatible-api",
+      "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge"
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
+      "target": "tag-rust",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-mayocream-koharu"
       ]
     },
     {
@@ -3347,6 +3818,17 @@
       ]
     },
     {
+      "source": "tag-agent-memory",
+      "target": "tag-coding-agent",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
       "source": "tag-agent-runtime",
       "target": "tag-cordis",
       "type": "co_occurs_with",
@@ -3380,6 +3862,17 @@
       ]
     },
     {
+      "source": "tag-agent-runtime",
+      "target": "tag-session-log",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
       "source": "tag-ai-coding",
       "target": "tag-code-review",
       "type": "co_occurs_with",
@@ -3400,6 +3893,28 @@
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "tag-coding-agent",
+      "target": "tag-long-term-memory",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "tag-coding-agent",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -3447,6 +3962,17 @@
       ]
     },
     {
+      "source": "tag-cordis",
+      "target": "tag-web-ui",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
       "source": "tag-local-llm",
       "target": "tag-metal",
       "type": "co_occurs_with",
@@ -3466,6 +3992,50 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "tag-long-term-memory",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "tag-long-term-memory",
+      "target": "tag-memory-consolidation",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
+      ]
+    },
+    {
+      "source": "tag-long-term-memory",
+      "target": "tag-sqlite",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
+      ]
+    },
+    {
+      "source": "tag-memory-consolidation",
+      "target": "tag-sqlite",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
       ]
     },
     {
@@ -3591,9 +4161,9 @@
     }
   ],
   "stats": {
-    "card_count": 17,
-    "concept_count": 40,
-    "card_concept_edge_count": 141,
-    "concept_relation_edge_count": 103
+    "card_count": 18,
+    "concept_count": 46,
+    "card_concept_edge_count": 162,
+    "concept_relation_edge_count": 123
   }
 }
