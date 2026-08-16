@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-16T11:37:56.364Z",
-  "input_hash": "03ecec4efd1ca2aaa669e7ecb4fe28ddcb4585ed1879fa2b0d7a8aea0f5428b4",
+  "generated_at": "2026-08-16T22:46:12.044Z",
+  "input_hash": "e20f9bf1c79f514e7c99e976bcca9c605da474eb917973b770c0e1d61b00d706",
   "concepts": [
     {
       "id": "category-agent",
@@ -110,6 +110,40 @@
       "card_count": 6
     },
     {
+      "id": "category-general-tools",
+      "label": "General Tools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：General Tools",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master",
+        "github-mattpocock-skills",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nutlope-hallmark",
+        "threads-dcglstsogz3-fa0168"
+      ],
+      "card_count": 6
+    },
+    {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-g36maid-deepseek-harness",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0",
+        "threads-dcglstsogz3-fa0168"
+      ],
+      "card_count": 6
+    },
+    {
       "id": "agent-memory",
       "label": "Agent Memory",
       "type": "architecture",
@@ -154,38 +188,6 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
-      ],
-      "card_count": 5
-    },
-    {
-      "id": "category-general-tools",
-      "label": "General Tools",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：General Tools",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-mattpocock-skills",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nutlope-hallmark"
-      ],
-      "card_count": 5
-    },
-    {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-g36maid-deepseek-harness",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-stablyai-orca",
-        "threads-db-fphwgfos-7d09e0"
       ],
       "card_count": 5
     },
@@ -2702,6 +2704,30 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "threads-dcglstsogz3-fa0168",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-dcglstsogz3-fa0168",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
       "card_id": "threads-dfyr62jb6wr-b921df",
       "concept_id": "agent-memory",
       "strength": 0.78,
@@ -3007,20 +3033,6 @@
     },
     {
       "source": "category-agent",
-      "target": "category-general-tools",
-      "type": "co_occurs_with",
-      "support": 5,
-      "weight": 1,
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-mattpocock-skills",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nutlope-hallmark"
-      ]
-    },
-    {
-      "source": "category-agent",
       "target": "tag-agent-loop",
       "type": "co_occurs_with",
       "support": 2,
@@ -3039,6 +3051,17 @@
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "tag-agent-runtime",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -3862,17 +3885,6 @@
       ]
     },
     {
-      "source": "tag-agent-runtime",
-      "target": "tag-session-log",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
       "source": "tag-ai-coding",
       "target": "tag-code-review",
       "type": "co_occurs_with",
@@ -4161,9 +4173,9 @@
     }
   ],
   "stats": {
-    "card_count": 18,
+    "card_count": 19,
     "concept_count": 46,
-    "card_concept_edge_count": 162,
-    "concept_relation_edge_count": 123
+    "card_concept_edge_count": 164,
+    "concept_relation_edge_count": 122
   }
 }
