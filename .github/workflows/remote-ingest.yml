@@ -65,6 +65,10 @@ jobs:
         with:
           node-version: 24
 
+      - name: Install trusted dependencies
+        working-directory: app
+        run: npm install --no-audit --no-fund
+
       - name: Locate request
         id: locate
         shell: bash
@@ -79,10 +83,6 @@ jobs:
       - name: Validate request metadata
         id: request
         run: node app/scripts/remote-ingest-request-meta.mjs "${{ steps.locate.outputs.request_path }}" "$GITHUB_OUTPUT"
-
-      - name: Install dependencies
-        working-directory: app
-        run: npm install --no-audit --no-fund
 
       - name: Install Chromium
         working-directory: app
