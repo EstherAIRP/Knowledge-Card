@@ -12,8 +12,27 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  announce:
+    name: Publish remote ingestion run pointer
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write
+    steps:
+      - name: Publish pending run pointer
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUEST_SHA: ${{ github.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/statuses/${REQUEST_SHA}" \
+            -f state=pending \
+            -f context='remote-ingest/run' \
+            -f description='Remote Ingest run is active' \
+            -f target_url="$RUN_URL"
+
   resolve:
     name: Resolve remote ingestion request
+    needs: announce
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -92,10 +111,43 @@ jobs:
         if: always() && steps.request.outputs.request_id != ''
         run: node app/scripts/remote-ingest-result-check.mjs "$RESULT_PATH"
 
+  finalize:
+    name: Publish remote ingestion final status
+    if: always()
+    needs:
+      - announce
+      - resolve
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write
+    steps:
+      - name: Publish final run pointer
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUEST_SHA: ${{ github.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RESOLVE_RESULT: ${{ needs.resolve.result }}
+        run: |
+          if [ "$RESOLVE_RESULT" = "success" ]; then
+            STATE=success
+            DESCRIPTION='Remote Ingest completed successfully'
+          else
+            STATE=failure
+            DESCRIPTION='Remote Ingest did not complete successfully'
+          fi
+          gh api --method POST "repos/${GITHUB_REPOSITORY}/statuses/${REQUEST_SHA}" \
+            -f state="$STATE" \
+            -f context='remote-ingest/run' \
+            -f description="$DESCRIPTION" \
+            -f target_url="$RUN_URL"
+
   cleanup:
     name: Delete temporary request branch
     if: always() && startsWith(github.ref_name, 'runtime/ingest/')
-    needs: resolve
+    needs:
+      - announce
+      - resolve
+      - finalize
     runs-on: ubuntu-latest
     permissions:
       contents: write
