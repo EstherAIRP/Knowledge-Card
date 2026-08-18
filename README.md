@@ -4,6 +4,15 @@ AI-curated personal technology knowledge radar built on GitHub.
 
 Knowledge Card turns a source URL into a structured, versioned knowledge artifact and renders the repository as a searchable VitePress technology radar. The repository is the source of truth; AI/Codex performs ingestion and maintenance; VitePress is only the presentation layer.
 
+## Documentation
+
+Start with the repository documentation router when you need to locate the current contract or architecture document:
+
+- [Documentation router](docs/DOCUMENTATION.md) — task-oriented index across Runtime, repository rules, ingestion, schema/config, automation, Knowledge Graph, and website documentation.
+- [Document Authority Map](docs/AUTHORITY_MAP.md) — current primary authority, overlapping documents, drift risks, and planned consolidation direction.
+
+`docs/index.md` remains the VitePress public homepage; it is not the repository documentation index.
+
 ## Product goals
 
 - Accept a URL as the primary ingestion input.
