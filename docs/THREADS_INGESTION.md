@@ -1,31 +1,31 @@
-# Threads Source Ingestion
+# Threads 來源收錄
 
-> **Role:** Normative Threads-only source/completeness contract  
-> **Cross-provider ingestion / execution:** [`INGESTION.md`](./INGESTION.md)  
-> **Judgement output schema:** [threads-continuation-judgement.schema.json](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json)  
-> **Managed classifier prompt:** [threads-continuation-ranker.agent.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md)  
-> **Runtime orchestration:** [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)  
-> **Repository write rules:** [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)  
-> **Documentation router:** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
+> **角色：** Threads 專用來源／完整性規範契約  
+> **跨來源收錄／執行：** [`INGESTION.md`](./INGESTION.md)  
+> **判定輸出 Schema：** [threads-continuation-judgement.schema.json](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json)  
+> **受管理分類器提示詞：** [threads-continuation-ranker.agent.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md)  
+> **執行流程：** [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)  
+> **儲存庫寫入規則：** [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)  
+> **文件導航：** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
 
-This document is the **sole detailed human-readable domain specification for Threads ingestion**. It owns Threads URL resolution, exact-post extraction, conversation reconstruction, browser evidence, accepted snapshots, Phase 7 continuation/root-only recovery, and Threads-specific managed semantic execution.
+本文件是 **Threads 收錄唯一的詳細人類可讀領域規格**。它負責 Threads URL 解析、精確貼文擷取、對話重建、瀏覽器證據、已接受來源快照、Phase 7 續篇／僅根貼文復原，以及 Threads 專用的受管理語意執行。
 
-The machine-readable structure of Phase 7 semantic judgement output is owned by [`schema/threads-continuation-judgement.schema.json`](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json). Evidence-dependent acceptance policy remains in this document and trusted validation code.
+Phase 7 語意判定輸出的機器可讀結構由 [`schema/threads-continuation-judgement.schema.json`](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) 負責。依證據決定是否接受的規則，仍由本文件與受信任驗證程式碼定義。
 
-Cross-provider dispatcher/resolver behavior, Remote Ingest transport, and top-level execution failure classes are defined by [`INGESTION.md`](./INGESTION.md). Repository create/update ownership rules are defined by [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md).
+跨來源的調度器／解析器行為、Remote Ingest 傳輸與頂層執行失敗分類由 [`INGESTION.md`](./INGESTION.md) 定義。儲存庫建立／更新與所有權規則由 [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) 定義。
 
-## 1. Scope and trust order
+## 1. 範圍與信任順序
 
-Use this pipeline only when the primary resource is on `threads.com` / `threads.net`, including `/share/<token>`, `/t/<token>`, `/@user/post/<shortcode>`, or a transient URL that resolves to one of those resources.
+只有當主要資源位於 `threads.com` / `threads.net` 時才使用這條流程，包括 `/share/<token>`、`/t/<token>`、`/@user/post/<shortcode>`，以及解析後指向這些資源的暫時性 URL。
 
 ```text
 Threads primary resource → this document
 anything else             → INGESTION.md generic/provider flow
 ```
 
-A non-Threads page does not become a Threads source because its text mentions or links to Threads.
+非 Threads 頁面不會只因正文提到或連到 Threads，就變成 Threads 來源。
 
-The source trust order is:
+來源信任順序如下：
 
 ```text
 URL identity
@@ -37,32 +37,32 @@ URL identity
 → accepted source or fail closed
 ```
 
-Semantic recovery never overrides stronger contradictory structural evidence.
+語意復原永遠不得覆蓋更強且互相衝突的結構證據。
 
-## 2. Phase 1 — URL resolution
+## 2. Phase 1 — URL 解析
 
-Accepted URL families include `/share/*`, `/t/*`, canonical `/@user/post/*`, and Threads host variants.
+可接受的 URL 類型包含 `/share/*`、`/t/*`、標準 `/@user/post/*`，以及 Threads 主機名稱變體。
 
-Transient URLs resolve through HTTP redirects, canonical metadata, embedded URLs, or browser navigation when JavaScript is required.
+暫時性 URL 會透過 HTTP 重新導向、canonical metadata、內嵌 URL，或在需要 JavaScript 時透過瀏覽器導覽完成解析。
 
-The final source identity is never the share token. A complete source canonicalizes to its root post.
+最終來源識別絕不使用分享 token。完整來源必須標準化到根貼文。
 
-## 3. Phase 2 — exact post extraction
+## 3. Phase 2 — 精確貼文擷取
 
-The extractor selects the exact requested shortcode from public HTML/hydration evidence and normalizes:
+擷取器會從公開 HTML／hydration 證據中選出實際要求的 shortcode，並正規化：
 
-- id / shortcode / canonical URL;
-- author and timestamp;
-- text and media;
-- reply/root metadata;
-- quoted/reposted references;
-- extraction provenance.
+- id / shortcode / canonical URL；
+- 作者與時間戳記；
+- 文字與媒體；
+- 回覆／根貼文中繼資料；
+- 引用／轉貼參照；
+- 擷取來源紀錄。
 
-Fallback adapters must return the requested post identity or fail closed. A fallback result for another post must not be silently substituted.
+備援 adapter 必須回傳要求的貼文識別，否則保守失敗（fail closed）。不得把其他貼文的備援結果靜默替代成目標貼文。
 
-## 4. Phase 3 — complete self-thread reconstruction
+## 4. Phase 3 — 完整自串文重建
 
-Strict reconstruction follows structural evidence:
+嚴格重建依照結構證據：
 
 ```text
 same author
@@ -70,11 +70,11 @@ AND reply_to == previous post
 AND same root when root metadata exists
 ```
 
-Timestamp proximity alone is not structural proof.
+只有時間接近並不能構成結構證明。
 
-Same-author branching that cannot be resolved uniquely is ambiguous and fails closed rather than guessing by time order.
+若同作者出現分支且無法唯一解析，必須判定為有歧義並保守失敗，不得依時間順序猜測。
 
-When `n/N` is known, all available invariants must agree:
+已知 `n/N` 時，所有可用不變量都必須一致：
 
 ```text
 parts.length == N
@@ -82,29 +82,29 @@ input index == n
 known total/order is consistent
 ```
 
-Known missing parts remain incomplete.
+已知缺少部分時，來源仍視為不完整。
 
-Successful structural reconstruction preserves ordered `parts[]`, `combined_text`, root/input metadata, media, thread status, and extraction provenance. Root identity is:
+結構重建成功後，必須保留有序的 `parts[]`、`combined_text`、根貼文／輸入中繼資料、媒體、串文狀態與擷取來源紀錄。根貼文識別為：
 
 ```text
 threads:{root_shortcode}
 ```
 
-## 5. Phase 4 — Knowledge Card integration boundary
+## 5. Phase 4 — Knowledge Card 整合邊界
 
-Ordinary ingestion enters through:
+一般收錄從以下指令進入：
 
 ```bash
 npm run ingest:dispatch -- <threads-url>
 ```
 
-Every approved backend ultimately executes:
+所有已核准後端最終都會執行：
 
 ```bash
 npm run ingest:resolve -- <threads-url>
 ```
 
-The Threads resolver path performs the source-specific work before formal create/update authoring:
+Threads 解析器會在正式建立／更新 Card 前完成來源專用處理：
 
 ```text
 Phase 1 URL resolution
@@ -119,7 +119,7 @@ Phase 1 URL resolution
 → Phase 6 accepted-source change comparison
 ```
 
-Accepted output includes the complete source document and analysis input, conceptually:
+已接受輸出在概念上包含完整來源文件與分析輸入：
 
 ```text
 source_document
@@ -138,51 +138,51 @@ analysis_input
   thread_verification: structural | llm_assisted
 ```
 
-Formal analysis uses `source_document.combined_text`, not merely the originally shared post.
+正式分析使用 `source_document.combined_text`，不得只分析原始分享貼文。
 
-### Root-level deduplication
+### 根貼文層級去重
 
-Any share token or arbitrary thread part must converge to the root canonical URL and `threads:{root_shortcode}` before create/update lookup. Existing Card ID/path remain stable.
+任何分享 token 或任意串文部分，都必須在建立／更新查找前收斂到根貼文 canonical URL 與 `threads:{root_shortcode}`。既有 Card ID／路徑保持穩定。
 
-### Source-level fail-closed conditions
+### 來源層級的保守失敗條件
 
-Examples include:
+例如：
 
-- incomplete conversation coverage;
-- structural same-author ambiguity;
-- conflicting `n/N` evidence;
-- known missing parts;
-- invalid or mismatched extracted identity;
-- failed Phase 7 judgement or deterministic acceptance gate.
+- 對話涵蓋範圍不完整；
+- 同作者結構分支有歧義；
+- `n/N` 證據互相衝突；
+- 已知缺少部分；
+- 擷取出的來源識別無效或不一致；
+- Phase 7 判定失敗，或確定性接受關卡未通過。
 
-Execution capability failures are classified separately under [`INGESTION.md`](./INGESTION.md); missing local browser/model capability is not itself proof that the public Threads source is unavailable.
+執行能力失敗由 [`INGESTION.md`](./INGESTION.md) 另外分類；本機缺少瀏覽器／模型能力本身，不足以證明公開 Threads 來源不可用。
 
-## 6. Phase 5 — browser / web-data fallback
+## 6. Phase 5 — 瀏覽器／網頁資料備援
 
-When HTTP/hydration evidence is insufficient, an isolated no-login browser may collect:
+HTTP／hydration 證據不足時，可使用隔離且不登入的瀏覽器收集：
 
-1. rendered DOM/hydration;
-2. same-origin Threads JSON/GraphQL-like responses;
-3. rendered `n/N` evidence when unambiguous.
+1. 渲染後的 DOM／hydration；
+2. Threads 同來源的 JSON／類 GraphQL 回應；
+3. 在沒有歧義時取得渲染後的 `n/N` 證據。
 
-Captured records are normalized and returned to the same Phase 3/7 logic. Browser navigation success by itself is never completeness proof.
+擷取紀錄會正規化後送回相同的 Phase 3／7 邏輯。瀏覽器導覽成功本身絕不等於來源完整。
 
-Local browser installation:
+本機瀏覽器安裝：
 
 ```bash
 npm run threads:browser:install
 ```
 
-Optional local overrides:
+可選的本機覆寫設定：
 
 ```text
 THREADS_BROWSER_EXECUTABLE=/absolute/path
 THREADS_BROWSER_CHANNEL=chrome
 ```
 
-The browser adapter does not load private cookies, persistent user profiles, or login sessions.
+瀏覽器 adapter 不會載入私人 cookies、持久化使用者設定檔或登入 session。
 
-Important browser failure codes may include:
+重要的瀏覽器失敗碼可能包含：
 
 - `THREADS_BROWSER_UNAVAILABLE`
 - `THREADS_BROWSER_LAUNCH_FAILED`
@@ -191,17 +191,18 @@ Important browser failure codes may include:
 - `THREADS_BROWSER_CANONICAL_NOT_FOUND`
 - `THREADS_BROWSER_NO_POSTS`
 
-A local browser capability failure is first an execution-backend problem; see [`INGESTION.md`](./INGESTION.md).
+本機瀏覽器能力失敗首先屬於執行後端問題；請見 [`INGESTION.md`](./INGESTION.md)。
 
-## 7. Phase 6 — accepted source snapshots and change detection
+<a id="7-phase-6--accepted-source-snapshots-and-change-detection"></a>
+## 7. Phase 6 — 已接受來源快照與變更偵測
 
-Only a complete accepted Threads source may be compared with state under:
+只有完整且已接受的 Threads 來源可以和以下狀態比較：
 
 ```text
 state/source-snapshots/threads/
 ```
 
-Current source-change states include:
+目前的來源變更狀態包含：
 
 ```text
 FIRST_SEEN
@@ -213,27 +214,28 @@ STRUCTURE_CHANGED
 MULTIPLE_CHANGES
 ```
 
-Snapshots store public provenance and stable SHA-256 fingerprints, not raw Threads text, raw GraphQL payloads, cookies, login/session data, or private content. Volatile media query signatures do not define media identity.
+快照只保存公開來源紀錄與穩定的 SHA-256 指紋，不保存 Threads 原文、原始 GraphQL payload、cookies、登入／session 資料或私人內容。會變動的媒體查詢簽章不能用來定義媒體識別。
 
-Preflight is read-only. After the corresponding Card create/update succeeds and repository validation passes, accepted state may advance with:
+前置檢查只能讀取。對應 Card 建立／更新成功且通過儲存庫驗證後，才可以用以下指令推進已接受狀態：
 
 ```bash
 npm run ingest:snapshot -- <threads-url>
 ```
 
-The command requires a matching Card. Unchanged hashes are a no-op. Failed, incomplete, ambiguous, or identity-mismatched extraction never overwrites the last accepted snapshot.
+這個指令要求存在相符的 Card。雜湊值未變時不做任何寫入。擷取失敗、不完整、有歧義或來源識別不一致時，絕不得覆蓋最後一次已接受快照。
 
-Source-state ownership details are defined by [state/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md).
+來源狀態所有權細節由 [state/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md) 定義。
 
-## 8. Phase 7 — semantic continuation / root-only recovery
+<a id="8-phase-7--semantic-continuation--root-only-recovery"></a>
+## 8. Phase 7 — 語意續篇／僅根貼文復原
 
-Phase 7 exists for a specific evidence gap: the root post and nearby same-author reply candidates are publicly observable, but Threads does not expose enough native `reply_to` / `root_post` relationship data to prove whether those replies belong to the original article body.
+Phase 7 用來處理一種特定的證據缺口：公開頁面可以觀察到根貼文與附近同作者回覆候選，但 Threads 沒有提供足夠的原生 `reply_to` / `root_post` 關係資料，無法證明這些回覆是否屬於原始文章正文。
 
-It does **not** replace Phase 3 structural reconstruction.
+它**不會**取代 Phase 3 的結構重建。
 
-### Why Phase 7 exists
+### 為什麼需要 Phase 7
 
-A public page can expose evidence such as:
+公開頁面可能提供以下證據：
 
 ```text
 root.has_replies = true
@@ -244,17 +246,17 @@ reply.root_post = null
 thread n/N is unavailable
 ```
 
-Without an explicit recovery gate, a root-only graph could be falsely accepted as `SINGLE_POST` even though conversation coverage was not proved.
+如果沒有明確的復原關卡，只有根貼文的圖結構可能被錯誤接受成 `SINGLE_POST`，即使對話涵蓋範圍其實尚未被證明。
 
-If a root reports replies and coverage is not structurally proven, the source must either:
+若根貼文顯示存在回覆，而結構證據尚未證明涵蓋完整，來源必須符合以下其中一種情況：
 
-- become structurally complete from additional evidence;
-- pass the high-confidence Phase 7 fallback; or
-- remain incomplete.
+- 從額外證據取得結構完整性；
+- 通過高信心的 Phase 7 備援；
+- 維持不完整狀態。
 
-### Implementation responsibility split
+### 實作責任分層
 
-The implementation is intentionally layered:
+實作刻意分成多層：
 
 ```text
 browser-adapter.mjs
@@ -273,26 +275,26 @@ source-ingestion.mjs
   provider completeness / identity integration
 ```
 
-The browser adapter does not decide semantic continuation. The semantic ranker does not decide whether the source is accepted. Final acceptance remains deterministic code.
+瀏覽器 adapter 不負責判斷語意續篇。語意排序器（ranker）也不決定來源是否被接受；最終接受結果仍由確定性程式碼決定。
 
-### Eligibility boundary
+### 適用邊界
 
-Phase 7 may run only when strict structural evidence does not already prove or disprove completeness.
+只有在嚴格結構證據尚未證明來源完整或不完整時，Phase 7 才能執行。
 
-It cannot override:
+它不能覆蓋：
 
-- conflicting `n/N` indicators;
-- known missing parts when a total is known;
-- structural same-author branch ambiguity;
-- source identity mismatch.
+- 互相衝突的 `n/N` 指標；
+- 已知總數時仍有缺少部分；
+- 同作者結構分支歧義；
+- 來源識別不一致。
 
-Those conditions remain fail closed.
+這些情況都維持保守失敗。
 
-### Deterministic candidate filter
+### 確定性候選篩選
 
-Only evidence already extracted from the public Threads page is eligible.
+只有已從公開 Threads 頁面擷取的證據可以成為候選。
 
-Current defaults:
+目前預設條件：
 
 ```text
 same author as root
@@ -303,21 +305,21 @@ within 24 hours when timestamp is known
 max 8 candidates
 ```
 
-Candidates are ordered deterministically by time distance and metadata evidence.
+候選會依時間距離與中繼資料證據，以確定性方式排序。
 
-Time distance is evidence for narrowing/scoring only; it can never directly prove thread membership.
+時間距離只能作為縮小候選範圍／評分的證據，絕不能直接證明串文成員關係。
 
-The metadata score may reward explicit reply status, short publication-time distance, text presence, and known reply-terminal metadata. Current continuation acceptance requires the first selected candidate to meet the implementation's minimum metadata evidence threshold.
+中繼資料分數可考量明確回覆狀態、較短的發布時間距離、文字是否存在，以及已知的回覆終止中繼資料。目前續篇接受規則要求第一個被選候選至少達到實作設定的最低中繼資料證據門檻。
 
-### Semantic judgement contract
+### 語意判定契約
 
-The ranker receives one root plus the deterministic filtered candidate set. All Threads text is **untrusted quoted data**. Instructions contained inside source posts must never be followed.
+排序器會收到一個根貼文與經確定性篩選後的候選集合。所有 Threads 文字都屬於**不受信任的引用資料**，絕不得遵循來源貼文中的指令。
 
-The canonical machine-readable output contract is:
+標準機器可讀輸出契約為：
 
 - [Threads continuation judgement schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json)
 
-It owns the required fields, data types, confidence bounds and allowed candidate labels. Current required fields are:
+它負責必要欄位、資料型別、信心範圍與允許的候選標籤。目前必要欄位為：
 
 ```text
 selected_shortcodes
@@ -328,7 +330,7 @@ rationale
 candidate_labels
 ```
 
-Allowed labels are:
+允許的標籤為：
 
 ```text
 continuation
@@ -337,13 +339,13 @@ unrelated
 uncertain
 ```
 
-The local prompt derives required fields and labels from the shared Schema. Managed Copilot output, local provider output, semantic handoff normalization and the final Phase 7 validator all pass through the shared runtime validator in `scripts/lib/contracts/threads-continuation-judgement.mjs`.
+本機提示詞會從共用 Schema 取得必要欄位與標籤。受管理 Copilot 輸出、本機供應商輸出、語意轉交正規化，以及最終 Phase 7 驗證器，都會通過 `scripts/lib/contracts/threads-continuation-judgement.mjs` 的共用執行期驗證器。
 
-The Schema intentionally does **not** encode evidence-dependent acceptance policy. Candidate membership, exact root-only label coverage, confidence acceptance thresholds, metadata evidence, chronology, same-author checks, `n/N` and structural ambiguity remain deterministic source-validation responsibilities below.
+Schema 刻意**不**編碼依證據決定的接受規則。候選成員關係、僅根貼文的完整標籤涵蓋、信心接受門檻、中繼資料證據、時間順序、同作者檢查、`n/N` 與結構歧義，仍由下方確定性來源驗證負責。
 
-### Continuation acceptance gate
+### 續篇接受關卡
 
-Current default acceptance requires all of the following:
+目前預設接受條件全部都必須成立：
 
 ```text
 complete == true
@@ -357,11 +359,11 @@ no explicit non-reply selected
 selected time order does not regress
 ```
 
-Failure of any required check leaves the source incomplete. There is no fallback to “nearest post by time”.
+任一必要檢查失敗都會讓來源維持不完整。不存在「改選時間最近貼文」的備援方式。
 
-### Root-only acceptance gate
+### 僅根貼文接受關卡
 
-Current default root-only acceptance requires:
+目前 `root_only` 預設接受條件為：
 
 ```text
 complete == true
@@ -375,11 +377,11 @@ no continuation / uncertain labels
 every label confidence >= 0.90
 ```
 
-“No continuation found” is not sufficient evidence for root-only acceptance. Root-only means the candidate set was affirmatively and completely excluded from the original article body with high confidence.
+「沒有找到續篇」本身不足以接受 `root_only`。`root_only` 代表候選集合已在高信心下被明確且完整地排除於原始文章正文之外。
 
-### Verification provenance
+### 驗證來源紀錄
 
-Accepted inferred multi-part source:
+接受推論得到的多篇來源時：
 
 ```text
 thread.status = INFERRED_THREAD_HIGH_CONFIDENCE
@@ -388,7 +390,7 @@ extraction.method = llm_assisted_continuation
 extraction.inferred = true
 ```
 
-Accepted inferred standalone source:
+接受推論得到的單篇來源時：
 
 ```text
 thread.status = INFERRED_SINGLE_POST_HIGH_CONFIDENCE
@@ -398,11 +400,11 @@ extraction.method = llm_assisted_root_only
 extraction.inferred = true
 ```
 
-Neither may be described as native Threads parent/root graph verification.
+兩者都不得描述成 Threads 原生 parent/root graph 已驗證。
 
-### Local ranker contract
+### 本機排序器契約
 
-Phase 7 core is provider-neutral. Local callers may inject `continuationRanker` or configure the supported OpenAI-compatible endpoint contract:
+Phase 7 核心不綁定特定供應商。本機呼叫端可以注入 `continuationRanker`，或設定支援 OpenAI-compatible 的 endpoint 契約：
 
 ```text
 THREADS_CONTINUATION_LLM_ENDPOINT
@@ -411,19 +413,19 @@ THREADS_CONTINUATION_LLM_MODEL
 THREADS_CONTINUATION_LLM_API_KEY   # optional
 ```
 
-No usable semantic ranker means that backend cannot complete Phase 7 and must fail closed rather than guess.
+沒有可用的語意排序器時，該後端就無法完成 Phase 7，必須保守失敗而不是猜測。
 
-## 9. Execution capabilities around Threads
+## 9. Threads 周邊執行能力
 
-Phases 8A–8D are execution/harness capabilities around the same Threads Phase 1–7 source semantics. They are **not alternate source-extraction rules**.
+Phase 8A–8D 是圍繞同一套 Threads Phase 1–7 來源語意建立的執行／框架能力，**不是替代的來源擷取規則**。
 
-Cross-provider LocalBackend/RemoteBackend ordering, request transport, artifact correlation, and top-level failure classification are owned by [`INGESTION.md`](./INGESTION.md).
+跨來源的 LocalBackend／RemoteBackend 順序、請求傳輸、產物關聯與頂層失敗分類由 [`INGESTION.md`](./INGESTION.md) 負責。
 
-### Phase 8C — managed GitHub Copilot CLI ranker
+### Phase 8C — 受管理 GitHub Copilot CLI 排序器
 
-Remote Ingest provides a Repository-managed Phase 7 semantic ranker using GitHub Copilot CLI.
+Remote Ingest 使用 GitHub Copilot CLI 提供由儲存庫管理的 Phase 7 語意排序器。
 
-Managed profile:
+受管理設定：
 
 ```text
 provider: github_copilot
@@ -434,17 +436,17 @@ resolve-job permission: contents: read + copilot-requests: write
 auth: workflow GITHUB_TOKEN → isolated COPILOT_GITHUB_TOKEN
 ```
 
-The request branch cannot choose model selector, agent, prompt, token, tool policy, or executable ranker code.
+請求分支不能選擇 model selector、agent、prompt、token、tool policy 或可執行排序器程式碼。
 
-The model-running job has no Repository contents-write permission. Request-branch cleanup is isolated from model execution and uses separate write permission.
+執行模型的工作沒有儲存庫內容寫入權限。請求分支清理與模型執行互相隔離，並使用獨立的寫入權限。
 
-The classifier runs in an ephemeral workspace with isolated `HOME` / `COPILOT_HOME`. Only the trusted custom-agent profile is copied into the workspace. That profile declares `tools: []`, so shell, file, URL, GitHub, MCP, memory, and other tools are unavailable during semantic classification.
+分類器在暫時工作空間中執行，`HOME` / `COPILOT_HOME` 彼此隔離。只有受信任的自訂 Agent 設定檔會複製進工作空間。該設定檔宣告 `tools: []`，因此語意分類時無法使用 shell、檔案、URL、GitHub、MCP、memory 或其他工具。
 
-Source evidence is passed as data and remains untrusted quoted content.
+來源證據以資料形式傳入，並持續視為不受信任的引用內容。
 
-The managed ranker produces only the normal Phase 7 semantic judgement and its raw JSON must conform to the shared judgement Schema before ranker provenance is attached. Deterministic candidate filtering, structural conflict checks, thresholds, chronology, root-only label coverage, and fail-closed acceptance remain authoritative after structural validation.
+受管理排序器只產生一般 Phase 7 語意判定；其原始 JSON 必須符合共用判定 Schema，之後才可附加排序器來源紀錄。結構驗證完成後，確定性候選篩選、結構衝突檢查、門檻、時間順序、僅根貼文標籤涵蓋與保守失敗接受規則仍具有最終權威。
 
-Accepted managed provenance records:
+已接受的受管理來源紀錄：
 
 ```text
 thread.verification = llm_assisted
@@ -454,19 +456,19 @@ thread.recovery.ranker.model = auto
 thread.recovery.ranker.agent = threads-continuation-ranker
 ```
 
-`model = auto` records the trusted selector supplied to Copilot CLI; it does not claim the harness knows the underlying model selected internally.
+`model = auto` 記錄交給 Copilot CLI 的受信任選擇器，不代表執行框架知道 CLI 內部實際選到哪個底層模型。
 
-Policy/auth/CLI/timeout/output/invalid-response failures mean the managed execution backend did not produce a viable judgement. They must remain execution capability failures rather than being misreported as source incompleteness. A semantic judgement that actually runs and then fails the deterministic Phase 7 gate may remain `SOURCE_INCOMPLETE`.
+Policy／auth／CLI／timeout／output／invalid-response 等失敗，代表受管理執行後端沒有產生可用判定；它們必須維持執行能力失敗，不得誤報成來源不完整。若語意判定確實已執行，但未通過確定性 Phase 7 關卡，則可維持 `SOURCE_INCOMPLETE`。
 
-The actual managed prompt is [`.github/agents/threads-continuation-ranker.agent.md`](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md).
+實際受管理提示詞位於 [`.github/agents/threads-continuation-ranker.agent.md`](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md)。
 
-### Phase 8D — agent semantic handoff fallback
+### Phase 8D — Agent 語意轉交備援
 
-When the managed semantic backend cannot execute because of policy/auth/provider capability, Remote Ingest may perform a capture-only Phase 7 pass and expose `failure.semantic_handoff` in the short-lived result artifact.
+受管理語意後端因 policy／auth／provider capability 無法執行時，Remote Ingest 可以只執行 Phase 7 證據擷取，並在短期結果產物中提供 `failure.semantic_handoff`。
 
-The handoff contains the exact public root/candidate evidence used for classification plus a deterministic SHA-256 evidence digest. Its `judgement_contract` points to the shared judgement Schema and exposes the required fields/labels from that contract.
+轉交內容會包含實際用於分類的公開根貼文／候選證據，以及確定性的 SHA-256 證據摘要。其 `judgement_contract` 會指向共用判定 Schema，並提供該契約要求的欄位／標籤。
 
-A Knowledge Card Agent may classify that evidence and submit a second normal `operation=resolve` request containing only:
+Knowledge Card Agent 可以分類這些證據，再提交第二個一般 `operation=resolve` 請求，其中只能包含：
 
 ```text
 producer = knowledge_card_agent
@@ -474,19 +476,19 @@ evidence_digest = sha256:...
 judgement = normal Phase 7 structured judgement
 ```
 
-The request must not supply or alter root/candidate source evidence.
+請求不得提供或修改根貼文／候選來源證據。
 
-Trusted `main` re-extracts the current source, rebuilds the candidate set, and recomputes the digest before the submitted judgement can be used. Digest mismatch fails closed with:
+受信任的 `main` 會重新擷取目前來源、重建候選集合並重新計算摘要，之後才可使用提交的判定。摘要不一致時會保守失敗並回傳：
 
 ```text
 THREADS_CONTINUATION_HANDOFF_EVIDENCE_MISMATCH
 ```
 
-A stale judgement must never be applied to changed source evidence.
+過期判定絕不得套用到已變更的來源證據。
 
-The supplied judgement is normalized into the shared Schema contract and still passes the normal Phase 7 acceptance validation. Handoff cannot override structural conflicts, candidate membership, metadata threshold, chronology, confidence, or root-only complete-label coverage.
+提交的判定會正規化成共用 Schema 契約，且仍需通過一般 Phase 7 接受驗證。語意轉交不能覆蓋結構衝突、候選成員關係、中繼資料門檻、時間順序、信心或僅根貼文完整標籤涵蓋規則。
 
-Accepted handoff provenance records:
+已接受轉交的來源紀錄：
 
 ```text
 thread.verification = llm_assisted
@@ -495,13 +497,13 @@ thread.recovery.ranker.provider = knowledge_card_agent
 thread.recovery.ranker.evidence_digest = sha256:...
 ```
 
-The handoff changes only where semantic classification is performed; it does not weaken the source contract.
+語意轉交只改變語意分類發生的位置，不會降低來源契約要求。
 
-## 10. Failure and reporting boundary
+## 10. 失敗與回報邊界
 
-Threads-specific source failures and execution-backend failures must remain distinct.
+Threads 專用來源失敗與執行後端失敗必須分開處理。
 
-Examples:
+例如：
 
 ```text
 structural ambiguity / missing known part / rejected Phase 7 judgement
@@ -517,64 +519,64 @@ all approved backends exhausted without accepted evidence
 → INGESTION_BLOCKED
 ```
 
-Use the top-level failure vocabulary defined by [`INGESTION.md`](./INGESTION.md).
+頂層失敗詞彙使用 [`INGESTION.md`](./INGESTION.md) 的定義。
 
-When a source is accepted through Phase 7, reporting must preserve `llm_assisted` provenance and inferred status. Do not describe inferred recovery as native Threads graph verification.
+來源透過 Phase 7 被接受時，回報必須保留 `llm_assisted` 來源紀錄與推論狀態，不得把推論復原描述成 Threads 原生 graph 驗證。
 
-## 11. Testing and acceptance strategy
+## 11. 測試與接受策略
 
-CI fixtures cover the deterministic source contract, including:
+CI fixtures 會涵蓋確定性來源契約，包括：
 
-- URL variants and exact target selection;
-- root/middle/last self-thread inputs;
-- reader-reply exclusion and same-author ambiguity;
-- `n/N` and known-missing-part rejection;
-- browser JSON/DOM fallback and unsafe redirects;
-- root identity/dedup integration;
-- source snapshot hashing/change detection;
-- shared semantic-judgement Schema validation and prompt/label contract alignment;
-- Phase 7 continuation and root-only accept/reject gates;
-- Remote request/result correlation and nested diagnostics;
-- managed classifier isolation, policy-denial handling, JSON parsing, Schema validation and provenance;
-- semantic handoff digest binding, shared-contract exposure and mismatch rejection.
+- URL 變體與精確目標選取；
+- 以根／中間／最後一篇自串文作為輸入；
+- 排除讀者回覆與處理同作者歧義；
+- `n/N` 與已知缺少部分的拒絕條件；
+- 瀏覽器 JSON／DOM 備援與不安全重新導向；
+- 根貼文識別／去重整合；
+- 來源快照雜湊／變更偵測；
+- 共用語意判定 Schema 驗證，以及提示詞／標籤契約一致性；
+- Phase 7 續篇與僅根貼文的接受／拒絕關卡；
+- 遠端請求／結果關聯與巢狀診斷；
+- 受管理分類器隔離、policy-denial 處理、JSON 解析、Schema 驗證與來源紀錄；
+- 語意轉交摘要綁定、共用契約揭露與不一致拒絕。
 
-Browser fixture tests may use injected sessions; ordinary unit CI need not perform live public navigation.
+瀏覽器 fixture 測試可以使用注入的 session；一般單元 CI 不需要執行即時公開網站導覽。
 
-Live execution acceptance must use temporary Remote Ingest requests and must not create/update production Cards or advance snapshots unless the user is explicitly performing a real ingestion.
+即時執行驗收必須使用臨時 Remote Ingest 請求；除非使用者正在進行真正的收錄，否則不得建立／更新正式 Card 或推進快照。
 
-## 12. Document boundary
+## 12. 文件責任邊界
 
-This document owns:
+本文件負責：
 
-- Threads URL resolution;
-- exact-post extraction;
-- structural self-thread reconstruction;
-- Threads browser/web-data evidence rules;
-- root identity and formal analysis source;
-- accepted Threads snapshot/change detection;
-- Phase 7 eligibility, deterministic acceptance policy, and provenance;
-- Threads-specific managed classifier and semantic handoff semantics.
+- Threads URL 解析；
+- 精確貼文擷取；
+- 結構化自串文重建；
+- Threads 瀏覽器／網頁資料證據規則；
+- 根貼文識別與正式分析來源；
+- 已接受 Threads 快照／變更偵測；
+- Phase 7 適用條件、確定性接受規則與來源紀錄；
+- Threads 專用受管理分類器與語意轉交語意。
 
-The shared judgement Schema owns the Phase 7 semantic output fields/types/label vocabulary.
+共用判定 Schema 負責 Phase 7 語意輸出欄位／型別／標籤詞彙。
 
-This document does **not** own:
+本文件**不**負責：
 
-- generic/GitHub ingestion;
-- cross-provider execution backend order;
-- Remote Ingest base request/artifact transport;
-- top-level failure vocabulary;
-- Repository create/update/user-state rules;
-- Knowledge Card Schema/Taxonomy.
+- 一般來源／GitHub 收錄；
+- 跨來源執行後端順序；
+- Remote Ingest 基本請求／產物傳輸；
+- 頂層失敗詞彙；
+- 儲存庫建立／更新／使用者狀態規則；
+- Knowledge Card Schema／Taxonomy。
 
-## Related documents
+## 相關文件
 
-- [Documentation Router](./DOCUMENTATION.md)
-- [Document Authority Map](./AUTHORITY_MAP.md)
-- [Cross-provider Ingestion](./INGESTION.md)
+- [文件導航](./DOCUMENTATION.md)
+- [文件權威來源索引](./AUTHORITY_MAP.md)
+- [跨來源收錄](./INGESTION.md)
 - [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)
-- [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)
-- [Threads Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json)
-- [Shared Threads Judgement Validator](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs)
-- [Managed Threads Ranker Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md)
-- [Threads Continuation Validation Code](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs)
+- [儲存庫規則](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)
+- [Threads 判定 Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json)
+- [共用 Threads 判定驗證器](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs)
+- [受管理 Threads 排序器提示詞](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md)
+- [Threads 續篇驗證程式碼](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs)
 - [Remote Ingest Workflow](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml)
