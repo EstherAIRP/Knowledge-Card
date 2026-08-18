@@ -74,6 +74,29 @@ The full rebuild repairs incremental drift and refreshes all three generated ind
 
 Provides Repository-defined Remote Ingest execution when the current local runtime cannot satisfy an approved ingestion capability. Cross-provider transport and failure classification are defined by [`INGESTION.md`](./INGESTION.md); Threads-specific managed semantic behavior remains defined by [`THREADS_INGESTION.md`](./THREADS_INGESTION.md).
 
+The workflow now has an explicit request-to-run correlation path:
+
+```text
+request commit SHA
+→ commit status context: remote-ingest/run
+→ target_url points to the matching Actions run
+→ run ID
+→ remote-ingest-{request_id} artifact
+→ remote-ingest-result.json
+```
+
+The pointer is published before source processing and finalized after the resolve job completes. This lets an Agent recover a push-triggered Remote Ingest run from the request commit it already knows, without depending on a generic workflow-run listing API.
+
+Permissions remain separated by job:
+
+```text
+announce/finalize → statuses: write
+resolve           → contents: read + copilot-requests: write
+cleanup           → contents: write
+```
+
+The model-running `resolve` job therefore does not gain repository contents-write permission from this fix.
+
 ### `.github/workflows/deploy-pages.yml`
 
 Runs on pushes to `main` and manual dispatch.
@@ -121,7 +144,8 @@ The guard intentionally focuses on stable governance invariants rather than dupl
 - the documentation router and Authority Map retain critical authority references;
 - local Markdown links in the governance document set resolve;
 - VitePress documents do not use relative links to files outside `docs/`;
-- both branch validation and the `main` Pages build run the guard.
+- both branch validation and the `main` Pages build run the guard;
+- Remote Ingest keeps its request-commit status pointer, fixed `remote-ingest/run` context, Actions run URL, and final status publication.
 
 VitePress production build remains responsible for its own route/dead-link validation. The two checks are complementary: `docs:check` protects repository governance conventions while VitePress validates the rendered documentation/site graph.
 
