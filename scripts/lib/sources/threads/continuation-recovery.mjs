@@ -1,3 +1,11 @@
+import {
+  THREADS_CONTINUATION_JUDGEMENT_ALLOWED_LABELS,
+  THREADS_CONTINUATION_JUDGEMENT_REQUIRED_FIELDS,
+  THREADS_CONTINUATION_JUDGEMENT_SCHEMA_PATH,
+  assertThreadsContinuationJudgementShape,
+  validateThreadsContinuationJudgementShape
+} from '../../contracts/threads-continuation-judgement.mjs';
+
 const DEFAULT_MAX_CANDIDATES = 8;
 const DEFAULT_MAX_DELTA_SECONDS = 24 * 60 * 60;
 const DEFAULT_MIN_LLM_CONFIDENCE = 0.9;
@@ -113,8 +121,9 @@ export function buildThreadsContinuationPrompt(rootPost, candidates) {
     'Select only the ordered candidates that belong to the original article body. Do not include later corrections, casual follow-up comments, acknowledgements, or unrelated posts.',
     'If the root post is already the complete original article and every candidate is only a follow-up or unrelated reply, return selected_shortcodes=[] and root_only=true.',
     'Never set root_only=true when any candidate is a continuation, when any candidate remains uncertain, or when the original article body may still be missing.',
-    'Return JSON only with: selected_shortcodes (array), root_only (boolean), confidence (0..1), complete (boolean), rationale (short string), candidate_labels (array of {shortcode,label,confidence}).',
-    'Allowed labels: continuation, followup, unrelated, uncertain.',
+    `Return JSON only conforming to ${THREADS_CONTINUATION_JUDGEMENT_SCHEMA_PATH}. Required fields: ${THREADS_CONTINUATION_JUDGEMENT_REQUIRED_FIELDS.join(', ')}.`,
+    `Allowed candidate labels: ${THREADS_CONTINUATION_JUDGEMENT_ALLOWED_LABELS.join(', ')}.`,
+    'candidate_labels items contain shortcode, label, and confidence. Confidence values are numbers from 0 to 1.',
     'Set complete=true only when either the selected continuation sequence or a root_only judgement is sufficient to represent the original article body with high confidence.'
   ].join(' ');
 
@@ -231,6 +240,17 @@ export function validateThreadsContinuationJudgement(rootPost, candidates, judge
     return { accepted: false, reason: 'llm_confidence_below_threshold', confidence: Number.isFinite(confidence) ? confidence : null, selected: [] };
   }
 
+  const shape = validateThreadsContinuationJudgementShape(judgement, { allowRankerMetadata: true });
+  if (!shape.valid) {
+    return {
+      accepted: false,
+      reason: 'judgement_schema_invalid',
+      confidence,
+      selected: [],
+      schema_errors: shape.errors
+    };
+  }
+
   if (rootOnly) {
     if (selectedShortcodes.length) {
       return { accepted: false, reason: 'invalid_root_only_sequence', confidence, selected: [] };
@@ -337,15 +357,17 @@ export function createEnvThreadsContinuationRanker(options = {}) {
       throw error;
     }
     try {
+      const judgement = parseJsonText(content);
+      assertThreadsContinuationJudgementShape(judgement);
       return {
-        ...parseJsonText(content),
+        ...judgement,
         _ranker: {
           method: 'openai_compatible_chat',
           model
         }
       };
     } catch (cause) {
-      const error = new Error(`Threads continuation LLM returned invalid JSON: ${cause instanceof Error ? cause.message : String(cause)}`);
+      const error = new Error(`Threads continuation LLM returned invalid response: ${cause instanceof Error ? cause.message : String(cause)}`);
       error.code = 'THREADS_CONTINUATION_LLM_INVALID_RESPONSE';
       error.cause = cause;
       throw error;

@@ -2,6 +2,7 @@ import { spawn } from 'node:child_process';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { assertThreadsContinuationJudgementShape } from '../contracts/threads-continuation-judgement.mjs';
 
 export const DEFAULT_THREADS_CONTINUATION_COPILOT_MODEL = 'auto';
 export const THREADS_CONTINUATION_COPILOT_AGENT = 'threads-continuation-ranker';
@@ -227,9 +228,10 @@ export function createCopilotCliThreadsContinuationRanker(options = {}) {
     let judgement;
     try {
       judgement = parseJsonText(response);
+      assertThreadsContinuationJudgementShape(judgement);
     } catch (cause) {
-      if (cause?.code) throw cause;
-      const error = new Error(`GitHub Copilot CLI returned invalid JSON: ${cause instanceof Error ? cause.message : String(cause)}`);
+      if (cause?.code === 'THREADS_CONTINUATION_COPILOT_INVALID_RESPONSE') throw cause;
+      const error = new Error(`GitHub Copilot CLI returned invalid judgement: ${cause instanceof Error ? cause.message : String(cause)}`);
       error.code = 'THREADS_CONTINUATION_COPILOT_INVALID_RESPONSE';
       error.cause = cause;
       throw error;

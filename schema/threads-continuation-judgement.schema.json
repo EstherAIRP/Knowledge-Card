@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/EstherAIRP/Knowledge-Card/schema/threads-continuation-judgement.schema.json",
+  "title": "Threads Continuation Judgement",
+  "description": "Canonical machine-readable output contract for Threads Phase 7 semantic continuation/root-only classifiers. Acceptance thresholds and evidence-dependent gates remain in trusted validation code.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "selected_shortcodes",
+    "root_only",
+    "confidence",
+    "complete",
+    "rationale",
+    "candidate_labels"
+  ],
+  "properties": {
+    "selected_shortcodes": {
+      "type": "array",
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/shortcode"
+      },
+      "description": "Ordered continuation candidate identities selected as part of the original article body."
+    },
+    "root_only": {
+      "type": "boolean",
+      "description": "True only when the root itself is judged to be the complete original body and no continuation candidate is selected."
+    },
+    "confidence": {
+      "$ref": "#/$defs/confidence"
+    },
+    "complete": {
+      "type": "boolean",
+      "description": "Whether the semantic classifier considers its proposed body reconstruction complete. Trusted code still applies deterministic acceptance gates."
+    },
+    "rationale": {
+      "type": "string",
+      "maxLength": 1000,
+      "description": "Short explanation of the semantic judgement."
+    },
+    "candidate_labels": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/candidateLabel"
+      },
+      "description": "Per-candidate semantic classifications. Evidence coverage requirements are enforced by trusted validation code where applicable."
+    }
+  },
+  "$defs": {
+    "shortcode": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "candidateLabel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shortcode",
+        "label",
+        "confidence"
+      ],
+      "properties": {
+        "shortcode": {
+          "$ref": "#/$defs/shortcode"
+        },
+        "label": {
+          "enum": [
+            "continuation",
+            "followup",
+            "unrelated",
+            "uncertain"
+          ]
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        }
+      }
+    }
+  }
+}

@@ -64,7 +64,7 @@ test('Copilot child environment forwards only explicit runtime fields and Copilo
   assert.match(env.COPILOT_HOME, /\.copilot$/);
 });
 
-test('managed Copilot ranker parses JSON-only judgement and preserves provenance', async () => {
+test('managed Copilot ranker parses schema-valid JSON judgement and preserves provenance', async () => {
   let invocation = null;
   const ranker = createCopilotCliThreadsContinuationRanker({
     token: 'fixture-token',
@@ -93,10 +93,29 @@ test('managed Copilot ranker parses JSON-only judgement and preserves provenance
   assert.equal(judgement._ranker.agent, THREADS_CONTINUATION_COPILOT_AGENT);
 });
 
-test('trusted Copilot agent profile disables all tools', async () => {
+test('managed Copilot ranker rejects JSON that violates the shared judgement schema', async () => {
+  const ranker = createCopilotCliThreadsContinuationRanker({
+    token: 'fixture-token',
+    invokeImpl: async () => JSON.stringify({
+      selected_shortcodes: ['PART2'],
+      root_only: false,
+      confidence: 0.98,
+      complete: true,
+      rationale: 'missing candidate labels'
+    })
+  });
+
+  await assert.rejects(
+    () => ranker({ prompt: { system: 'system', user: '{}' } }),
+    (error) => error.code === 'THREADS_CONTINUATION_COPILOT_INVALID_RESPONSE'
+  );
+});
+
+test('trusted Copilot agent profile disables all tools and declares the shared schema contract', async () => {
   const profileUrl = new URL('../.github/agents/threads-continuation-ranker.agent.md', import.meta.url);
   const profile = await fs.readFile(profileUrl, 'utf8');
   assert.match(profile, /^---[\s\S]*?tools:\s*\[\][\s\S]*?---/);
   assert.match(profile, /untrusted quoted data/i);
+  assert.match(profile, /schema\/threads-continuation-judgement\.schema\.json/);
   assert.match(profile, /Return \*\*one JSON object only\*\*/);
 });

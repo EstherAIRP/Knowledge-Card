@@ -21,7 +21,8 @@ This page is the entry point for repository documentation. It answers **where to
 | Process a normal URL or GitHub repository | [`INGESTION.md`](./INGESTION.md) | [Repository scripts](https://github.com/EstherAIRP/Knowledge-Card/tree/main/scripts) |
 | Process a Threads URL | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | [`INGESTION.md`](./INGESTION.md) for execution transport, [Threads source code](https://github.com/EstherAIRP/Knowledge-Card/tree/main/scripts/lib/sources/threads) for implementation |
 | Understand Local vs Remote ingestion execution | [`INGESTION.md`](./INGESTION.md) | [Remote Ingest workflow](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml) |
-| Understand Threads Phase 7 / root-only recovery | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md#8-phase-7--semantic-continuation--root-only-recovery) | [Continuation validation code](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs), [managed prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) |
+| Understand Threads Phase 7 / root-only recovery | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md#8-phase-7--semantic-continuation--root-only-recovery) | [Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json), [continuation validation code](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs) |
+| Change Threads semantic judgement fields / labels | [Threads Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md), [shared validator](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs), [managed prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) |
 | Change Knowledge Card frontmatter | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml), [Card example](https://github.com/EstherAIRP/Knowledge-Card/blob/main/templates/knowledge-card.example.md) |
 | Change categories, actions, statuses, source types, or relevance dimensions | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) |
 | Change public personalization | [Public Profile](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) | [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) public-safety rules |
@@ -81,6 +82,7 @@ A deeper `AGENTS.md` applies within its directory in addition to the repository-
 ### 4. Machine-readable / repository configuration
 
 - [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) — normative Knowledge Card frontmatter schema.
+- [Threads Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) — canonical Phase 7 semantic-classifier output shape and label vocabulary. Evidence-dependent acceptance thresholds remain in trusted code.
 - [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) — controlled categories, actions, statuses, source types, and relevance dimensions.
 - [Public Profile](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) — complete public personalization boundary.
 - [Knowledge Card example](https://github.com/EstherAIRP/Knowledge-Card/blob/main/templates/knowledge-card.example.md) — authoring example; not a higher-priority contract.
@@ -90,8 +92,9 @@ Relation and Concept behavior also use repository configuration under [config/](
 ### 5. Executable / historical material
 
 - [GitHub Actions workflows](https://github.com/EstherAIRP/Knowledge-Card/tree/main/.github/workflows) — actual execution definitions.
-- [Threads continuation ranker prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) — managed Threads semantic-classifier prompt.
-- [Threads continuation validation code](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs) — deterministic Phase 7 candidate/judgement acceptance implementation.
+- [Threads continuation ranker prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) — managed Threads semantic-classifier prompt bound to the shared judgement schema.
+- [Threads judgement validator](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs) — shared runtime JSON Schema validator and exported contract vocabulary.
+- [Threads continuation validation code](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs) — deterministic Phase 7 evidence-dependent acceptance implementation.
 - [Repository scripts](https://github.com/EstherAIRP/Knowledge-Card/tree/main/scripts) — executable ingestion, validation, relation, Concept, and website-support logic.
 - [Runtime Changelog](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/CHANGELOG.md) — Runtime history; historical entries must not override current contracts.
 
@@ -110,7 +113,7 @@ JSON Schema
 > existing AI-generated content
 ```
 
-Within the runtime/repository/domain layer, responsibility is split by scope rather than duplicated. [`AUTHORITY_MAP.md`](./AUTHORITY_MAP.md) records the current owner for each topic and remaining Phase 4/5 work.
+Within the runtime/repository/domain layer, responsibility is split by scope rather than duplicated. [`AUTHORITY_MAP.md`](./AUTHORITY_MAP.md) records the current owner for each topic and remaining Phase 5 work.
 
 ## Cross-reference rule
 
@@ -127,3 +130,4 @@ For VitePress pages, repository files outside `docs/` should be linked through a
 - [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)
 - [Ingestion Pipeline](./INGESTION.md)
 - [Threads Ingestion](./THREADS_INGESTION.md)
+- [Threads Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json)
