@@ -1,11 +1,17 @@
 import crypto from 'node:crypto';
+import {
+  THREADS_CONTINUATION_JUDGEMENT_ALLOWED_LABELS,
+  THREADS_CONTINUATION_JUDGEMENT_REQUIRED_FIELDS,
+  THREADS_CONTINUATION_JUDGEMENT_SCHEMA_PATH,
+  assertThreadsContinuationJudgementShape
+} from '../contracts/threads-continuation-judgement.mjs';
 
 export const THREADS_SEMANTIC_HANDOFF_SCHEMA_VERSION = 1;
 export const THREADS_SEMANTIC_HANDOFF_PRODUCER = 'knowledge_card_agent';
 export const THREADS_SEMANTIC_HANDOFF_KIND = 'threads_continuation_judgement';
 
 const DIGEST_PATTERN = /^sha256:[a-f0-9]{64}$/;
-const ALLOWED_LABELS = new Set(['continuation', 'followup', 'unrelated', 'uncertain']);
+const ALLOWED_LABELS = new Set(THREADS_CONTINUATION_JUDGEMENT_ALLOWED_LABELS);
 
 function normalizeText(value) {
   return String(value || '').replace(/\r\n?/g, '\n').trim();
@@ -65,13 +71,9 @@ export function createThreadsSemanticHandoff(rootPost, candidates) {
     evidence_digest: evidenceDigest,
     evidence,
     judgement_contract: {
-      selected_shortcodes: 'array<string>',
-      root_only: 'boolean',
-      confidence: 'number 0..1',
-      complete: 'boolean',
-      rationale: 'short string',
-      candidate_labels: 'array<{shortcode,label,confidence}>',
-      allowed_labels: [...ALLOWED_LABELS]
+      schema: THREADS_CONTINUATION_JUDGEMENT_SCHEMA_PATH,
+      required_fields: [...THREADS_CONTINUATION_JUDGEMENT_REQUIRED_FIELDS],
+      allowed_labels: [...THREADS_CONTINUATION_JUDGEMENT_ALLOWED_LABELS]
     }
   };
 }
@@ -154,18 +156,21 @@ export function normalizeThreadsSemanticHandoffRequest(value) {
   }
 
   try {
+    const normalizedJudgement = {
+      selected_shortcodes: normalizeShortcodes(judgement.selected_shortcodes || []),
+      root_only: judgement.root_only,
+      confidence,
+      complete: judgement.complete,
+      rationale,
+      candidate_labels: normalizeCandidateLabels(judgement.candidate_labels || [])
+    };
+    assertThreadsContinuationJudgementShape(normalizedJudgement);
+
     return {
       schema_version: THREADS_SEMANTIC_HANDOFF_SCHEMA_VERSION,
       producer: THREADS_SEMANTIC_HANDOFF_PRODUCER,
       evidence_digest: evidenceDigest,
-      judgement: {
-        selected_shortcodes: normalizeShortcodes(judgement.selected_shortcodes || []),
-        root_only: judgement.root_only,
-        confidence,
-        complete: judgement.complete,
-        rationale,
-        candidate_labels: normalizeCandidateLabels(judgement.candidate_labels || [])
-      }
+      judgement: normalizedJudgement
     };
   } catch (cause) {
     const error = new Error(cause instanceof Error ? cause.message : String(cause));
