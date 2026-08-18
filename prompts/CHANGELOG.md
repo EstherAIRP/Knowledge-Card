@@ -4,6 +4,21 @@
 
 ---
 
+## 1.12.2 — 2026-08-18
+
+### Clarified
+
+- 新增 Runtime 輸出語言與術語規則：一般中文回覆、Knowledge Card 正文與完成回報以自然繁體中文為主；已有成熟中文譯名的一般技術概念優先使用中文。
+- 明確保留官方專案／產品名稱、程式碼、指令、API、欄位、識別字、檔案路徑、縮寫、錯誤碼、狀態值與翻譯後會降低精確度的專門術語原文。
+- 將 Runtime 章節標題與一般敘述中的非必要英文改為自然繁體中文，並明確說明規格中的英文契約字串不應成為一般中文回覆的混寫風格範本。
+
+### Behavior
+
+- 本版不改變來源路由、完整性判定、LocalBackend／RemoteBackend、Threads Phase 1–7、語意判定、來源識別、建立／更新、快照、Schema、Taxonomy、public profile、user-owned state 或驗證行為。
+- Runtime Prompt 升至 `1.12.2`，屬語言規範與可讀性澄清的 PATCH 版本。
+
+---
+
 ## 1.12.1 — 2026-08-18
 
 ### Clarified
