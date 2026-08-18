@@ -4,6 +4,22 @@
 
 ---
 
+## 1.12.1 — 2026-08-18
+
+### Clarified
+
+- 完成 Knowledge Card 文件重構 Phase 2：將 `prompts/RUNTIME.md` 收斂為 runtime orchestration contract，只保留 task trigger、mandatory preflight、provider-route hard gate、execution/source failure separation、accepted-source requirement、analysis/update/public-safety、validation 與 completion report。
+- 將 root `AGENTS.md` 收斂為 Repository engineering / ownership / write / validation / commit contract，不再重複 provider-specific extraction、Threads Phase 7 gate、Remote Ingest payload、Copilot permissions/model profile 或 taxonomy enum 清單。
+- Detailed generic ingestion / execution contract 明確由 `docs/INGESTION.md` 承擔；Threads source semantics / completeness 由 `docs/THREADS_INGESTION.md` 承擔；workflow 與 trusted scripts 保持 executable authority。
+- Runtime / AGENTS 新增 `docs/DOCUMENTATION.md` 與 `docs/AUTHORITY_MAP.md` 交叉索引，並加入「global rule files 不複製 domain-specific algorithms」的文件治理規則。
+
+### Behavior
+
+- 本版不改變 ingestion route、RemoteBackend、Threads Phase 1–7、Phase 8B/8C/8D、semantic judgement、acceptance threshold、source identity、snapshot、Schema、Taxonomy、public profile 或 user-owned state 行為。
+- Runtime Prompt 升至 `1.12.1`，屬文件責任與規則索引澄清的 PATCH 版本。
+
+---
+
 ## 1.12.0 — 2026-08-15
 
 ### Added
