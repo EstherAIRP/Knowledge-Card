@@ -1,61 +1,61 @@
-# Ingestion Pipeline
+# 收錄流程
 
-> **Role:** Normative cross-provider ingestion and execution contract  
-> **Threads source semantics:** [`THREADS_INGESTION.md`](./THREADS_INGESTION.md)  
-> **Runtime orchestration:** [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)  
-> **Repository write rules:** [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)  
-> **Documentation router:** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
+> **角色：** 跨來源供應商的收錄與執行規範契約  
+> **Threads 來源語意：** [`THREADS_INGESTION.md`](./THREADS_INGESTION.md)  
+> **執行流程：** [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)  
+> **儲存庫寫入規則：** [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)  
+> **文件導航：** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
 
-This document owns the **cross-provider ingestion boundary**: provider routing, dispatcher/resolver behavior, generic/GitHub ingestion, execution backends, Remote Ingest request/run/result correlation, failure classification, and the handoff from an accepted source into repository authoring.
+本文件負責**跨來源供應商的收錄邊界**：來源路由、調度器／解析器行為、一般來源與 GitHub 收錄、執行後端、Remote Ingest 的請求／執行／結果關聯、失敗分類，以及已接受來源交給儲存庫撰寫流程的銜接規則。
 
-It intentionally does **not** define Threads reconstruction, continuation/root-only judgement, managed Threads ranker semantics, or Threads snapshot algorithms. Those belong to [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) and the trusted implementation.
+本文件刻意**不**定義 Threads 串文重建、續篇／僅根貼文判定、受管理 Threads 排序器語意或 Threads 快照演算法。這些規則由 [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) 與受信任實作負責。
 
-## 1. Provider routing
+## 1. 來源路由
 
-Every ingestion begins by selecting one mutually exclusive provider route from the input URL or resolved primary resource.
+每次收錄都必須根據輸入 URL 或解析後的主要資源，先選定一條互斥的來源路由。
 
-| Primary resource | Route |
+| 主要資源 | 路由 |
 | --- | --- |
-| `threads.com` / `threads.net`, including `/share/*`, `/t/*`, `/@user/post/*` | Threads source contract in [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) |
-| transient/short URL that resolves to Threads | switch to the Threads route after resolution |
-| GitHub Repository | generic ingestion with GitHub repository identity |
-| paper / DOI / article / documentation / tool / product / other non-Threads source | generic/provider flow |
+| `threads.com` / `threads.net`，包含 `/share/*`、`/t/*`、`/@user/post/*` | 使用 [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) 的 Threads 來源契約 |
+| 解析後指向 Threads 的暫時性／短網址 | 解析後切換到 Threads 路由 |
+| GitHub Repository | 使用 GitHub 儲存庫識別的一般收錄流程 |
+| 論文 / DOI / 文章 / 文件 / 工具 / 產品 / 其他非 Threads 來源 | 一般／來源供應商流程 |
 
-Hard boundary:
+硬性邊界：
 
 ```text
 Threads source     → THREADS_INGESTION.md
 Non-Threads source → generic/provider flow in this document
 ```
 
-Do not invoke Threads-only browser reconstruction, semantic continuation recovery, or Threads snapshots for non-Threads sources. Do not downgrade a Threads source to a generic single article merely because one post is immediately visible.
+非 Threads 來源不得啟動 Threads 專用的瀏覽器重建、語意續篇復原或 Threads 快照。Threads 來源也不得只因目前畫面能看到單篇貼文，就降級成一般單篇文章處理。
 
-## 2. Dispatcher and resolver
+## 2. 調度器與解析器
 
-Ordinary ingestion enters through:
+一般收錄從以下指令進入：
 
 ```bash
 npm run ingest:dispatch -- <URL>
 ```
 
-The dispatcher selects an approved execution backend. A successful execution envelope exposes the normal resolver result under `result`.
+調度器會選擇已核准的執行後端。執行成功時，回傳封裝（envelope）中的 `result` 會提供正常的解析器結果。
 
-Every approved backend ultimately executes the same low-level resolver contract:
+所有已核准的後端最終都執行相同的低階解析器契約：
 
 ```bash
 npm run ingest:resolve -- <URL>
 ```
 
-The resolver remains the mechanical authority for routine create/update identity:
+解析器仍是日常建立／更新來源識別的機械性權威，包含：
 
 - `canonical_url`
 - `source_identity`
-- stable `id`
+- 穩定的 `id`
 - `mode`
 - `existing_path`
 - `suggested_path`
 
-Typical dispatcher outcomes:
+調度器的典型結果：
 
 ```text
 local success
@@ -69,9 +69,9 @@ source extraction/completeness failure
 → fail closed
 ```
 
-Exit code `75` with `REMOTE_EXECUTION_REQUIRED` is an execution handoff signal, not a source-level failure.
+結束碼 `75` 搭配 `REMOTE_EXECUTION_REQUIRED` 代表需要轉交執行後端，不是來源層級失敗。
 
-The remote plan also publishes a machine-readable run-correlation contract:
+遠端執行方案也會公布機器可讀的執行關聯契約：
 
 ```text
 mechanism       = commit_status_v1
@@ -80,11 +80,11 @@ target          = request_commit
 target_url_kind = github_actions_run
 ```
 
-This contract exists so an Agent does not need a generic “list all push-triggered workflow runs” capability to recover a Remote Ingest result.
+這個契約讓 Agent 不必依賴通用的「列出所有由 push 觸發的 workflow run」能力，也能找回對應的 Remote Ingest 結果。
 
-## 3. Generic and GitHub ingestion
+## 3. 一般來源與 GitHub 收錄
 
-The generic flow is:
+一般流程如下：
 
 ```text
 input URL
@@ -100,32 +100,32 @@ input URL
 
 ### GitHub
 
-GitHub URL variants must converge to one repository identity:
+GitHub URL 的不同變體必須收斂成同一個儲存庫識別：
 
 ```text
 source.identity = github:{owner-lowercase}/{repo-lowercase}
 canonical_url   = https://github.com/{owner}/{repo}
 ```
 
-At minimum, read repository metadata and README. Inspect architecture, source, configuration, security, release, or documentation files when needed to support technical claims.
+至少要讀取儲存庫中繼資料與 README。若技術判斷需要更多證據，再查看架構、原始碼、設定、安全、版本發布或文件等檔案。
 
-### Other web sources
+### 其他網頁來源
 
-For normal non-Threads web URLs, canonicalization removes fragments and known tracking parameters conservatively while preserving meaningful query parameters. The accepted resolver result, not manual guesswork, determines routine identity and create/update mode.
+一般非 Threads 網頁 URL 的標準化會保守移除 fragment 與已知追蹤參數，同時保留有意義的查詢參數。日常來源識別與建立／更新模式應以已接受的解析器結果為準，不得人工猜測。
 
-## 4. Execution backend policy
+## 4. 執行後端規則
 
-Provider routing answers **what source pipeline must run**. Execution routing answers **where that pipeline can run**.
+來源路由回答「**要跑哪一條來源流程**」，執行路由回答「**這條流程在哪裡執行**」。
 
-Core invariant:
+核心不變量：
 
 ```text
 execution/runtime failure != source unavailable
 ```
 
-A public source must not be classified as unavailable merely because the current session lacks shell access, Node/npm, outbound network, browser capability, or a required model/provider capability.
+不能只因目前工作階段缺少 shell、Node/npm、對外網路、瀏覽器能力，或必要的模型／供應商能力，就把公開來源判定為不可用。
 
-Execution order:
+執行順序：
 
 ```text
 LocalBackend
@@ -137,44 +137,44 @@ Existing Card / accepted source state only for identity/history
 INGESTION_BLOCKED if no approved backend can produce accepted current evidence
 ```
 
-Existing Cards, aliases, or accepted snapshots may help identify previously accepted state. They never replace current live completeness/freshness validation.
+既有 Card、別名或已接受快照可以協助辨識過去已接受的狀態，但永遠不能取代目前來源的即時完整性與新鮮度驗證。
 
-## 5. Failure classification
+## 5. 失敗分類
 
-Use these top-level classes consistently:
+以下頂層分類必須一致使用：
 
-- `LOCAL_EXECUTION_UNAVAILABLE` — the current runtime cannot execute the required Repository pipeline;
-- `REMOTE_EXECUTION_UNAVAILABLE` — the Repository-defined remote backend or a required managed execution capability is unavailable or blocked;
-- `SOURCE_EXTRACTION_FAILED` — a viable backend reached the source pipeline, but extraction failed for a source/evidence reason;
-- `SOURCE_INCOMPLETE` — evidence exists and required capabilities ran, but provider completeness/ambiguity gates did not pass;
-- `INGESTION_BLOCKED` — no allowed backend can produce an accepted current source;
-- `SOURCE_UNAVAILABLE` — reserve for source-level unavailability established by a viable backend.
+- `LOCAL_EXECUTION_UNAVAILABLE` — 目前執行環境無法跑必要的儲存庫流程；
+- `REMOTE_EXECUTION_UNAVAILABLE` — 儲存庫定義的遠端後端或必要的受管理執行能力不可用或遭阻擋；
+- `SOURCE_EXTRACTION_FAILED` — 可用後端已進入來源流程，但因來源／證據原因擷取失敗；
+- `SOURCE_INCOMPLETE` — 已取得證據且必要能力已執行，但來源完整性／歧義關卡未通過；
+- `INGESTION_BLOCKED` — 沒有任何允許的後端能產生目前可接受的來源；
+- `SOURCE_UNAVAILABLE` — 僅保留給可用後端已確認的來源層級不可用狀態。
 
-Provider-specific errors may appear as nested causes. The outer classification must still distinguish execution capability failure from actual source incompleteness.
+來源供應商專用錯誤可作為巢狀原因出現，但外層分類仍必須區分執行能力失敗與真正的來源不完整。
 
-Hard rules:
+硬性規則：
 
-- an execution failure must not be relabeled as source unavailability;
-- an incomplete, ambiguous, identity-mismatched, blocked, or otherwise unaccepted source must not create/update a formal Card;
-- blocked live revalidation must not refresh analysis, `last_checked_at`, or accepted source state;
-- session/tool differences must not weaken provider completeness, identity, ownership, or public-safety gates.
+- 執行失敗不得重新標記成來源不可用；
+- 不完整、有歧義、來源識別不一致、被阻擋或其他未接受來源，不得建立／更新正式 Card；
+- 即時重新驗證受阻時，不得刷新分析、`last_checked_at` 或已接受來源狀態；
+- 工作階段／工具差異不得降低來源完整性、識別、所有權或公開安全關卡。
 
-## 6. Remote Ingest transport
+## 6. Remote Ingest 傳輸
 
-The permanent remote backend is:
+永久遠端後端為：
 
 [`.github/workflows/remote-ingest.yml`](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml)
 
-Ordinary ingestion must not invent ad-hoc workflow files.
+一般收錄不得自行建立臨時 workflow 檔案來替代正式流程。
 
-### Request branch protocol
+### 請求分支規則
 
-1. Re-read the latest `main`.
-2. Create `runtime/ingest/{request_id}` from that exact `main` commit.
-3. Add exactly one request file at `.runtime/requests/{request_id}.json`.
-4. Keep the request branch data-only; it must not modify trusted source code, workflow code, Cards, or machine-owned state.
+1. 重新讀取最新 `main`。
+2. 從該次精確的 `main` commit 建立 `runtime/ingest/{request_id}`。
+3. 只新增一個請求檔 `.runtime/requests/{request_id}.json`。
+4. 請求分支只能包含資料，不得修改受信任原始碼、workflow 程式碼、Cards 或機器擁有狀態。
 
-Base request shape:
+基本請求格式：
 
 ```json
 {
@@ -185,21 +185,21 @@ Base request shape:
 }
 ```
 
-Current base constraints:
+目前基本限制：
 
-- `request_id`: 6–80 lowercase URL-safe characters;
-- `operation`: `resolve`;
-- `url`: absolute HTTP(S).
+- `request_id`：6–80 個小寫且 URL 安全的字元；
+- `operation`：`resolve`；
+- `url`：絕對 HTTP(S) URL。
 
-Provider-specific optional request fields, when supported, remain controlled by trusted validation code and the corresponding provider contract. Request data cannot redefine workflow code, prompts, credentials, model policy, or acceptance gates.
+若來源供應商支援額外的選填請求欄位，仍由受信任驗證程式碼與對應來源契約控制。請求資料不得重新定義 workflow 程式碼、提示詞、憑證、模型規則或接受關卡。
 
-### Trusted execution boundary
+### 受信任執行邊界
 
-Remote Ingest executes trusted harness code from `main`; the request branch is consumed separately as data. Remote execution may install Repository dependencies and provider-required runtime capabilities, but moving execution to GitHub Actions must not lower source completeness or Repository safety rules.
+Remote Ingest 會執行 `main` 上的受信任執行框架；請求分支則另外作為資料讀取。遠端執行可以安裝儲存庫相依套件與來源供應商需要的執行能力，但把工作移到 GitHub Actions 不得降低來源完整性或儲存庫安全規則。
 
-### Request-to-run correlation
+### 請求與執行關聯
 
-The request commit SHA is the stable correlation key. When the Remote Ingest workflow starts, it publishes a GitHub commit status on that request commit with:
+請求 commit SHA 是穩定的關聯鍵。Remote Ingest workflow 啟動時，會在該請求 commit 上發布 GitHub commit status：
 
 ```text
 context    = remote-ingest/run
@@ -207,9 +207,9 @@ target_url = https://github.com/<owner>/<repo>/actions/runs/<run_id>
 state      = pending | success | failure
 ```
 
-The `target_url` is the authoritative pointer to the matching GitHub Actions run. The workflow publishes `pending` before source execution and updates the same status context after the resolve job finishes.
+`target_url` 是對應 GitHub Actions run 的權威指標。workflow 會在來源處理前先發布 `pending`，並在解析工作完成後更新同一個 status context。
 
-Consumer flow:
+結果取得流程：
 
 ```text
 known request commit SHA
@@ -221,22 +221,22 @@ known request commit SHA
 → validate remote-ingest-result.json
 ```
 
-The temporary `runtime/ingest/**` branch may be deleted after execution. That cleanup does not invalidate the request commit SHA correlation key or the status already attached to that commit.
+臨時 `runtime/ingest/**` 分支可以在執行後刪除。這項清理不會使請求 commit SHA 關聯鍵或已附加的 status 失效。
 
-A missing generic API for listing push-triggered runs is **not** by itself a reason to declare Remote Ingest unavailable when request-commit status lookup is available. Conversely, if the workflow cannot publish a valid run pointer and no other repository-approved correlation method exists, the remote result must not be guessed or consumed from an unrelated run.
+只要仍能查詢請求 commit 的 status，缺少通用的 push-triggered workflow run 列表 API，**本身不足以**判定 Remote Ingest 不可用。反之，如果 workflow 無法發布有效的執行指標，且沒有其他儲存庫核准的關聯方法，就不得猜測遠端結果或誤用其他不相關的執行結果。
 
-The run-pointer publisher/finalizer have only `statuses: write`. The source-processing `resolve` job keeps its existing `contents: read` + managed-model permission boundary; publishing the pointer does not grant repository contents-write permission to the model-running job.
+執行指標的發布／收尾工作只有 `statuses: write`。處理來源的 `resolve` 工作仍維持既有的 `contents: read` 加上受管理模型權限邊界；發布指標不會賦予模型執行工作儲存庫內容寫入權限。
 
-### Result artifact
+### 結果產物
 
-A validated request uses the short-lived artifact identity:
+已驗證請求會使用以下短期產物（artifact）識別：
 
 ```text
 remote-ingest-{request_id}
 └── remote-ingest-result.json
 ```
 
-Before consuming a successful result, verify at minimum:
+使用成功結果前，至少驗證：
 
 ```text
 schema_version == 1
@@ -245,92 +245,92 @@ execution.backend == github_actions
 execution.status == success
 ```
 
-Use envelope `result` as the resolver/preflight output only after request/run/result correlation succeeds. Failure envelopes remain fail closed. Temporary request transport must never merge into `main`.
+只有在請求／執行／結果關聯驗證成功後，才能把封裝中的 `result` 當成解析器／前置檢查輸出。失敗封裝維持保守失敗（fail closed）。臨時請求傳輸分支絕對不得合併進 `main`。
 
-Provider-specific managed execution details belong to the relevant provider document. For Threads semantic recovery and handoff, see [`THREADS_INGESTION.md`](./THREADS_INGESTION.md).
+來源供應商專用的受管理執行細節由對應來源文件負責。Threads 的語意復原與轉交規則請見 [`THREADS_INGESTION.md`](./THREADS_INGESTION.md)。
 
-## 7. Primary evidence requirement
+## 7. 主要證據要求
 
-Never write substantive analysis from a URL slug, search snippet, repository name, or model memory alone.
+不得只根據 URL slug、搜尋摘要、儲存庫名稱或模型記憶撰寫實質分析。
 
-Before authoring a Card:
+撰寫 Card 前：
 
-- read the accepted authoritative primary source;
-- for GitHub, inspect repository metadata and README at minimum;
-- for papers, prefer the paper/abstract and official project material;
-- for articles/documentation, read the actual authoritative page;
-- distinguish verified facts from inference;
-- do not invent features, architecture, maturity, license, compatibility, benchmarks, or maintenance state.
+- 讀取已接受的權威主要來源；
+- GitHub 至少查看儲存庫中繼資料與 README；
+- 論文優先使用論文／摘要與官方專案資料；
+- 文章／文件應讀取實際權威頁面；
+- 區分已驗證事實與推論；
+- 不得臆造功能、架構、成熟度、授權、相容性、benchmark 或維護狀態。
 
-Threads formal analysis must use the complete accepted source defined by [`THREADS_INGESTION.md`](./THREADS_INGESTION.md), not merely the originally shared post.
+Threads 正式分析必須使用 [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) 定義的完整已接受來源，而不是只分析原始分享貼文。
 
-If current primary evidence cannot be accepted after allowed execution routing is exhausted, do not fabricate a Card.
+允許的執行路由全部嘗試後，如果目前主要證據仍無法被接受，就不得自行補造 Card。
 
-## 8. Accepted-source handoff to Repository writes
+## 8. 已接受來源交給儲存庫寫入
 
-Once the source pipeline returns an accepted resolver result, Repository authoring rules move to [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md).
+來源流程回傳已接受的解析器結果後，Card 撰寫規則改由 [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) 負責。
 
-In particular:
+其中：
 
-- create vs update comes from accepted resolver identity;
-- stable IDs/paths and user-owned state must be preserved;
-- Card frontmatter must satisfy the Schema and Taxonomy;
-- existing-card updates require ownership validation;
-- provider-owned operational state may advance only after the corresponding Card write validates successfully.
+- 建立或更新由已接受的解析器識別結果決定；
+- 必須保留穩定 ID／路徑與使用者擁有狀態；
+- Card 的 YAML 前置欄位必須符合 Schema 與 Taxonomy；
+- 更新既有 Card 時必須驗證所有權；
+- 來源供應商擁有的運作狀態，只能在對應 Card 寫入通過驗證後推進。
 
-Do not duplicate the full create/update ownership contract here.
+不要在此重複完整的建立／更新與所有權契約。
 
-## 9. Validation and reporting
+## 9. 驗證與回報
 
-Card writes require:
+Card 寫入需要執行：
 
 ```bash
 npm run validate
 ```
 
-Existing Card updates also require:
+更新既有 Card 時另需執行：
 
 ```bash
 npm run validate:ownership -- <existing_path>
 ```
 
-Source/execution implementation changes additionally require:
+若修改來源／執行實作，還需要執行：
 
 ```bash
 npm test
 ```
 
-Documentation-only changes follow the validation/CI requirements in [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md).
+僅修改文件時，依 [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) 的驗證／CI 要求處理。
 
-Do not report completion until the required Repository write, validation, push, CI, and deployment states have actually been verified.
+必要的儲存庫寫入、驗證、Push、CI 與部署狀態尚未實際確認前，不得回報為完成。
 
-## 10. Document boundary
+## 10. 文件責任邊界
 
-This document owns:
+本文件負責：
 
-- provider route selection;
-- dispatcher/resolver relationship;
-- generic/GitHub ingestion;
-- execution backend ordering;
-- cross-provider failure classification;
-- Remote Ingest request/run/result correlation and trust boundary;
-- accepted-source handoff into Repository authoring.
+- 來源路由選擇；
+- 調度器／解析器關係；
+- 一般來源／GitHub 收錄；
+- 執行後端順序；
+- 跨來源供應商的失敗分類；
+- Remote Ingest 的請求／執行／結果關聯與信任邊界；
+- 已接受來源交給儲存庫撰寫流程的銜接。
 
-This document does **not** own:
+本文件**不**負責：
 
-- Threads Phase 1–7 algorithms;
-- Threads continuation/root-only thresholds or judgement semantics;
-- managed Threads classifier prompt semantics;
-- Threads semantic handoff evidence/digest rules;
-- Threads accepted-snapshot/change-detection algorithm;
-- Knowledge Card ownership/write details already defined by `AGENTS.md`.
+- Threads Phase 1–7 演算法；
+- Threads 續篇／僅根貼文判定門檻與判定語意；
+- 受管理 Threads 分類器提示詞語意；
+- Threads 語意轉交的證據／摘要規則；
+- Threads 已接受快照／變更偵測演算法；
+- 已由 `AGENTS.md` 定義的 Knowledge Card 所有權／寫入細節。
 
-## Related documents
+## 相關文件
 
-- [Documentation Router](./DOCUMENTATION.md)
-- [Document Authority Map](./AUTHORITY_MAP.md)
-- [Threads Ingestion](./THREADS_INGESTION.md)
-- [Automation](./AUTOMATION.md)
+- [文件導航](./DOCUMENTATION.md)
+- [文件權威來源索引](./AUTHORITY_MAP.md)
+- [Threads 收錄](./THREADS_INGESTION.md)
+- [自動化](./AUTOMATION.md)
 - [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)
-- [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)
+- [儲存庫規則](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)
 - [Remote Ingest Workflow](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml)
