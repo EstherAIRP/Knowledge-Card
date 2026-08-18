@@ -45,7 +45,7 @@ status:
 
 ## 一句話介紹
 
-這是一張格式範例，用來展示 Knowledge Card 的 frontmatter、分析章節與 AI／User ownership 寫法；真正收錄內容應放在 `content/knowledge/{YYYY}/`。
+這是一張格式範例，用來展示 Knowledge Card 的 YAML 前置欄位（frontmatter）、分析章節與 AI／使用者所有權寫法；真正收錄內容應放在 `content/knowledge/{YYYY}/`。
 
 ## 它解決什麼問題
 
@@ -59,11 +59,11 @@ status:
 
 可依來源實際內容說明：
 
-- 主要語言與 Framework
-- Runtime / Model / Provider
-- Storage / Data flow
-- Agent / Tool architecture
-- Deployment 方式
+- 主要語言與框架
+- 執行環境／模型／供應商
+- 儲存與資料流程
+- Agent／工具架構
+- 部署方式
 - 重要外部依賴
 
 若來源沒有提供某項資訊，不應自行補寫成事實。
@@ -76,33 +76,33 @@ status:
 
 ## 技術亮點
 
-聚焦值得 AI R&D、工程實作或架構設計參考的部分，而非單純列 Feature List。
+聚焦值得 AI R&D、工程實作或架構設計參考的部分，而非單純列功能清單。
 
 ## 限制與風險
 
 至少考慮適用時：
 
 - 技術成熟度與維護狀態
-- Vendor / Model / API dependency
-- Security / privacy
-- Scalability
-- License 或部署限制
+- 供應商／模型／API 依賴
+- 安全與隱私
+- 擴充性
+- 授權或部署限制
 - 文件與測試完整度
 
 ## 與你的相關性
 
 本段只能使用 `profile/public-profile.yaml` 的公開資訊進行個人化分析。
 
-例如可以說明它對 AI R&D、AOI × AI、LLM / Agent、SillyTavern / AI RPG、Image Generation 五個面向的價值與限制，但不得引用私人聊天記憶或其他未公開背景。
+例如可以說明它對 AI R&D、AOI × AI、LLM／Agent、SillyTavern／AI RPG、影像生成五個面向的價值與限制，但不得引用私人聊天記憶或其他未公開背景。
 
 ## 建議怎麼使用
 
-說明為何給予目前的 Action，例如：
+說明為何給予目前的 `Action`，例如：
 
 - `LEARN`：架構值得研究，但沒有立即導入需求。
 - `REFERENCE`：可作為設計比較或未來方案評估基準。
 
-Action 必須來自固定 taxonomy。
+`Action` 必須來自固定受控詞彙表（taxonomy）。
 
 ## 與其他收藏的關聯
 
