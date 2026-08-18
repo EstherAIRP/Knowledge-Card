@@ -1,29 +1,29 @@
-# Relation & Concept Graph — Phase 3
+# 關聯與概念圖譜 — Phase 3
 
-Knowledge-Card 的 relation system 現在分成兩個互補層次：Phase 2 保留 Card↔Card semantic relation；Phase 3 在其上新增 Concept-centric Knowledge Graph。Knowledge Card 仍是具來源、分析與使用者狀態的內容 source of truth；所有 embedding、relation 與 Concept index 都是可重建的 generated data。
+Knowledge Card 的關聯系統分成兩個互補層次：Phase 2 保留 Card↔Card 語意關聯；Phase 3 在其上加入以概念為中心的知識圖譜。Knowledge Card 仍是帶有來源、分析與使用者狀態的主要內容權威來源；所有向量嵌入、關聯與概念索引都屬於可重建的產生資料。
 
-## Architecture
+## 架構
 
 ```text
 content/knowledge/**/*.md
         │
-        ├─ selected public Card content
+        ├─ 選定的公開 Card 內容
         │          ↓
-        │   local multilingual embedding
+        │   本機多語向量嵌入
         │          ↓
-        │   taxonomy + semantic candidates
+        │   taxonomy + 語意候選
         │          ↓
-        │   typed Card ↔ Card relations
+        │   有類型的 Card ↔ Card 關聯
         │
-        └─ effective Categories / Tags
+        └─ 有效 Categories / Tags
                    ↓
-          deterministic Concept extraction
+          確定性 Concept 擷取
                    ↓
-        canonical Concept nodes
+        canonical Concept 節點
                    ↓
-        Card ↔ Concept mappings
+        Card ↔ Concept 對應
                    ↓
-        Concept ↔ Concept co-occurrence
+        Concept ↔ Concept 共現
                    │
                    ▼
         ┌─────────────────────────┐
@@ -32,26 +32,26 @@ content/knowledge/**/*.md
         └─────────────────────────┘
                    │
                    ▼
-       Card pages / Concept pages / /graph
+       Card 頁面 / Concept 頁面 / /graph
 ```
 
-Generated files:
+產生檔案：
 
-- `data/embeddings.json` — cached Card semantic vectors keyed by stable Card ID/content hash.
-- `data/relations.json` — Phase 2 Card↔Card semantic candidates, classification cache and effective typed edges.
-- `data/concepts.json` — Phase 3 canonical Concepts, Card↔Concept mappings with evidence, Concept↔Concept edges and graph statistics.
+- `data/embeddings.json` — 依穩定 Card ID／內容雜湊快取語意向量。
+- `data/relations.json` — Phase 2 Card↔Card 語意候選、分類快取與實際生效的類型化邊。
+- `data/concepts.json` — Phase 3 canonical Concept、Card↔Concept 對應與證據、Concept↔Concept 邊及圖譜統計。
 
-Configuration:
+設定檔：
 
-- `config/relation-config.yaml` — semantic candidate/model/scoring configuration.
-- `config/relation-overrides.yaml` — human-owned Card↔Card pin/block/override decisions.
-- `config/concept-config.yaml` — repository-owned Concept extraction and promoted Concept policy.
+- `config/relation-config.yaml` — 語意候選、模型與評分設定。
+- `config/relation-overrides.yaml` — 使用者擁有的 Card↔Card pin／block／override 決策。
+- `config/concept-config.yaml` — 儲存庫擁有的 Concept 擷取與 promoted Concept 規則。
 
-## Card ↔ Card semantic relations
+## Card ↔ Card 語意關聯
 
-The Phase 2 subsystem remains intact. It embeds selected public Card fields rather than the full Markdown file, using `Xenova/multilingual-e5-small` by default. Phase 1 taxonomy score remains an independent signal and is combined with normalized cosine similarity to form the LLM candidate pool.
+Phase 2 子系統維持不變。它會對選定的公開 Card 欄位建立向量嵌入，而不是直接處理整份 Markdown；預設模型為 `Xenova/multilingual-e5-small`。Phase 1 的 taxonomy 分數仍是獨立訊號，並與正規化 cosine similarity 結合形成 LLM 候選集合。
 
-Default relation types are:
+預設關聯類型：
 
 - `similar_to`
 - `alternative_to`
@@ -61,9 +61,9 @@ Default relation types are:
 - `extends`
 - `contrasts_with`
 
-`depends_on` and `extends` are directional. Canonical Card-ID ordering is used only for stable pair identity; `direction` is stored separately so ordering cannot erase subject/object semantics.
+`depends_on` 與 `extends` 具有方向性。canonical Card ID 排序只用於建立穩定配對識別；方向另外存於 `direction`，因此排序不會抹除主體／客體語意。
 
-A generated relation retains inspectable evidence:
+產生的關聯會保留可檢查證據：
 
 ```json
 {
@@ -79,22 +79,22 @@ A generated relation retains inspectable evidence:
 }
 ```
 
-## LLM classifier and fallback
+## LLM 分類器與備援
 
-When the configured credential exists, high-value Card pairs can be classified through the OpenAI-compatible structured classifier. Accepted and rejected decisions are cached by candidate evidence/config hash.
+設定的憑證存在時，高價值 Card 配對可透過 OpenAI-compatible 結構化分類器判定。接受與拒絕的決策會依候選證據／設定雜湊快取。
 
-External model availability is not a deployment dependency. If the API key is absent or a request fails:
+外部模型可用性不是部署必要條件。若 API key 缺失或請求失敗：
 
-- semantic candidate generation still runs;
-- new candidates use conservative deterministic fallback;
-- fallback publication has an independent score threshold and degree cap;
-- fallback never invents directional `depends_on` / `extends` semantics;
-- valid cached LLM decisions are preserved when their evidence is unchanged;
-- CI, graph generation and Pages deployment continue.
+- 語意候選仍會產生；
+- 新候選使用保守的確定性備援；
+- 備援發布有獨立分數門檻與 degree cap；
+- 備援不會臆造方向性的 `depends_on`／`extends` 語意；
+- 證據未變時，保留有效的 LLM 快取判定；
+- CI、圖譜產生與 Pages 部署可以繼續。
 
-## Human Card-relation overrides
+## 人工 Card 關聯覆寫
 
-`config/relation-overrides.yaml` remains human-owned. Precedence is:
+`config/relation-overrides.yaml` 仍由使用者擁有。優先順序：
 
 ```text
 blocked
@@ -103,27 +103,27 @@ blocked
 > semantic fallback
 ```
 
-Automation may read this file but must never rewrite it. Manual directional relations must state an explicit direction.
+自動化可以讀取此檔案，但不得覆寫。手動建立的方向性關聯必須明確指定方向。
 
-## Concept extraction
+## Concept 擷取
 
-Phase 3 introduces deterministic Concept generation. It does not send ontology creation to an LLM by default.
+Phase 3 新增確定性 Concept 產生，不會預設把 ontology 建立交給 LLM。
 
-Concepts come from three sources:
+Concept 來源有三種：
 
-1. **Controlled Category Concepts** — every effective taxonomy Category becomes a canonical Concept.
-2. **Shared Tag Concepts** — normalized Tags become Concepts only after appearing across the configured minimum number of Cards.
-3. **Promoted Concepts** — curated higher-order abstractions in `config/concept-config.yaml`, matched deterministically against effective Categories/Tags.
+1. **受控 Category Concept** — 每個有效 taxonomy Category 都成為 canonical Concept。
+2. **共用 Tag Concept** — 正規化後的 Tag 只有在跨足設定的最少 Card 數量後才升格為 Concept。
+3. **Promoted Concept** — `config/concept-config.yaml` 中人工整理的高階抽象，使用有效 Categories／Tags 做確定性比對。
 
-Normalization uses Unicode NFKC plus case/punctuation canonicalization so superficial formatting variants do not become duplicate concepts. One-off implementation tags are intentionally pruned from the ontology unless they become shared or are deliberately promoted.
+正規化使用 Unicode NFKC，加上大小寫與標點 canonicalization，避免表面格式差異產生重複 Concept。只出現在單一卡片的一次性實作 Tag 會被排除，除非它之後成為共用概念或被明確 promoted。
 
-Promoted Concepts may express reusable abstractions such as `Agent Memory`, `Character Runtime`, `Coding Agent Tooling`, `Local AI Integration` or `Agent API Bridge`. Their matching rules may use only public repository data; private conversational context is forbidden.
+Promoted Concept 可表達可重用抽象，例如 `Agent Memory`、`Character Runtime`、`Coding Agent Tooling`、`Local AI Integration`、`Agent API Bridge`。比對規則只能使用公開儲存庫資料，不得使用私人對話脈絡。
 
-Full Concept-generation details are documented in `docs/CONCEPTS.md`.
+完整 Concept 產生細節請見 `docs/CONCEPTS.md`。
 
-## Card ↔ Concept mappings
+## Card ↔ Concept 對應
 
-Every mapping retains evidence and a bounded strength:
+每個對應都保留證據與有界強度：
 
 ```json
 {
@@ -138,57 +138,57 @@ Every mapping retains evidence and a bounded strength:
 }
 ```
 
-This is an evidence edge rather than an opaque clustering label. Concept detail pages can therefore explain why each Knowledge Card supports a Concept.
+這是一條有證據的邊，而不是不可解釋的分群標籤，因此 Concept 詳細頁可以說明每張 Knowledge Card 為什麼支援該 Concept。
 
-## Concept ↔ Concept relations
+## Concept ↔ Concept 關聯
 
-Phase 3 currently generates one Concept relation type:
+Phase 3 目前只產生一種 Concept 關聯：
 
 ```text
 co_occurs_with
 ```
 
-Two Concepts are linked only when they co-occur across enough supporting Cards. Each edge records:
+只有兩個 Concept 在足夠多的支援 Card 中共同出現時才建立連結。每條邊記錄：
 
 ```text
-support = number of shared Cards
+support = 共同支援兩個 Concept 的 Card 數
 weight  = support / min(source.card_count, target.card_count)
 ```
 
-A support threshold and Concept degree cap keep the graph sparse. `co_occurs_with` is an association signal only; it must not be interpreted as causation, dependency, taxonomy hierarchy or `is_a` semantics.
+支援門檻與 Concept degree cap 用來維持圖譜稀疏。`co_occurs_with` 只代表關聯訊號，不得解讀為因果、依賴、taxonomy 階層或 `is_a` 語意。
 
-Typed ontology relations such as `is_a`, `part_of` or `enables` require a future explicit contract rather than being inferred from co-occurrence.
+若未來加入 `is_a`、`part_of`、`enables` 等類型化 ontology 關聯，必須建立明確的新契約，不能直接從共現關係推論。
 
-## Website projection
+## 網站投影
 
-Phase 3 exposes the same graph from three perspectives:
+Phase 3 從三個視角呈現同一份圖譜：
 
 ```text
 /knowledge/<card-id>
-    Card content
-    + Card↔Card semantic relations
-    + Concept Neighborhood
+    Card 內容
+    + Card↔Card 語意關聯
+    + Concept 鄰域
 
 /concepts/<concept-id>
-    Concept metadata
-    + supporting Cards/evidence
-    + related Concepts
+    Concept 中繼資料
+    + 支援 Cards / 證據
+    + 相關 Concepts
 
 /graph
-    Concept-centric interactive graph
+    以 Concept 為中心的互動圖譜
 ```
 
-The `/graph` visualization unifies:
+`/graph` 視覺化整合：
 
-- Card↔Concept membership edges;
-- Concept↔Concept co-occurrence edges;
-- optional Phase 2 Card↔Card semantic edges.
+- Card↔Concept 成員邊；
+- Concept↔Concept 共現邊；
+- 可選的 Phase 2 Card↔Card 語意邊。
 
-The current SVG layout is deterministic presentation geometry. Visual distance does not represent embedding distance.
+目前 SVG 版面是確定性的呈現幾何，不代表畫面距離等同向量嵌入距離。
 
-## Generated-data ownership
+## 產生資料所有權
 
-Generated indexes must never become the only source of truth for content or manual intent.
+產生索引不得成為內容或人工意圖的唯一權威來源。
 
 ```text
 Knowledge Cards + repository config + generator code
@@ -196,20 +196,20 @@ Knowledge Cards + repository config + generator code
  embeddings.json / relations.json / concepts.json
 ```
 
-Do not hand-edit generated JSON. Concept policy changes belong in `config/concept-config.yaml`; human Card-relation decisions belong in `config/relation-overrides.yaml`.
+不要手動編輯產生的 JSON。Concept 規則變更應修改 `config/concept-config.yaml`；人工 Card 關聯決策應修改 `config/relation-overrides.yaml`。
 
-Concept IDs are public route identifiers under `/concepts/<id>` and should remain stable unless an intentional migration is performed.
+Concept ID 是 `/concepts/<id>` 下的公開路由識別字，除非進行明確遷移，否則應保持穩定。
 
-## Commands
+## 指令
 
-Incremental embeddings:
+增量向量嵌入：
 
 ```bash
 npm run embeddings:build
 npm run embeddings:validate
 ```
 
-Card↔Card relations:
+Card↔Card 關聯：
 
 ```bash
 npm run relations:build
@@ -218,37 +218,37 @@ npm run relations:validate
 npm run relations:report
 ```
 
-Concept Graph:
+Concept Graph：
 
 ```bash
 npm run concepts:build
 npm run concepts:validate
 ```
 
-Full semantic + Concept rebuild:
+完整語意與 Concept 重建：
 
 ```bash
 npm run relations:rebuild
 ```
 
-## Automation
+## 自動化
 
-Relevant `main` changes run the **Update Knowledge Graph Indexes** workflow:
+相關 `main` 變更會執行 **Update Knowledge Graph Indexes** workflow：
 
 ```text
-incremental embeddings
-→ semantic relations
+增量 embeddings
+→ 語意 relations
 → Concept Graph
-→ validations + tests
-→ commit changed generated indexes
+→ 驗證 + 測試
+→ 有變更時提交產生索引
 ```
 
-The weekly **Full Knowledge Graph Rebuild** regenerates every embedding, relation candidate/classification state and Concept graph to remove stale generated state.
+每週的 **Full Knowledge Graph Rebuild** 會重新產生全部向量嵌入、關聯候選／分類狀態與 Concept graph，清除過期產生狀態。
 
-PR CI and Pages deployment both build/validate Concepts before static-site generation. Concept extraction itself requires no external API key.
+PR CI 與 Pages 部署都會在靜態網站產生前建立並驗證 Concepts。Concept 擷取本身不需要外部 API key。
 
-## Validation boundary
+## 驗證邊界
 
-Phase 3 validates graph integrity rather than merely checking that JSON parses. In addition to the Phase 2 relation invariants, Concept validation checks unique stable IDs, valid Card/Concept references, mapping evidence and strength, supporting-card counts, duplicate/self Concept edges, relation support/weight and promoted-Concept config consistency.
+Phase 3 驗證的是圖譜完整性，而不是只檢查 JSON 能否解析。除了 Phase 2 關聯不變量外，Concept 驗證還會檢查唯一穩定 ID、有效 Card／Concept 參照、對應證據與強度、支援 Card 數量、重複／自指 Concept 邊、relation support／weight 與 promoted Concept 設定一致性。
 
-The current Phase 3 boundary deliberately stops before full ontology reasoning. LLM-assisted Concept proposals, human approval queues, Concept merge/split migrations, semantic graph layout and typed hierarchical Concept relations belong to later graph evolution rather than being silently inferred now.
+目前 Phase 3 刻意停在完整 ontology reasoning 之前。LLM 輔助 Concept 提案、人工審核佇列、Concept merge／split 遷移、語意圖譜版面與有類型的階層 Concept 關聯，都屬於後續圖譜演進，不應在現階段偷偷推論。
