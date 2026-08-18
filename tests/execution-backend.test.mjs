@@ -1,12 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import {
   classifyIngestionFailure,
   createRemoteIngestRequest,
   parseRemoteIngestRequest
 } from '../scripts/lib/execution/backend-contract.mjs';
 import { runLocalIngestion } from '../scripts/lib/execution/local-backend.mjs';
-import { createRemoteIngestPlan, validateRemoteExecutionEnvelope } from '../scripts/lib/execution/remote-backend.mjs';
+import {
+  createRemoteIngestPlan,
+  REMOTE_INGEST_RUN_POINTER,
+  validateRemoteExecutionEnvelope
+} from '../scripts/lib/execution/remote-backend.mjs';
 
 test('remote request contract accepts only resolve over HTTP(S)', () => {
   const request = createRemoteIngestRequest({
@@ -49,13 +54,28 @@ test('remote resolve request may carry a digest-bound agent semantic judgement',
   assert.deepEqual(parseRemoteIngestRequest(JSON.stringify(request)), request);
 });
 
-test('remote plan uses isolated request branch and one-day artifact identity', () => {
+test('remote plan uses isolated request branch, run pointer, and one-day artifact identity', () => {
   const plan = createRemoteIngestPlan('https://example.com/article', { requestId: '20260815-1234abcd' });
   assert.equal(plan.backend, 'github_actions');
   assert.equal(plan.protocol, 'request_branch_v1');
   assert.equal(plan.branch, 'runtime/ingest/20260815-1234abcd');
   assert.equal(plan.request_path, '.runtime/requests/20260815-1234abcd.json');
   assert.equal(plan.artifact_name, 'remote-ingest-20260815-1234abcd');
+  assert.deepEqual(plan.run_pointer, REMOTE_INGEST_RUN_POINTER);
+  assert.equal(plan.run_pointer.mechanism, 'commit_status_v1');
+  assert.equal(plan.run_pointer.context, 'remote-ingest/run');
+  assert.equal(plan.run_pointer.target, 'request_commit');
+  assert.equal(plan.run_pointer.target_url_kind, 'github_actions_run');
+});
+
+test('remote workflow publishes a request-commit status pointing at the Actions run', () => {
+  const workflow = fs.readFileSync(new URL('../.github/workflows/remote-ingest.yml', import.meta.url), 'utf8');
+  assert.match(workflow, /statuses: write/);
+  assert.match(workflow, /context='remote-ingest\/run'/);
+  assert.match(workflow, /github\.run_id/);
+  assert.match(workflow, /statuses\/\$\{REQUEST_SHA\}/);
+  assert.match(workflow, /needs: announce/);
+  assert.match(workflow, /Publish remote ingestion final status/);
 });
 
 test('local backend preserves normal resolver result envelope', async () => {
