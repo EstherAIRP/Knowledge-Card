@@ -178,7 +178,12 @@ Do not maintain a second enum list in this file.
 - controlled categories/actions/status/source types/relevance dimensions come from `config/taxonomy.yaml`;
 - frontmatter shape comes from `schema/knowledge-card.schema.json`;
 - the expected analysis body and section order come from `templates/knowledge-card.example.md` and repository validation;
-- explanatory prose defaults to Traditional Chinese (`zh-TW`) while retaining official project names and technical terms when clearer in English;
+- explanatory prose, completion reports, and user-facing repository summaries default to natural Traditional Chinese (`zh-TW`);
+- use established Chinese translations for general concepts when they are clear and natural; do not preserve English merely because source material uses it;
+- retain English for official project/product names, code, commands, APIs, function/parameter/field names, identifiers, file paths, acronyms, and terms whose Chinese translation would reduce precision;
+- when an important technical term benefits from bilingual disambiguation, use `中文（English）` at first occurrence, then prefer Chinese thereafter;
+- avoid unnecessary Chinese-English code-switching, especially sentence-level English nouns or verbs that have natural Chinese equivalents;
+- quoted source text, schema/config controlled values, executable literals, and required metadata values are exempt and must remain exact;
 - free-form tags may be generated, but should be specific and technically useful;
 - related-card links may reference only Cards that actually exist.
 
