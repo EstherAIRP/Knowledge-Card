@@ -1,28 +1,36 @@
 # Ingestion Pipeline
 
-Knowledge Card separates provider/source semantics from execution location. AI/Codex reads and analyzes primary evidence; repository scripts resolve identities, enforce provider completeness, deduplicate, validate schema/taxonomy, and protect user-owned state.
+> **Role:** Normative cross-provider ingestion and execution contract  
+> **Threads source semantics:** [`THREADS_INGESTION.md`](./THREADS_INGESTION.md)  
+> **Runtime orchestration:** [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)  
+> **Repository write rules:** [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)  
+> **Documentation router:** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
 
-## 1. Route the source first
+This document owns the **cross-provider ingestion boundary**: provider routing, dispatcher/resolver behavior, generic/GitHub ingestion, execution backends, Remote Ingest transport, failure classification, and the handoff from an accepted source into repository authoring.
 
-Every ingestion starts with a mutually exclusive provider route.
+It intentionally does **not** define Threads reconstruction, continuation/root-only judgement, managed Threads ranker semantics, or Threads snapshot algorithms. Those belong to [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) and the trusted implementation.
 
-| URL / resolved primary resource | Route |
+## 1. Provider routing
+
+Every ingestion begins by selecting one mutually exclusive provider route from the input URL or resolved primary resource.
+
+| Primary resource | Route |
 | --- | --- |
-| `threads.com` / `threads.net` including `/share/*`, `/t/*`, `/@user/post/*` | Threads Phase 1–7 in `docs/THREADS_INGESTION.md` |
-| transient/short URL resolving to Threads | switch to Threads route after resolution |
-| GitHub Repository | generic ingestion with GitHub repository identity; read metadata + README at minimum |
-| paper / DOI / article / docs / tool / product / other non-Threads source | generic ingestion |
+| `threads.com` / `threads.net`, including `/share/*`, `/t/*`, `/@user/post/*` | Threads source contract in [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) |
+| transient/short URL that resolves to Threads | switch to the Threads route after resolution |
+| GitHub Repository | generic ingestion with GitHub repository identity |
+| paper / DOI / article / documentation / tool / product / other non-Threads source | generic/provider flow |
 
 Hard boundary:
 
 ```text
-Threads source → Threads Phase 1–7
-Non-Threads source → generic/provider flow
+Threads source     → THREADS_INGESTION.md
+Non-Threads source → generic/provider flow in this document
 ```
 
-Do not invoke Threads browser/reconstruction/ranker/snapshot logic for non-Threads sources. Do not downgrade a Threads source to a generic single article merely because one post is immediately visible.
+Do not invoke Threads-only browser reconstruction, semantic continuation recovery, or Threads snapshots for non-Threads sources. Do not downgrade a Threads source to a generic single article merely because one post is immediately visible.
 
-## 2. Mandatory dispatcher and resolver
+## 2. Dispatcher and resolver
 
 Ordinary ingestion enters through:
 
@@ -30,15 +38,15 @@ Ordinary ingestion enters through:
 npm run ingest:dispatch -- <URL>
 ```
 
-The dispatcher tries LocalBackend first. A successful execution envelope contains the normal resolver contract under `result`.
+The dispatcher selects an approved execution backend. A successful execution envelope exposes the normal resolver result under `result`.
 
-Every approved backend ultimately executes the same low-level mandatory resolver:
+Every approved backend ultimately executes the same low-level resolver contract:
 
 ```bash
 npm run ingest:resolve -- <URL>
 ```
 
-The resolver's fields remain the mechanical create/update contract:
+The resolver remains the mechanical authority for routine create/update identity:
 
 - `canonical_url`
 - `source_identity`
@@ -47,7 +55,7 @@ The resolver's fields remain the mechanical create/update contract:
 - `existing_path`
 - `suggested_path`
 
-Dispatcher outcomes:
+Typical dispatcher outcomes:
 
 ```text
 local success
@@ -55,52 +63,48 @@ local success
 
 local execution capability unavailable
 → REMOTE_EXECUTION_REQUIRED
-→ use Phase 8B/8C Remote Ingest
+→ use Repository-defined Remote Ingest
 
-source/completeness failure
+source extraction/completeness failure
 → fail closed
 ```
 
-The dispatcher uses exit code `75` for `REMOTE_EXECUTION_REQUIRED`; this is a handoff signal, not a source-level failure.
+Exit code `75` with `REMOTE_EXECUTION_REQUIRED` is an execution handoff signal, not a source-level failure.
 
-### Generic and GitHub flow
+## 3. Generic and GitHub ingestion
+
+The generic flow is:
 
 ```text
 input URL
 → execution dispatcher
-→ canonicalize / resolve primary resource
-→ derive source identity
-→ dedup/create-update resolution
+→ resolve/canonicalize primary resource
+→ derive stable source identity
+→ create/update lookup
 → read authoritative primary evidence
 → analyze
-→ validate
+→ repository write protocol
+→ validation
 ```
 
-For GitHub, URL variants resolve to one `github:{owner}/{repo}` identity. Normal web URLs remove fragments and known tracking parameters while preserving meaningful query parameters.
+### GitHub
 
-### Threads flow
-
-Before create/update resolution, Threads must produce a complete accepted source:
+GitHub URL variants must converge to one repository identity:
 
 ```text
-share / arbitrary part
-→ canonical target
-→ exact post extraction
-→ strict conversation graph
-→ root + same-author chain
-→ n/N completeness
-→ browser evidence when needed
-→ Phase 7 semantic continuation/root-only recovery only when eligible
-→ root canonical URL + threads:{root_shortcode}
-→ dedup/create-update
-→ source-change comparison
+source.identity = github:{owner-lowercase}/{repo-lowercase}
+canonical_url   = https://github.com/{owner}/{repo}
 ```
 
-Successful output includes `source_document.parts[]` and `source_document.combined_text`. Formal analysis uses `combined_text`, never just the originally shared part.
+At minimum, read repository metadata and README. Inspect architecture, source, configuration, security, release, or documentation files when needed to support technical claims.
 
-## 3. Execution backend policy
+### Other web sources
 
-Provider routing answers **what pipeline must run**. Execution routing answers **where it runs**.
+For normal non-Threads web URLs, canonicalization removes fragments and known tracking parameters conservatively while preserving meaningful query parameters. The accepted resolver result, not manual guesswork, determines routine identity and create/update mode.
+
+## 4. Execution backend policy
+
+Provider routing answers **what source pipeline must run**. Execution routing answers **where that pipeline can run**.
 
 Core invariant:
 
@@ -108,7 +112,7 @@ Core invariant:
 execution/runtime failure != source unavailable
 ```
 
-Do not classify a public source as unavailable merely because the current session lacks shell, Node/npm, outbound network, Playwright/Chromium, or an LLM endpoint.
+A public source must not be classified as unavailable merely because the current session lacks shell access, Node/npm, outbound network, browser capability, or a required model/provider capability.
 
 Execution order:
 
@@ -117,74 +121,81 @@ LocalBackend
 ↓ if unavailable
 Repository-defined Remote Ingest
 ↓ if unavailable / blocked
-Existing Card / accepted snapshot only for identity/history
+Existing Card / accepted source state only for identity/history
 ↓
 INGESTION_BLOCKED if no approved backend can produce accepted current evidence
 ```
 
-Use these failure classes consistently:
+Existing Cards, aliases, or accepted snapshots may help identify previously accepted state. They never replace current live completeness/freshness validation.
 
-- `LOCAL_EXECUTION_UNAVAILABLE`
-- `REMOTE_EXECUTION_UNAVAILABLE`
-- `SOURCE_EXTRACTION_FAILED`
-- `SOURCE_INCOMPLETE`
-- `INGESTION_BLOCKED`
-- `SOURCE_UNAVAILABLE` only for source-level unavailability established by a viable backend
+## 5. Failure classification
 
-A managed Copilot policy/auth/CLI/timeout/output/invalid-response failure is a remote execution capability failure, even when the Threads orchestrator wraps it inside an incomplete-conversation error. It must be reported as `REMOTE_EXECUTION_UNAVAILABLE`, not as evidence that the public source itself is incomplete. A semantic judgement that actually runs but then fails the deterministic Phase 7 gate may remain `SOURCE_INCOMPLETE`.
+Use these top-level classes consistently:
 
-No backend failure, blocked ingestion, incomplete/ambiguous source, or identity mismatch may create/update a Card or advance accepted source state.
+- `LOCAL_EXECUTION_UNAVAILABLE` — the current runtime cannot execute the required Repository pipeline;
+- `REMOTE_EXECUTION_UNAVAILABLE` — the Repository-defined remote backend or a required managed execution capability is unavailable or blocked;
+- `SOURCE_EXTRACTION_FAILED` — a viable backend reached the source pipeline, but extraction failed for a source/evidence reason;
+- `SOURCE_INCOMPLETE` — evidence exists and required capabilities ran, but provider completeness/ambiguity gates did not pass;
+- `INGESTION_BLOCKED` — no allowed backend can produce an accepted current source;
+- `SOURCE_UNAVAILABLE` — reserve for source-level unavailability established by a viable backend.
 
-## 4. Phase 8B Remote Ingest
+Provider-specific errors may appear as nested causes. The outer classification must still distinguish execution capability failure from actual source incompleteness.
+
+Hard rules:
+
+- an execution failure must not be relabeled as source unavailability;
+- an incomplete, ambiguous, identity-mismatched, blocked, or otherwise unaccepted source must not create/update a formal Card;
+- blocked live revalidation must not refresh analysis, `last_checked_at`, or accepted source state;
+- session/tool differences must not weaken provider completeness, identity, ownership, or public-safety gates.
+
+## 6. Remote Ingest transport
 
 The permanent remote backend is:
 
-```text
-.github/workflows/remote-ingest.yml
-```
+[`.github/workflows/remote-ingest.yml`](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml)
 
-Ordinary ingestion must not invent ad-hoc workflows.
+Ordinary ingestion must not invent ad-hoc workflow files.
 
 ### Request branch protocol
 
-1. Re-read latest `main`.
+1. Re-read the latest `main`.
 2. Create `runtime/ingest/{request_id}` from that exact `main` commit.
-3. Add exactly one request file:
+3. Add exactly one request file at `.runtime/requests/{request_id}.json`.
+4. Keep the request branch data-only; it must not modify trusted source code, workflow code, Cards, or machine-owned state.
 
-```text
-.runtime/requests/{request_id}.json
-```
-
-with:
+Base request shape:
 
 ```json
 {
   "schema_version": 1,
-  "request_id": "20260815-example01",
+  "request_id": "20260818-example01",
   "operation": "resolve",
   "url": "https://example.com/source"
 }
 ```
 
-Contract:
+Current base constraints:
 
 - `request_id`: 6–80 lowercase URL-safe characters;
-- operation: only `resolve`;
-- URL: absolute HTTP(S);
-- request branch must not modify source code, workflow code, Cards, or machine-owned state.
+- `operation`: `resolve`;
+- `url`: absolute HTTP(S).
 
-The workflow executes trusted code from `main` and sparse-checks the request branch separately as data. It installs Node 24, repository dependencies, and Chromium.
+Provider-specific optional request fields, when supported, remain controlled by trusted validation code and the corresponding provider contract. Request data cannot redefine workflow code, prompts, credentials, model policy, or acceptance gates.
+
+### Trusted execution boundary
+
+Remote Ingest executes trusted harness code from `main`; the request branch is consumed separately as data. Remote execution may install Repository dependencies and provider-required runtime capabilities, but moving execution to GitHub Actions must not lower source completeness or Repository safety rules.
 
 ### Result artifact
 
-Each validated request produces:
+A validated request uses the short-lived artifact identity:
 
 ```text
 remote-ingest-{request_id}
 └── remote-ingest-result.json
 ```
 
-with one-day retention. Before consumption require:
+Before consuming a successful result, verify at minimum:
 
 ```text
 schema_version == 1
@@ -193,130 +204,92 @@ execution.backend == github_actions
 execution.status == success
 ```
 
-On success, use envelope `result` as the formal resolver/preflight output. Failure envelopes remain fail closed. The workflow attempts to delete the temporary request branch; request transport must never merge into `main`.
+Use envelope `result` as the resolver/preflight output only after request/result correlation succeeds. Failure envelopes remain fail closed. Temporary request transport must never merge into `main`.
 
-## 5. Phase 8C Managed Threads ranker
+Provider-specific managed execution details belong to the relevant provider document. For Threads semantic recovery and handoff, see [`THREADS_INGESTION.md`](./THREADS_INGESTION.md).
 
-Remote Ingest includes a repository-managed Phase 7 semantic ranker using **GitHub Copilot CLI**. The managed path is intentionally separate from local provider-neutral rankers.
+## 7. Primary evidence requirement
 
-Managed profile:
+Never write substantive analysis from a URL slug, search snippet, repository name, or model memory alone.
 
-```text
-provider: github_copilot
-adapter: copilot_cli
-agent: threads-continuation-ranker
-model_selector: auto
-auth: workflow GITHUB_TOKEN → child COPILOT_GITHUB_TOKEN
-permission: copilot-requests: write
-```
+Before authoring a Card:
 
-`auto` is a trusted repository-controlled Copilot CLI selector. It allows the CLI to choose a model that is currently available and allowed by the organization instead of pinning ingestion to a model that may later be deprecated or disabled. Current provenance records the selector as `auto`; it does not claim knowledge of the underlying model selected internally by Copilot.
+- read the accepted authoritative primary source;
+- for GitHub, inspect repository metadata and README at minimum;
+- for papers, prefer the paper/abstract and official project material;
+- for articles/documentation, read the actual authoritative page;
+- distinguish verified facts from inference;
+- do not invent features, architecture, maturity, license, compatibility, benchmarks, or maintenance state.
 
-The workflow installs `@github/copilot`, then invokes the ranker non-interactively with the trusted selector and custom agent. The request branch cannot choose model selector, agent, prompt, token, executable code, or tool permissions.
+Threads formal analysis must use the complete accepted source defined by [`THREADS_INGESTION.md`](./THREADS_INGESTION.md), not merely the originally shared post.
 
-### Least-privilege execution
+If current primary evidence cannot be accepted after allowed execution routing is exhausted, do not fabricate a Card.
 
-The `resolve` job that performs browser extraction and semantic ranking receives only:
+## 8. Accepted-source handoff to Repository writes
 
-```text
-contents: read
-copilot-requests: write
-```
+Once the source pipeline returns an accepted resolver result, Repository authoring rules move to [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md).
 
-It does **not** receive Repository contents-write permission. Temporary-branch deletion is a separate `cleanup` job with `contents: write` and no model request permission.
+In particular:
 
-`GITHUB_TOKEN` is injected only into the mandatory-preflight step. The ranker child receives it as `COPILOT_GITHUB_TOKEN` through a deliberately whitelisted environment. Arbitrary workflow secrets/environment variables are not forwarded.
+- create vs update comes from accepted resolver identity;
+- stable IDs/paths and user-owned state must be preserved;
+- Card frontmatter must satisfy the Schema and Taxonomy;
+- existing-card updates require ownership validation;
+- provider-owned operational state may advance only after the corresponding Card write validates successfully.
 
-### Ranker isolation
+Do not duplicate the full create/update ownership contract here.
 
-The Copilot child process runs in a newly created temporary directory with:
+## 9. Validation and reporting
 
-- an isolated `HOME` and `COPILOT_HOME`;
-- only the trusted `.github/agents/threads-continuation-ranker.agent.md` profile copied into the temporary workspace;
-- custom-agent `tools: []`, so shell, file, URL, MCP, memory, GitHub and other tools are unavailable to the semantic classifier;
-- source evidence passed through stdin, not interpolated into a shell command;
-- bounded stdout, timeout, and temporary-directory cleanup.
-
-Threads source text remains untrusted quoted data. The custom agent may classify only the supplied root/candidates and must return one JSON judgement object.
-
-### Acceptance authority and provenance
-
-Copilot supplies only semantic judgement. Existing Phase 7 deterministic candidate filtering and acceptance gates remain authoritative. `n/N` conflicts, known missing parts, structural ambiguity, low confidence, weak metadata evidence, invalid chronology, incomplete root-only labels, invalid JSON, timeout, CLI failure, policy/auth failure, or model failure all remain fail closed.
-
-Accepted inferred sources preserve:
-
-```text
-thread.verification = llm_assisted
-thread.recovery.ranker.method = github_copilot_cli
-thread.recovery.ranker.provider = github_copilot
-thread.recovery.ranker.model = auto
-thread.recovery.ranker.agent = threads-continuation-ranker
-```
-
-Remote execution metadata reports:
-
-```text
-runner = remote-ingest-v4
-managed_ranker = github_copilot_cli
-managed_ranker_model = auto
-```
-
-If organization policy blocks Copilot CLI, the safe nested cause is `THREADS_CONTINUATION_COPILOT_POLICY_DENIED` and the remote result is `REMOTE_EXECUTION_UNAVAILABLE`. This is an execution activation problem, not source incompleteness.
-
-No credential is stored in the result artifact. Failure envelopes may expose safe nested `cause_code` / redacted bounded `cause_message` diagnostics without exposing tokens or raw provider payloads.
-
-Local execution remains provider-neutral. It may inject `continuationRanker` or use the existing OpenAI-compatible environment contract; Phase 8C does not force local callers onto Copilot CLI.
-
-## 6. Phase 8D Agent semantic handoff
-
-If Phase 8C cannot execute semantic judgement because the managed model backend is blocked by policy/auth/provider capability, Remote Ingest attempts a capture-only Phase 7 pass. When eligible candidate evidence exists, the failure artifact includes `failure.semantic_handoff` with public root/candidates and a SHA-256 evidence digest.
-
-The current Knowledge Card Agent may classify that evidence and submit a second ordinary schema-v1 `operation=resolve` request with optional `semantic_handoff` containing `producer=knowledge_card_agent`, the exact digest, and the normal Phase 7 judgement. The request never carries source evidence.
-
-Trusted `main` then re-extracts the current source, rebuilds the deterministic candidate set and requires an exact digest match before the judgement is injected. `THREADS_CONTINUATION_HANDOFF_EVIDENCE_MISMATCH` means the evidence changed or does not correspond to the judgement; restart from a fresh first-stage artifact.
-
-The handoff path does not weaken source semantics. The existing Phase 7 validation remains authoritative, and accepted provenance is `agent_semantic_handoff / knowledge_card_agent` with the digest and `thread.verification = llm_assisted`.
-
-## 7. Read primary evidence
-
-Never write substantive analysis from a slug, search snippet, or model memory. Read authoritative source material.
-
-For Threads, use the complete accepted `source_document`. When recovery is LLM-assisted, preserve the exact inferred status and `thread.verification = llm_assisted`; do not describe it as a native Threads graph verification.
-
-If current primary evidence cannot be read after execution routing is exhausted, do not fabricate a Card.
-
-## 8. Create/update, ownership, snapshot
-
-Create mode uses the resolver `suggested_path` and the canonical template. Update mode preserves stable `id`, `created_at`, path, all user overrides, `## 使用者備註`, and prior changelog history.
-
-For existing Cards run:
-
-```bash
-npm run validate:ownership -- <existing_path>
-```
-
-All writes require:
+Card writes require:
 
 ```bash
 npm run validate
 ```
 
-Source/execution tooling changes additionally require:
+Existing Card updates also require:
+
+```bash
+npm run validate:ownership -- <existing_path>
+```
+
+Source/execution implementation changes additionally require:
 
 ```bash
 npm test
 ```
 
-For Threads only, after Card create/update and validation succeed, advance accepted state when appropriate:
+Documentation-only changes follow the validation/CI requirements in [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md).
 
-```bash
-npm run ingest:snapshot -- <Threads URL>
-```
+Do not report completion until the required Repository write, validation, push, CI, and deployment states have actually been verified.
 
-Preflight itself remains read-only. Failed/incomplete/ambiguous ingestion never advances the snapshot.
+## 10. Document boundary
 
-## 9. Commit and report
+This document owns:
 
-Knowledge commits use `knowledge: add ...` / `knowledge: update ...`; infrastructure uses conventional `feat:`, `fix:`, `test:`, `docs:`, or `chore:` prefixes.
+- provider route selection;
+- dispatcher/resolver relationship;
+- generic/GitHub ingestion;
+- execution backend ordering;
+- cross-provider failure classification;
+- Remote Ingest transport and trust boundary;
+- accepted-source handoff into Repository authoring.
 
-Do not report completion until required repository writes, tests/validation, push, and production workflow checks have actually succeeded.
+This document does **not** own:
+
+- Threads Phase 1–7 algorithms;
+- Threads continuation/root-only thresholds or judgement semantics;
+- managed Threads classifier prompt semantics;
+- Threads semantic handoff evidence/digest rules;
+- Threads accepted-snapshot/change-detection algorithm;
+- Knowledge Card ownership/write details already defined by `AGENTS.md`.
+
+## Related documents
+
+- [Documentation Router](./DOCUMENTATION.md)
+- [Document Authority Map](./AUTHORITY_MAP.md)
+- [Threads Ingestion](./THREADS_INGESTION.md)
+- [Automation](./AUTOMATION.md)
+- [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)
+- [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)
+- [Remote Ingest Workflow](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml)
