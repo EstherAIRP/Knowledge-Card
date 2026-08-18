@@ -16,10 +16,12 @@ This page is the entry point for repository documentation. It answers **where to
 | I want to... | Read first | Then follow |
 | --- | --- | --- |
 | Understand what Knowledge Card is | [Repository README](https://github.com/EstherAIRP/Knowledge-Card/blob/main/README.md) | [`WEBSITE.md`](./WEBSITE.md), [`CONCEPTS.md`](./CONCEPTS.md) |
-| Execute a Knowledge Card task | [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md) | [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md), source-specific ingestion docs |
+| Execute a Knowledge Card task | [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md) | [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md), applicable source contract |
 | Modify repository content safely | [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) | Scoped `AGENTS.md` files for `config/`, `data/`, or `state/` |
 | Process a normal URL or GitHub repository | [`INGESTION.md`](./INGESTION.md) | [Repository scripts](https://github.com/EstherAIRP/Knowledge-Card/tree/main/scripts) |
-| Process a Threads URL | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | [`INGESTION.md`](./INGESTION.md), [Threads source code](https://github.com/EstherAIRP/Knowledge-Card/tree/main/scripts/lib/sources/threads) |
+| Process a Threads URL | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | [`INGESTION.md`](./INGESTION.md) for execution transport, [Threads source code](https://github.com/EstherAIRP/Knowledge-Card/tree/main/scripts/lib/sources/threads) for implementation |
+| Understand Local vs Remote ingestion execution | [`INGESTION.md`](./INGESTION.md) | [Remote Ingest workflow](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml) |
+| Understand Threads Phase 7 / root-only recovery | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md#8-phase-7--semantic-continuation--root-only-recovery) | [Continuation validation code](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs), [managed prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) |
 | Change Knowledge Card frontmatter | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml), [Card example](https://github.com/EstherAIRP/Knowledge-Card/blob/main/templates/knowledge-card.example.md) |
 | Change categories, actions, statuses, source types, or relevance dimensions | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) |
 | Change public personalization | [Public Profile](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) | [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) public-safety rules |
@@ -28,7 +30,7 @@ This page is the entry point for repository documentation. It answers **where to
 | Understand the Concept Graph | [`CONCEPTS.md`](./CONCEPTS.md) | [Config ownership](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/AGENTS.md), [Generated-data ownership](https://github.com/EstherAIRP/Knowledge-Card/blob/main/data/AGENTS.md) |
 | Understand website architecture | [`WEBSITE.md`](./WEBSITE.md) | [VitePress implementation](https://github.com/EstherAIRP/Knowledge-Card/tree/main/docs/.vitepress) |
 | Understand generated indexes | [Generated-data ownership](https://github.com/EstherAIRP/Knowledge-Card/blob/main/data/AGENTS.md) | [`RELATIONS.md`](./RELATIONS.md), [`CONCEPTS.md`](./CONCEPTS.md) |
-| Understand accepted source snapshots | [Source-state ownership](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md) | Threads ingestion / snapshot tooling |
+| Understand accepted source snapshots | [Source-state ownership](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md) | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md#7-phase-6--accepted-source-snapshots-and-change-detection) |
 | Review Runtime behavior history | [Runtime Changelog](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/CHANGELOG.md) | Current behavior remains [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md) |
 | Determine which document owns a rule | [`AUTHORITY_MAP.md`](./AUTHORITY_MAP.md) | Follow the primary-authority link listed there |
 
@@ -59,8 +61,8 @@ Code / workflows / generated data
 
 ### 2. Agent contracts
 
-- [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md) — current Knowledge Card task/runtime behavior.
-- [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) — repository-wide agent modification contract.
+- [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md) — current Knowledge Card task/runtime orchestration.
+- [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) — repository-wide modification, ownership, validation, and commit contract.
 - [Config ownership](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/AGENTS.md) — configuration ownership rules.
 - [Generated-data ownership](https://github.com/EstherAIRP/Knowledge-Card/blob/main/data/AGENTS.md) — generated-index ownership rules.
 - [Source-state ownership](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md) — operational source-snapshot ownership rules.
@@ -69,8 +71,8 @@ A deeper `AGENTS.md` applies within its directory in addition to the repository-
 
 ### 3. Source and system documentation
 
-- [`INGESTION.md`](./INGESTION.md) — generic ingestion and execution-backend flow.
-- [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) — Threads-only source-adapter contract.
+- [`INGESTION.md`](./INGESTION.md) — cross-provider routing, generic/GitHub ingestion, execution backends, Remote Ingest transport, and top-level failure classification.
+- [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) — **sole detailed Threads source/completeness specification**, including Phase 1–7, Phase 7 continuation/root-only recovery, snapshots, managed ranker, and semantic handoff.
 - [`AUTOMATION.md`](./AUTOMATION.md) — CI/CD, generated-index maintenance, and Pages workflow documentation.
 - [`RELATIONS.md`](./RELATIONS.md) — Card-to-Card semantic relation architecture.
 - [`CONCEPTS.md`](./CONCEPTS.md) — Concept Graph architecture.
@@ -89,13 +91,15 @@ Relation and Concept behavior also use repository configuration under [config/](
 
 - [GitHub Actions workflows](https://github.com/EstherAIRP/Knowledge-Card/tree/main/.github/workflows) — actual execution definitions.
 - [Threads continuation ranker prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) — managed Threads semantic-classifier prompt.
+- [Threads continuation validation code](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs) — deterministic Phase 7 candidate/judgement acceptance implementation.
 - [Repository scripts](https://github.com/EstherAIRP/Knowledge-Card/tree/main/scripts) — executable ingestion, validation, relation, Concept, and website-support logic.
-- [Runtime Changelog](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/CHANGELOG.md) — Runtime history; historical entries must not override the current Runtime.
-- [`THREADS_PHASE7_RECOVERY.md`](./THREADS_PHASE7_RECOVERY.md) — legacy Phase 7 explanatory/specification document scheduled for consolidation; do not treat it as a stronger authority than `THREADS_INGESTION.md`.
+- [Runtime Changelog](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/CHANGELOG.md) — Runtime history; historical entries must not override current contracts.
+
+The former `THREADS_PHASE7_RECOVERY.md` was consolidated into `THREADS_INGESTION.md` during Phase 3 and is no longer a competing specification.
 
 ## Current authority chain
 
-For the current repository, follow the precedence declared by `AGENTS.md` rather than inventing a new one here:
+Follow the precedence declared by `AGENTS.md` rather than inventing a new one here:
 
 ```text
 JSON Schema
@@ -106,7 +110,7 @@ JSON Schema
 > existing AI-generated content
 ```
 
-Within the runtime/repository/domain layer, responsibilities are now separated by Phase 2. [`AUTHORITY_MAP.md`](./AUTHORITY_MAP.md) records the owner for each topic and the remaining Phase 3/4 drift risks.
+Within the runtime/repository/domain layer, responsibility is split by scope rather than duplicated. [`AUTHORITY_MAP.md`](./AUTHORITY_MAP.md) records the current owner for each topic and remaining Phase 4/5 work.
 
 ## Cross-reference rule
 
