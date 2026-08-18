@@ -6,7 +6,10 @@ import {
   THREADS_CONTINUATION_JUDGEMENT_SCHEMA_PATH,
   validateThreadsContinuationJudgementShape
 } from '../scripts/lib/contracts/threads-continuation-judgement.mjs';
-import { buildThreadsContinuationPrompt } from '../scripts/lib/sources/threads/continuation-recovery.mjs';
+import {
+  buildThreadsContinuationPrompt,
+  validateThreadsContinuationJudgement
+} from '../scripts/lib/sources/threads/continuation-recovery.mjs';
 
 const validJudgement = {
   selected_shortcodes: ['PART2'],
@@ -17,6 +20,34 @@ const validJudgement = {
   candidate_labels: [
     { shortcode: 'PART2', label: 'continuation', confidence: 0.99 }
   ]
+};
+
+const rootPost = {
+  id: 'root',
+  shortcode: 'ROOT',
+  username: 'example',
+  timestamp: '2026-08-18T00:00:00.000Z',
+  is_reply: false,
+  has_replies: true,
+  text: 'Root text.'
+};
+
+const candidate = {
+  post: {
+    id: 'part2',
+    shortcode: 'PART2',
+    username: 'example',
+    timestamp: '2026-08-18T00:01:00.000Z',
+    is_reply: true,
+    has_replies: false,
+    text: 'Continuation.'
+  },
+  shortcode: 'PART2',
+  username: 'example',
+  timestamp: '2026-08-18T00:01:00.000Z',
+  is_reply: true,
+  delta_seconds: 60,
+  metadata_score: 0.9
 };
 
 test('shared Threads judgement schema accepts the canonical shape', () => {
@@ -68,19 +99,26 @@ test('ranker provenance may be attached outside the canonical model-output contr
   assert.equal(result.valid, true);
 });
 
-test('local continuation prompt derives its structural contract from the shared schema', () => {
-  const prompt = buildThreadsContinuationPrompt(
+test('Phase 7 acceptance rejects high-confidence judgement with an invalid schema shape before evidence gates', () => {
+  const result = validateThreadsContinuationJudgement(
+    rootPost,
+    [candidate],
     {
-      id: 'root',
-      shortcode: 'ROOT',
-      username: 'example',
-      timestamp: '2026-08-18T00:00:00.000Z',
-      is_reply: false,
-      has_replies: true,
-      text: 'Root text.'
-    },
-    []
+      selected_shortcodes: ['PART2'],
+      root_only: false,
+      confidence: 0.98,
+      complete: true,
+      rationale: 'Missing candidate_labels.'
+    }
   );
+
+  assert.equal(result.accepted, false);
+  assert.equal(result.reason, 'judgement_schema_invalid');
+  assert.ok(result.schema_errors.length > 0);
+});
+
+test('local continuation prompt derives its structural contract from the shared schema', () => {
+  const prompt = buildThreadsContinuationPrompt(rootPost, []);
 
   assert.match(prompt.system, new RegExp(THREADS_CONTINUATION_JUDGEMENT_SCHEMA_PATH.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   for (const field of THREADS_CONTINUATION_JUDGEMENT_REQUIRED_FIELDS) {
