@@ -1,160 +1,160 @@
-# Knowledge Card Document Authority Map
+# Knowledge Card 文件權威來源索引
 
-> **Role:** Documentation governance inventory / authority map  
-> **Authority:** Descriptive map of repository ownership; it does not override linked normative contracts.  
-> **Last audited:** 2026-08-18  
-> **Documentation router:** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
+> **角色：** 文件治理盤點／權威來源索引  
+> **權威性：** 描述儲存庫中的責任歸屬；不會覆蓋連結指向的規範契約。  
+> **最近盤點：** 2026-08-18  
+> **文件導航：** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
 
-This document answers one question: **which file owns each rule?**
+本文件回答一個問題：**每一條規則由哪個檔案負責？**
 
-The governance goal is simple: keep each detailed rule in one primary authority and let other documents provide only the summary needed for their own scope plus a direct link.
+治理目標很單純：每一項詳細規則只放在一個主要權威來源，其他文件只保留自身範圍需要的摘要，並直接連回主要來源。
 
-> Because this file is rendered by VitePress from `docs/`, links to repository files outside `docs/` use absolute GitHub URLs.
+> 本文件由 VitePress 從 `docs/` 建置，因此連到 `docs/` 外部儲存庫檔案時使用 GitHub 絕對 URL。
 
-## Refactor status
+## 重構狀態
 
 ```text
-Phase 1 — inventory + documentation router       COMPLETE
-Phase 2 — global RUNTIME / AGENTS slimming       COMPLETE
-Phase 3 — ingestion documentation consolidation COMPLETE
-Phase 4 — shared Threads judgement schema        COMPLETE
-Phase 5 — documentation guardrails / README      COMPLETE
+Phase 1 — 文件盤點與導航                         COMPLETE
+Phase 2 — 全域 RUNTIME / AGENTS 精簡             COMPLETE
+Phase 3 — 收錄文件整併                            COMPLETE
+Phase 4 — 共用 Threads 判定 Schema                COMPLETE
+Phase 5 — 文件治理防護與 README                   COMPLETE
 ```
 
-The five-phase documentation refactor is complete. Phase 5 refreshes the repository entry point and adds executable governance checks; it does not change ingestion algorithms, source-completeness thresholds, Knowledge Card content, taxonomy, public profile, generated indexes, source snapshots, or user-owned state.
+五階段文件重構已完成。Phase 5 更新儲存庫入口並加入可執行的治理檢查；不改變收錄演算法、來源完整性門檻、Knowledge Card 內容、taxonomy、public profile、產生索引、來源快照或使用者擁有狀態。
 
-## Authority classes
+## 權威來源類型
 
-| Class | Meaning |
+| 類型 | 意義 |
 | --- | --- |
-| **Normative contract** | Defines repository behavior or data rules that agents/automation must follow. |
-| **Scoped contract** | Adds rules inside one directory while root rules still apply. |
-| **Executable authority** | Code/workflow that actually performs behavior. |
-| **Operational documentation** | Explains how an executable subsystem is operated. |
-| **Explanatory documentation** | Explains architecture/design without creating a competing normative rule. |
-| **Historical record** | Records prior behavior/changes and never overrides current contracts. |
-| **Generated state** | Rebuildable output, never the sole source of truth for user intent or repository policy. |
-| **Presentation entry** | Website presentation/runtime file, not repository governance documentation. |
+| **規範契約** | 定義 Agent／自動化必須遵守的儲存庫行為或資料規則。 |
+| **範圍契約** | 在特定目錄中增加規則，同時仍遵守根目錄規則。 |
+| **可執行權威來源** | 實際執行行為的程式碼／workflow。 |
+| **操作文件** | 說明如何操作某個可執行子系統。 |
+| **說明文件** | 說明架構／設計，但不建立競爭的規範規則。 |
+| **歷史紀錄** | 記錄過去行為／變更，永遠不覆蓋目前契約。 |
+| **產生狀態** | 可重建輸出，不得成為使用者意圖或儲存庫規則的唯一權威來源。 |
+| **呈現入口** | 網站呈現／執行檔案，不屬於儲存庫治理文件。 |
 
-## Current authority map
+## 目前權威來源對照
 
-| Concern | Primary authority | Supporting / executable sources |
+| 關注事項 | 主要權威來源 | 輔助／可執行來源 |
 | --- | --- | --- |
-| Knowledge Card task trigger and runtime orchestration | [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md) | `AGENTS.md`, applicable domain contract |
-| Repository-wide writes, ownership, validation, commit/push | [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) | scoped `AGENTS.md` files |
-| Documentation navigation | [`DOCUMENTATION.md`](./DOCUMENTATION.md) | README, this Authority Map |
-| Documentation governance invariants | [check-documentation.mjs](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/check-documentation.mjs) | `npm run docs:check`, validation/Pages workflows |
-| Provider routing, generic/GitHub ingestion, execution backend, Remote Ingest transport, top-level failure classification | [`INGESTION.md`](./INGESTION.md) | dispatcher/resolver, [remote-ingest.yml](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml) |
-| Threads URL/extraction/reconstruction/completeness | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | Threads source implementation |
-| Threads Phase 7 continuation/root-only semantics and evidence-dependent gates | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | [continuation-recovery.mjs](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs) |
-| Threads semantic judgement output shape / label vocabulary | [Threads Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) | [shared validator](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs), local/managed rankers |
-| Threads managed classifier prompt | [threads-continuation-ranker.agent.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) | shared schema + Copilot adapter |
-| Knowledge Card frontmatter structure | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) | validation code, template |
-| Controlled categories/actions/status/source types/relevance dimensions | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | Knowledge Card Schema drift validation |
-| Public personalization boundary | [Public Profile](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) | Runtime/AGENTS public-safety invariant |
-| Knowledge Card body example | [Knowledge Card example](https://github.com/EstherAIRP/Knowledge-Card/blob/main/templates/knowledge-card.example.md) | Runtime analysis standard |
-| Configuration ownership | [config/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/AGENTS.md) | `config/*.yaml` |
-| Generated index ownership | [data/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/data/AGENTS.md) | generated `data/*.json` |
-| Operational source snapshots | [state/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md) | source-state tooling |
-| CI/CD and generated-index automation | [Workflow YAML](https://github.com/EstherAIRP/Knowledge-Card/tree/main/.github/workflows) | [`AUTOMATION.md`](./AUTOMATION.md) |
-| Card-to-Card semantic relations | relation config + generator/validator code | [`RELATIONS.md`](./RELATIONS.md), config/data scoped rules |
-| Concept Graph | concept config + generator/validator code | [`CONCEPTS.md`](./CONCEPTS.md), config/data scoped rules |
-| Website architecture/rendering | VitePress/site projection implementation | [`WEBSITE.md`](./WEBSITE.md) |
-| Public VitePress homepage | [`index.md`](./index.md) | VitePress theme/components |
-| Runtime history | [Runtime Changelog](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/CHANGELOG.md) | Git history; historical only |
+| Knowledge Card 任務觸發與執行流程 | [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md) | `AGENTS.md`、適用的領域契約 |
+| 全儲存庫寫入、所有權、驗證、commit／push | [儲存庫規則](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) | 各範圍 `AGENTS.md` |
+| 文件導航 | [`DOCUMENTATION.md`](./DOCUMENTATION.md) | README、本權威來源索引 |
+| 文件治理不變量 | [check-documentation.mjs](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/check-documentation.mjs) | `npm run docs:check`、驗證／Pages workflows |
+| 來源路由、一般來源／GitHub 收錄、執行後端、Remote Ingest 傳輸、頂層失敗分類 | [`INGESTION.md`](./INGESTION.md) | 調度器／解析器、[remote-ingest.yml](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml) |
+| Threads URL／擷取／重建／完整性 | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | Threads 來源實作 |
+| Threads Phase 7 續篇／僅根貼文語意與依證據決定的關卡 | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | [continuation-recovery.mjs](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs) |
+| Threads 語意判定輸出格式／標籤詞彙 | [Threads 判定 Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) | [共用驗證器](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs)、本機／受管理排序器 |
+| Threads 受管理分類器提示詞 | [threads-continuation-ranker.agent.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) | 共用 Schema + Copilot adapter |
+| Knowledge Card YAML 前置欄位結構 | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) | 驗證程式碼、範本 |
+| 受控分類／Action／Status／Source Type／Relevance 維度 | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | Knowledge Card Schema 漂移驗證 |
+| 公開個人化邊界 | [Public Profile](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) | Runtime／AGENTS 公開安全不變量 |
+| Knowledge Card 正文範例 | [Knowledge Card 範例](https://github.com/EstherAIRP/Knowledge-Card/blob/main/templates/knowledge-card.example.md) | Runtime 分析標準 |
+| 設定所有權 | [config/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/AGENTS.md) | `config/*.yaml` |
+| 產生索引所有權 | [data/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/data/AGENTS.md) | 產生的 `data/*.json` |
+| 運作來源快照 | [state/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md) | 來源狀態工具 |
+| CI/CD 與產生索引自動化 | [Workflow YAML](https://github.com/EstherAIRP/Knowledge-Card/tree/main/.github/workflows) | [`AUTOMATION.md`](./AUTOMATION.md) |
+| Card-to-Card 語意關聯 | 關聯設定 + 產生器／驗證器程式碼 | [`RELATIONS.md`](./RELATIONS.md)、config/data 範圍規則 |
+| Concept Graph | Concept 設定 + 產生器／驗證器程式碼 | [`CONCEPTS.md`](./CONCEPTS.md)、config/data 範圍規則 |
+| 網站架構／渲染 | VitePress／網站投影實作 | [`WEBSITE.md`](./WEBSITE.md) |
+| 公開 VitePress 首頁 | [`index.md`](./index.md) | VitePress theme／components |
+| Runtime 歷史 | [Runtime Changelog](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/CHANGELOG.md) | Git 歷史；僅供歷史查閱 |
 
-## Stable responsibility boundaries
+## 穩定責任邊界
 
 ### `prompts/RUNTIME.md`
 
-Owns **what the task/runtime must do**: task triggering, mandatory preflight, provider-route hard gate, accepted-source requirement, high-level execution fallback invariant, analysis/update/public-safety orchestration, validation/push/report expectations, and links to detailed authorities.
+負責「**任務／執行流程要做什麼**」：任務觸發、必要前置檢查、來源路由硬性關卡、已接受來源要求、高階執行備援不變量、分析／更新／公開安全流程、驗證／Push／回報要求，以及詳細權威來源連結。
 
-It does not own source-specific algorithms, provider credentials/settings, Remote Ingest internals, or Threads acceptance thresholds.
+它不負責來源專用演算法、來源供應商憑證／設定、Remote Ingest 內部細節或 Threads 接受門檻。
 
 ### `AGENTS.md`
 
-Owns **how repository modifications are performed safely**: repository write rules, source evidence, stable identity/path handling, create/update protocol, user-owned state preservation, scoped ownership discovery, validation, history, and completion reporting.
+負責「**如何安全修改儲存庫**」：儲存庫寫入規則、來源證據、穩定識別／路徑處理、建立／更新規則、使用者擁有狀態保留、範圍所有權探索、驗證、歷史與完成回報。
 
 ### `docs/INGESTION.md`
 
-Owns **cross-provider ingestion/execution**: provider routing, dispatcher/resolver relationship, generic/GitHub ingestion, LocalBackend/RemoteBackend ordering, top-level failure classification, Remote Ingest base transport, and accepted-source handoff.
+負責「**跨來源收錄／執行**」：來源路由、調度器／解析器關係、一般來源／GitHub 收錄、LocalBackend／RemoteBackend 順序、頂層失敗分類、Remote Ingest 基本傳輸，以及已接受來源的後續銜接。
 
 ### `docs/THREADS_INGESTION.md`
 
-Owns **detailed Threads source semantics**: URL resolution, exact-post extraction, self-thread reconstruction, browser evidence, accepted snapshots, Phase 7 recovery semantics, deterministic evidence-dependent gates, provenance, managed ranker behavior, and semantic handoff semantics.
+負責「**詳細 Threads 來源語意**」：URL 解析、精確貼文擷取、自串文重建、瀏覽器證據、已接受快照、Phase 7 復原語意、依證據決定的確定性關卡、來源紀錄、受管理排序器行為與語意轉交語意。
 
 ### `schema/threads-continuation-judgement.schema.json`
 
-Owns **Threads Phase 7 model-output structure only**: required fields, data types/bounds, candidate-label object shape, and allowed labels. Confidence acceptance thresholds, metadata evidence, exact candidate coverage, chronology, same-author checks, `n/N`, and structural ambiguity remain in trusted Phase 7/source code.
+只負責「**Threads Phase 7 模型輸出結構**」：必要欄位、資料型別／範圍、候選標籤物件格式與允許標籤。信心接受門檻、中繼資料證據、精確候選涵蓋、時間順序、同作者檢查、`n/N` 與結構歧義，仍由受信任 Phase 7／來源程式碼負責。
 
 ### `scripts/check-documentation.mjs`
 
-Owns **stable documentation-governance checks**, not domain semantics. It verifies required files, deprecated/conflicting paths, lowercase `docs/index.md`, critical README/router/authority references, selected local Markdown links, VitePress relative-link boundaries, and CI integration.
+負責「**穩定的文件治理檢查**」，不負責領域語意。它檢查必要檔案、已淘汰／衝突路徑、小寫 `docs/index.md`、重要 README／導航／權威來源引用、指定的本機 Markdown 連結、VitePress 相對連結邊界，以及 CI 整合。
 
-VitePress remains responsible for rendered-site compilation and its own dead-link checks.
+VitePress 仍負責渲染網站的編譯與自身死連結檢查。
 
-## Resolved drift hotspots
+## 已解決的規則漂移熱點
 
-### Phase 2 — global triple-definition
+### Phase 2 — 全域規則三重定義
 
-Provider implementation details, Remote Ingest internals, managed-ranker details, and Threads gates were removed from the two global contracts and delegated to domain authorities.
+來源供應商實作細節、Remote Ingest 內部規則、受管理排序器細節與 Threads 關卡，已從兩份全域契約移除並交由領域權威來源負責。
 
-### Phase 3 — competing Threads documentation
+### Phase 3 — 互相競爭的 Threads 文件
 
-The obsolete `docs/THREADS_PHASE7_RECOVERY.md` was merged into [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) and removed. `INGESTION.md` now owns cross-provider execution while `THREADS_INGESTION.md` owns Threads-specific source semantics.
+舊的 `docs/THREADS_PHASE7_RECOVERY.md` 已合併進 [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) 並移除。`INGESTION.md` 現在負責跨來源執行，而 `THREADS_INGESTION.md` 負責 Threads 專用來源語意。
 
-### Phase 4 — judgement shape duplication
+### Phase 4 — 判定格式重複定義
 
-The shared [Threads Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) now feeds the common validator used by local ranker, Copilot ranker, semantic handoff, and Phase 7 validation.
+共用 [Threads 判定 Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) 現在提供本機排序器、Copilot 排序器、語意轉交與 Phase 7 驗證共同使用的驗證契約。
 
-### Phase 5 — README and governance drift
+### Phase 5 — README 與治理漂移
 
-README now reflects the current `ingest:dispatch`-first architecture, Remote Ingest, Knowledge Graph workflows, shared Threads schema, and current repository layout. `npm run docs:check` is enforced in both branch validation and the `main` Pages build gate.
+README 已反映目前以 `ingest:dispatch` 為優先的架構、Remote Ingest、Knowledge Graph workflows、共用 Threads Schema 與目前儲存庫配置。`npm run docs:check` 同時在分支驗證與 `main` Pages 建置關卡中強制執行。
 
-## Ongoing maintenance risks
+## 持續維護風險
 
-The refactor program is complete, but normal maintenance can still introduce drift. The principal ongoing checks are:
+重構計畫已完成，但日常維護仍可能重新產生漂移。主要持續檢查為：
 
-- `npm run docs:check` for governance/index/link invariants;
-- `npm run validate` for Knowledge Card schema, identity, duplicate, and taxonomy/schema drift checks;
-- `npm test` for executable behavior;
-- `npm run docs:build` for VitePress compilation/dead links;
-- `npm run verify:site` for generated site-output coverage.
+- `npm run docs:check`：治理／索引／連結不變量；
+- `npm run validate`：Knowledge Card Schema、來源識別、重複與 taxonomy／Schema 漂移；
+- `npm test`：可執行行為；
+- `npm run docs:build`：VitePress 編譯／死連結；
+- `npm run verify:site`：產生網站輸出涵蓋率。
 
-If a future rule needs a new authority, update this map deliberately rather than copying the full rule into several documents.
+未來若某條規則需要新的權威來源，應明確更新本索引，而不是把完整規則複製到多份文件。
 
-## Documentation governance rule
+## 文件治理規則
 
-When one document needs a rule owned elsewhere:
+當一份文件需要引用由其他地方負責的規則時：
 
-1. state only the invariant required by the current document;
-2. link directly to the primary authority;
-3. do not copy detailed thresholds, payload schemas, provider settings, permissions, or algorithms outside the document that owns them;
-4. if two authorities conflict, fix the conflict deliberately rather than inventing a third copy.
+1. 只陳述目前文件需要的不變量；
+2. 直接連到主要權威來源；
+3. 不要在非權威文件中複製詳細門檻、payload Schema、來源供應商設定、權限或演算法；
+4. 若兩個權威來源衝突，應明確修正衝突，而不是發明第三份規則。
 
-Current navigation:
+目前導航：
 
 ```text
 README.md
    ↓
 docs/DOCUMENTATION.md
-   ├─ Runtime task behavior → prompts/RUNTIME.md
-   ├─ Repository writes     → AGENTS.md
-   ├─ Cross-provider ingest → docs/INGESTION.md
+   ├─ Runtime 任務行為       → prompts/RUNTIME.md
+   ├─ 儲存庫寫入             → AGENTS.md
+   ├─ 跨來源收錄             → docs/INGESTION.md
    │                           └─ Threads → docs/THREADS_INGESTION.md
-   │                                └─ judgement shape → schema/threads-continuation-judgement.schema.json
-   ├─ Data/config contracts → schema/ + config/
-   ├─ Automation            → docs/AUTOMATION.md → .github/workflows/
-   ├─ Governance guard      → scripts/check-documentation.mjs
-   └─ Authority ownership   → docs/AUTHORITY_MAP.md
+   │                                └─ 判定格式 → schema/threads-continuation-judgement.schema.json
+   ├─ 資料／設定契約         → schema/ + config/
+   ├─ 自動化                 → docs/AUTOMATION.md → .github/workflows/
+   ├─ 治理檢查               → scripts/check-documentation.mjs
+   └─ 權威來源歸屬           → docs/AUTHORITY_MAP.md
 ```
 
-## Related documents
+## 相關文件
 
-- [Documentation Router](./DOCUMENTATION.md)
-- [Ingestion Pipeline](./INGESTION.md)
-- [Threads Ingestion](./THREADS_INGESTION.md)
-- [Automation](./AUTOMATION.md)
-- [Relations](./RELATIONS.md)
+- [文件導航](./DOCUMENTATION.md)
+- [收錄流程](./INGESTION.md)
+- [Threads 收錄](./THREADS_INGESTION.md)
+- [自動化](./AUTOMATION.md)
+- [關聯](./RELATIONS.md)
 - [Concept Graph](./CONCEPTS.md)
-- [Website](./WEBSITE.md)
+- [網站](./WEBSITE.md)
