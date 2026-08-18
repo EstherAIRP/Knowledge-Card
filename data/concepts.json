@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-18T13:40:21.825Z",
-  "input_hash": "2e77400f5563e6a23b3769f30c576c4a3b9bdb0303ec3be105c6cedf7580fc3e",
+  "generated_at": "2026-08-18T16:09:56.058Z",
+  "input_hash": "d04930871905897216b22dead5bcc28509ea542fbea5acebf9816c662a325049",
   "concepts": [
     {
       "id": "category-agent",
@@ -130,10 +130,49 @@
         "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate",
         "threads-dclcucpas-z-66b25b",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 7
+      "card_count": 8
+    },
+    {
+      "id": "category-general-tools",
+      "label": "General Tools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：General Tools",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master",
+        "github-mattpocock-skills",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "github-nutlope-hallmark",
+        "threads-dcglstsogz3-fa0168",
+        "threads-dchbjcxenzb-725dd0"
+      ],
+      "card_count": 8
+    },
+    {
+      "id": "local-ai-integration",
+      "label": "Local AI Integration",
+      "type": "integration",
+      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 8
     },
     {
       "id": "character-runtime",
@@ -154,38 +193,20 @@
       "card_count": 7
     },
     {
-      "id": "category-general-tools",
-      "label": "General Tools",
+      "id": "category-rag-memory-knowledge",
+      "label": "RAG / Memory / Knowledge",
       "type": "category",
-      "description": "Knowledge Card taxonomy category：General Tools",
+      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
       "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-mattpocock-skills",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nutlope-hallmark",
-        "threads-dcglstsogz3-fa0168",
-        "threads-dchbjcxenzb-725dd0"
-      ],
-      "card_count": 7
-    },
-    {
-      "id": "local-ai-integration",
-      "label": "Local AI Integration",
-      "type": "integration",
-      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
-      "origin": "promoted",
       "aliases": [],
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "threads-dclcucpas-z-66b25b"
+        "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate",
+        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 7
     },
@@ -203,23 +224,6 @@
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
         "threads-dcglstsogz3-fa0168"
-      ],
-      "card_count": 6
-    },
-    {
-      "id": "category-rag-memory-knowledge",
-      "label": "RAG / Memory / Knowledge",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 6
     },
@@ -387,6 +391,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-local-first",
+      "label": "local-first",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-notoriouslab-vault-curate"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-openai-compatible-api",
       "label": "OpenAI-compatible API",
       "type": "topic",
@@ -397,6 +415,20 @@
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-sqlite",
+      "label": "SQLite",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-notoriouslab-vault-curate"
       ],
       "card_count": 3
     },
@@ -479,6 +511,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-bm25",
+      "label": "BM25",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-notoriouslab-vault-curate"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-code-review",
       "label": "code review",
       "type": "topic",
@@ -518,15 +563,15 @@
       "card_count": 2
     },
     {
-      "id": "tag-local-first",
-      "label": "local-first",
+      "id": "tag-embeddings",
+      "label": "embeddings",
       "type": "topic",
       "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu"
+        "github-cynthianani-a-simple-nest",
+        "github-notoriouslab-vault-curate"
       ],
       "card_count": 2
     },
@@ -661,19 +706,6 @@
       "card_count": 2
     },
     {
-      "id": "tag-sqlite",
-      "label": "SQLite",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest"
-      ],
-      "card_count": 2
-    },
-    {
       "id": "tag-tauri",
       "label": "tauri",
       "type": "topic",
@@ -722,6 +754,19 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-webgpu",
+      "label": "WebGPU",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate"
       ],
       "card_count": 2
     },
@@ -834,6 +879,18 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "github-ai21002102-riverbend",
+      "concept_id": "tag-bm25",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "BM25"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "github-ai21002102-riverbend",
@@ -1114,6 +1171,18 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "tag-embeddings",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "embeddings"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "github-cynthianani-a-simple-nest",
@@ -2532,6 +2601,126 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-moeru-ai-airi",
+      "concept_id": "tag-webgpu",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "WebGPU"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-notoriouslab-vault-curate",
+      "concept_id": "agent-memory",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-notoriouslab-vault-curate",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-notoriouslab-vault-curate",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-notoriouslab-vault-curate",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-notoriouslab-vault-curate",
+      "concept_id": "tag-bm25",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "BM25"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-notoriouslab-vault-curate",
+      "concept_id": "tag-embeddings",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "embeddings"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-notoriouslab-vault-curate",
+      "concept_id": "tag-local-first",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-notoriouslab-vault-curate",
+      "concept_id": "tag-sqlite",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SQLite"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-notoriouslab-vault-curate",
+      "concept_id": "tag-webgpu",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "WebGPU"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-nutlope-hallmark",
       "concept_id": "category-agent",
       "strength": 1,
@@ -3230,7 +3419,7 @@
       "target": "local-ai-integration",
       "type": "co_occurs_with",
       "support": 7,
-      "weight": 1,
+      "weight": 0.875,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
@@ -3265,13 +3454,14 @@
     },
     {
       "source": "agent-api-bridge",
-      "target": "tag-local-first",
+      "target": "tag-long-term-memory",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
+        "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
-        "github-mayocream-koharu"
+        "threads-dclcucpas-z-66b25b"
       ]
     },
     {
@@ -3325,7 +3515,7 @@
       "source": "agent-memory",
       "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -3333,19 +3523,7 @@
         "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
-      ]
-    },
-    {
-      "source": "agent-memory",
-      "target": "category-sillytavern-ai-rpg",
-      "type": "co_occurs_with",
-      "support": 4,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-cynthianani-a-simple-nest",
-        "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate",
         "threads-dfyr62jb6wr-b921df"
       ]
     },
@@ -3362,6 +3540,17 @@
     },
     {
       "source": "agent-memory",
+      "target": "tag-bm25",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "agent-memory",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
       "support": 2,
@@ -3369,6 +3558,17 @@
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "tag-embeddings",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -3399,24 +3599,14 @@
     },
     {
       "source": "agent-memory",
-      "target": "tag-memory-consolidation",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest"
-      ]
-    },
-    {
-      "source": "agent-memory",
       "target": "tag-sqlite",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest"
+        "github-cynthianani-a-simple-nest",
+        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -3463,17 +3653,6 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
-      ]
-    },
-    {
-      "source": "ai-character-interface",
-      "target": "local-ai-integration",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
       ]
     },
     {
@@ -3991,19 +4170,6 @@
     },
     {
       "source": "category-rag-memory-knowledge",
-      "target": "category-sillytavern-ai-rpg",
-      "type": "co_occurs_with",
-      "support": 4,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-cynthianani-a-simple-nest",
-        "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
-      ]
-    },
-    {
-      "source": "category-rag-memory-knowledge",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
       "support": 2,
@@ -4011,6 +4177,17 @@
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "tag-bm25",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -4026,26 +4203,13 @@
     },
     {
       "source": "category-rag-memory-knowledge",
-      "target": "tag-long-term-memory",
+      "target": "tag-embeddings",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
+      "support": 2,
+      "weight": 1,
       "card_ids": [
-        "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model"
-      ]
-    },
-    {
-      "source": "category-rag-memory-knowledge",
-      "target": "tag-mcp",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -4063,11 +4227,23 @@
       "source": "category-rag-memory-knowledge",
       "target": "tag-sqlite",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest"
+        "github-cynthianani-a-simple-nest",
+        "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "tag-webgpu",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -4212,6 +4388,17 @@
     },
     {
       "source": "local-ai-integration",
+      "target": "tag-bm25",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
       "support": 2,
@@ -4225,11 +4412,12 @@
       "source": "local-ai-integration",
       "target": "tag-local-first",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-intuition-lab-personal-model",
-        "github-mayocream-koharu"
+        "github-mayocream-koharu",
+        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -4479,6 +4667,17 @@
       ]
     },
     {
+      "source": "tag-embeddings",
+      "target": "tag-sqlite",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
       "source": "tag-local-llm",
       "target": "tag-metal",
       "type": "co_occurs_with",
@@ -4539,7 +4738,7 @@
       "target": "tag-sqlite",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest"
@@ -4679,9 +4878,9 @@
     }
   ],
   "stats": {
-    "card_count": 23,
-    "concept_count": 49,
-    "card_concept_edge_count": 195,
-    "concept_relation_edge_count": 126
+    "card_count": 24,
+    "concept_count": 52,
+    "card_concept_edge_count": 207,
+    "concept_relation_edge_count": 127
   }
 }
