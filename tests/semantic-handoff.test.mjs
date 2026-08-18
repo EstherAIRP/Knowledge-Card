@@ -62,6 +62,9 @@ test('semantic handoff publishes bounded public evidence plus a stable digest', 
   assert.equal(handoff.evidence.root.username, 'exampleuser');
   assert.equal(handoff.evidence.candidates[0].shortcode, 'PART2');
   assert.equal(handoff.evidence.candidates[0].metadata_score, 0.88);
+  assert.equal(handoff.judgement_contract.schema, 'schema/threads-continuation-judgement.schema.json');
+  assert.ok(handoff.judgement_contract.required_fields.includes('root_only'));
+  assert.ok(handoff.judgement_contract.allowed_labels.includes('uncertain'));
 });
 
 test('handoff request accepts only the trusted producer and structured judgement', () => {
