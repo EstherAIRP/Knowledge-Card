@@ -1,5 +1,5 @@
 ---
-prompt_version: 1.12.1
+prompt_version: 1.12.2
 updated_at: 2026-08-18
 repository: EstherAIRP/Knowledge-Card
 ---
@@ -95,7 +95,9 @@ accepted result 或 fail closed
 
 既有 Card、alias 或 accepted snapshot 可以協助識別 identity/history，但不能取代 current live completeness / freshness validation。
 
-詳細 backend request protocol、Remote Ingest artifact、managed semantic backend、failure vocabulary 與安全限制以 `docs/INGESTION.md`、`.github/workflows/remote-ingest.yml` 及 trusted execution code 為準。
+Remote Ingest 的 request commit 與 GitHub Actions run 必須可機械式關聯。正式 workflow 會在 request commit 發布固定 context `remote-ingest/run` 的 commit status，`target_url` 指向該次 Actions run。Agent 已知 request commit SHA 時，應先讀取該 commit status 取得 run URL / run ID，再取得對應 artifact；不得因無法「列出所有 push-triggered workflow runs」就直接判定 Remote Ingest 不可回收。
+
+詳細 backend request protocol、commit-status run pointer、Remote Ingest artifact、managed semantic backend、failure vocabulary 與安全限制以 `docs/INGESTION.md`、`.github/workflows/remote-ingest.yml` 及 trusted execution code 為準。
 
 Runtime 必須遵守以下硬規則：
 
