@@ -1,34 +1,34 @@
-# Website Architecture
+# 網站架構
 
-## Goal
+## 目標
 
-Render the repository's Knowledge Cards and generated Concept Graph as a public, searchable technology radar without creating a second content database.
+把儲存庫中的 Knowledge Card 與產生的 Concept Graph 呈現為公開、可搜尋的技術雷達，同時不建立第二套內容資料庫。
 
-Content source of truth remains:
+內容的主要權威來源仍是：
 
 ```text
 content/knowledge/**/*.md
 ```
 
-Generated graph indexes remain rebuildable presentation/query data:
+產生的圖譜索引仍是可重建的呈現／查詢資料：
 
 ```text
 data/relations.json
 data/concepts.json
 ```
 
-The `docs/` directory is the VitePress presentation layer.
+`docs/` 目錄是 VitePress 呈現層。
 
-## Runtime model
+## 執行模型
 
 ```text
 content/knowledge/**/*.md
         │
         ├─ docs/knowledge.data.js
-        │      └─ homepage metadata projection
+        │      └─ 首頁中繼資料投影
         │
         ├─ docs/knowledge/[id].paths.js
-        │      └─ Knowledge Card detail + semantic relations + Concepts
+        │      └─ Knowledge Card 詳細頁 + 語意關聯 + Concepts
         │
         ├─ data/concepts.json
         │      ├─ docs/concepts/[id].paths.js
@@ -40,70 +40,70 @@ content/knowledge/**/*.md
                          ↓
                     VitePress
                          ↓
-                  static website
+                    靜態網站
 ```
 
-No generated Markdown copy of Knowledge Cards is committed under `docs/knowledge/`.
+`docs/knowledge/` 下不會提交由 Knowledge Card 產生的 Markdown 副本。
 
-## Homepage — Knowledge Radar
+## 首頁 — Knowledge Radar
 
-`docs/index.md` mounts `KnowledgeRadar.vue`.
+`docs/index.md` 掛載 `KnowledgeRadar.vue`。
 
-The radar provides metadata filtering over title, summary, source type, categories, tags and actions; relevance dimension selection; minimum score filtering; sorting; automatically calculated statistics; and a responsive Card grid.
+Radar 可以依標題、摘要、來源類型、分類、標籤與 Action 篩選中繼資料，也支援相關性維度選擇、最低分數篩選、排序、自動統計與響應式 Card 網格。
 
-The selected relevance dimension changes both filtering and the score displayed on each Card.
+所選的相關性維度會同時影響篩選結果與每張 Card 顯示的分數。
 
-## Effective user overrides
+## 有效使用者覆寫值
 
-The data projection layer resolves user-owned fields before sending metadata to the UI.
+資料投影層會先解析使用者擁有欄位，再把中繼資料送到 UI。
 
 ```text
 effective wrapper value = user ?? ai
 ```
 
-Relevance is resolved independently per dimension. A manual correction therefore appears on the website without overwriting AI-owned values.
+相關性會依各維度分別解析，因此人工修正可以直接反映在網站上，不需要覆寫 AI 擁有值。
 
-## Knowledge Card detail routes
+## Knowledge Card 詳細頁路由
 
-`docs/knowledge/[id].paths.js` creates:
+`docs/knowledge/[id].paths.js` 建立：
 
 ```text
 /knowledge/{card.id}
 ```
 
-Each route projects:
+每個路由會投影：
 
-- Card metadata and full Markdown body;
-- Phase 2 typed Card↔Card semantic relations;
-- Phase 3 Card↔Concept mappings with strength/evidence;
-- source/edit/navigation links.
+- Card 中繼資料與完整 Markdown 正文；
+- Phase 2 類型化 Card↔Card 語意關聯；
+- Phase 3 Card↔Concept 對應及其強度／證據；
+- 來源、編輯與導覽連結。
 
-`KnowledgeConcepts.vue` provides the Concept neighborhood and links each node to its Concept detail page or the full graph.
+`KnowledgeConcepts.vue` 提供 Concept 鄰域，並將每個節點連到對應 Concept 詳細頁或完整圖譜。
 
-## Concept detail routes
+## Concept 詳細頁路由
 
-`docs/concepts/[id].paths.js` creates:
+`docs/concepts/[id].paths.js` 建立：
 
 ```text
 /concepts/{concept.id}
 ```
 
-A Concept page exposes:
+Concept 頁面提供：
 
-- stable Concept ID, type and origin;
-- description;
-- supporting Knowledge Cards;
-- mapping strength and Category/Tag evidence;
-- Concept↔Concept neighbors derived from cross-Card co-occurrence;
-- navigation back to `/graph`.
+- 穩定 Concept ID、類型與來源；
+- 說明；
+- 支援的 Knowledge Cards；
+- 對應強度與 Category／Tag 證據；
+- 由跨 Card 共現推導出的 Concept↔Concept 鄰居；
+- 回到 `/graph` 的導覽。
 
-The route is generated directly from `data/concepts.json`; Concept pages do not create a second manually maintained Concept article store.
+路由直接從 `data/concepts.json` 產生；Concept 頁面不會建立第二套人工維護的 Concept 文章資料庫。
 
-## Knowledge Graph
+## 知識圖譜
 
-`docs/graph.md` mounts `KnowledgeGraph.vue`, backed by `docs/graph.data.js`.
+`docs/graph.md` 掛載 `KnowledgeGraph.vue`，資料由 `docs/graph.data.js` 提供。
 
-The graph data loader unifies three edge families:
+圖譜資料載入器整合三種邊：
 
 ```text
 Card ↔ Concept       has_concept
@@ -111,7 +111,7 @@ Concept ↔ Concept    co_occurs_with
 Card ↔ Card          Phase 2 semantic relation
 ```
 
-The default visualization uses deterministic concentric layout:
+預設視覺化使用確定性的同心圓版面：
 
 ```text
 outer ring = Knowledge Cards
@@ -119,41 +119,41 @@ inner ring = Concepts
 center     = Knowledge Radar
 ```
 
-This geometry is a presentation layout and does not claim that visual distance equals embedding distance.
+此幾何只用於呈現，不代表畫面距離等同向量嵌入距離。
 
-The graph supports:
+圖譜支援：
 
-- Concept/Card keyword search;
-- node-kind filtering;
-- optional Card↔Card semantic edge display;
-- direct navigation from graph nodes to Card/Concept detail routes;
-- responsive horizontal scrolling on narrow screens.
+- Concept／Card 關鍵字搜尋；
+- 節點類型篩選；
+- 可選的 Card↔Card 語意邊顯示；
+- 從圖譜節點直接導覽到 Card／Concept 詳細頁；
+- 窄螢幕上的響應式水平捲動。
 
-The visualization is implemented with Vue + SVG and adds no D3/Cytoscape runtime dependency.
+視覺化以 Vue + SVG 實作，不新增 D3／Cytoscape 執行階段依賴。
 
-## Search
+## 搜尋
 
-Three navigation/search surfaces exist:
+目前有三種導覽／搜尋介面：
 
-1. Homepage Radar metadata filtering.
-2. `/graph` Concept/Card graph filtering.
-3. VitePress local search over static page content.
+1. 首頁 Radar 中繼資料篩選。
+2. `/graph` Concept／Card 圖譜篩選。
+3. VitePress 對靜態頁面內容提供的本機搜尋。
 
-No server-side search service is required for site operation.
+網站運作不需要伺服器端搜尋服務。
 
-## GitHub Pages base path
+## GitHub Pages 基礎路徑
 
-The repository is a project Pages site, therefore VitePress uses:
+本儲存庫使用 project Pages，因此 VitePress 設定：
 
 ```js
 base: '/Knowledge-Card/'
 ```
 
-Custom links use `withBase()` so routes work under the repository sub-path. `cleanUrls` remains enabled.
+自訂連結使用 `withBase()`，確保路由在儲存庫子路徑下正常工作。`cleanUrls` 維持啟用。
 
-## Theme components
+## Theme 元件
 
-Custom presentation code lives under:
+自訂呈現程式碼位於：
 
 ```text
 docs/.vitepress/theme/components/
@@ -165,11 +165,11 @@ docs/.vitepress/theme/components/
 └── KnowledgeGraph.vue
 ```
 
-The site still extends VitePress DefaultTheme, retaining navigation, local search, outline, dark mode and Markdown rendering.
+網站仍延伸 VitePress DefaultTheme，保留導覽、本機搜尋、大綱、深色模式與 Markdown 渲染。
 
-## Build commands
+## 建置指令
 
-Graph data must exist before static generation:
+靜態網站產生前必須先有圖譜資料：
 
 ```bash
 npm run concepts:build
@@ -178,4 +178,4 @@ npm run docs:build
 npm run verify:site
 ```
 
-`verify:site` requires homepage, `/graph`, every Knowledge Card page, every Concept page, and JS/CSS assets to exist in the final VitePress output.
+`verify:site` 會要求首頁、`/graph`、每個 Knowledge Card 頁面、每個 Concept 頁面，以及 JS／CSS 資產都存在於最終 VitePress 輸出。
