@@ -6,7 +6,7 @@
 > **Repository write rules:** [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)  
 > **Documentation router:** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
 
-This document owns the **cross-provider ingestion boundary**: provider routing, dispatcher/resolver behavior, generic/GitHub ingestion, execution backends, Remote Ingest transport, failure classification, and the handoff from an accepted source into repository authoring.
+This document owns the **cross-provider ingestion boundary**: provider routing, dispatcher/resolver behavior, generic/GitHub ingestion, execution backends, Remote Ingest request/run/result correlation, failure classification, and the handoff from an accepted source into repository authoring.
 
 It intentionally does **not** define Threads reconstruction, continuation/root-only judgement, managed Threads ranker semantics, or Threads snapshot algorithms. Those belong to [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) and the trusted implementation.
 
@@ -70,6 +70,17 @@ source extraction/completeness failure
 ```
 
 Exit code `75` with `REMOTE_EXECUTION_REQUIRED` is an execution handoff signal, not a source-level failure.
+
+The remote plan also publishes a machine-readable run-correlation contract:
+
+```text
+mechanism       = commit_status_v1
+context         = remote-ingest/run
+target          = request_commit
+target_url_kind = github_actions_run
+```
+
+This contract exists so an Agent does not need a generic “list all push-triggered workflow runs” capability to recover a Remote Ingest result.
 
 ## 3. Generic and GitHub ingestion
 
@@ -186,6 +197,36 @@ Provider-specific optional request fields, when supported, remain controlled by 
 
 Remote Ingest executes trusted harness code from `main`; the request branch is consumed separately as data. Remote execution may install Repository dependencies and provider-required runtime capabilities, but moving execution to GitHub Actions must not lower source completeness or Repository safety rules.
 
+### Request-to-run correlation
+
+The request commit SHA is the stable correlation key. When the Remote Ingest workflow starts, it publishes a GitHub commit status on that request commit with:
+
+```text
+context    = remote-ingest/run
+target_url = https://github.com/<owner>/<repo>/actions/runs/<run_id>
+state      = pending | success | failure
+```
+
+The `target_url` is the authoritative pointer to the matching GitHub Actions run. The workflow publishes `pending` before source execution and updates the same status context after the resolve job finishes.
+
+Consumer flow:
+
+```text
+known request commit SHA
+→ read commit statuses
+→ select context remote-ingest/run
+→ parse run ID from target_url
+→ inspect run/jobs as needed
+→ fetch artifact remote-ingest-{request_id}
+→ validate remote-ingest-result.json
+```
+
+The temporary `runtime/ingest/**` branch may be deleted after execution. That cleanup does not invalidate the request commit SHA correlation key or the status already attached to that commit.
+
+A missing generic API for listing push-triggered runs is **not** by itself a reason to declare Remote Ingest unavailable when request-commit status lookup is available. Conversely, if the workflow cannot publish a valid run pointer and no other repository-approved correlation method exists, the remote result must not be guessed or consumed from an unrelated run.
+
+The run-pointer publisher/finalizer have only `statuses: write`. The source-processing `resolve` job keeps its existing `contents: read` + managed-model permission boundary; publishing the pointer does not grant repository contents-write permission to the model-running job.
+
 ### Result artifact
 
 A validated request uses the short-lived artifact identity:
@@ -204,7 +245,7 @@ execution.backend == github_actions
 execution.status == success
 ```
 
-Use envelope `result` as the resolver/preflight output only after request/result correlation succeeds. Failure envelopes remain fail closed. Temporary request transport must never merge into `main`.
+Use envelope `result` as the resolver/preflight output only after request/run/result correlation succeeds. Failure envelopes remain fail closed. Temporary request transport must never merge into `main`.
 
 Provider-specific managed execution details belong to the relevant provider document. For Threads semantic recovery and handoff, see [`THREADS_INGESTION.md`](./THREADS_INGESTION.md).
 
@@ -272,7 +313,7 @@ This document owns:
 - generic/GitHub ingestion;
 - execution backend ordering;
 - cross-provider failure classification;
-- Remote Ingest transport and trust boundary;
+- Remote Ingest request/run/result correlation and trust boundary;
 - accepted-source handoff into Repository authoring.
 
 This document does **not** own:
