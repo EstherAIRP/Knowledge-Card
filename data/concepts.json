@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-18T08:27:04.447Z",
-  "input_hash": "81b01a8140599197c8d88ba87572fa27d12c2831d5663dfb8ae7d130f7f5ee75",
+  "generated_at": "2026-08-18T13:40:21.825Z",
+  "input_hash": "2e77400f5563e6a23b3769f30c576c4a3b9bdb0303ec3be105c6cedf7580fc3e",
   "concepts": [
     {
       "id": "category-agent",
@@ -11,6 +11,7 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
         "github-danyuchn-iso-24495-skill",
@@ -28,7 +29,7 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dclcucpas-z-66b25b"
       ],
-      "card_count": 16
+      "card_count": 17
     },
     {
       "id": "coding-agent-tooling",
@@ -83,6 +84,7 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
         "github-drumih-turbo-fieldfare",
@@ -94,7 +96,7 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 10
+      "card_count": 11
     },
     {
       "id": "agent-api-bridge",
@@ -104,6 +106,7 @@
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-drumih-turbo-fieldfare",
         "github-intuition-lab-personal-model",
@@ -111,6 +114,42 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 8
+    },
+    {
+      "id": "agent-memory",
+      "label": "Agent Memory",
+      "type": "architecture",
+      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi",
+        "threads-dclcucpas-z-66b25b",
+        "threads-dfyr62jb6wr-b921df"
+      ],
+      "card_count": 7
+    },
+    {
+      "id": "character-runtime",
+      "label": "Character Runtime",
+      "type": "architecture",
+      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "threads-dchbjcxenzb-725dd0",
+        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 7
     },
@@ -133,38 +172,22 @@
       "card_count": 7
     },
     {
-      "id": "agent-memory",
-      "label": "Agent Memory",
-      "type": "architecture",
-      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "id": "local-ai-integration",
+      "label": "Local AI Integration",
+      "type": "integration",
+      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi",
-        "threads-dclcucpas-z-66b25b",
-        "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 6
-    },
-    {
-      "id": "character-runtime",
-      "label": "Character Runtime",
-      "type": "architecture",
-      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-cynthianani-a-simple-nest",
+        "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "threads-dchbjcxenzb-725dd0",
-        "threads-dfyr62jb6wr-b921df"
+        "threads-dclcucpas-z-66b25b"
       ],
-      "card_count": 6
+      "card_count": 7
     },
     {
       "id": "category-infrastructure-deployment",
@@ -184,19 +207,36 @@
       "card_count": 6
     },
     {
-      "id": "local-ai-integration",
-      "label": "Local AI Integration",
-      "type": "integration",
-      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
-      "origin": "promoted",
+      "id": "category-rag-memory-knowledge",
+      "label": "RAG / Memory / Knowledge",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
+      "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
+        "github-moeru-ai-airi",
+        "threads-dfyr62jb6wr-b921df"
+      ],
+      "card_count": 6
+    },
+    {
+      "id": "category-sillytavern-ai-rpg",
+      "label": "SillyTavern / AI RPG",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：SillyTavern / AI RPG",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "threads-dclcucpas-z-66b25b"
+        "github-moeru-ai-airi",
+        "threads-dchbjcxenzb-725dd0",
+        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 6
     },
@@ -233,38 +273,6 @@
       "card_count": 5
     },
     {
-      "id": "category-rag-memory-knowledge",
-      "label": "RAG / Memory / Knowledge",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi",
-        "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 5
-    },
-    {
-      "id": "category-sillytavern-ai-rpg",
-      "label": "SillyTavern / AI RPG",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：SillyTavern / AI RPG",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-moeru-ai-airi",
-        "threads-dchbjcxenzb-725dd0",
-        "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 5
-    },
-    {
       "id": "tag-long-term-memory",
       "label": "long-term-memory",
       "type": "topic",
@@ -274,6 +282,21 @@
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 4
+    },
+    {
+      "id": "tag-mcp",
+      "label": "MCP",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b"
       ],
@@ -360,20 +383,6 @@
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu",
         "threads-dchbjcxenzb-725dd0"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "tag-mcp",
-      "label": "MCP",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 3
     },
@@ -730,6 +739,114 @@
     }
   ],
   "card_concepts": [
+    {
+      "card_id": "github-ai21002102-riverbend",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-ai21002102-riverbend",
+      "concept_id": "agent-memory",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-ai21002102-riverbend",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-ai21002102-riverbend",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-ai21002102-riverbend",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-ai21002102-riverbend",
+      "concept_id": "category-sillytavern-ai-rpg",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-ai21002102-riverbend",
+      "concept_id": "character-runtime",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-ai21002102-riverbend",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-ai21002102-riverbend",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
+        }
+      ],
+      "origin": "shared-tag"
+    },
     {
       "card_id": "github-akitaonrails-ai-memory",
       "concept_id": "agent-api-bridge",
@@ -3112,9 +3229,10 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "github-mayocream-koharu",
@@ -3160,9 +3278,10 @@
       "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b"
@@ -3206,9 +3325,10 @@
       "source": "agent-memory",
       "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
@@ -3220,9 +3340,10 @@
       "source": "agent-memory",
       "target": "category-sillytavern-ai-rpg",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.6,
+      "support": 4,
+      "weight": 0.6667,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-cynthianani-a-simple-nest",
         "github-moeru-ai-airi",
         "threads-dfyr62jb6wr-b921df"
@@ -3267,9 +3388,10 @@
       "source": "agent-memory",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b"
@@ -3442,9 +3564,10 @@
       "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b"
@@ -3632,7 +3755,7 @@
       "target": "character-runtime",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.3333,
+      "weight": 0.2857,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "threads-dchbjcxenzb-725dd0"
@@ -3776,9 +3899,10 @@
       "source": "category-llm",
       "target": "category-sillytavern-ai-rpg",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
@@ -3869,9 +3993,10 @@
       "source": "category-rag-memory-knowledge",
       "target": "category-sillytavern-ai-rpg",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.6,
+      "support": 4,
+      "weight": 0.6667,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-cynthianani-a-simple-nest",
         "github-moeru-ai-airi",
         "threads-dfyr62jb6wr-b921df"
@@ -3915,9 +4040,10 @@
       "source": "category-rag-memory-knowledge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
       ]
@@ -3948,9 +4074,10 @@
       "source": "category-sillytavern-ai-rpg",
       "target": "character-runtime",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
@@ -4121,9 +4248,10 @@
       "source": "local-ai-integration",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b"
@@ -4388,7 +4516,7 @@
       "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 1,
+      "weight": 0.75,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
@@ -4551,9 +4679,9 @@
     }
   ],
   "stats": {
-    "card_count": 22,
+    "card_count": 23,
     "concept_count": 49,
-    "card_concept_edge_count": 186,
+    "card_concept_edge_count": 195,
     "concept_relation_edge_count": 126
   }
 }
