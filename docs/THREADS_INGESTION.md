@@ -1,25 +1,50 @@
 # Threads Source Ingestion
 
-This document defines the source-adapter contract for **Threads-only ingestion**.
+> **Role:** Normative Threads-only source/completeness contract  
+> **Cross-provider ingestion / execution:** [`INGESTION.md`](./INGESTION.md)  
+> **Managed classifier prompt:** [threads-continuation-ranker.agent.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md)  
+> **Runtime orchestration:** [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)  
+> **Repository write rules:** [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)  
+> **Documentation router:** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
 
-## Scope
+This document is the **sole detailed human-readable domain specification for Threads ingestion**. It owns Threads URL resolution, exact-post extraction, conversation reconstruction, browser evidence, accepted snapshots, Phase 7 continuation/root-only recovery, and Threads-specific managed semantic execution.
+
+Cross-provider dispatcher/resolver behavior, Remote Ingest transport, and top-level execution failure classes are defined by [`INGESTION.md`](./INGESTION.md). Repository create/update ownership rules are defined by [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md).
+
+## 1. Scope and trust order
 
 Use this pipeline only when the primary resource is on `threads.com` / `threads.net`, including `/share/<token>`, `/t/<token>`, `/@user/post/<shortcode>`, or a transient URL that resolves to one of those resources.
 
 ```text
-Threads primary resource → Phase 1–7 source pipeline
-anything else             → docs/INGESTION.md generic flow
+Threads primary resource → this document
+anything else             → INGESTION.md generic/provider flow
 ```
 
-A non-Threads page does not become a Threads source because its text mentions or links to Threads. Phase 8A/8B/8C are execution/harness capabilities around the same Phase 1–7 source semantics; they are not alternate extraction rules.
+A non-Threads page does not become a Threads source because its text mentions or links to Threads.
 
-## Phase 1 — URL resolution
+The source trust order is:
 
-Accepted URL families include `/share/*`, `/t/*`, canonical `/@user/post/*`, and threads.net variants. Transient URLs resolve through HTTP redirect / canonical metadata / embedded URLs, with browser fallback when JavaScript navigation is required.
+```text
+URL identity
+→ exact post evidence
+→ structural conversation graph / n/N evidence
+→ browser/web-data evidence when needed
+→ Phase 7 semantic recovery only when structurally eligible
+→ deterministic acceptance gate
+→ accepted source or fail closed
+```
+
+Semantic recovery never overrides stronger contradictory structural evidence.
+
+## 2. Phase 1 — URL resolution
+
+Accepted URL families include `/share/*`, `/t/*`, canonical `/@user/post/*`, and Threads host variants.
+
+Transient URLs resolve through HTTP redirects, canonical metadata, embedded URLs, or browser navigation when JavaScript is required.
 
 The final source identity is never the share token. A complete source canonicalizes to its root post.
 
-## Phase 2 — exact post extraction
+## 3. Phase 2 — exact post extraction
 
 The extractor selects the exact requested shortcode from public HTML/hydration evidence and normalizes:
 
@@ -30,11 +55,11 @@ The extractor selects the exact requested shortcode from public HTML/hydration e
 - quoted/reposted references;
 - extraction provenance.
 
-API/browser fallback adapters must return the requested post identity or fail closed.
+Fallback adapters must return the requested post identity or fail closed. A fallback result for another post must not be silently substituted.
 
-## Phase 3 — complete self-thread reconstruction
+## 4. Phase 3 — complete self-thread reconstruction
 
-Strict reconstruction follows only structural evidence:
+Strict reconstruction follows structural evidence:
 
 ```text
 same author
@@ -42,9 +67,11 @@ AND reply_to == previous post
 AND same root when root metadata exists
 ```
 
-Timestamp proximity alone is not structural proof. Same-author branching that cannot be resolved uniquely is `AMBIGUOUS_THREAD`.
+Timestamp proximity alone is not structural proof.
 
-When `n/N` is known, all invariants must agree:
+Same-author branching that cannot be resolved uniquely is ambiguous and fails closed rather than guessing by time order.
+
+When `n/N` is known, all available invariants must agree:
 
 ```text
 parts.length == N
@@ -52,39 +79,44 @@ input index == n
 known total/order is consistent
 ```
 
-Missing parts are `INCOMPLETE_THREAD` and fail closed.
+Known missing parts remain incomplete.
 
-Successful structural reconstruction preserves ordered `parts[]`, `combined_text`, root/input metadata, media, thread status, and extraction provenance. Root identity is `threads:{root_shortcode}`.
+Successful structural reconstruction preserves ordered `parts[]`, `combined_text`, root/input metadata, media, thread status, and extraction provenance. Root identity is:
 
-## Phase 4 — mandatory Knowledge Card integration
+```text
+threads:{root_shortcode}
+```
 
-Ordinary agents enter through:
+## 5. Phase 4 — Knowledge Card integration boundary
+
+Ordinary ingestion enters through:
 
 ```bash
 npm run ingest:dispatch -- <threads-url>
 ```
 
-Every approved backend ultimately runs the mandatory resolver:
+Every approved backend ultimately executes:
 
 ```bash
 npm run ingest:resolve -- <threads-url>
 ```
 
-For Threads the resolver performs:
+The Threads resolver path performs the source-specific work before formal create/update authoring:
 
 ```text
 Phase 1 URL resolution
 → Phase 2 exact post
 → Phase 3 strict graph reconstruction
 → Phase 5 browser evidence when required
-→ Phase 7 semantic recovery when eligible
-→ require thread.complete + conversation_complete
+→ retry structural reconstruction
+→ Phase 7 semantic recovery only when eligible
+→ require accepted complete source
 → verify root canonical URL ↔ source_identity
-→ dedup/create-update
+→ create/update resolution
 → Phase 6 accepted-source change comparison
 ```
 
-Accepted output includes:
+Accepted output includes the complete source document and analysis input, conceptually:
 
 ```text
 source_document
@@ -103,26 +135,26 @@ analysis_input
   thread_verification: structural | llm_assisted
 ```
 
-Formal analysis uses `source_document.combined_text`, not merely the shared post.
+Formal analysis uses `source_document.combined_text`, not merely the originally shared post.
 
 ### Root-level deduplication
 
-Any share token or arbitrary thread part must converge to the root canonical URL and `threads:{root_shortcode}` before create/update lookup. Existing Card id/path remain stable.
+Any share token or arbitrary thread part must converge to the root canonical URL and `threads:{root_shortcode}` before create/update lookup. Existing Card ID/path remain stable.
 
-### Fail-closed conditions
+### Source-level fail-closed conditions
 
 Examples include:
 
-- `THREADS_CONVERSATION_INCOMPLETE`
-- `THREADS_CONVERSATION_AMBIGUOUS`
-- `THREADS_PRIMARY_SOURCE_INCOMPLETE`
-- `THREADS_PRIMARY_SOURCE_INVALID`
-- `EXTRACTED_SOURCE_IDENTITY_MISMATCH`
-- failed Phase 7 judgement/acceptance gate
+- incomplete conversation coverage;
+- structural same-author ambiguity;
+- conflicting `n/N` evidence;
+- known missing parts;
+- invalid or mismatched extracted identity;
+- failed Phase 7 judgement or deterministic acceptance gate.
 
-No incomplete source may reach formal Card authoring or snapshot advancement.
+Execution capability failures are classified separately under [`INGESTION.md`](./INGESTION.md); missing local browser/model capability is not itself proof that the public Threads source is unavailable.
 
-## Phase 5 — Playwright browser / web-data fallback
+## 6. Phase 5 — browser / web-data fallback
 
 When HTTP/hydration evidence is insufficient, an isolated no-login browser may collect:
 
@@ -130,7 +162,7 @@ When HTTP/hydration evidence is insufficient, an isolated no-login browser may c
 2. same-origin Threads JSON/GraphQL-like responses;
 3. rendered `n/N` evidence when unambiguous.
 
-Captured records are normalized and passed back into the same Phase 3/7 logic. Browser navigation success by itself is never completeness proof.
+Captured records are normalized and returned to the same Phase 3/7 logic. Browser navigation success by itself is never completeness proof.
 
 Local browser installation:
 
@@ -147,7 +179,7 @@ THREADS_BROWSER_CHANNEL=chrome
 
 The browser adapter does not load private cookies, persistent user profiles, or login sessions.
 
-Important failures include:
+Important browser failure codes may include:
 
 - `THREADS_BROWSER_UNAVAILABLE`
 - `THREADS_BROWSER_LAUNCH_FAILED`
@@ -156,17 +188,17 @@ Important failures include:
 - `THREADS_BROWSER_CANONICAL_NOT_FOUND`
 - `THREADS_BROWSER_NO_POSTS`
 
-Missing local browser capability is an execution-backend problem first; it is not evidence the source itself is unavailable.
+A local browser capability failure is first an execution-backend problem; see [`INGESTION.md`](./INGESTION.md).
 
-## Phase 6 — accepted source snapshots and change detection
+## 7. Phase 6 — accepted source snapshots and change detection
 
-Only a complete accepted source may be compared with state under:
+Only a complete accepted Threads source may be compared with state under:
 
 ```text
 state/source-snapshots/threads/
 ```
 
-Resolver change states:
+Current source-change states include:
 
 ```text
 FIRST_SEEN
@@ -178,9 +210,9 @@ STRUCTURE_CHANGED
 MULTIPLE_CHANGES
 ```
 
-Snapshots store public provenance and stable SHA-256 fingerprints, not raw Threads text, raw GraphQL payloads, cookies, or sessions. Volatile media query signatures do not define media identity.
+Snapshots store public provenance and stable SHA-256 fingerprints, not raw Threads text, raw GraphQL payloads, cookies, login/session data, or private content. Volatile media query signatures do not define media identity.
 
-Preflight is read-only. After a corresponding Card create/update succeeds and repository validation passes, accepted state may advance with:
+Preflight is read-only. After the corresponding Card create/update succeeds and repository validation passes, accepted state may advance with:
 
 ```bash
 npm run ingest:snapshot -- <threads-url>
@@ -188,32 +220,97 @@ npm run ingest:snapshot -- <threads-url>
 
 The command requires a matching Card. Unchanged hashes are a no-op. Failed, incomplete, ambiguous, or identity-mismatched extraction never overwrites the last accepted snapshot.
 
-## Phase 7 — LLM-assisted continuation / root-only recovery
+Source-state ownership details are defined by [state/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md).
 
-Phase 7 exists for live Threads evidence where the root and same-author reply candidates are visible but native `reply_to` / `root_post` relationships are missing.
+## 8. Phase 7 — semantic continuation / root-only recovery
 
-It may run only when strict structural evidence does not already prove or disprove completeness and there is no `n/N` conflict, known missing-part condition, or structural same-author branch ambiguity.
+Phase 7 exists for a specific evidence gap: the root post and nearby same-author reply candidates are publicly observable, but Threads does not expose enough native `reply_to` / `root_post` relationship data to prove whether those replies belong to the original article body.
+
+It does **not** replace Phase 3 structural reconstruction.
+
+### Why Phase 7 exists
+
+A public page can expose evidence such as:
+
+```text
+root.has_replies = true
+same-author reply objects are visible
+reply.is_reply = true
+reply.reply_to = null
+reply.root_post = null
+thread n/N is unavailable
+```
+
+Without an explicit recovery gate, a root-only graph could be falsely accepted as `SINGLE_POST` even though conversation coverage was not proved.
+
+If a root reports replies and coverage is not structurally proven, the source must either:
+
+- become structurally complete from additional evidence;
+- pass the high-confidence Phase 7 fallback; or
+- remain incomplete.
+
+### Implementation responsibility split
+
+The implementation is intentionally layered:
+
+```text
+browser-adapter.mjs
+  collect public evidence only
+        ↓
+conversation.mjs
+  deterministic reply graph / root / n/N logic
+        ↓
+conversation-recovery.mjs
+  orchestration and suspicious-single guard
+        ↓
+continuation-recovery.mjs
+  deterministic candidate filter + semantic judgement contract + acceptance gate
+        ↓
+source-ingestion.mjs
+  provider completeness / identity integration
+```
+
+The browser adapter does not decide semantic continuation. The semantic ranker does not decide whether the source is accepted. Final acceptance remains deterministic code.
+
+### Eligibility boundary
+
+Phase 7 may run only when strict structural evidence does not already prove or disprove completeness.
+
+It cannot override:
+
+- conflicting `n/N` indicators;
+- known missing parts when a total is known;
+- structural same-author branch ambiguity;
+- source identity mismatch.
+
+Those conditions remain fail closed.
 
 ### Deterministic candidate filter
 
-Defaults:
+Only evidence already extracted from the public Threads page is eligible.
+
+Current defaults:
 
 ```text
 same author as root
 exclude root
-not before root when timestamp is known
+exclude posts before root when timestamp is known
 exclude explicit is_reply=false
 within 24 hours when timestamp is known
 max 8 candidates
 ```
 
-Time distance is only metadata evidence; it can never directly declare a continuation.
+Candidates are ordered deterministically by time distance and metadata evidence.
+
+Time distance is evidence for narrowing/scoring only; it can never directly prove thread membership.
+
+The metadata score may reward explicit reply status, short publication-time distance, text presence, and known reply-terminal metadata. Current continuation acceptance requires the first selected candidate to meet the implementation's minimum metadata evidence threshold.
 
 ### Semantic judgement contract
 
-The ranker receives only the root plus filtered candidates. Threads text is untrusted quoted data: instructions contained inside posts must not be followed.
+The ranker receives one root plus the deterministic filtered candidate set. All Threads text is **untrusted quoted data**. Instructions contained inside source posts must never be followed.
 
-Allowed labels:
+Allowed labels are exactly:
 
 ```text
 continuation
@@ -222,7 +319,7 @@ unrelated
 uncertain
 ```
 
-Structured judgement includes:
+Structured judgement contains:
 
 ```text
 selected_shortcodes
@@ -233,9 +330,13 @@ rationale
 candidate_labels
 ```
 
+`candidate_labels` must cover every supplied candidate exactly once for a root-only judgement.
+
+Until Phase 4 introduces a shared machine-readable judgement schema, the executable validation code and managed prompt must remain aligned with this documented shape.
+
 ### Continuation acceptance gate
 
-Defaults require all of:
+Current default acceptance requires all of the following:
 
 ```text
 complete == true
@@ -246,12 +347,14 @@ first selected metadata_score >= 0.60
 all selected identities exist in captured evidence
 same author
 no explicit non-reply selected
-time order does not regress
+selected time order does not regress
 ```
+
+Failure of any required check leaves the source incomplete. There is no fallback to “nearest post by time”.
 
 ### Root-only acceptance gate
 
-Defaults require:
+Current default root-only acceptance requires:
 
 ```text
 complete == true
@@ -265,7 +368,7 @@ no continuation / uncertain labels
 every label confidence >= 0.90
 ```
 
-“No continuation found” is not sufficient evidence for root-only acceptance.
+“No continuation found” is not sufficient evidence for root-only acceptance. Root-only means the candidate set was affirmatively and completely excluded from the original article body with high confidence.
 
 ### Verification provenance
 
@@ -292,7 +395,7 @@ Neither may be described as native Threads parent/root graph verification.
 
 ### Local ranker contract
 
-Phase 7 core is provider-neutral. Local callers can inject `continuationRanker` or configure an OpenAI-compatible endpoint:
+Phase 7 core is provider-neutral. Local callers may inject `continuationRanker` or configure the supported OpenAI-compatible endpoint contract:
 
 ```text
 THREADS_CONTINUATION_LLM_ENDPOINT
@@ -301,50 +404,17 @@ THREADS_CONTINUATION_LLM_MODEL
 THREADS_CONTINUATION_LLM_API_KEY   # optional
 ```
 
-No usable ranker means fail closed for that backend.
+No usable semantic ranker means that backend cannot complete Phase 7 and must fail closed rather than guess.
 
-## Phase 8A/8B — execution routing and permanent Remote Ingest
+## 9. Execution capabilities around Threads
 
-Threads source failure and execution-backend failure are distinct:
+Phases 8A–8D are execution/harness capabilities around the same Threads Phase 1–7 source semantics. They are **not alternate source-extraction rules**.
 
-```text
-current runtime cannot run pipeline != source unavailable
-```
+Cross-provider LocalBackend/RemoteBackend ordering, request transport, artifact correlation, and top-level failure classification are owned by [`INGESTION.md`](./INGESTION.md).
 
-Execution order:
+### Phase 8C — managed GitHub Copilot CLI ranker
 
-1. LocalBackend when viable;
-2. permanent `Remote Ingest` when local execution is unavailable and GitHub write/Actions access exists;
-3. existing Card/snapshot only for identity/history;
-4. `INGESTION_BLOCKED` if no approved backend can produce accepted current evidence.
-
-The permanent runner is:
-
-```text
-.github/workflows/remote-ingest.yml
-```
-
-Transport uses an isolated branch:
-
-```text
-runtime/ingest/{request_id}
-└── .runtime/requests/{request_id}.json
-```
-
-created from current `main`. The branch carries request data only. The workflow executes trusted harness code from `main`, installs Node 24, repository dependencies, and Chromium, uploads one-day artifact `remote-ingest-{request_id}`, and cleans up the request branch through a separate cleanup job.
-
-Before consuming a result require matching schema/request identity plus:
-
-```text
-execution.backend == github_actions
-execution.status == success
-```
-
-Remote transport never weakens source completeness.
-
-## Phase 8C — managed GitHub Copilot CLI ranker
-
-Remote Ingest has a standard Phase 7 semantic ranker, so recovery no longer depends on whichever model endpoint happens to exist in the current chat/runtime.
+Remote Ingest provides a Repository-managed Phase 7 semantic ranker using GitHub Copilot CLI.
 
 Managed profile:
 
@@ -353,56 +423,63 @@ provider: github_copilot
 adapter: copilot_cli
 agent: threads-continuation-ranker
 model_selector: auto
-resolve-job permission: copilot-requests: write + contents: read
+resolve-job permission: contents: read + copilot-requests: write
 auth: workflow GITHUB_TOKEN → isolated COPILOT_GITHUB_TOKEN
 ```
 
-The workflow installs `@github/copilot` and runs the managed classifier non-interactively with `-s`, `--no-ask-user`, the repository-controlled agent, and `--model=auto`. `auto` is intentionally controlled by trusted `main`; request data cannot override it. It lets Copilot select a model that is currently available and organization-allowed instead of pinning the ingestion harness to a model that can be deprecated or disabled later.
+The request branch cannot choose model selector, agent, prompt, token, tool policy, or executable ranker code.
 
-### Isolation and permissions
+The model-running job has no Repository contents-write permission. Request-branch cleanup is isolated from model execution and uses separate write permission.
 
-The model-running `resolve` job has no Repository contents-write permission. Branch deletion is performed by a separate `cleanup` job with `contents: write` and no Copilot request permission.
+The classifier runs in an ephemeral workspace with isolated `HOME` / `COPILOT_HOME`. Only the trusted custom-agent profile is copied into the workspace. That profile declares `tools: []`, so shell, file, URL, GitHub, MCP, memory, and other tools are unavailable during semantic classification.
 
-The Copilot child receives only an explicit environment whitelist. It runs in an ephemeral directory with isolated `HOME` / `COPILOT_HOME`; only the trusted custom-agent profile is copied into that workspace. The profile declares `tools: []`, so source text cannot trigger shell, file, URL, GitHub, MCP, memory, or other tools.
+Source evidence is passed as data and remains untrusted quoted content.
 
-The request branch cannot control agent instructions, model selector, token, tool policy, or executable ranker code. Source JSON is piped through stdin and remains untrusted quoted data.
+The managed ranker produces only the normal Phase 7 semantic judgement. Deterministic candidate filtering, structural conflict checks, thresholds, chronology, root-only label coverage, and fail-closed acceptance remain authoritative.
 
-### Managed ranker output
-
-The ranker must produce the normal Phase 7 JSON judgement. The harness parses that response and then applies the same deterministic acceptance gates described above.
-
-Accepted ranker provenance is:
+Accepted managed provenance records:
 
 ```text
+thread.verification = llm_assisted
 thread.recovery.ranker.method = github_copilot_cli
 thread.recovery.ranker.provider = github_copilot
 thread.recovery.ranker.model = auto
 thread.recovery.ranker.agent = threads-continuation-ranker
 ```
 
-`model = auto` records the selector sent to Copilot CLI; it does not claim the harness knows which underlying model Copilot selected internally.
+`model = auto` records the trusted selector supplied to Copilot CLI; it does not claim the harness knows the underlying model selected internally.
 
-Remote execution metadata is:
+Policy/auth/CLI/timeout/output/invalid-response failures mean the managed execution backend did not produce a viable judgement. They must remain execution capability failures rather than being misreported as source incompleteness. A semantic judgement that actually runs and then fails the deterministic Phase 7 gate may remain `SOURCE_INCOMPLETE`.
+
+The actual managed prompt is [`.github/agents/threads-continuation-ranker.agent.md`](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md).
+
+### Phase 8D — agent semantic handoff fallback
+
+When the managed semantic backend cannot execute because of policy/auth/provider capability, Remote Ingest may perform a capture-only Phase 7 pass and expose `failure.semantic_handoff` in the short-lived result artifact.
+
+The handoff contains the exact public root/candidate evidence used for classification plus a deterministic SHA-256 evidence digest.
+
+A Knowledge Card Agent may classify that evidence and submit a second normal `operation=resolve` request containing only:
 
 ```text
-runner = remote-ingest-v4
-managed_ranker = github_copilot_cli
-managed_ranker_model = auto
+producer = knowledge_card_agent
+evidence_digest = sha256:...
+judgement = normal Phase 7 structured judgement
 ```
 
-The managed process has a bounded output size and timeout. CLI/auth/policy/model errors, invalid JSON, low-confidence judgement, incomplete candidate labels, or any rejected deterministic gate remain fail closed. Safe nested `cause_code` / bounded redacted `cause_message` diagnostics may be included in the execution failure envelope; provider tokens and raw provider payloads must not be persisted.
+The request must not supply or alter root/candidate source evidence.
 
-When organization policy blocks Copilot CLI, the adapter emits `THREADS_CONTINUATION_COPILOT_POLICY_DENIED`, and Remote Ingest classifies the attempt as `REMOTE_EXECUTION_UNAVAILABLE` rather than `SOURCE_INCOMPLETE`. This distinction is required because the semantic execution backend never became viable enough to judge source completeness.
+Trusted `main` re-extracts the current source, rebuilds the candidate set, and recomputes the digest before the submitted judgement can be used. Digest mismatch fails closed with:
 
-## Phase 8D — Agent semantic handoff fallback
+```text
+THREADS_CONTINUATION_HANDOFF_EVIDENCE_MISMATCH
+```
 
-When the Phase 8C Copilot backend is unavailable, Remote Ingest may capture the exact Phase 7 root/candidate set instead of declaring the source itself incomplete. The short-lived failure artifact exposes public evidence plus a deterministic SHA-256 digest.
+A stale judgement must never be applied to changed source evidence.
 
-A Knowledge Card Agent may return the standard Phase 7 judgement in a second schema-v1 `operation=resolve` request using optional `semantic_handoff`. The request contains only the digest and judgement; it cannot supply or alter root/candidate evidence.
+The supplied judgement still passes the normal Phase 7 validation. Handoff cannot override structural conflicts, candidate membership, metadata threshold, chronology, confidence, or root-only complete-label coverage.
 
-On the second run, trusted `main` re-extracts Threads, rebuilds the candidate set and recomputes the digest. Only an exact match allows the supplied judgement to enter `validateThreadsContinuationJudgement`. A mismatch fails closed with `THREADS_CONTINUATION_HANDOFF_EVIDENCE_MISMATCH` and requires a new first-stage artifact.
-
-Accepted provenance is:
+Accepted handoff provenance records:
 
 ```text
 thread.verification = llm_assisted
@@ -411,23 +488,81 @@ thread.recovery.ranker.provider = knowledge_card_agent
 thread.recovery.ranker.evidence_digest = sha256:...
 ```
 
-All Phase 7 structural and deterministic gates remain unchanged. The handoff exists only to move semantic classification outside a blocked managed provider; it cannot override source evidence.
+The handoff changes only where semantic classification is performed; it does not weaken the source contract.
 
-## Test and live-acceptance strategy
+## 10. Failure and reporting boundary
 
-CI fixtures cover:
+Threads-specific source failures and execution-backend failures must remain distinct.
+
+Examples:
+
+```text
+structural ambiguity / missing known part / rejected Phase 7 judgement
+→ source completeness failure
+
+local browser unavailable
+→ local execution capability failure first
+
+managed Copilot policy/auth/CLI failure
+→ remote execution capability failure
+
+all approved backends exhausted without accepted evidence
+→ INGESTION_BLOCKED
+```
+
+Use the top-level failure vocabulary defined by [`INGESTION.md`](./INGESTION.md).
+
+When a source is accepted through Phase 7, reporting must preserve `llm_assisted` provenance and inferred status. Do not describe inferred recovery as native Threads graph verification.
+
+## 11. Testing and acceptance strategy
+
+CI fixtures cover the deterministic source contract, including:
 
 - URL variants and exact target selection;
 - root/middle/last self-thread inputs;
 - reader-reply exclusion and same-author ambiguity;
-- `n/N` and missing-part rejection;
+- `n/N` and known-missing-part rejection;
 - browser JSON/DOM fallback and unsafe redirects;
 - root identity/dedup integration;
 - source snapshot hashing/change detection;
 - Phase 7 continuation and root-only accept/reject gates;
-- execution request/result correlation and nested diagnostics;
-- Phase 8C Copilot token gate, `--model=auto`, policy-denial detection, CLI arguments, secret/environment isolation, custom-agent `tools: []`, JSON parsing, and ranker provenance.
+- Remote request/result correlation and nested diagnostics;
+- managed classifier isolation, policy-denial handling, JSON parsing, and provenance;
+- semantic handoff digest binding and mismatch rejection.
 
-Browser fixture tests use injected sessions; ordinary unit CI does not need live Chromium navigation. Permanent Remote Ingest and Phase 8C are live-tested after landing on `main`, because the workflow intentionally executes trusted harness code from `main`.
+Browser fixture tests may use injected sessions; ordinary unit CI need not perform live public navigation.
 
-Live acceptance tests must use temporary `runtime/ingest/**` requests only and must not create/update production Cards or advance snapshots unless the user is explicitly performing a real ingestion.
+Live execution acceptance must use temporary Remote Ingest requests and must not create/update production Cards or advance snapshots unless the user is explicitly performing a real ingestion.
+
+## 12. Document boundary
+
+This document owns:
+
+- Threads URL resolution;
+- exact-post extraction;
+- structural self-thread reconstruction;
+- Threads browser/web-data evidence rules;
+- root identity and formal analysis source;
+- accepted Threads snapshot/change detection;
+- Phase 7 eligibility, judgement, deterministic acceptance, and provenance;
+- Threads-specific managed classifier and semantic handoff semantics.
+
+This document does **not** own:
+
+- generic/GitHub ingestion;
+- cross-provider execution backend order;
+- Remote Ingest base request/artifact transport;
+- top-level failure vocabulary;
+- Repository create/update/user-state rules;
+- Knowledge Card Schema/Taxonomy.
+
+## Related documents
+
+- [Documentation Router](./DOCUMENTATION.md)
+- [Document Authority Map](./AUTHORITY_MAP.md)
+- [Cross-provider Ingestion](./INGESTION.md)
+- [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)
+- [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)
+- [Managed Threads Ranker Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md)
+- [Threads Continuation Validation Code](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs)
+- [Remote Ingest Workflow](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml)
