@@ -78,6 +78,14 @@ test('remote workflow publishes a request-commit status pointing at the Actions 
   assert.match(workflow, /Publish remote ingestion final status/);
 });
 
+test('remote workflow installs trusted dependencies before request metadata validation', () => {
+  const workflow = fs.readFileSync(new URL('../.github/workflows/remote-ingest.yml', import.meta.url), 'utf8');
+  const installIndex = workflow.indexOf('- name: Install trusted dependencies');
+  const validateIndex = workflow.indexOf('- name: Validate request metadata');
+  assert.ok(installIndex >= 0, 'trusted dependency install step must exist');
+  assert.ok(validateIndex > installIndex, 'request metadata validation must run after trusted dependencies are installed');
+});
+
 test('local backend preserves normal resolver result envelope', async () => {
   const envelope = await runLocalIngestion('https://example.com', {
     prepareImpl: async (url) => ({ canonical_url: url, source_identity: `url:${url}`, mode: 'create' })
