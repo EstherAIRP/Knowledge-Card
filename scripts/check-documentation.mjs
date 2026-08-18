@@ -185,6 +185,21 @@ export function checkDocumentationGovernance({ root = process.cwd() } = {}) {
     }
   }
 
+  const remoteWorkflowPath = '.github/workflows/remote-ingest.yml';
+  if (fs.existsSync(path.join(root, remoteWorkflowPath))) {
+    const remoteWorkflow = read(root, remoteWorkflowPath);
+    for (const requiredText of [
+      'statuses: write',
+      "context='remote-ingest/run'",
+      '${{ github.run_id }}',
+      'Publish remote ingestion final status'
+    ]) {
+      if (!remoteWorkflow.includes(requiredText)) {
+        errors.push(`${remoteWorkflowPath} is missing the Remote Ingest request-to-run correlation invariant: ${requiredText}`);
+      }
+    }
+  }
+
   if (fs.existsSync(path.join(root, 'docs/AUTOMATION.md')) && !read(root, 'docs/AUTOMATION.md').includes('npm run docs:check')) {
     errors.push('docs/AUTOMATION.md must document the documentation governance check.');
   }
