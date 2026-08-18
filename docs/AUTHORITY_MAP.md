@@ -7,21 +7,21 @@
 
 This document answers one question: **which file owns each rule?**
 
-The goal is to keep every detailed rule in one primary authority and let other documents provide only the summary needed for their own scope plus a direct link.
+The governance goal is simple: keep each detailed rule in one primary authority and let other documents provide only the summary needed for their own scope plus a direct link.
 
-> Because this file is rendered by VitePress from `docs/`, links to repository files outside `docs/` use absolute GitHub URLs so the website dead-link checker does not treat them as VitePress routes.
+> Because this file is rendered by VitePress from `docs/`, links to repository files outside `docs/` use absolute GitHub URLs.
 
-## Current refactor status
+## Refactor status
 
 ```text
 Phase 1 — inventory + documentation router       COMPLETE
 Phase 2 — global RUNTIME / AGENTS slimming       COMPLETE
 Phase 3 — ingestion documentation consolidation COMPLETE
 Phase 4 — shared Threads judgement schema        COMPLETE
-Phase 5 — documentation guardrails / README      NEXT
+Phase 5 — documentation guardrails / README      COMPLETE
 ```
 
-Phases 1–3 reorganized documentation ownership and navigation. Phase 4 adds one machine-readable Threads semantic-judgement contract and binds existing ranker paths to it without changing the deterministic acceptance thresholds or source-completeness policy.
+The five-phase documentation refactor is complete. Phase 5 refreshes the repository entry point and adds executable governance checks; it does not change ingestion algorithms, source-completeness thresholds, Knowledge Card content, taxonomy, public profile, generated indexes, source snapshots, or user-owned state.
 
 ## Authority classes
 
@@ -29,220 +29,99 @@ Phases 1–3 reorganized documentation ownership and navigation. Phase 4 adds on
 | --- | --- |
 | **Normative contract** | Defines repository behavior or data rules that agents/automation must follow. |
 | **Scoped contract** | Adds rules inside one directory while root rules still apply. |
-| **Executable authority** | Code/workflow that actually performs behavior. Documentation describes it and must not contradict it. |
+| **Executable authority** | Code/workflow that actually performs behavior. |
 | **Operational documentation** | Explains how an executable subsystem is operated. |
-| **Explanatory documentation** | Explains architecture/design and must not create a competing normative rule. |
+| **Explanatory documentation** | Explains architecture/design without creating a competing normative rule. |
 | **Historical record** | Records prior behavior/changes and never overrides current contracts. |
 | **Generated state** | Rebuildable output, never the sole source of truth for user intent or repository policy. |
 | **Presentation entry** | Website presentation/runtime file, not repository governance documentation. |
 
 ## Current authority map
 
-| Concern | Primary authority | Supporting / executable sources | Current state |
-| --- | --- | --- | --- |
-| Knowledge Card task trigger and runtime orchestration | [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md) | `AGENTS.md`, applicable domain docs | Phase 2 slimmed; orchestration/invariants only. |
-| Repository-wide writes, ownership, validation, commit/push | [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) | scoped `AGENTS.md` files | Phase 2 slimmed; repository engineering/write contract only. |
-| Configuration ownership | [config/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/AGENTS.md) | `config/*.yaml` | Stable; keep scoped. |
-| Generated index ownership | [data/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/data/AGENTS.md) | generated `data/*.json` | Stable; keep scoped. |
-| Operational source snapshots | [state/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md) | snapshot tooling | Stable; keep scoped. |
-| Knowledge Card frontmatter structure | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) | validation code, template | Stable machine contract. |
-| Controlled categories/actions/status/source types/relevance dimensions | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | JSON Schema validation | Human-readable global copies removed. |
-| Public personalization boundary | [Public Profile](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) | Runtime/AGENTS safety invariant | Complete allowed public personalization context. |
-| Knowledge Card body example | [Knowledge Card example](https://github.com/EstherAIRP/Knowledge-Card/blob/main/templates/knowledge-card.example.md) | Runtime analysis standard, validator | Lower-priority authoring example. |
-| Provider routing, generic/GitHub ingestion, execution backend, Remote Ingest transport, top-level failure classification | [`INGESTION.md`](./INGESTION.md) | dispatcher/resolver, [remote-ingest.yml](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml) | **Phase 3 consolidated.** Cross-provider domain boundary only. |
-| Threads URL/extraction/reconstruction/completeness | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | Threads source implementation | **Phase 3 consolidated.** Sole detailed Threads spec. |
-| Threads Phase 7 continuation/root-only recovery semantics | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | [continuation-recovery.mjs](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs) | Human-readable source semantics and deterministic evidence-dependent gates remain here/code. |
-| Threads semantic judgement output shape / label vocabulary | [Threads Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) | [shared validator](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs), local/managed rankers | **Phase 4 centralized.** One machine-readable contract. |
-| Threads managed Copilot ranker prompt | [threads-continuation-ranker.agent.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) | shared schema + Copilot adapter | Prompt restates the isolated-agent shape, but runtime output must validate against the shared schema. |
-| Threads semantic handoff transport judgement | Shared Threads Judgement Schema + [semantic-handoff.mjs](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/execution/semantic-handoff.mjs) | Remote Ingest workflow | Handoff contract now publishes the shared schema path/required fields/labels and validates normalized judgement through the same schema. |
-| Runtime version history | [Runtime Changelog](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/CHANGELOG.md) | Git history | Historical only; current behavior comes from Runtime/domain contracts. |
-| CI/CD and generated-index automation | [Workflow YAML](https://github.com/EstherAIRP/Knowledge-Card/tree/main/.github/workflows) | [`AUTOMATION.md`](./AUTOMATION.md) | Workflow YAML is executable authority; docs are operational explanation. |
-| Card-to-Card semantic relations | relation config + generator/validator code | [`RELATIONS.md`](./RELATIONS.md), config/data scoped rules | Separation is healthy. |
-| Concept Graph | concept config + generator/validator code | [`CONCEPTS.md`](./CONCEPTS.md), config/data scoped rules | Separation is healthy. |
-| Website architecture/rendering | VitePress/site projection implementation | [`WEBSITE.md`](./WEBSITE.md) | `docs/` remains both technical-doc and VitePress source area. |
-| Public VitePress homepage | [`index.md`](./index.md) | VitePress theme/components | Presentation entry; documentation router remains `DOCUMENTATION.md`. |
+| Concern | Primary authority | Supporting / executable sources |
+| --- | --- | --- |
+| Knowledge Card task trigger and runtime orchestration | [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md) | `AGENTS.md`, applicable domain contract |
+| Repository-wide writes, ownership, validation, commit/push | [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) | scoped `AGENTS.md` files |
+| Documentation navigation | [`DOCUMENTATION.md`](./DOCUMENTATION.md) | README, this Authority Map |
+| Documentation governance invariants | [check-documentation.mjs](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/check-documentation.mjs) | `npm run docs:check`, validation/Pages workflows |
+| Provider routing, generic/GitHub ingestion, execution backend, Remote Ingest transport, top-level failure classification | [`INGESTION.md`](./INGESTION.md) | dispatcher/resolver, [remote-ingest.yml](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/workflows/remote-ingest.yml) |
+| Threads URL/extraction/reconstruction/completeness | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | Threads source implementation |
+| Threads Phase 7 continuation/root-only semantics and evidence-dependent gates | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | [continuation-recovery.mjs](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs) |
+| Threads semantic judgement output shape / label vocabulary | [Threads Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) | [shared validator](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs), local/managed rankers |
+| Threads managed classifier prompt | [threads-continuation-ranker.agent.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) | shared schema + Copilot adapter |
+| Knowledge Card frontmatter structure | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) | validation code, template |
+| Controlled categories/actions/status/source types/relevance dimensions | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | Knowledge Card Schema drift validation |
+| Public personalization boundary | [Public Profile](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) | Runtime/AGENTS public-safety invariant |
+| Knowledge Card body example | [Knowledge Card example](https://github.com/EstherAIRP/Knowledge-Card/blob/main/templates/knowledge-card.example.md) | Runtime analysis standard |
+| Configuration ownership | [config/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/AGENTS.md) | `config/*.yaml` |
+| Generated index ownership | [data/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/data/AGENTS.md) | generated `data/*.json` |
+| Operational source snapshots | [state/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md) | source-state tooling |
+| CI/CD and generated-index automation | [Workflow YAML](https://github.com/EstherAIRP/Knowledge-Card/tree/main/.github/workflows) | [`AUTOMATION.md`](./AUTOMATION.md) |
+| Card-to-Card semantic relations | relation config + generator/validator code | [`RELATIONS.md`](./RELATIONS.md), config/data scoped rules |
+| Concept Graph | concept config + generator/validator code | [`CONCEPTS.md`](./CONCEPTS.md), config/data scoped rules |
+| Website architecture/rendering | VitePress/site projection implementation | [`WEBSITE.md`](./WEBSITE.md) |
+| Public VitePress homepage | [`index.md`](./index.md) | VitePress theme/components |
+| Runtime history | [Runtime Changelog](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/CHANGELOG.md) | Git history; historical only |
 
-## Responsibility boundaries after Phase 4
+## Stable responsibility boundaries
 
 ### `prompts/RUNTIME.md`
 
-Owns **what the task/runtime must do**:
+Owns **what the task/runtime must do**: task triggering, mandatory preflight, provider-route hard gate, accepted-source requirement, high-level execution fallback invariant, analysis/update/public-safety orchestration, validation/push/report expectations, and links to detailed authorities.
 
-- task triggering and mandatory preflight;
-- high-level provider-route hard gate;
-- `execution/runtime failure != source unavailable` invariant;
-- accepted-source requirement;
-- analysis/update/public-safety orchestration;
-- validation/push/report expectations;
-- links to detailed authorities.
-
-Does not own source-specific algorithms or provider implementation internals.
+It does not own source-specific algorithms, provider credentials/settings, Remote Ingest internals, or Threads acceptance thresholds.
 
 ### `AGENTS.md`
 
-Owns **how repository modifications are performed safely**:
-
-- repository-wide write rules;
-- source-evidence requirement;
-- stable identity/path handling;
-- create/update protocol;
-- user-owned state preservation;
-- scoped ownership discovery;
-- validation, commit/history, completion reporting.
-
-Does not own provider extraction, semantic gates, model settings, or Remote transport internals.
+Owns **how repository modifications are performed safely**: repository write rules, source evidence, stable identity/path handling, create/update protocol, user-owned state preservation, scoped ownership discovery, validation, history, and completion reporting.
 
 ### `docs/INGESTION.md`
 
-Owns **cross-provider ingestion/execution**:
-
-- mutually exclusive provider routing;
-- dispatcher/resolver relationship;
-- generic/GitHub ingestion;
-- LocalBackend / RemoteBackend ordering;
-- top-level failure classification;
-- Remote Ingest base request/artifact transport and trusted-main boundary;
-- accepted-source handoff to `AGENTS.md`.
-
-Does not own Threads reconstruction, semantic judgement, Threads managed ranker semantics, or Threads snapshot algorithms.
+Owns **cross-provider ingestion/execution**: provider routing, dispatcher/resolver relationship, generic/GitHub ingestion, LocalBackend/RemoteBackend ordering, top-level failure classification, Remote Ingest base transport, and accepted-source handoff.
 
 ### `docs/THREADS_INGESTION.md`
 
-Owns **all detailed Threads source semantics**:
-
-- Phase 1 URL resolution;
-- Phase 2 exact-post extraction;
-- Phase 3 self-thread reconstruction;
-- Phase 4 Knowledge Card/source integration boundary;
-- Phase 5 browser/web-data evidence;
-- Phase 6 accepted snapshots/change detection;
-- Phase 7 continuation/root-only recovery rationale, eligibility, deterministic gates and provenance;
-- Threads-specific managed ranker and semantic handoff semantics.
-
-It is the only detailed human-readable Threads specification.
+Owns **detailed Threads source semantics**: URL resolution, exact-post extraction, self-thread reconstruction, browser evidence, accepted snapshots, Phase 7 recovery semantics, deterministic evidence-dependent gates, provenance, managed ranker behavior, and semantic handoff semantics.
 
 ### `schema/threads-continuation-judgement.schema.json`
 
-Owns **the model/agent output structure only**:
+Owns **Threads Phase 7 model-output structure only**: required fields, data types/bounds, candidate-label object shape, and allowed labels. Confidence acceptance thresholds, metadata evidence, exact candidate coverage, chronology, same-author checks, `n/N`, and structural ambiguity remain in trusted Phase 7/source code.
 
-- required top-level fields;
-- `selected_shortcodes` structural constraints;
-- `root_only`, `complete`, `confidence`, `rationale` data types/bounds;
-- candidate-label object shape;
-- allowed labels: `continuation`, `followup`, `unrelated`, `uncertain`.
+### `scripts/check-documentation.mjs`
 
-It does **not** own evidence-dependent policy such as 0.90 acceptance thresholds, 0.60 metadata evidence, exact candidate coverage, chronology, same-author checks, `n/N`, or structural ambiguity. Those remain in trusted Phase 7 validation/source code.
+Owns **stable documentation-governance checks**, not domain semantics. It verifies required files, deprecated/conflicting paths, lowercase `docs/index.md`, critical README/router/authority references, selected local Markdown links, VitePress relative-link boundaries, and CI integration.
 
-### Executable implementation
+VitePress remains responsible for rendered-site compilation and its own dead-link checks.
 
-```text
-.github/workflows/*.yml
-scripts/
-.github/agents/*.agent.md
-```
+## Resolved drift hotspots
 
-Executable code/workflow remains the authority for what actually runs. Documentation must describe it accurately without creating a second implementation contract.
+### Phase 2 — global triple-definition
 
-## Resolved duplication / drift hotspots
+Provider implementation details, Remote Ingest internals, managed-ranker details, and Threads gates were removed from the two global contracts and delegated to domain authorities.
 
-### Resolved in Phase 2 — Runtime / AGENTS / Ingestion triple-definition
+### Phase 3 — competing Threads documentation
 
-Provider implementation details, Remote Ingest internals, managed-ranker details, and Threads gates were removed from the two global contracts. They now link to domain authorities.
+The obsolete `docs/THREADS_PHASE7_RECOVERY.md` was merged into [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) and removed. `INGESTION.md` now owns cross-provider execution while `THREADS_INGESTION.md` owns Threads-specific source semantics.
 
-### Resolved in Phase 3 — stale `THREADS_PHASE7_RECOVERY.md`
+### Phase 4 — judgement shape duplication
 
-The former standalone Phase 7 document reflected an older judgement design and lacked the full current root-only path.
+The shared [Threads Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) now feeds the common validator used by local ranker, Copilot ranker, semantic handoff, and Phase 7 validation.
 
-Phase 3 merged its still-useful rationale and implementation-layer explanation into [`THREADS_INGESTION.md`](./THREADS_INGESTION.md), updated the current root-only contract, and removed the stale file. There is no longer a second Phase 7 human-readable spec competing with the Threads domain contract.
+### Phase 5 — README and governance drift
 
-### Resolved in Phase 3 — Ingestion / Threads execution overlap
+README now reflects the current `ingest:dispatch`-first architecture, Remote Ingest, Knowledge Graph workflows, shared Threads schema, and current repository layout. `npm run docs:check` is enforced in both branch validation and the `main` Pages build gate.
 
-Before Phase 3, both `INGESTION.md` and `THREADS_INGESTION.md` repeated substantial Remote Ingest and managed semantic details.
+## Ongoing maintenance risks
 
-Phase 3 split the responsibility:
+The refactor program is complete, but normal maintenance can still introduce drift. The principal ongoing checks are:
 
-```text
-INGESTION.md
-→ cross-provider execution transport + failure classes
+- `npm run docs:check` for governance/index/link invariants;
+- `npm run validate` for Knowledge Card schema, identity, duplicate, and taxonomy/schema drift checks;
+- `npm test` for executable behavior;
+- `npm run docs:build` for VitePress compilation/dead links;
+- `npm run verify:site` for generated site-output coverage.
 
-THREADS_INGESTION.md
-→ Threads semantic source logic + provider-specific managed ranker/handoff
-```
-
-The two documents cross-link instead of restating each other's full contract.
-
-### Resolved in Phase 4 — prompt / judgement contract duplication
-
-Before Phase 4, the judgement shape and label vocabulary were manually repeated across local prompt logic, the managed Copilot agent and semantic handoff validation.
-
-Phase 4 adds one machine-readable contract:
-
-```text
-schema/threads-continuation-judgement.schema.json
-                 │
-                 ↓
-scripts/lib/contracts/threads-continuation-judgement.mjs
-          ┌──────┼─────────┬──────────┐
-          ↓      ↓         ↓          ↓
-      local    Copilot   handoff   Phase 7 validator
-      ranker   ranker
-```
-
-The local prompt derives required fields and allowed labels from the schema; Copilot output and local provider output are schema-validated; semantic handoff exposes and validates the same contract. Semantic acceptance policy remains separate in trusted code.
-
-## Remaining drift risks
-
-### P1 for Phase 5 — documentation/link guardrails
-
-The repository now has clearer authority boundaries, but future edits can still introduce broken links or reintroduce duplicate normative text.
-
-**Phase 5 action:** add lightweight documentation checks for required index links, deprecated filenames, and other stable governance invariants.
-
-### P1 — README architecture drift
-
-The README still contains an older repository tree and earlier `ingest:resolve`-first description. Phase 5 should refresh it now that the contract structure is stable.
-
-### P1 — taxonomy/schema vocabulary synchronization
-
-`config/taxonomy.yaml` is the named controlled-vocabulary authority, while Knowledge Card JSON Schema also contains compatible enums for machine validation.
-
-The current content validator already checks several taxonomy/schema lists; Phase 5 can make documentation/contract guardrails more explicit where useful.
-
-## Document inventory
-
-### Global contracts
-
-| File | Class | Current role | Status |
-| --- | --- | --- | --- |
-| [README.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/README.md) | Project entry | High-level repository overview | Phase 5 refresh pending. |
-| [prompts/RUNTIME.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md) | Normative contract | Runtime orchestration | Phase 2 slimmed. |
-| [AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) | Normative contract | Repository engineering/write safety | Phase 2 slimmed. |
-| [prompts/CHANGELOG.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/CHANGELOG.md) | Historical record | Runtime version history | Historical-only. |
-
-### Source / execution documentation and contracts
-
-| File | Class | Current role | Status |
-| --- | --- | --- | --- |
-| [`INGESTION.md`](./INGESTION.md) | Normative cross-provider domain contract | Routing, generic/GitHub ingestion, execution/Remote transport | Phase 3 consolidated. |
-| [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) | Normative provider domain contract | Sole detailed Threads source/completeness spec | Phase 3 consolidated. |
-| [threads-continuation-judgement.schema.json](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) | Normative machine contract | Threads Phase 7 judgement output structure | **Phase 4 added.** |
-| [threads-continuation-judgement.mjs](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs) | Executable contract adapter | Shared schema validator/vocabulary | **Phase 4 added.** |
-| [threads-continuation-ranker.agent.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) | Executable prompt contract | Managed classifier prompt | **Phase 4 schema-bound.** |
-| [`AUTOMATION.md`](./AUTOMATION.md) | Operational documentation | GitHub Actions / generated indexes / Pages | Keep. |
-
-The former `docs/THREADS_PHASE7_RECOVERY.md` was removed in Phase 3 after its useful rationale was merged into `THREADS_INGESTION.md`.
-
-### Data and ownership contracts
-
-| File | Class | Current role |
-| --- | --- | --- |
-| [schema/knowledge-card.schema.json](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) | Normative machine contract | Knowledge Card frontmatter |
-| [config/taxonomy.yaml](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | Normative configuration | Controlled vocabulary |
-| [profile/public-profile.yaml](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) | Normative public boundary | Allowed personalization context |
-| [templates/knowledge-card.example.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/templates/knowledge-card.example.md) | Example | Authoring/body example |
-| [config/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/AGENTS.md) | Scoped contract | Config ownership |
-| [data/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/data/AGENTS.md) | Scoped contract | Generated-index ownership |
-| [state/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/state/AGENTS.md) | Scoped contract | Source-snapshot ownership |
+If a future rule needs a new authority, update this map deliberately rather than copying the full rule into several documents.
 
 ## Documentation governance rule
 
@@ -260,20 +139,22 @@ README.md
    ↓
 docs/DOCUMENTATION.md
    ├─ Runtime task behavior → prompts/RUNTIME.md
-   ├─ Repository writes    → AGENTS.md
-   ├─ Cross-provider ingest→ docs/INGESTION.md
-   │                           └─ Threads route → docs/THREADS_INGESTION.md
+   ├─ Repository writes     → AGENTS.md
+   ├─ Cross-provider ingest → docs/INGESTION.md
+   │                           └─ Threads → docs/THREADS_INGESTION.md
    │                                └─ judgement shape → schema/threads-continuation-judgement.schema.json
-   ├─ Data contract        → schema/ + config/
-   ├─ Automation           → docs/AUTOMATION.md → .github/workflows/
-   └─ Authority ownership  → docs/AUTHORITY_MAP.md
+   ├─ Data/config contracts → schema/ + config/
+   ├─ Automation            → docs/AUTOMATION.md → .github/workflows/
+   ├─ Governance guard      → scripts/check-documentation.mjs
+   └─ Authority ownership   → docs/AUTHORITY_MAP.md
 ```
 
 ## Related documents
 
 - [Documentation Router](./DOCUMENTATION.md)
-- [Runtime Prompt](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/RUNTIME.md)
-- [Repository Rules](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md)
 - [Ingestion Pipeline](./INGESTION.md)
 - [Threads Ingestion](./THREADS_INGESTION.md)
-- [Threads Judgement Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json)
+- [Automation](./AUTOMATION.md)
+- [Relations](./RELATIONS.md)
+- [Concept Graph](./CONCEPTS.md)
+- [Website](./WEBSITE.md)

@@ -20,6 +20,7 @@ checkout
 → unit tests
 → Knowledge Card validation
 → relation validation
+→ npm run docs:check
 → VitePress production build
 → built-output verification
 ```
@@ -28,7 +29,7 @@ This workflow has read-only repository permission and does not commit or deploy.
 
 ### `.github/workflows/update-relations.yml`
 
-The historical filename remains `update-relations.yml`, but Phase 3 changes the workflow name to **Update Knowledge Graph Indexes**.
+The historical filename remains `update-relations.yml`, while the workflow name is **Update Knowledge Graph Indexes**.
 
 It runs on relevant `main` changes, including Knowledge Cards, relation config, Concept config, generator libraries and package configuration.
 
@@ -50,7 +51,7 @@ Generated `data/*.json` paths are not workflow triggers, so the bot's own genera
 
 ### `.github/workflows/rebuild-relations.yml`
 
-The historical filename remains `rebuild-relations.yml`, while the Phase 3 workflow is named **Full Knowledge Graph Rebuild**.
+The historical filename remains `rebuild-relations.yml`, while the workflow name is **Full Knowledge Graph Rebuild**.
 
 It runs every Sunday and via manual dispatch.
 
@@ -69,6 +70,10 @@ all Cards
 
 The full rebuild repairs incremental drift and refreshes all three generated indexes.
 
+### `.github/workflows/remote-ingest.yml`
+
+Provides Repository-defined Remote Ingest execution when the current local runtime cannot satisfy an approved ingestion capability. Cross-provider transport and failure classification are defined by [`INGESTION.md`](./INGESTION.md); Threads-specific managed semantic behavior remains defined by [`THREADS_INGESTION.md`](./THREADS_INGESTION.md).
+
 ### `.github/workflows/deploy-pages.yml`
 
 Runs on pushes to `main` and manual dispatch.
@@ -82,6 +87,7 @@ checkout
 → build Concept Graph
 → unit tests
 → validate Cards / relations / concepts
+→ npm run docs:check
 → VitePress production build
 → verify homepage + graph + Card pages + Concept pages
 → upload Pages artifact
@@ -96,9 +102,32 @@ pages: write
 id-token: write
 ```
 
+## Documentation governance check
+
+Phase 5 adds:
+
+```bash
+npm run docs:check
+```
+
+implemented by `scripts/check-documentation.mjs`.
+
+The guard intentionally focuses on stable governance invariants rather than duplicating VitePress's parser. It checks that:
+
+- required authority and contract files exist;
+- deprecated/conflicting paths such as `docs/THREADS_PHASE7_RECOVERY.md` do not return;
+- `docs/` has one lowercase `index.md` and no case-only `INDEX.md` collision;
+- README uses `ingest:dispatch` as the normal ingestion entry;
+- the documentation router and Authority Map retain critical authority references;
+- local Markdown links in the governance document set resolve;
+- VitePress documents do not use relative links to files outside `docs/`;
+- both branch validation and the `main` Pages build run the guard.
+
+VitePress production build remains responsible for its own route/dead-link validation. The two checks are complementary: `docs:check` protects repository governance conventions while VitePress validates the rendered documentation/site graph.
+
 ## Model credentials
 
-The default semantic embedding provider is local and needs no API credential. Phase 3 Concept extraction is also deterministic and requires no external API.
+The default semantic embedding provider is local and needs no API credential. Concept extraction is also deterministic and requires no external API.
 
 LLM Card↔Card relation classification uses the environment variable configured by `config/relation-config.yaml`, currently:
 
@@ -177,8 +206,9 @@ A deployment requires all of the following:
 3. Concept Graph generation and validation;
 4. unit/site tests;
 5. JSON Schema and Knowledge Card validation;
-6. VitePress production compilation;
-7. homepage, graph, Card-route and Concept-route smoke verification.
+6. documentation governance validation with `npm run docs:check`;
+7. VitePress production compilation;
+8. homepage, graph, Card-route and Concept-route smoke verification.
 
 If any stage fails, the Pages artifact must not deploy.
 

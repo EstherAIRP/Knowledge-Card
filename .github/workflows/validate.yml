@@ -70,6 +70,9 @@ jobs:
       - name: Validate relation index
         run: npm run relations:validate
 
+      - name: Check documentation governance
+        run: npm run docs:check
+
       - name: Build VitePress site
         run: npm run docs:build
 

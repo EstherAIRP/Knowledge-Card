@@ -67,6 +67,9 @@ jobs:
       - name: Validate concept graph
         run: npm run concepts:validate
 
+      - name: Check documentation governance
+        run: npm run docs:check
+
       - name: Build VitePress site
         run: npm run docs:build
 
