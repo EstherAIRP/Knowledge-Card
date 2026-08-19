@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-18T16:09:56.058Z",
-  "input_hash": "d04930871905897216b22dead5bcc28509ea542fbea5acebf9816c662a325049",
+  "generated_at": "2026-08-19T10:34:43.802Z",
+  "input_hash": "ab7645c85e7e5b9d6cafec2b15476e35ea50ed66efba3addbc0f4f20f24ed89c",
   "concepts": [
     {
       "id": "category-agent",
@@ -20,6 +20,7 @@
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi",
@@ -29,7 +30,7 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dclcucpas-z-66b25b"
       ],
-      "card_count": 17
+      "card_count": 18
     },
     {
       "id": "coding-agent-tooling",
@@ -45,6 +46,7 @@
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
@@ -52,7 +54,7 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463"
       ],
-      "card_count": 12
+      "card_count": 13
     },
     {
       "id": "category-ai-coding-devtools",
@@ -68,13 +70,14 @@
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463"
       ],
-      "card_count": 11
+      "card_count": 12
     },
     {
       "id": "category-llm",
@@ -193,6 +196,24 @@
       "card_count": 7
     },
     {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-g36maid-deepseek-harness",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0",
+        "threads-dcglstsogz3-fa0168"
+      ],
+      "card_count": 7
+    },
+    {
       "id": "category-rag-memory-knowledge",
       "label": "RAG / Memory / Knowledge",
       "type": "category",
@@ -211,19 +232,19 @@
       "card_count": 7
     },
     {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
+      "id": "tag-claude-code",
+      "label": "Claude Code",
+      "type": "topic",
+      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-g36maid-deepseek-harness",
+        "github-danyuchn-iso-24495-skill",
+        "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
-        "github-stablyai-orca",
-        "threads-db-fphwgfos-7d09e0",
-        "threads-dcglstsogz3-fa0168"
+        "github-nutlope-hallmark",
+        "github-stablyai-orca"
       ],
       "card_count": 6
     },
@@ -257,22 +278,6 @@
         "github-mayocream-koharu",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
-      ],
-      "card_count": 5
-    },
-    {
-      "id": "tag-claude-code",
-      "label": "Claude Code",
-      "type": "topic",
-      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-mattpocock-skills",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca"
       ],
       "card_count": 5
     },
@@ -611,6 +616,19 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "threads-dchbjcxenzb-725dd0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-opencode",
+      "label": "OpenCode",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-mensfeld-code-on-incus",
+        "github-stablyai-orca"
       ],
       "card_count": 2
     },
@@ -2153,6 +2171,82 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-mensfeld-code-on-incus",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mensfeld-code-on-incus",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mensfeld-code-on-incus",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mensfeld-code-on-incus",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mensfeld-code-on-incus",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mensfeld-code-on-incus",
+      "concept_id": "tag-opencode",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "OpenCode"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-minijinai75-tavern-claude-bridge",
       "concept_id": "agent-api-bridge",
       "strength": 0.9,
@@ -2904,6 +2998,18 @@
         {
           "kind": "tag",
           "value": "Electron"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-stablyai-orca",
+      "concept_id": "tag-opencode",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "OpenCode"
         }
       ],
       "origin": "shared-tag"
@@ -3692,11 +3798,12 @@
       "source": "category-agent",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
@@ -3756,7 +3863,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 11,
+      "support": 12,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
@@ -3765,6 +3872,7 @@
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
@@ -3956,7 +4064,7 @@
       "target": "tag-claude-code",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.6,
+      "weight": 0.5,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-mattpocock-skills",
@@ -4021,6 +4129,17 @@
     },
     {
       "source": "category-infrastructure-deployment",
+      "target": "tag-opencode",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mensfeld-code-on-incus",
+        "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
       "target": "tag-plugin-architecture",
       "type": "co_occurs_with",
       "support": 2,
@@ -4061,17 +4180,6 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "category-infrastructure-deployment",
-      "target": "tag-typescript",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "github-stablyai-orca"
       ]
     },
     {
@@ -4353,11 +4461,12 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
@@ -4586,6 +4695,17 @@
       "card_ids": [
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
+        "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "tag-claude-code",
+      "target": "tag-opencode",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mensfeld-code-on-incus",
         "github-stablyai-orca"
       ]
     },
@@ -4878,9 +4998,9 @@
     }
   ],
   "stats": {
-    "card_count": 24,
-    "concept_count": 52,
-    "card_concept_edge_count": 207,
-    "concept_relation_edge_count": 127
+    "card_count": 25,
+    "concept_count": 53,
+    "card_concept_edge_count": 214,
+    "concept_relation_edge_count": 128
   }
 }
