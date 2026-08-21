@@ -29,9 +29,11 @@ const classifications = new Map([
 ]);
 
 function replaceSingle(text, pattern, replacement, label, file) {
-  const matches = text.match(pattern);
-  if (!matches || matches.length !== 1) {
-    throw new Error(`${file}: expected exactly one ${label}.`);
+  const flags = pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`;
+  const matcher = new RegExp(pattern.source, flags);
+  const matches = [...text.matchAll(matcher)];
+  if (matches.length !== 1) {
+    throw new Error(`${file}: expected exactly one ${label}, found ${matches.length}.`);
   }
   return text.replace(pattern, replacement);
 }
