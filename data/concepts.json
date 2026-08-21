@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-20T08:51:49.522Z",
-  "input_hash": "36dfb6e8d4870acbde93e1896f5b462b8d0ba357e10993759646a9510fee191b",
+  "generated_at": "2026-08-21T00:50:10.045Z",
+  "input_hash": "2c8a63f9bef2faff582d8740a2340a4622dd8596df87fb8d3b23ce14c72e2337",
   "concepts": [
     {
       "id": "category-agent",
@@ -103,6 +103,26 @@
       "card_count": 11
     },
     {
+      "id": "category-general-tools",
+      "label": "General Tools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：General Tools",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master",
+        "github-mattpocock-skills",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "github-nutlope-hallmark",
+        "threads-dcglstsogz3-fa0168",
+        "threads-dchbjcxenzb-725dd0",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 9
+    },
+    {
       "id": "agent-api-bridge",
       "label": "Agent API Bridge",
       "type": "integration",
@@ -137,25 +157,6 @@
         "github-notoriouslab-vault-curate",
         "threads-dclcucpas-z-66b25b",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 8
-    },
-    {
-      "id": "category-general-tools",
-      "label": "General Tools",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：General Tools",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-mattpocock-skills",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-notoriouslab-vault-curate",
-        "github-nutlope-hallmark",
-        "threads-dcglstsogz3-fa0168",
-        "threads-dchbjcxenzb-725dd0"
       ],
       "card_count": 8
     },
@@ -233,6 +234,23 @@
       "card_count": 7
     },
     {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-harry0703-moneyprinterturbo",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 6
+    },
+    {
       "id": "tag-claude-code",
       "label": "Claude Code",
       "type": "topic",
@@ -265,22 +283,6 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 6
-    },
-    {
-      "id": "category-ai-ml",
-      "label": "AI / ML",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI / ML",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
-      ],
-      "card_count": 5
     },
     {
       "id": "category-image-generation",
@@ -750,6 +752,19 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-traditional-chinese",
+      "label": "Traditional Chinese",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "threads-dcrihmdd46t-183b20"
       ],
       "card_count": 2
     },
@@ -1326,6 +1341,18 @@
         {
           "kind": "tag",
           "value": "Claude Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-danyuchn-iso-24495-skill",
+      "concept_id": "tag-traditional-chinese",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Traditional Chinese"
         }
       ],
       "origin": "shared-tag"
@@ -3511,6 +3538,42 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "threads-dcrihmdd46t-183b20",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-dcrihmdd46t-183b20",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-dcrihmdd46t-183b20",
+      "concept_id": "tag-traditional-chinese",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "traditional-chinese"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "threads-dfyr62jb6wr-b921df",
       "concept_id": "agent-memory",
       "strength": 0.78,
@@ -4013,6 +4076,17 @@
     },
     {
       "source": "category-ai-ml",
+      "target": "category-general-tools",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.3333,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "threads-dcrihmdd46t-183b20"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
       "target": "category-image-generation",
       "type": "co_occurs_with",
       "support": 3,
@@ -4021,17 +4095,6 @@
         "github-harry0703-moneyprinterturbo",
         "github-mayocream-koharu",
         "github-mirabarukaso-character-select-stand-alone-app"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
-      "target": "character-runtime",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.4,
-      "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
       ]
     },
     {
@@ -4133,6 +4196,17 @@
       "card_ids": [
         "github-mattpocock-skills",
         "github-nutlope-hallmark"
+      ]
+    },
+    {
+      "source": "category-general-tools",
+      "target": "tag-traditional-chinese",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "threads-dcrihmdd46t-183b20"
       ]
     },
     {
@@ -5052,9 +5126,9 @@
     }
   ],
   "stats": {
-    "card_count": 26,
-    "concept_count": 53,
-    "card_concept_edge_count": 218,
-    "concept_relation_edge_count": 128
+    "card_count": 27,
+    "concept_count": 54,
+    "card_concept_edge_count": 222,
+    "concept_relation_edge_count": 129
   }
 }
