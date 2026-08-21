@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+// One-time migration for existing GitHub cards; remove after validation.
 const DATE = '2026-08-21';
 const ROOT = path.join(process.cwd(), 'content/knowledge/2026');
 
