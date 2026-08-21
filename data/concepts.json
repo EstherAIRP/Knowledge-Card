@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-21T00:50:10.045Z",
-  "input_hash": "2c8a63f9bef2faff582d8740a2340a4622dd8596df87fb8d3b23ce14c72e2337",
+  "generated_at": "2026-08-21T06:50:10.419Z",
+  "input_hash": "34328f9b07d5181046ac78b5131364fb6ff6e1d9bb385142b714d79c36635604",
   "concepts": [
     {
       "id": "category-agent",
@@ -180,6 +180,24 @@
       "card_count": 8
     },
     {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-harry0703-moneyprinterturbo",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-openbmb-voxcpm",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 7
+    },
+    {
       "id": "character-runtime",
       "label": "Character Runtime",
       "type": "architecture",
@@ -232,23 +250,6 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 7
-    },
-    {
-      "id": "category-ai-ml",
-      "label": "AI / ML",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI / ML",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "threads-dcrihmdd46t-183b20"
-      ],
-      "card_count": 6
     },
     {
       "id": "tag-claude-code",
@@ -739,6 +740,19 @@
       "card_ids": [
         "github-mayocream-koharu",
         "threads-db-wlkkgtu-18d1ea"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-text-to-speech",
+      "label": "text-to-speech",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-openbmb-voxcpm"
       ],
       "card_count": 2
     },
@@ -1689,6 +1703,18 @@
         {
           "kind": "tag",
           "value": "SKILL.md"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-harry0703-moneyprinterturbo",
+      "concept_id": "tag-text-to-speech",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "text-to-speech"
         }
       ],
       "origin": "shared-tag"
@@ -2942,6 +2968,30 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-openbmb-voxcpm",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-openbmb-voxcpm",
+      "concept_id": "tag-text-to-speech",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "text-to-speech"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-s1dashu-ip-as-logo-skill",
       "concept_id": "category-agent",
       "strength": 1,
@@ -4076,17 +4126,6 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "category-general-tools",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.3333,
-      "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "threads-dcrihmdd46t-183b20"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
       "target": "category-image-generation",
       "type": "co_occurs_with",
       "support": 3,
@@ -4151,6 +4190,17 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-text-to-speech",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-openbmb-voxcpm"
       ]
     },
     {
@@ -5126,9 +5176,9 @@
     }
   ],
   "stats": {
-    "card_count": 27,
-    "concept_count": 54,
-    "card_concept_edge_count": 222,
+    "card_count": 28,
+    "concept_count": 55,
+    "card_concept_edge_count": 225,
     "concept_relation_edge_count": 129
   }
 }
