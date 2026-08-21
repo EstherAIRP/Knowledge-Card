@@ -21,6 +21,14 @@ const editUrl = computed(() => {
     : 'https://github.com/EstherAIRP/Knowledge-Card';
 });
 
+const sourceLabel = computed(() => {
+  const source = card.value.sourceType === 'github' ? 'GitHub' : card.value.sourceType;
+  const kind = card.value.resourceKind;
+  if (!kind) return source;
+  const kindLabel = kind === 'skill' ? 'Skill' : 'Project';
+  return `${source} · ${kindLabel}`;
+});
+
 function width(score) {
   return `${Math.max(0, Math.min(5, score ?? 0)) * 20}%`;
 }
@@ -30,7 +38,7 @@ function width(score) {
   <section class="knowledge-detail-head">
     <div class="knowledge-detail-top">
       <div>
-        <div class="knowledge-detail-source">{{ card.sourceType }} · {{ card.status }}</div>
+        <div class="knowledge-detail-source">{{ sourceLabel }} · {{ card.status }}</div>
         <div class="knowledge-detail-categories">
           <span v-for="item in card.categories" :key="item">{{ item }}</span>
         </div>
