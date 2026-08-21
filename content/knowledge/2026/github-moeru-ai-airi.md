@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/moeru-ai/airi
   identity: github:moeru-ai/airi
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-12
-updated_at: 2026-08-12
-last_checked_at: 2026-08-12
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: Project AIRI 是開源的 AI VTuber／數位生命 Runtime，將多模型 LLM、即時語音、VRM／Live2D 角色、Web／桌面／行動端與遊戲 Agent 整合在同一個 monorepo；其目標是讓可持有、可延伸的虛擬角色不只聊天，也能聽、說、看、操作遊戲並逐步建立記憶。
 classification:
   categories:
@@ -154,6 +157,10 @@ AIRI 的系統面很廣，monorepo 同時涵蓋 Web、Electron、mobile、音訊
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-12
 

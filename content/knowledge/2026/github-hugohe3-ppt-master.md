@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/hugohe3/ppt-master
   identity: github:hugohe3/ppt-master
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-12
-updated_at: 2026-08-12
-last_checked_at: 2026-08-12
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: PPT Master 是一套讓 AI Agent 從文件、URL、主題或既有 PPTX 產生原生可編輯 PowerPoint 的開源 Skill／workflow；它以受約束 SVG 作為視覺中介語言，編譯為 DrawingML，並加入模板、原生圖表與表格、動畫轉場、旁白、品質檢查與本機預覽。
 classification:
   categories:
@@ -143,6 +146,10 @@ AOI × AI 與 SillyTavern／AI RPG 都不是直接目標，因此分數保守。
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-12
 

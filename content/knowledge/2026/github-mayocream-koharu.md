@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/mayocream/koharu
   identity: github:mayocream/koharu
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-16
-updated_at: 2026-08-16
-last_checked_at: 2026-08-16
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: Koharu 是以 Rust 開發的 local-first 漫畫翻譯工具，將文字區域與氣泡偵測、OCR、inpainting、LLM／機器翻譯與 CJK／RTL 文字排版串成完整工作流，並支援多種 GPU 後端與可編輯 PSD 匯出。
 classification:
   categories:
@@ -142,6 +145,10 @@ Koharu 是 Rust 2024 edition 的 multi-crate workspace，目前 workspace versio
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-16
 

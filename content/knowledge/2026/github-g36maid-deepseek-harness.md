@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/G36maid/deepseek-harness
   identity: github:g36maid/deepseek-harness
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-15
-updated_at: 2026-08-15
-last_checked_at: 2026-08-15
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: DeepSeek Harness 是 DeepSeek AI 的開源 agent harness，以 Cordis 實作「Everything is a Plugin」架構，把 agent loop、模型介面、工具、session、權限與執行能力拆成可替換的 plugin／service seam；此 fork 另維護繁體中文文件、Web UI locale 與 zh-TW 轉換驗證管線，適合作為可組合 Agent Runtime 與在地化工程的架構參考。
 classification:
   categories:
@@ -177,6 +180,10 @@ Repository 主要以 **TypeScript** 實作，採 pnpm workspace monorepo。當�
 ## 使用者備註
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-15
 

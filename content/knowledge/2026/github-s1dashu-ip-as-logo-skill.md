@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/s1dashu/ip-as-logo-skill
   identity: github:s1dashu/ip-as-logo-skill
+resource_kind:
+  ai: skill
+  user: null
 created_at: 2026-08-20
-updated_at: 2026-08-20
-last_checked_at: 2026-08-20
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: IP as Logo 是一份遵循開放 Agent Skills 格式的影像生成 Skill，透過明確的形狀、色彩、構圖與批次流程約束，協助相容 Agent 產生極度簡化、圓潤可愛、適合品牌使用的 IP 吉祥物候選圖；本身不含生成程式碼，實際輸出依賴 Agent 既有的影像生成能力。
 classification:
   categories:
@@ -126,6 +129,10 @@ Repository 建立於 2026-08-18，至本次檢查時仍屬非常新的專案。�
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `skill`。
 
 ### 2026-08-20
 

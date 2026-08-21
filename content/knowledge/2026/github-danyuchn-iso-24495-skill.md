@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/danyuchn/iso-24495-skill
   identity: github:danyuchn/iso-24495-skill
+resource_kind:
+  ai: skill
+  user: null
 created_at: 2026-08-14
-updated_at: 2026-08-14
-last_checked_at: 2026-08-14
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: ISO 24495 Skill 是一套供 Claude Code 使用的雙語 Plain Language Skill，將 ISO 24495-1 的 Relevant、Findable、Understandable、Usable 四項讀者結果轉成固定改寫流程，並為英文與繁體中文分別提供技法層；繁中層特別處理歐化長句、公文腔、成語堆疊、中英夾雜與指代不明。
 classification:
   categories:
@@ -145,6 +148,10 @@ Repository 本身不是獨立程式或 SaaS，而是一個 **Claude Code Skill p
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `skill`。
 
 ### 2026-08-14
 

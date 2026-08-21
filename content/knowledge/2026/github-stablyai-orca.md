@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/stablyai/orca
   identity: github:stablyai/orca
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-13
-updated_at: 2026-08-13
-last_checked_at: 2026-08-13
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: Orca 是面向平行 coding agents 的 Agent Development Environment，以 Git worktree 隔離多個 CLI agent，整合 durable orchestration、終端、Git／PR review、SSH／headless runtime、Mobile Companion、Design Mode 與可程式化 CLI，讓 Codex、Claude Code、OpenCode、Pi 等代理能在同一工作環境中平行執行、追蹤、比較與交接。
 classification:
   categories:
@@ -152,6 +155,10 @@ Orchestration layer 則位於 `src/main/runtime/orchestration/`，以 SQLite 保
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-13
 

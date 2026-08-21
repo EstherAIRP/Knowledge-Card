@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/Minijinai75/tavern-claude-bridge
   identity: github:minijinai75/tavern-claude-bridge
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-12
-updated_at: 2026-08-12
-last_checked_at: 2026-08-12
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: Claude Bridge 是一套將 SillyTavern 接到本機 Claude Code／Claude Agent SDK 的橋接擴充，提供 OpenAI-compatible chat endpoint、串流回覆、圖片輸入、思考摘要切換與長對話 prompt cache 拆塊；其特色不只是轉發 API，而是針對 RP prompt 結構、快取命中與診斷做專門處理。
 classification:
   categories:
@@ -151,6 +154,10 @@ Privacy 方面，bridge 只綁 loopback 是優點，但本機 endpoint 本身不
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-12
 

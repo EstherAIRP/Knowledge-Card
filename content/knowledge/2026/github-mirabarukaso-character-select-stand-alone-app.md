@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/mirabarukaso/character_select_stand_alone_app
   identity: github:mirabarukaso/character_select_stand_alone_app
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-12
-updated_at: 2026-08-12
-last_checked_at: 2026-08-12
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: Character Select SAA 是一套 Electron 桌面式 AI 圖像生成前端，從角色縮圖選擇、Tag 補全與 AI Prompt，一路整合 ComfyUI／Forge Neo、ControlNet、IP-Adapter、ADetailer、Regional Prompt、MiraITU 與 ONNX Image Tagger；並透過 SAAC WebSocket 服務與 Python SAA Agent，讓瀏覽器或本機 Agent 直接呼叫生成流程。
 classification:
   categories:
@@ -171,6 +174,10 @@ SAAC 服務使用 **Express + WebSocket (`ws`)**。若提供 certificate、key �
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-12
 

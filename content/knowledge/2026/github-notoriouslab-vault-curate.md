@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/notoriouslab/vault-curate
   identity: github:notoriouslab/vault-curate
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-19
-updated_at: 2026-08-19
-last_checked_at: 2026-08-19
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: >-
   Vault Curate 是 Obsidian 的本地優先知識整理外掛，把 BM25、中文語意嵌入與模糊標題搜尋融合成混合檢索，並用語意關聯圖、最寬路徑與 Hot/Cold 分級協助重新發現未手動連結或長期未觸及的筆記；預設在本機建索引，AI 整理功能則採明確啟用與人工觸發。
 classification:
@@ -152,6 +155,10 @@ k-NN 建圖包含同資料夾鄰居上限，用來抑制模板兄弟筆記形成
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-19
 

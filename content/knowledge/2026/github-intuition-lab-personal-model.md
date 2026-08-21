@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/Intuition-Lab/personal-model
   identity: github:intuition-lab/personal-model
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-11
-updated_at: 2026-08-11
-last_checked_at: 2026-08-11
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: Personal Model 是一套 local-first、以證據來源為核心的長期記憶 Runtime，將 macOS 上經授權的工作活動整理成可檢查、修正與匯出的個人模型，並透過 MCP 供 Codex、Claude Code、Cursor Agent 等可信任 AI client 共用。
 classification:
   categories:
@@ -163,6 +166,10 @@ Semantic model quality 仍依賴 LLM provider、累積資料品質與模型形�
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-11
 
