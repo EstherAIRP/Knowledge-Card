@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-21T06:50:10.419Z",
-  "input_hash": "34328f9b07d5181046ac78b5131364fb6ff6e1d9bb385142b714d79c36635604",
+  "generated_at": "2026-08-21T10:28:09.499Z",
+  "input_hash": "ced37531c530d2c53a2a4576c4a7617792ed2b762a9c638f2cf8438a250dd821",
   "concepts": [
     {
       "id": "category-agent",
@@ -11,6 +11,7 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "earendil-works-pi",
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
@@ -31,7 +32,7 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dclcucpas-z-66b25b"
       ],
-      "card_count": 19
+      "card_count": 20
     },
     {
       "id": "coding-agent-tooling",
@@ -41,6 +42,7 @@
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
+        "earendil-works-pi",
         "github-akitaonrails-ai-memory",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
@@ -55,7 +57,7 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463"
       ],
-      "card_count": 13
+      "card_count": 14
     },
     {
       "id": "category-ai-coding-devtools",
@@ -65,6 +67,7 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "earendil-works-pi",
         "github-akitaonrails-ai-memory",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
@@ -78,7 +81,7 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463"
       ],
-      "card_count": 12
+      "card_count": 13
     },
     {
       "id": "category-llm",
@@ -88,6 +91,7 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "earendil-works-pi",
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
@@ -100,7 +104,7 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 11
+      "card_count": 12
     },
     {
       "id": "category-general-tools",
@@ -360,6 +364,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-agent-runtime",
+      "label": "agent-runtime",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "ai-character-interface",
       "label": "AI Character Interface",
       "type": "experience",
@@ -384,6 +402,20 @@
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-coding-agent",
+      "label": "coding-agent",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ],
       "card_count": 3
     },
@@ -458,6 +490,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-typescript",
+      "label": "TypeScript",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness",
+        "github-stablyai-orca"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-agent-skills",
       "label": "Agent Skills",
       "type": "topic",
@@ -497,19 +543,6 @@
       "card_count": 2
     },
     {
-      "id": "tag-agent-runtime",
-      "label": "agent-runtime",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ],
-      "card_count": 2
-    },
-    {
       "id": "tag-ai-coding",
       "label": "AI coding",
       "type": "topic",
@@ -545,19 +578,6 @@
       "card_ids": [
         "github-mattpocock-skills",
         "threads-db-wlkkgtu-18d1ea"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-coding-agent",
-      "label": "coding-agent",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
       ],
       "card_count": 2
     },
@@ -783,19 +803,6 @@
       "card_count": 2
     },
     {
-      "id": "tag-typescript",
-      "label": "TypeScript",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "github-stablyai-orca"
-      ],
-      "card_count": 2
-    },
-    {
       "id": "tag-web-ui",
       "label": "Web UI",
       "type": "topic",
@@ -835,6 +842,94 @@
     }
   ],
   "card_concepts": [
+    {
+      "card_id": "earendil-works-pi",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "earendil-works-pi",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "earendil-works-pi",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "earendil-works-pi",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "earendil-works-pi",
+      "concept_id": "tag-agent-runtime",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-runtime"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "earendil-works-pi",
+      "concept_id": "tag-coding-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "earendil-works-pi",
+      "concept_id": "tag-typescript",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "TypeScript"
+        }
+      ],
+      "origin": "shared-tag"
+    },
     {
       "card_id": "github-ai21002102-riverbend",
       "concept_id": "agent-api-bridge",
@@ -3687,6 +3782,17 @@
   "concept_relations": [
     {
       "source": "agent-api-bridge",
+      "target": "ai-character-interface",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
       "support": 7,
@@ -3704,17 +3810,6 @@
     {
       "source": "agent-api-bridge",
       "target": "tag-agent-memory",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
-      "target": "tag-coding-agent",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
@@ -3822,17 +3917,6 @@
     },
     {
       "source": "agent-memory",
-      "target": "tag-coding-agent",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
-      ]
-    },
-    {
-      "source": "agent-memory",
       "target": "tag-embeddings",
       "type": "co_occurs_with",
       "support": 2,
@@ -3866,6 +3950,17 @@
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "tag-memory-consolidation",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
       ]
     },
     {
@@ -3928,6 +4023,17 @@
     },
     {
       "source": "ai-character-interface",
+      "target": "local-ai-integration",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app"
+      ]
+    },
+    {
+      "source": "ai-character-interface",
       "target": "tag-electron",
       "type": "co_occurs_with",
       "support": 2,
@@ -3939,11 +4045,12 @@
     },
     {
       "source": "category-agent",
-      "target": "tag-agent-loop",
+      "target": "tag-agent-runtime",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "earendil-works-pi",
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
       ]
@@ -3989,14 +4096,14 @@
     },
     {
       "source": "category-agent",
-      "target": "tag-electron",
+      "target": "tag-coding-agent",
       "type": "co_occurs_with",
       "support": 3,
       "weight": 1,
       "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-stablyai-orca"
+        "earendil-works-pi",
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -4029,9 +4136,10 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 12,
+      "support": 13,
       "weight": 1,
       "card_ids": [
+        "earendil-works-pi",
         "github-akitaonrails-ai-memory",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
@@ -4072,9 +4180,10 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-agent-runtime",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "earendil-works-pi",
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
       ]
@@ -4082,17 +4191,6 @@
     {
       "source": "category-ai-coding-devtools",
       "target": "tag-ai-coding",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-mattpocock-skills",
-        "threads-db-wlkkgtu-18d1ea"
-      ]
-    },
-    {
-      "source": "category-ai-coding-devtools",
-      "target": "tag-code-review",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
@@ -4117,11 +4215,24 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "earendil-works-pi",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "tag-typescript",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness",
+        "github-stablyai-orca"
       ]
     },
     {
@@ -4285,17 +4396,6 @@
     },
     {
       "source": "category-infrastructure-deployment",
-      "target": "tag-agent-runtime",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "category-infrastructure-deployment",
       "target": "tag-cordis",
       "type": "co_occurs_with",
       "support": 2,
@@ -4352,6 +4452,17 @@
     {
       "source": "category-infrastructure-deployment",
       "target": "tag-tool-registry",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
+      "target": "tag-web-ui",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
@@ -4478,17 +4589,6 @@
     },
     {
       "source": "category-rag-memory-knowledge",
-      "target": "tag-coding-agent",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
-      ]
-    },
-    {
-      "source": "category-rag-memory-knowledge",
       "target": "tag-embeddings",
       "type": "co_occurs_with",
       "support": 2,
@@ -4496,6 +4596,18 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "tag-long-term-memory",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 0.75,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -4606,22 +4718,12 @@
       "source": "coding-agent-tooling",
       "target": "tag-agent-runtime",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "earendil-works-pi",
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "coding-agent-tooling",
-      "target": "tag-ai-coding",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-mattpocock-skills",
-        "threads-db-wlkkgtu-18d1ea"
       ]
     },
     {
@@ -4641,17 +4743,6 @@
     },
     {
       "source": "coding-agent-tooling",
-      "target": "tag-code-review",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-mattpocock-skills",
-        "threads-db-wlkkgtu-18d1ea"
-      ]
-    },
-    {
-      "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
       "support": 3,
@@ -4659,6 +4750,30 @@
       "card_ids": [
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
+        "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
+      "target": "tag-coding-agent",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "earendil-works-pi",
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
+      "target": "tag-typescript",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness",
         "github-stablyai-orca"
       ]
     },
@@ -4682,17 +4797,6 @@
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-notoriouslab-vault-curate"
-      ]
-    },
-    {
-      "source": "local-ai-integration",
-      "target": "tag-coding-agent",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -4779,6 +4883,17 @@
     {
       "source": "tag-agent-loop",
       "target": "tag-sandbox",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-agent-loop",
+      "target": "tag-session-log",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
@@ -4900,21 +5015,10 @@
     },
     {
       "source": "tag-coding-agent",
-      "target": "tag-long-term-memory",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
-      ]
-    },
-    {
-      "source": "tag-coding-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
@@ -5176,9 +5280,9 @@
     }
   ],
   "stats": {
-    "card_count": 28,
+    "card_count": 29,
     "concept_count": 55,
-    "card_concept_edge_count": 225,
+    "card_concept_edge_count": 232,
     "concept_relation_edge_count": 129
   }
 }
