@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'node:url';
-import { loadCards } from '../scripts/lib/knowledge.mjs';
+import { effectiveResourceKind, loadCards } from '../scripts/lib/knowledge.mjs';
 
 const contentRoot = fileURLToPath(new URL('../content/knowledge/', import.meta.url));
 
@@ -25,6 +25,7 @@ function normalizeCard(card) {
     canonicalUrl: data.canonical_url,
     sourceType: data.source?.type,
     sourceIdentity: data.source?.identity,
+    resourceKind: effectiveResourceKind(data),
     createdAt: data.created_at,
     updatedAt: data.updated_at,
     lastCheckedAt: data.last_checked_at,
