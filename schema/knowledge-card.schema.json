@@ -64,6 +64,10 @@
         }
       }
     },
+    "resource_kind": {
+      "$ref": "#/$defs/resourceKindOwnership",
+      "description": "Optional resource classification. GitHub repositories should classify the primary deliverable as project or skill when authored or re-analyzed. The user value is an explicit override of the AI value."
+    },
     "created_at": {
       "type": "string",
       "format": "date"
@@ -142,6 +146,28 @@
     }
   },
   "$defs": {
+    "resourceKind": {
+      "enum": [
+        "project",
+        "skill"
+      ]
+    },
+    "resourceKindOwnership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ai", "user"],
+      "properties": {
+        "ai": {
+          "$ref": "#/$defs/resourceKind"
+        },
+        "user": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/resourceKind" }
+          ]
+        }
+      }
+    },
     "category": {
       "enum": [
         "AI / ML",
