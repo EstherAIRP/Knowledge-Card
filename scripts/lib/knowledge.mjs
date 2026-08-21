@@ -15,8 +15,7 @@ const TRACKING_KEYS = new Set([
 const LEGACY_SKILL_TAGS = new Set([
   'agent-skill',
   'agent skill',
-  'agent-skills',
-  'skill.md'
+  'agent-skills'
 ]);
 
 export const REQUIRED_SECTIONS = [
@@ -262,7 +261,7 @@ export function compareUserOwnedState(before, after) {
   const checks = [
     ['id', before.data.id, after.data.id],
     ['created_at', before.data.created_at, after.data.created_at],
-    ['resource_kind.user', before.data?.resource_kind?.user, after.data?.resource_kind?.user],
+    ['resource_kind.user', before.data?.resource_kind?.user ?? null, after.data?.resource_kind?.user ?? null],
     ['classification.categories.user', before.data?.classification?.categories?.user, after.data?.classification?.categories?.user],
     ['classification.tags.user', before.data?.classification?.tags?.user, after.data?.classification?.tags?.user],
     ['relevance.user', before.data?.relevance?.user, after.data?.relevance?.user],
