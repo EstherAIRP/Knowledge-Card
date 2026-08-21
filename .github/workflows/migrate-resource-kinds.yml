@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: migrate-resource-kinds
+  cancel-in-progress: false
+
 jobs:
   migrate:
     if: ${{ !contains(github.event.head_commit.message, '[resource-kind-migrated]') }}
@@ -19,6 +23,17 @@ jobs:
         with:
           ref: chore/classify-existing-github-cards
           fetch-depth: 0
+
+      - name: Signal migration run
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          printf 'started\n' > .resource-kind-migration-started
+          git add .resource-kind-migration-started
+          git diff --cached --quiet || git commit -m "chore: mark resource kind migration started [resource-kind-migrated]"
+          git push origin HEAD:chore/classify-existing-github-cards
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -52,8 +67,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add content/knowledge/2026/github-*.md
           git diff --cached --quiet && exit 0
           git commit -m "knowledge: classify existing GitHub cards [resource-kind-migrated]"
