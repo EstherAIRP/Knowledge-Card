@@ -2,11 +2,14 @@
 schema_version: 1
 id: example-project
 title: Example Project
-canonical_url: https://example.com/project
+canonical_url: https://github.com/example/example-project
 source:
-  type: tool
-  url: https://example.com/project
-  identity: url:https://example.com/project
+  type: github
+  url: https://github.com/example/example-project
+  identity: github:example/example-project
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-11
 updated_at: 2026-08-11
 last_checked_at: 2026-08-11
@@ -47,6 +50,8 @@ status:
 
 這是一張格式範例，用來展示 Knowledge Card 的 YAML 前置欄位（frontmatter）、分析章節與 AI／使用者所有權寫法；真正收錄內容應放在 `content/knowledge/{YYYY}/`。
 
+GitHub 來源應使用 `resource_kind.ai` 判斷 Repository 的主要交付物是 `project` 或 `skill`。`skill` 指主要供 Agent 載入、遵循或調用的可重用能力／工作流程；一般應用、函式庫、框架、CLI、服務或只是附帶 Skill 範例的 Repository 仍屬 `project`。不得只因為出現 `SKILL.md` 就自動判為 `skill`。
+
 ## 它解決什麼問題
 
 真正的 Knowledge Card 在此說明來源試圖解決的具體問題、目標使用者，以及它相較既有方法的切入點。避免只改寫專案宣傳標語。
@@ -67,6 +72,8 @@ status:
 - 重要外部依賴
 
 若來源沒有提供某項資訊，不應自行補寫成事實。
+
+若 `resource_kind` 是 `skill`，應額外說明適用的 Agent／Runtime、安裝或載入方式、觸發方式、需要的工具／權限，以及 `SKILL.md`、references、scripts、assets 等主要組成。
 
 ## 主要功能
 
