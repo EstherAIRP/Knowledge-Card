@@ -63,3 +63,7 @@ source_types:
   - tool
   - video
   - other
+
+resource_kinds:
+  - project
+  - skill

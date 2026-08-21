@@ -7,6 +7,7 @@ const query = ref('');
 const category = ref('ALL');
 const tag = ref('ALL');
 const action = ref('ALL');
+const resourceKind = ref('ALL');
 const dimension = ref('overall');
 const minScore = ref(1);
 const sortBy = ref('newest');
@@ -41,6 +42,15 @@ const actions = computed(() => {
   return [...values].sort();
 });
 
+const resourceKinds = computed(() => {
+  const count = new Map();
+  for (const card of cards) {
+    if (card.sourceType !== 'github' || !card.resourceKind) continue;
+    count.set(card.resourceKind, (count.get(card.resourceKind) ?? 0) + 1);
+  }
+  return [...count.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+});
+
 const stats = computed(() => ({
   total: cards.length,
   high: cards.filter((card) => card.relevance.overall >= 4).length,
@@ -55,6 +65,7 @@ const filteredCards = computed(() => {
     if (category.value !== 'ALL' && !card.categories.includes(category.value)) return false;
     if (tag.value !== 'ALL' && !card.tags.includes(tag.value)) return false;
     if (action.value !== 'ALL' && !card.actions.includes(action.value)) return false;
+    if (resourceKind.value !== 'ALL' && card.resourceKind !== resourceKind.value) return false;
     if ((card.relevance[selectedDimension] ?? 0) < minScore.value) return false;
 
     if (needle) {
@@ -62,6 +73,7 @@ const filteredCards = computed(() => {
         card.title,
         card.summary,
         card.sourceType,
+        card.resourceKind,
         ...card.categories,
         ...card.tags,
         ...card.actions
@@ -87,6 +99,15 @@ function scoreLabel(score) {
   return '★'.repeat(score) + '☆'.repeat(5 - score);
 }
 
+function resourceKindLabel(kind) {
+  return kind === 'skill' ? 'Skill' : 'Project';
+}
+
+function sourceLabel(card) {
+  const source = card.sourceType === 'github' ? 'GitHub' : card.sourceType;
+  return card.resourceKind ? `${source} · ${resourceKindLabel(card.resourceKind)}` : source;
+}
+
 function selectTag(value) {
   tag.value = value;
 }
@@ -96,6 +117,7 @@ function resetFilters() {
   category.value = 'ALL';
   tag.value = 'ALL';
   action.value = 'ALL';
+  resourceKind.value = 'ALL';
   dimension.value = 'overall';
   minScore.value = 1;
   sortBy.value = 'newest';
@@ -120,7 +142,7 @@ function resetFilters() {
       <summary class="radar-controls-summary">
         <span>
           <strong>搜尋與篩選</strong>
-          <small>搜尋、Tag、Action、Category、相關性與排序</small>
+          <small>搜尋、GitHub 類型、Tag、Action、Category、相關性與排序</small>
         </span>
         <span class="radar-controls-chevron" aria-hidden="true">⌄</span>
       </summary>
@@ -129,7 +151,14 @@ function resetFilters() {
         <div class="radar-search-row">
           <label class="radar-search">
             <span>搜尋</span>
-            <input v-model="query" type="search" placeholder="專案、技術、Tag、Action…" />
+            <input v-model="query" type="search" placeholder="專案、Skill、技術、Tag、Action…" />
+          </label>
+          <label>
+            <span>GitHub 類型</span>
+            <select v-model="resourceKind">
+              <option value="ALL">全部</option>
+              <option v-for="([item, count]) in resourceKinds" :key="item" :value="item">{{ resourceKindLabel(item) }} ({{ count }})</option>
+            </select>
           </label>
           <label>
             <span>Tag</span>
@@ -193,7 +222,7 @@ function resetFilters() {
     <section v-if="filteredCards.length" class="radar-grid">
       <article v-for="card in filteredCards" :key="card.id" class="knowledge-tile">
         <div class="knowledge-tile-top">
-          <div class="knowledge-source">{{ card.sourceType }}</div>
+          <div class="knowledge-source">{{ sourceLabel(card) }}</div>
           <div class="knowledge-score" :title="`${card.relevance[dimension]} / 5`">
             {{ scoreLabel(card.relevance[dimension] ?? 1) }}
           </div>

@@ -49,7 +49,15 @@ content/knowledge/**/*.md
 
 `docs/index.md` 掛載 `KnowledgeRadar.vue`。
 
-Radar 可以依標題、摘要、來源類型、分類、標籤與 Action 篩選中繼資料，也支援相關性維度選擇、最低分數篩選、排序、自動統計與響應式 Card 網格。
+Radar 可以依標題、摘要、來源類型、分類、標籤與 Action 篩選中繼資料，也支援 GitHub `Project`／`Skill` 類型、相關性維度選擇、最低分數篩選、排序、自動統計與響應式 Card 網格。
+
+GitHub 類型來自 Knowledge Card 的有效 `resource_kind`：
+
+```text
+resource_kind = user ?? ai
+```
+
+為了相容在此欄位加入前建立的舊 GitHub Card，網站會暫時把具有明確 Agent Skill 標記的舊卡推定為 `skill`，其餘舊 GitHub Card 視為 `project`。新建立或重新分析的 GitHub Card 應正式寫入 `resource_kind`，因此舊資料的推定只是一層過渡相容，不是新的內容權威來源。
 
 所選的相關性維度會同時影響篩選結果與每張 Card 顯示的分數。
 
@@ -61,7 +69,7 @@ Radar 可以依標題、摘要、來源類型、分類、標籤與 Action 篩選
 effective wrapper value = user ?? ai
 ```
 
-相關性會依各維度分別解析，因此人工修正可以直接反映在網站上，不需要覆寫 AI 擁有值。
+相關性會依各維度分別解析，因此人工修正可以直接反映在網站上，不需要覆寫 AI 擁有值。`resource_kind` 也遵循同一個使用者覆寫優先規則。
 
 ## Knowledge Card 詳細頁路由
 
@@ -74,6 +82,7 @@ effective wrapper value = user ?? ai
 每個路由會投影：
 
 - Card 中繼資料與完整 Markdown 正文；
+- GitHub Card 的有效 `resource_kind`，並在頁首顯示 `GitHub · Project` 或 `GitHub · Skill`；
 - Phase 2 類型化 Card↔Card 語意關聯；
 - Phase 3 Card↔Concept 對應及其強度／證據；
 - 來源、編輯與導覽連結。

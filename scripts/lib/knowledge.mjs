@@ -12,6 +12,12 @@ const TRACKING_KEYS = new Set([
   'ref_url'
 ]);
 
+const LEGACY_SKILL_TAGS = new Set([
+  'agent-skill',
+  'agent skill',
+  'agent-skills'
+]);
+
 export const REQUIRED_SECTIONS = [
   '一句話介紹',
   '它解決什麼問題',
@@ -34,6 +40,20 @@ export function slugify(value) {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .replace(/-{2,}/g, '-');
+}
+
+export function effectiveOwnershipValue(wrapper) {
+  return wrapper?.user ?? wrapper?.ai ?? null;
+}
+
+export function effectiveResourceKind(data) {
+  const explicit = effectiveOwnershipValue(data?.resource_kind);
+  if (explicit) return explicit;
+  if (data?.source?.type !== 'github') return null;
+
+  const tags = effectiveOwnershipValue(data?.classification?.tags) ?? [];
+  const hasLegacySkillSignal = tags.some((tag) => LEGACY_SKILL_TAGS.has(String(tag).trim().toLowerCase()));
+  return hasLegacySkillSignal ? 'skill' : 'project';
 }
 
 function cleanTrackingParams(url) {
@@ -241,6 +261,7 @@ export function compareUserOwnedState(before, after) {
   const checks = [
     ['id', before.data.id, after.data.id],
     ['created_at', before.data.created_at, after.data.created_at],
+    ['resource_kind.user', before.data?.resource_kind?.user ?? null, after.data?.resource_kind?.user ?? null],
     ['classification.categories.user', before.data?.classification?.categories?.user, after.data?.classification?.categories?.user],
     ['classification.tags.user', before.data?.classification?.tags?.user, after.data?.classification?.tags?.user],
     ['relevance.user', before.data?.relevance?.user, after.data?.relevance?.user],

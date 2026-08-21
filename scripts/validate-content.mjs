@@ -33,6 +33,7 @@ function validateContractDrift() {
   const schemaActions = schema.$defs?.action?.enum;
   const schemaStatuses = schema.$defs?.status?.enum;
   const schemaSourceTypes = schema.properties?.source?.properties?.type?.enum;
+  const schemaResourceKinds = schema.$defs?.resourceKind?.enum;
   const schemaRelevance = schema.$defs?.fullRelevance?.required;
 
   if (!sameArray(schemaCategories, taxonomy.categories)) {
@@ -46,6 +47,9 @@ function validateContractDrift() {
   }
   if (!sameArray(schemaSourceTypes, taxonomy.source_types)) {
     errors.push('CONTRACT: schema source types differ from config/taxonomy.yaml.');
+  }
+  if (!sameArray(schemaResourceKinds, taxonomy.resource_kinds)) {
+    errors.push('CONTRACT: schema resource kinds differ from config/taxonomy.yaml.');
   }
   if (!sameArray(schemaRelevance, Object.keys(taxonomy.relevance_dimensions || {}))) {
     errors.push('CONTRACT: schema relevance dimensions differ from config/taxonomy.yaml.');
