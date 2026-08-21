@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/mattpocock/skills
   identity: github:mattpocock/skills
+resource_kind:
+  ai: skill
+  user: null
 created_at: 2026-08-15
-updated_at: 2026-08-15
-last_checked_at: 2026-08-15
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: Skills For Real Engineers 是 Matt Pocock 維護的一組可組合 Agent Skills，把需求澄清、TDD、除錯、domain modeling、spec／ticket 拆解、code review、研究與大型工作規劃等工程實務封裝成可重複使用的工作流程；它不是新的 agent runtime，而是疊加在 Claude Code、Codex 等 coding agent 之上的行為與工程紀律層。
 classification:
   categories:
@@ -169,6 +172,10 @@ Repository 的主要資產是 `skills/**/SKILL.md` 與其附屬 template／refer
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `skill`。
 
 ### 2026-08-15
 

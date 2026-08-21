@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/Nutlope/hallmark
   identity: github:nutlope/hallmark
+resource_kind:
+  ai: skill
+  user: null
 created_at: 2026-08-12
-updated_at: 2026-08-12
-last_checked_at: 2026-08-12
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: Hallmark 是面向 Claude Code、Cursor 與 Codex 的 anti-AI-slop UI 設計 Skill，以結構多樣化、21 種主題、57 項檢查 gate、輸出前自我批判與響應式／設計 token 約束，降低 AI 生成介面的模板化痕跡；同時提供 build、audit、redesign、study 四種工作模式。
 classification:
   categories:
@@ -130,6 +133,10 @@ Hallmark 的品質高度依賴 coding agent 是否忠實遵守長篇 Skill 與 r
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `skill`。
 
 ### 2026-08-12
 

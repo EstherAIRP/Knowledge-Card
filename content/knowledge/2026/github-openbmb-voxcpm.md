@@ -7,6 +7,9 @@ source:
   type: github
   url: https://github.com/OpenBMB/VoxCPM
   identity: github:openbmb/voxcpm
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-21
 updated_at: 2026-08-21
 last_checked_at: 2026-08-21
@@ -125,6 +128,10 @@ AudioVAE V2 使用非對稱編碼／解碼設計：參考音訊可使用 16kHz �
 
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-21
 

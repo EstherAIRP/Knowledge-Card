@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/ai21002102/Riverbend
   identity: github:ai21002102/riverbend
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-18
-updated_at: 2026-08-18
-last_checked_at: 2026-08-18
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: Riverbend 是一套源自實際 AI 伴侶系統的長期記憶方法論，主張「記憶不是儲存問題，而是注意力問題」，以睜眼層、召回層、書庫三層架構，搭配混合檢索、跨視窗近況推送、來源標示與結構式防幻覺閘門，整理出如何讓長期 Agent 在多視窗與上下文壓縮下維持連續性的設計判準。
 classification:
   categories:
@@ -163,6 +166,10 @@ Riverbend Repository 本身主要是方法論文件，並沒有可執行的主�
 ## 使用者備註
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-18
 

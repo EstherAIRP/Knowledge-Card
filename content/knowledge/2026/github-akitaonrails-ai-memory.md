@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/akitaonrails/ai-memory
   identity: github:akitaonrails/ai-memory
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-16
-updated_at: 2026-08-16
-last_checked_at: 2026-08-16
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: ai-memory 是以 Rust 實作的 Coding Agent 長期記憶與跨 Agent handoff 系統，透過 lifecycle hooks 蒐集經清理的工作觀察，編譯成 Git 版本化 Markdown wiki，並以 SQLite／FTS5／entity／graph／可選 vector retrieval 提供召回；同時支援 Claude Code、Codex、OpenCode、OpenClaw 等多種 Agent CLI 之間延續同一工作脈絡。
 classification:
   categories:
@@ -174,6 +177,10 @@ Agent 整合面主要透過 **MCP + lifecycle hooks + generated plugins/extensio
 ## 使用者備註
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-16
 

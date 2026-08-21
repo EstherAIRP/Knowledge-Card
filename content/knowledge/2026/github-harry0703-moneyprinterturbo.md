@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/harry0703/MoneyPrinterTurbo
   identity: github:harry0703/moneyprinterturbo
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-18
-updated_at: 2026-08-18
-last_checked_at: 2026-08-18
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: MoneyPrinterTurbo 是一套以 Python 建構的 AI 短影音自動化工作流，將 LLM 腳本與搜尋詞生成、素材取得、TTS、字幕、配樂、影片合成與 TikTok／Instagram／YouTube Shorts 發布串成完整產線，並提供 WebUI、API、CLI 與可由具終端能力 Agent 執行的 SKILL.md 工作流程。
 classification:
   categories:
@@ -171,6 +174,10 @@ AOI × AI 與 SillyTavern／AI RPG 則沒有直接技術重疊，因此相關性
 ## 使用者備註
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-18
 

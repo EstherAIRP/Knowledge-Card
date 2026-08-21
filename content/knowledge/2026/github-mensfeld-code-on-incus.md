@@ -7,9 +7,12 @@ source:
   type: github
   url: https://github.com/mensfeld/code-on-incus
   identity: github:mensfeld/code-on-incus
+resource_kind:
+  ai: project
+  user: null
 created_at: 2026-08-19
-updated_at: 2026-08-19
-last_checked_at: 2026-08-19
+updated_at: 2026-08-21
+last_checked_at: 2026-08-21
 summary: code-on-incus（coi）是一套面向 AI 程式代理的 Incus 系統容器沙箱，讓 Claude Code、OpenCode、pi、Codex CLI 等工具在具 root、systemd 與 Docker 的隔離環境中工作，同時把主機憑證留在信任邊界之外，並以 nftables 網路政策、唯讀保護路徑、稽核與 HIGH／CRITICAL 自動暫停／終止提供主動防禦。它適合作為高權限 Agent 的可觀測安全執行層，而不只是一般開發容器。
 classification:
   categories:
@@ -158,6 +161,10 @@ Codex CLI 另有一個實務細節：目前不是預設映像中的代理，需�
 ## 使用者備註
 
 ## 更新紀錄
+
+### 2026-08-21
+
+- 重新檢查目前 Repository，依主要交付物正式將 `resource_kind` 分類為 `project`。
 
 ### 2026-08-19
 
