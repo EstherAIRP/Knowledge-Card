@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-21T10:28:09.499Z",
-  "input_hash": "ced37531c530d2c53a2a4576c4a7617792ed2b762a9c638f2cf8438a250dd821",
+  "generated_at": "2026-08-22T17:43:46.689Z",
+  "input_hash": "a41792b229fa5b76de3f1b56efaa444abb4572187b3e2826db1eb298848a2797",
   "concepts": [
     {
       "id": "category-agent",
@@ -30,9 +30,10 @@
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
-        "threads-dclcucpas-z-66b25b"
+        "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 20
+      "card_count": 21
     },
     {
       "id": "coding-agent-tooling",
@@ -55,9 +56,10 @@
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
-        "threads-dcdjlucgrwf-66e463"
+        "threads-dcdjlucgrwf-66e463",
+        "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 14
+      "card_count": 15
     },
     {
       "id": "category-ai-coding-devtools",
@@ -79,9 +81,10 @@
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
-        "threads-dcdjlucgrwf-66e463"
+        "threads-dcdjlucgrwf-66e463",
+        "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 13
+      "card_count": 14
     },
     {
       "id": "category-llm",
@@ -102,9 +105,30 @@
         "github-moeru-ai-airi",
         "threads-dchbjcxenzb-725dd0",
         "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 12
+      "card_count": 13
+    },
+    {
+      "id": "agent-memory",
+      "label": "Agent Memory",
+      "type": "architecture",
+      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate",
+        "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063",
+        "threads-dfyr62jb6wr-b921df"
+      ],
+      "card_count": 9
     },
     {
       "id": "category-general-tools",
@@ -146,25 +170,6 @@
       "card_count": 8
     },
     {
-      "id": "agent-memory",
-      "label": "Agent Memory",
-      "type": "architecture",
-      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi",
-        "github-notoriouslab-vault-curate",
-        "threads-dclcucpas-z-66b25b",
-        "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 8
-    },
-    {
       "id": "local-ai-integration",
       "label": "Local AI Integration",
       "type": "integration",
@@ -180,6 +185,25 @@
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-notoriouslab-vault-curate",
         "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 8
+    },
+    {
+      "id": "category-rag-memory-knowledge",
+      "label": "RAG / Memory / Knowledge",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate",
+        "threads-dcuhxije1zf-9b4063",
+        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 8
     },
@@ -238,24 +262,6 @@
       "card_count": 7
     },
     {
-      "id": "category-rag-memory-knowledge",
-      "label": "RAG / Memory / Knowledge",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi",
-        "github-notoriouslab-vault-curate",
-        "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 7
-    },
-    {
       "id": "tag-claude-code",
       "label": "Claude Code",
       "type": "topic",
@@ -290,6 +296,22 @@
       "card_count": 6
     },
     {
+      "id": "tag-long-term-memory",
+      "label": "long-term-memory",
+      "type": "topic",
+      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063"
+      ],
+      "card_count": 5
+    },
+    {
       "id": "category-image-generation",
       "label": "Image Generation",
       "type": "category",
@@ -320,21 +342,6 @@
       "card_count": 4
     },
     {
-      "id": "tag-long-term-memory",
-      "label": "long-term-memory",
-      "type": "topic",
-      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 4
-    },
-    {
       "id": "tag-mcp",
       "label": "MCP",
       "type": "topic",
@@ -360,6 +367,20 @@
         "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-agent-memory",
+      "label": "agent-memory",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "threads-dcuhxije1zf-9b4063"
       ],
       "card_count": 3
     },
@@ -530,19 +551,6 @@
       "card_count": 2
     },
     {
-      "id": "tag-agent-memory",
-      "label": "agent-memory",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
-      ],
-      "card_count": 2
-    },
-    {
       "id": "tag-ai-coding",
       "label": "AI coding",
       "type": "topic",
@@ -578,6 +586,19 @@
       "card_ids": [
         "github-mattpocock-skills",
         "threads-db-wlkkgtu-18d1ea"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-context-engineering",
+      "label": "context-engineering",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "threads-dcuhxije1zf-9b4063"
       ],
       "card_count": 2
     },
@@ -1317,6 +1338,18 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "tag-context-engineering",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "context-engineering"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "github-cynthianani-a-simple-nest",
@@ -3719,6 +3752,122 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "threads-dcuhxije1zf-9b4063",
+      "concept_id": "agent-memory",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        },
+        {
+          "kind": "tag",
+          "value": "agent-memory"
+        },
+        {
+          "kind": "tag",
+          "value": "long-term-memory"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "threads-dcuhxije1zf-9b4063",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-dcuhxije1zf-9b4063",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-dcuhxije1zf-9b4063",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-dcuhxije1zf-9b4063",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-dcuhxije1zf-9b4063",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "threads-dcuhxije1zf-9b4063",
+      "concept_id": "tag-agent-memory",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-memory"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-dcuhxije1zf-9b4063",
+      "concept_id": "tag-context-engineering",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "context-engineering"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-dcuhxije1zf-9b4063",
+      "concept_id": "tag-long-term-memory",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "long-term-memory"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "threads-dfyr62jb6wr-b921df",
       "concept_id": "agent-memory",
       "strength": 0.78,
@@ -3812,7 +3961,7 @@
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
@@ -3820,14 +3969,13 @@
     },
     {
       "source": "agent-api-bridge",
-      "target": "tag-long-term-memory",
+      "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
+      "support": 2,
+      "weight": 0.6667,
       "card_ids": [
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b"
+        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -3881,7 +4029,7 @@
       "source": "agent-memory",
       "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -3890,6 +4038,7 @@
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
         "github-notoriouslab-vault-curate",
+        "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ]
     },
@@ -3897,11 +4046,12 @@
       "source": "agent-memory",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -3913,6 +4063,17 @@
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "tag-context-engineering",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -3930,13 +4091,14 @@
       "source": "agent-memory",
       "target": "tag-long-term-memory",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b"
+        "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -3950,17 +4112,6 @@
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b"
-      ]
-    },
-    {
-      "source": "agent-memory",
-      "target": "tag-memory-consolidation",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest"
       ]
     },
     {
@@ -4045,6 +4196,18 @@
     },
     {
       "source": "category-agent",
+      "target": "tag-agent-memory",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "threads-dcuhxije1zf-9b4063"
+      ]
+    },
+    {
+      "source": "category-agent",
       "target": "tag-agent-runtime",
       "type": "co_occurs_with",
       "support": 3,
@@ -4096,27 +4259,16 @@
     },
     {
       "source": "category-agent",
-      "target": "tag-coding-agent",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "earendil-works-pi",
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
-      ]
-    },
-    {
-      "source": "category-agent",
       "target": "tag-long-term-memory",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
         "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b"
+        "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -4136,7 +4288,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 13,
+      "support": 14,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -4151,7 +4303,8 @@
         "github-stablyai-orca",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
-        "threads-dcdjlucgrwf-66e463"
+        "threads-dcdjlucgrwf-66e463",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -4169,11 +4322,12 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -4488,6 +4642,17 @@
     },
     {
       "source": "category-llm",
+      "target": "tag-context-engineering",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "threads-dcuhxije1zf-9b4063"
+      ]
+    },
+    {
+      "source": "category-llm",
       "target": "tag-local-llm",
       "type": "co_occurs_with",
       "support": 3,
@@ -4555,25 +4720,15 @@
       ]
     },
     {
-      "source": "category-llm",
-      "target": "tag-rust",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-mayocream-koharu"
-      ]
-    },
-    {
       "source": "category-rag-memory-knowledge",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -4589,6 +4744,17 @@
     },
     {
       "source": "category-rag-memory-knowledge",
+      "target": "tag-context-engineering",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "threads-dcuhxije1zf-9b4063"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
       "target": "tag-embeddings",
       "type": "co_occurs_with",
       "support": 2,
@@ -4596,18 +4762,6 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-notoriouslab-vault-curate"
-      ]
-    },
-    {
-      "source": "category-rag-memory-knowledge",
-      "target": "tag-long-term-memory",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -4707,11 +4861,12 @@
       "source": "coding-agent-tooling",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -4782,7 +4937,7 @@
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
@@ -4801,6 +4956,17 @@
     },
     {
       "source": "local-ai-integration",
+      "target": "tag-coding-agent",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 3,
@@ -4809,18 +4975,6 @@
         "github-intuition-lab-personal-model",
         "github-mayocream-koharu",
         "github-notoriouslab-vault-curate"
-      ]
-    },
-    {
-      "source": "local-ai-integration",
-      "target": "tag-long-term-memory",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b"
       ]
     },
     {
@@ -4904,24 +5058,14 @@
     },
     {
       "source": "tag-agent-memory",
-      "target": "tag-coding-agent",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
-      ]
-    },
-    {
-      "source": "tag-agent-memory",
       "target": "tag-long-term-memory",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -5015,6 +5159,17 @@
     },
     {
       "source": "tag-coding-agent",
+      "target": "tag-long-term-memory",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "tag-coding-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 2,
@@ -5022,6 +5177,17 @@
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "tag-context-engineering",
+      "target": "tag-long-term-memory",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -5141,6 +5307,17 @@
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest"
+      ]
+    },
+    {
+      "source": "tag-long-term-memory",
+      "target": "tag-sqlite",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest"
@@ -5280,9 +5457,9 @@
     }
   ],
   "stats": {
-    "card_count": 29,
-    "concept_count": 55,
-    "card_concept_edge_count": 232,
-    "concept_relation_edge_count": 129
+    "card_count": 30,
+    "concept_count": 56,
+    "card_concept_edge_count": 242,
+    "concept_relation_edge_count": 131
   }
 }
