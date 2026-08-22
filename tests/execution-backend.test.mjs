@@ -84,7 +84,7 @@ test('remote workflow exposes a trusted PR fallback when push correlation is una
   assert.match(workflow, /runtime\/ingest\/\*/);
   assert.match(workflow, /head\.repo\.full_name/);
   assert.match(workflow, /compare\/main\.\.\.\$\{REQUEST_SHA\}/);
-  assert.match(workflow, /differs from main by exactly one request JSON file/);
+  assert.match(workflow, /must differ from main by exactly one request JSON file/);
   assert.match(workflow, /Preserve undiscoverable push request for PR fallback/);
   assert.match(workflow, /Close transport PR/);
 });
