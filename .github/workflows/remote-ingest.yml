@@ -6,22 +6,83 @@ on:
       - 'runtime/ingest/**'
     paths:
       - '.runtime/requests/*.json'
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches:
+      - main
+    paths:
+      - '.runtime/requests/*.json'
 
 concurrency:
-  group: remote-ingest-${{ github.ref }}
+  group: remote-ingest-${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || github.sha }}
   cancel-in-progress: false
 
 jobs:
+  gate:
+    name: Validate remote ingestion trigger
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      request_sha: ${{ steps.request.outputs.request_sha }}
+      request_ref: ${{ steps.request.outputs.request_ref }}
+      pr_number: ${{ steps.request.outputs.pr_number }}
+    steps:
+      - name: Validate request branch and diff
+        id: request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TRIGGER_EVENT: ${{ github.event_name }}
+          REQUEST_SHA: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.sha || github.sha }}
+          REQUEST_REF: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.ref || github.ref_name }}
+          HEAD_REPOSITORY: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name || github.repository }}
+          PR_NUMBER: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.number || '' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "$TRIGGER_EVENT" = "pull_request_target" ] && [ "$HEAD_REPOSITORY" != "$GITHUB_REPOSITORY" ]; then
+            echo "Remote Ingest PR triggers must originate from this repository." >&2
+            exit 2
+          fi
+
+          case "$REQUEST_REF" in
+            runtime/ingest/*) ;;
+            *)
+              echo "Remote Ingest request ref must match runtime/ingest/**; got: $REQUEST_REF" >&2
+              exit 2
+              ;;
+          esac
+
+          mapfile -t files < <(gh api "repos/${GITHUB_REPOSITORY}/compare/main...${REQUEST_SHA}" --jq '.files[].filename')
+          if [ "${#files[@]}" -ne 1 ] || [[ ! "${files[0]}" =~ ^\.runtime/requests/[a-z0-9._-]+\.json$ ]]; then
+            printf 'Remote Ingest request branch must differ from main by exactly one request JSON file. Found:\n' >&2
+            printf '  %s\n' "${files[@]:-<none>}" >&2
+            exit 2
+          fi
+
+          echo "request_sha=$REQUEST_SHA" >> "$GITHUB_OUTPUT"
+          echo "request_ref=$REQUEST_REF" >> "$GITHUB_OUTPUT"
+          echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
+
   announce:
     name: Publish remote ingestion run pointer
+    needs: gate
     runs-on: ubuntu-latest
     permissions:
       statuses: write
+    outputs:
+      status_published: ${{ steps.status.outcome == 'success' && 'true' || 'false' }}
     steps:
       - name: Publish pending run pointer
+        id: status
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-          REQUEST_SHA: ${{ github.sha }}
+          REQUEST_SHA: ${{ needs.gate.outputs.request_sha }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           gh api --method POST "repos/${GITHUB_REPOSITORY}/statuses/${REQUEST_SHA}" \
@@ -30,9 +91,21 @@ jobs:
             -f description='Remote Ingest run is active' \
             -f target_url="$RUN_URL"
 
+      - name: Report correlation fallback
+        if: steps.status.outcome != 'success'
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request_target" ]; then
+            echo "Commit status publication failed; continuing because this PR-triggered run can be correlated by request head SHA."
+          else
+            echo "Commit status publication failed on a push trigger; source execution will wait for the PR fallback so the run remains discoverable."
+          fi
+
   resolve:
     name: Resolve remote ingestion request
-    needs: announce
+    needs:
+      - gate
+      - announce
+    if: needs.gate.result == 'success' && (github.event_name == 'pull_request_target' || needs.announce.outputs.status_published == 'true')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -53,7 +126,7 @@ jobs:
       - name: Checkout request branch as data only
         uses: actions/checkout@v5
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ needs.gate.outputs.request_sha }}
           path: request
           sparse-checkout: |
             .runtime/requests
@@ -113,8 +186,9 @@ jobs:
 
   finalize:
     name: Publish remote ingestion final status
-    if: always()
+    if: always() && needs.gate.result == 'success' && (github.event_name == 'pull_request_target' || needs.announce.outputs.status_published == 'true')
     needs:
+      - gate
       - announce
       - resolve
     runs-on: ubuntu-latest
@@ -122,9 +196,10 @@ jobs:
       statuses: write
     steps:
       - name: Publish final run pointer
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-          REQUEST_SHA: ${{ github.sha }}
+          REQUEST_SHA: ${{ needs.gate.outputs.request_sha }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           RESOLVE_RESULT: ${{ needs.resolve.result }}
         run: |
@@ -142,17 +217,32 @@ jobs:
             -f target_url="$RUN_URL"
 
   cleanup:
-    name: Delete temporary request branch
-    if: always() && startsWith(github.ref_name, 'runtime/ingest/')
+    name: Clean up temporary request transport
+    if: always() && needs.gate.result == 'success'
     needs:
+      - gate
       - announce
       - resolve
       - finalize
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
-      - name: Delete request branch
+      - name: Preserve undiscoverable push request for PR fallback
+        if: github.event_name == 'push' && needs.announce.outputs.status_published != 'true'
+        run: echo "Keeping ${{ needs.gate.outputs.request_ref }} so an Agent can open the PR fallback."
+
+      - name: Close transport PR
+        if: github.event_name == 'pull_request_target' && needs.gate.outputs.pr_number != ''
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh api --method DELETE "repos/${{ github.repository }}/git/refs/heads/${{ github.ref_name }}"
+          PR_NUMBER: ${{ needs.gate.outputs.pr_number }}
+        run: gh api --method PATCH "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}" -f state=closed
+
+      - name: Delete request branch
+        if: github.event_name == 'pull_request_target' || needs.announce.outputs.status_published == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUEST_REF: ${{ needs.gate.outputs.request_ref }}
+        run: gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${REQUEST_REF}"

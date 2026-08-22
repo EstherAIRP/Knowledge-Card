@@ -74,8 +74,19 @@ test('remote workflow publishes a request-commit status pointing at the Actions 
   assert.match(workflow, /context='remote-ingest\/run'/);
   assert.match(workflow, /github\.run_id/);
   assert.match(workflow, /statuses\/\$\{REQUEST_SHA\}/);
-  assert.match(workflow, /needs: announce/);
   assert.match(workflow, /Publish remote ingestion final status/);
+  assert.match(workflow, /status_published/);
+});
+
+test('remote workflow exposes a trusted PR fallback when push correlation is unavailable', () => {
+  const workflow = fs.readFileSync(new URL('../.github/workflows/remote-ingest.yml', import.meta.url), 'utf8');
+  assert.match(workflow, /pull_request_target:/);
+  assert.match(workflow, /runtime\/ingest\/\*/);
+  assert.match(workflow, /head\.repo\.full_name/);
+  assert.match(workflow, /compare\/main\.\.\.\$\{REQUEST_SHA\}/);
+  assert.match(workflow, /must differ from main by exactly one request JSON file/);
+  assert.match(workflow, /Preserve undiscoverable push request for PR fallback/);
+  assert.match(workflow, /Close transport PR/);
 });
 
 test('remote workflow installs trusted dependencies before request metadata validation', () => {
