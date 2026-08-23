@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-23T12:33:36.932Z",
-  "input_hash": "e723f75cc6faa7b8f74b841863e6b50cc015d80da7903ca0970ec848df171269",
+  "generated_at": "2026-08-23T22:42:41.325Z",
+  "input_hash": "3a9effab8c16f2fca079c835c20b9e9019c66d64fc0e98330bbfdb443ddf2c14",
   "concepts": [
     {
       "id": "category-agent",
@@ -13,6 +13,7 @@
       "card_ids": [
         "earendil-works-pi",
         "github-ai21002102-riverbend",
+        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-cynthianani-a-simple-nest",
@@ -35,7 +36,7 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 23
+      "card_count": 24
     },
     {
       "id": "coding-agent-tooling",
@@ -46,6 +47,7 @@
       "aliases": [],
       "card_ids": [
         "earendil-works-pi",
+        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
@@ -63,7 +65,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 17
+      "card_count": 18
     },
     {
       "id": "category-ai-coding-devtools",
@@ -74,6 +76,7 @@
       "aliases": [],
       "card_ids": [
         "earendil-works-pi",
+        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
@@ -90,7 +93,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 16
+      "card_count": 17
     },
     {
       "id": "category-llm",
@@ -118,6 +121,27 @@
       "card_count": 14
     },
     {
+      "id": "category-general-tools",
+      "label": "General Tools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：General Tools",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master",
+        "github-mattpocock-skills",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "github-nutlope-hallmark",
+        "threads-dcglstsogz3-fa0168",
+        "threads-dchbjcxenzb-725dd0",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 10
+    },
+    {
       "id": "agent-memory",
       "label": "Agent Memory",
       "type": "architecture",
@@ -134,26 +158,6 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 9
-    },
-    {
-      "id": "category-general-tools",
-      "label": "General Tools",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：General Tools",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-mattpocock-skills",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-notoriouslab-vault-curate",
-        "github-nutlope-hallmark",
-        "threads-dcglstsogz3-fa0168",
-        "threads-dchbjcxenzb-725dd0",
-        "threads-dcrihmdd46t-183b20"
       ],
       "card_count": 9
     },
@@ -335,6 +339,36 @@
       "card_count": 4
     },
     {
+      "id": "tag-codex",
+      "label": "Codex",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills",
+        "github-nutlope-hallmark",
+        "github-stablyai-orca"
+      ],
+      "card_count": 4
+    },
+    {
+      "id": "tag-coding-agent",
+      "label": "coding-agent",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "category-image-generation",
       "label": "Image Generation",
       "type": "category",
@@ -418,34 +452,6 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "tag-codex",
-      "label": "Codex",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-mattpocock-skills",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "tag-coding-agent",
-      "label": "coding-agent",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "earendil-works-pi",
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
       ],
       "card_count": 3
     },
@@ -665,6 +671,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-engineering-discipline",
+      "label": "engineering-discipline",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-frontend",
       "label": "frontend",
       "type": "topic",
@@ -821,6 +840,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-tdd",
+      "label": "TDD",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-text-to-speech",
       "label": "text-to-speech",
       "type": "topic",
@@ -882,6 +914,19 @@
       "card_ids": [
         "github-moeru-ai-airi",
         "github-notoriouslab-vault-curate"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-zh-tw",
+      "label": "zh-TW",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-g36maid-deepseek-harness"
       ],
       "card_count": 2
     },
@@ -1103,6 +1148,122 @@
         {
           "kind": "tag",
           "value": "MCP"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Codex"
+        },
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
+      "concept_id": "tag-codex",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
+      "concept_id": "tag-coding-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
+      "concept_id": "tag-engineering-discipline",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "engineering-discipline"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
+      "concept_id": "tag-tdd",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "TDD"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
+      "concept_id": "tag-zh-tw",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "zh-TW"
         }
       ],
       "origin": "shared-tag"
@@ -1864,6 +2025,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-zh-tw",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "zh-TW"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-harry0703-moneyprinterturbo",
       "concept_id": "category-agent",
       "strength": 1,
@@ -2289,12 +2462,36 @@
     },
     {
       "card_id": "github-mattpocock-skills",
+      "concept_id": "tag-engineering-discipline",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "engineering discipline"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mattpocock-skills",
       "concept_id": "tag-skill-md",
       "strength": 0.9,
       "evidence": [
         {
           "kind": "tag",
           "value": "SKILL.md"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mattpocock-skills",
+      "concept_id": "tag-tdd",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "TDD"
         }
       ],
       "origin": "shared-tag"
@@ -4177,13 +4374,13 @@
     },
     {
       "source": "agent-api-bridge",
-      "target": "tag-coding-agent",
+      "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 0.6667,
       "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu"
       ]
     },
     {
@@ -4416,18 +4613,6 @@
     },
     {
       "source": "category-agent",
-      "target": "tag-agent-runtime",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "earendil-works-pi",
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 4,
@@ -4459,12 +4644,26 @@
       "source": "category-agent",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "tag-coding-agent",
+      "type": "co_occurs_with",
+      "support": 4,
+      "weight": 1,
+      "card_ids": [
+        "earendil-works-pi",
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -4498,10 +4697,11 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 16,
+      "support": 17,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
+        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
@@ -4558,9 +4758,10 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
@@ -4570,10 +4771,11 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
+        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
       ]
@@ -4719,11 +4921,34 @@
       "source": "category-general-tools",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
         "github-nutlope-hallmark"
+      ]
+    },
+    {
+      "source": "category-general-tools",
+      "target": "tag-engineering-discipline",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills"
+      ]
+    },
+    {
+      "source": "category-general-tools",
+      "target": "tag-tdd",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills"
       ]
     },
     {
@@ -5103,9 +5328,10 @@
       "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
         "github-stablyai-orca"
@@ -5115,10 +5341,11 @@
       "source": "coding-agent-tooling",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
+        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
       ]
@@ -5171,17 +5398,6 @@
     },
     {
       "source": "local-ai-integration",
-      "target": "tag-coding-agent",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
-      ]
-    },
-    {
-      "source": "local-ai-integration",
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 3,
@@ -5203,6 +5419,17 @@
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -5339,6 +5566,17 @@
       ]
     },
     {
+      "source": "tag-agent-runtime",
+      "target": "tag-tool-registry",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
       "source": "tag-agent-skills",
       "target": "tag-skill-md",
       "type": "co_occurs_with",
@@ -5365,7 +5603,7 @@
       "target": "tag-codex",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 1,
+      "weight": 0.75,
       "card_ids": [
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
@@ -5384,11 +5622,33 @@
       ]
     },
     {
+      "source": "tag-codex",
+      "target": "tag-engineering-discipline",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills"
+      ]
+    },
+    {
+      "source": "tag-codex",
+      "target": "tag-tdd",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills"
+      ]
+    },
+    {
       "source": "tag-coding-agent",
       "target": "tag-long-term-memory",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
@@ -5399,7 +5659,7 @@
       "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
@@ -5491,6 +5751,17 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "tag-engineering-discipline",
+      "target": "tag-tdd",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills"
       ]
     },
     {
@@ -5705,9 +5976,9 @@
     }
   ],
   "stats": {
-    "card_count": 32,
-    "concept_count": 58,
-    "card_concept_edge_count": 256,
-    "concept_relation_edge_count": 134
+    "card_count": 33,
+    "concept_count": 61,
+    "card_concept_edge_count": 268,
+    "concept_relation_edge_count": 140
   }
 }
