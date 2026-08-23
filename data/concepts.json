@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-23T00:08:50.515Z",
-  "input_hash": "895befd0d57924956c29dd24322b1ffdd332f4849e93213a6e014334066d2ddf",
+  "generated_at": "2026-08-23T12:33:36.932Z",
+  "input_hash": "e723f75cc6faa7b8f74b841863e6b50cc015d80da7903ca0970ec848df171269",
   "concepts": [
     {
       "id": "category-agent",
@@ -14,6 +14,7 @@
         "earendil-works-pi",
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-charliie-dev-claude-code-hidden-settings",
         "github-cynthianani-a-simple-nest",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
@@ -34,7 +35,7 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 22
+      "card_count": 23
     },
     {
       "id": "coding-agent-tooling",
@@ -46,6 +47,7 @@
       "card_ids": [
         "earendil-works-pi",
         "github-akitaonrails-ai-memory",
+        "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
@@ -61,7 +63,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 16
+      "card_count": 17
     },
     {
       "id": "category-ai-coding-devtools",
@@ -73,6 +75,7 @@
       "card_ids": [
         "earendil-works-pi",
         "github-akitaonrails-ai-memory",
+        "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
@@ -87,7 +90,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 15
+      "card_count": 16
     },
     {
       "id": "category-llm",
@@ -100,6 +103,7 @@
         "earendil-works-pi",
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-charliie-dev-claude-code-hidden-settings",
         "github-cynthianani-a-simple-nest",
         "github-drumih-turbo-fieldfare",
         "github-g36maid-deepseek-harness",
@@ -111,7 +115,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 13
+      "card_count": 14
     },
     {
       "id": "agent-memory",
@@ -247,6 +251,24 @@
       "card_count": 7
     },
     {
+      "id": "tag-claude-code",
+      "label": "claude-code",
+      "type": "topic",
+      "description": "至少出現在 7 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-charliie-dev-claude-code-hidden-settings",
+        "github-danyuchn-iso-24495-skill",
+        "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-nutlope-hallmark",
+        "github-stablyai-orca"
+      ],
+      "card_count": 7
+    },
+    {
       "id": "category-infrastructure-deployment",
       "label": "Infrastructure / Deployment",
       "type": "category",
@@ -263,23 +285,6 @@
         "threads-dcglstsogz3-fa0168"
       ],
       "card_count": 7
-    },
-    {
-      "id": "tag-claude-code",
-      "label": "Claude Code",
-      "type": "topic",
-      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-mattpocock-skills",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca"
-      ],
-      "card_count": 6
     },
     {
       "id": "category-sillytavern-ai-rpg",
@@ -1290,6 +1295,70 @@
         {
           "kind": "tag",
           "value": "SQLite"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-charliie-dev-claude-code-hidden-settings",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-charliie-dev-claude-code-hidden-settings",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-charliie-dev-claude-code-hidden-settings",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-charliie-dev-claude-code-hidden-settings",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-charliie-dev-claude-code-hidden-settings",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "claude-code"
         }
       ],
       "origin": "shared-tag"
@@ -4374,9 +4443,10 @@
       "source": "category-agent",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
+        "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
@@ -4428,11 +4498,12 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 15,
+      "support": 16,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-akitaonrails-ai-memory",
+        "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
@@ -4637,7 +4708,7 @@
       "target": "tag-claude-code",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.5,
+      "weight": 0.4286,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-mattpocock-skills",
@@ -5016,9 +5087,10 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
+        "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
@@ -5633,9 +5705,9 @@
     }
   ],
   "stats": {
-    "card_count": 31,
+    "card_count": 32,
     "concept_count": 58,
-    "card_concept_edge_count": 251,
+    "card_concept_edge_count": 256,
     "concept_relation_edge_count": 134
   }
 }
