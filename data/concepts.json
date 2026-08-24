@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-23T22:42:41.325Z",
-  "input_hash": "3a9effab8c16f2fca079c835c20b9e9019c66d64fc0e98330bbfdb443ddf2c14",
+  "generated_at": "2026-08-24T01:02:00.851Z",
+  "input_hash": "39a7567eca88c4f1914af445f02282748db5298532e5e02af6904d7e35c8686d",
   "concepts": [
     {
       "id": "category-agent",
@@ -31,12 +31,13 @@
         "github-nutlope-hallmark",
         "github-s1dashu-ip-as-logo-skill",
         "github-stablyai-orca",
+        "github-titanwings-distilly",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 24
+      "card_count": 25
     },
     {
       "id": "coding-agent-tooling",
@@ -60,12 +61,13 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
+        "github-titanwings-distilly",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 18
+      "card_count": 19
     },
     {
       "id": "category-ai-coding-devtools",
@@ -121,6 +123,27 @@
       "card_count": 14
     },
     {
+      "id": "agent-memory",
+      "label": "Agent Memory",
+      "type": "architecture",
+      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate",
+        "github-titanwings-distilly",
+        "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063",
+        "threads-dfyr62jb6wr-b921df"
+      ],
+      "card_count": 10
+    },
+    {
       "id": "category-general-tools",
       "label": "General Tools",
       "type": "category",
@@ -142,11 +165,31 @@
       "card_count": 10
     },
     {
-      "id": "agent-memory",
-      "label": "Agent Memory",
-      "type": "architecture",
-      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "id": "local-ai-integration",
+      "label": "Local AI Integration",
+      "type": "integration",
+      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
       "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "github-titanwings-distilly",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 9
+    },
+    {
+      "id": "category-rag-memory-knowledge",
+      "label": "RAG / Memory / Knowledge",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
+      "origin": "category",
       "aliases": [],
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -155,7 +198,7 @@
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
         "github-notoriouslab-vault-curate",
-        "threads-dclcucpas-z-66b25b",
+        "github-titanwings-distilly",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
@@ -181,40 +224,40 @@
       "card_count": 8
     },
     {
-      "id": "local-ai-integration",
-      "label": "Local AI Integration",
-      "type": "integration",
-      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
+      "id": "character-runtime",
+      "label": "Character Runtime",
+      "type": "architecture",
+      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
         "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
+        "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
-        "github-notoriouslab-vault-curate",
-        "threads-dclcucpas-z-66b25b"
+        "github-moeru-ai-airi",
+        "github-titanwings-distilly",
+        "threads-dchbjcxenzb-725dd0",
+        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 8
     },
     {
-      "id": "category-rag-memory-knowledge",
-      "label": "RAG / Memory / Knowledge",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
-      "origin": "category",
+      "id": "tag-claude-code",
+      "label": "claude-code",
+      "type": "topic",
+      "description": "至少出現在 8 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi",
-        "github-notoriouslab-vault-curate",
-        "threads-dcuhxije1zf-9b4063",
-        "threads-dfyr62jb6wr-b921df"
+        "github-charliie-dev-claude-code-hidden-settings",
+        "github-danyuchn-iso-24495-skill",
+        "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-nutlope-hallmark",
+        "github-stablyai-orca",
+        "github-titanwings-distilly"
       ],
       "card_count": 8
     },
@@ -233,42 +276,6 @@
         "github-moeru-ai-airi",
         "github-openbmb-voxcpm",
         "threads-dcrihmdd46t-183b20"
-      ],
-      "card_count": 7
-    },
-    {
-      "id": "character-runtime",
-      "label": "Character Runtime",
-      "type": "architecture",
-      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-cynthianani-a-simple-nest",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "threads-dchbjcxenzb-725dd0",
-        "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 7
-    },
-    {
-      "id": "tag-claude-code",
-      "label": "claude-code",
-      "type": "topic",
-      "description": "至少出現在 7 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-charliie-dev-claude-code-hidden-settings",
-        "github-danyuchn-iso-24495-skill",
-        "github-mattpocock-skills",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca"
       ],
       "card_count": 7
     },
@@ -302,10 +309,43 @@
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
+        "github-titanwings-distilly",
         "threads-dchbjcxenzb-725dd0",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 6
+      "card_count": 7
+    },
+    {
+      "id": "tag-agent-skill",
+      "label": "agent skill",
+      "type": "topic",
+      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master",
+        "github-max0821-web-design-skill",
+        "github-s1dashu-ip-as-logo-skill",
+        "github-titanwings-distilly"
+      ],
+      "card_count": 5
+    },
+    {
+      "id": "tag-codex",
+      "label": "Codex",
+      "type": "topic",
+      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills",
+        "github-nutlope-hallmark",
+        "github-stablyai-orca",
+        "github-titanwings-distilly"
+      ],
+      "card_count": 5
     },
     {
       "id": "tag-long-term-memory",
@@ -322,36 +362,6 @@
         "threads-dcuhxije1zf-9b4063"
       ],
       "card_count": 5
-    },
-    {
-      "id": "tag-agent-skill",
-      "label": "agent skill",
-      "type": "topic",
-      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-max0821-web-design-skill",
-        "github-s1dashu-ip-as-logo-skill"
-      ],
-      "card_count": 4
-    },
-    {
-      "id": "tag-codex",
-      "label": "Codex",
-      "type": "topic",
-      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-mattpocock-skills",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca"
-      ],
-      "card_count": 4
     },
     {
       "id": "tag-coding-agent",
@@ -732,6 +742,19 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "threads-dchbjcxenzb-725dd0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-openclaw",
+      "label": "openclaw",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-titanwings-distilly"
       ],
       "card_count": 2
     },
@@ -3129,6 +3152,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-mirabarukaso-character-select-stand-alone-app",
+      "concept_id": "tag-openclaw",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "openclaw"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-moeru-ai-airi",
       "concept_id": "agent-memory",
       "strength": 0.78,
@@ -3672,6 +3707,142 @@
         {
           "kind": "tag",
           "value": "TypeScript"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "agent-memory",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "category-sillytavern-ai-rpg",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "character-runtime",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        },
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "openclaw"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "claude-code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "tag-codex",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-titanwings-distilly",
+      "concept_id": "tag-openclaw",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "openclaw"
         }
       ],
       "origin": "shared-tag"
@@ -4434,7 +4605,7 @@
       "source": "agent-memory",
       "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
-      "support": 8,
+      "support": 9,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -4443,6 +4614,7 @@
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
         "github-notoriouslab-vault-curate",
+        "github-titanwings-distilly",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ]
@@ -4615,20 +4787,21 @@
       "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-max0821-web-design-skill",
-        "github-s1dashu-ip-as-logo-skill"
+        "github-s1dashu-ip-as-logo-skill",
+        "github-titanwings-distilly"
       ]
     },
     {
       "source": "category-agent",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-charliie-dev-claude-code-hidden-settings",
@@ -4637,20 +4810,22 @@
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
-        "github-stablyai-orca"
+        "github-stablyai-orca",
+        "github-titanwings-distilly"
       ]
     },
     {
       "source": "category-agent",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
-        "github-stablyai-orca"
+        "github-stablyai-orca",
+        "github-titanwings-distilly"
       ]
     },
     {
@@ -4756,15 +4931,13 @@
     },
     {
       "source": "category-ai-coding-devtools",
-      "target": "tag-codex",
+      "target": "tag-ai-coding",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca"
+        "threads-db-wlkkgtu-18d1ea"
       ]
     },
     {
@@ -4888,7 +5061,7 @@
       "target": "character-runtime",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.2857,
+      "weight": 0.25,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "threads-dchbjcxenzb-725dd0"
@@ -4899,7 +5072,7 @@
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.5,
+      "weight": 0.4,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master"
@@ -4910,7 +5083,7 @@
       "target": "tag-claude-code",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.4286,
+      "weight": 0.375,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-mattpocock-skills",
@@ -4922,7 +5095,7 @@
       "target": "tag-codex",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.75,
+      "weight": 0.6,
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
@@ -5065,21 +5238,6 @@
     },
     {
       "source": "category-llm",
-      "target": "category-sillytavern-ai-rpg",
-      "type": "co_occurs_with",
-      "support": 6,
-      "weight": 1,
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-cynthianani-a-simple-nest",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-moeru-ai-airi",
-        "threads-dchbjcxenzb-725dd0",
-        "threads-dfyr62jb6wr-b921df"
-      ]
-    },
-    {
-      "source": "category-llm",
       "target": "tag-context-engineering",
       "type": "co_occurs_with",
       "support": 2,
@@ -5155,6 +5313,17 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge"
+      ]
+    },
+    {
+      "source": "category-llm",
+      "target": "tag-rust",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-mayocream-koharu"
       ]
     },
     {
@@ -5240,15 +5409,27 @@
       "source": "category-sillytavern-ai-rpg",
       "target": "character-runtime",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
+        "github-titanwings-distilly",
         "threads-dchbjcxenzb-725dd0",
         "threads-dfyr62jb6wr-b921df"
+      ]
+    },
+    {
+      "source": "category-sillytavern-ai-rpg",
+      "target": "tag-claude-code",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.2857,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-titanwings-distilly"
       ]
     },
     {
@@ -5264,6 +5445,17 @@
     },
     {
       "source": "character-runtime",
+      "target": "tag-claude-code",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.25,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-titanwings-distilly"
+      ]
+    },
+    {
+      "source": "character-runtime",
       "target": "tag-electron",
       "type": "co_occurs_with",
       "support": 2,
@@ -5271,6 +5463,17 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "character-runtime",
+      "target": "tag-openclaw",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-titanwings-distilly"
       ]
     },
     {
@@ -5312,7 +5515,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-charliie-dev-claude-code-hidden-settings",
@@ -5321,20 +5524,22 @@
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
         "github-nutlope-hallmark",
-        "github-stablyai-orca"
+        "github-stablyai-orca",
+        "github-titanwings-distilly"
       ]
     },
     {
       "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
-        "github-stablyai-orca"
+        "github-stablyai-orca",
+        "github-titanwings-distilly"
       ]
     },
     {
@@ -5423,13 +5628,13 @@
     },
     {
       "source": "local-ai-integration",
-      "target": "tag-openai-compatible-api",
+      "target": "tag-openclaw",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge"
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-titanwings-distilly"
       ]
     },
     {
@@ -5577,6 +5782,17 @@
       ]
     },
     {
+      "source": "tag-agent-skill",
+      "target": "tag-claude-code",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.4,
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-titanwings-distilly"
+      ]
+    },
+    {
       "source": "tag-agent-skills",
       "target": "tag-skill-md",
       "type": "co_occurs_with",
@@ -5602,12 +5818,13 @@
       "source": "tag-claude-code",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.75,
+      "support": 4,
+      "weight": 0.8,
       "card_ids": [
         "github-mattpocock-skills",
         "github-nutlope-hallmark",
-        "github-stablyai-orca"
+        "github-stablyai-orca",
+        "github-titanwings-distilly"
       ]
     },
     {
@@ -5976,9 +6193,9 @@
     }
   ],
   "stats": {
-    "card_count": 33,
-    "concept_count": 61,
-    "card_concept_edge_count": 268,
-    "concept_relation_edge_count": 140
+    "card_count": 34,
+    "concept_count": 62,
+    "card_concept_edge_count": 280,
+    "concept_relation_edge_count": 144
   }
 }
