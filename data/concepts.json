@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-26T03:04:43.962Z",
-  "input_hash": "f42d0efa70061b49d349687090c4365e3a0d15d8f5cad3cecb3b29ee3d83088e",
+  "generated_at": "2026-08-26T05:31:15.822Z",
+  "input_hash": "61f1b14213655d4f993ef9fccbdeabc4cf86fa593f9e0dc2cc1fe4d2db7f3631",
   "concepts": [
     {
       "id": "category-agent",
@@ -169,6 +169,26 @@
       "card_count": 10
     },
     {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-harry0703-moneyprinterturbo",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-openbmb-voxcpm",
+        "github-rimagination-h3lite",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 9
+    },
+    {
       "id": "local-ai-integration",
       "label": "Local AI Integration",
       "type": "integration",
@@ -228,25 +248,6 @@
       "card_count": 8
     },
     {
-      "id": "category-ai-ml",
-      "label": "AI / ML",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI / ML",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-openbmb-voxcpm",
-        "github-rimagination-h3lite",
-        "threads-dcrihmdd46t-183b20"
-      ],
-      "card_count": 8
-    },
-    {
       "id": "character-runtime",
       "label": "Character Runtime",
       "type": "architecture",
@@ -285,6 +286,25 @@
       "card_count": 8
     },
     {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-g36maid-deepseek-harness",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-stablyai-orca",
+        "threads-db-fphwgfos-7d09e0",
+        "threads-dcglstsogz3-fa0168"
+      ],
+      "card_count": 8
+    },
+    {
       "id": "tag-agent-skill",
       "label": "agent skill",
       "type": "topic",
@@ -299,24 +319,6 @@
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill",
         "github-titanwings-distilly"
-      ],
-      "card_count": 7
-    },
-    {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-g36maid-deepseek-harness",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-stablyai-orca",
-        "threads-db-fphwgfos-7d09e0",
-        "threads-dcglstsogz3-fa0168"
       ],
       "card_count": 7
     },
@@ -1914,6 +1916,30 @@
         }
       ],
       "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-dstack-tee-dstack",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-dstack-tee-dstack",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
     },
     {
       "card_id": "github-g36maid-deepseek-harness",
@@ -6473,9 +6499,9 @@
     }
   ],
   "stats": {
-    "card_count": 36,
+    "card_count": 37,
     "concept_count": 64,
-    "card_concept_edge_count": 294,
+    "card_concept_edge_count": 296,
     "concept_relation_edge_count": 150
   }
 }
