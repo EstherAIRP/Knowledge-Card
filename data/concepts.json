@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-26T02:33:13.473Z",
-  "input_hash": "71b377bb367953a62ece09db76eaf0775f5ccff703db8e64181b5722e44a93e5",
+  "generated_at": "2026-08-26T03:04:43.962Z",
+  "input_hash": "f42d0efa70061b49d349687090c4365e3a0d15d8f5cad3cecb3b29ee3d83088e",
   "concepts": [
     {
       "id": "category-agent",
@@ -22,6 +22,7 @@
         "github-harry0703-moneyprinterturbo",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
+        "github-kevintsai1202-humanizer-zh-tw",
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
@@ -38,7 +39,7 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 26
+      "card_count": 27
     },
     {
       "id": "coding-agent-tooling",
@@ -113,6 +114,7 @@
         "github-cynthianani-a-simple-nest",
         "github-drumih-turbo-fieldfare",
         "github-g36maid-deepseek-harness",
+        "github-kevintsai1202-humanizer-zh-tw",
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
@@ -121,7 +123,29 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 14
+      "card_count": 15
+    },
+    {
+      "id": "category-general-tools",
+      "label": "General Tools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：General Tools",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master",
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-mattpocock-skills",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "github-nutlope-hallmark",
+        "threads-dcglstsogz3-fa0168",
+        "threads-dchbjcxenzb-725dd0",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 11
     },
     {
       "id": "agent-memory",
@@ -141,27 +165,6 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 10
-    },
-    {
-      "id": "category-general-tools",
-      "label": "General Tools",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：General Tools",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-mattpocock-skills",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-notoriouslab-vault-curate",
-        "github-nutlope-hallmark",
-        "threads-dcglstsogz3-fa0168",
-        "threads-dchbjcxenzb-725dd0",
-        "threads-dcrihmdd46t-183b20"
       ],
       "card_count": 10
     },
@@ -282,6 +285,24 @@
       "card_count": 8
     },
     {
+      "id": "tag-agent-skill",
+      "label": "agent skill",
+      "type": "topic",
+      "description": "至少出現在 7 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master",
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-max0821-web-design-skill",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill",
+        "github-titanwings-distilly"
+      ],
+      "card_count": 7
+    },
+    {
       "id": "category-infrastructure-deployment",
       "label": "Infrastructure / Deployment",
       "type": "category",
@@ -316,23 +337,6 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 7
-    },
-    {
-      "id": "tag-agent-skill",
-      "label": "agent skill",
-      "type": "topic",
-      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-max0821-web-design-skill",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill",
-        "github-titanwings-distilly"
-      ],
-      "card_count": 6
     },
     {
       "id": "tag-codex",
@@ -565,6 +569,20 @@
         "earendil-works-pi",
         "github-g36maid-deepseek-harness",
         "github-stablyai-orca"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-zh-tw",
+      "label": "zh-TW",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-g36maid-deepseek-harness",
+        "github-kevintsai1202-humanizer-zh-tw"
       ],
       "card_count": 3
     },
@@ -816,6 +834,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-prompt-engineering",
+      "label": "prompt-engineering",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-rust",
       "label": "Rust",
       "type": "topic",
@@ -955,19 +986,6 @@
       "card_ids": [
         "github-moeru-ai-airi",
         "github-notoriouslab-vault-curate"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-zh-tw",
-      "label": "zh-TW",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-g36maid-deepseek-harness"
       ],
       "card_count": 2
     },
@@ -2386,6 +2404,78 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-kevintsai1202-humanizer-zh-tw",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-kevintsai1202-humanizer-zh-tw",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-kevintsai1202-humanizer-zh-tw",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-kevintsai1202-humanizer-zh-tw",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-kevintsai1202-humanizer-zh-tw",
+      "concept_id": "tag-prompt-engineering",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "prompt-engineering"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-kevintsai1202-humanizer-zh-tw",
+      "concept_id": "tag-zh-tw",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "zh-TW"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-mattpocock-skills",
       "concept_id": "category-agent",
       "strength": 1,
@@ -3702,6 +3792,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-s1dashu-ip-as-logo-skill",
+      "concept_id": "tag-prompt-engineering",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "prompt-engineering"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-stablyai-orca",
       "concept_id": "category-agent",
       "strength": 1,
@@ -4893,11 +4995,12 @@
       "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
+        "github-kevintsai1202-humanizer-zh-tw",
         "github-max0821-web-design-skill",
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill",
@@ -5180,11 +5283,12 @@
       "source": "category-general-tools",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.3333,
+      "support": 3,
+      "weight": 0.4286,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master"
+        "github-hugohe3-ppt-master",
+        "github-kevintsai1202-humanizer-zh-tw"
       ]
     },
     {
@@ -5242,6 +5346,17 @@
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "threads-dcrihmdd46t-183b20"
+      ]
+    },
+    {
+      "source": "category-general-tools",
+      "target": "tag-zh-tw",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-kevintsai1202-humanizer-zh-tw"
       ]
     },
     {
@@ -5940,10 +6055,21 @@
       "target": "tag-claude-code",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.3333,
+      "weight": 0.2857,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-titanwings-distilly"
+      ]
+    },
+    {
+      "source": "tag-agent-skill",
+      "target": "tag-prompt-engineering",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-s1dashu-ip-as-logo-skill"
       ]
     },
     {
@@ -6347,9 +6473,9 @@
     }
   ],
   "stats": {
-    "card_count": 35,
-    "concept_count": 63,
-    "card_concept_edge_count": 287,
-    "concept_relation_edge_count": 148
+    "card_count": 36,
+    "concept_count": 64,
+    "card_concept_edge_count": 294,
+    "concept_relation_edge_count": 150
   }
 }
