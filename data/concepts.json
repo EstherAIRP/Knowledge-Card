@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T07:32:39.354Z",
-  "input_hash": "72b6540b4116263f5be7ae2bc0c908ff633dc366eb361a608fd8f9389aa5e8a0",
+  "generated_at": "2026-08-27T08:15:45.561Z",
+  "input_hash": "755a5bfa7cdfcb42f6bbd2a5cb0144446e47749a9424381cc3f74333b072d868",
   "concepts": [
     {
       "id": "category-agent",
@@ -115,6 +115,7 @@
         "github-cynthianani-a-simple-nest",
         "github-drumih-turbo-fieldfare",
         "github-g36maid-deepseek-harness",
+        "github-hkuds-lightrag",
         "github-kevintsai1202-humanizer-zh-tw",
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
@@ -125,7 +126,51 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 16
+      "card_count": 17
+    },
+    {
+      "id": "agent-memory",
+      "label": "Agent Memory",
+      "type": "architecture",
+      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-hkuds-lightrag",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate",
+        "github-titanwings-distilly",
+        "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063",
+        "threads-dfyr62jb6wr-b921df"
+      ],
+      "card_count": 11
+    },
+    {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-harry0703-moneyprinterturbo",
+        "github-hkuds-lightrag",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-openbmb-voxcpm",
+        "github-rimagination-h3lite",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 11
     },
     {
       "id": "category-general-tools",
@@ -150,44 +195,23 @@
       "card_count": 11
     },
     {
-      "id": "agent-memory",
-      "label": "Agent Memory",
-      "type": "architecture",
-      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
-      "origin": "promoted",
+      "id": "category-rag-memory-knowledge",
+      "label": "RAG / Memory / Knowledge",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
+      "origin": "category",
       "aliases": [],
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
+        "github-hkuds-lightrag",
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
         "github-notoriouslab-vault-curate",
         "github-titanwings-distilly",
-        "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 10
-    },
-    {
-      "id": "category-ai-ml",
-      "label": "AI / ML",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI / ML",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-dstack-tee-dstack",
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-openbmb-voxcpm",
-        "github-rimagination-h3lite",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-dcrihmdd46t-183b20"
       ],
       "card_count": 10
     },
@@ -228,26 +252,6 @@
         "github-notoriouslab-vault-curate",
         "github-titanwings-distilly",
         "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 9
-    },
-    {
-      "id": "category-rag-memory-knowledge",
-      "label": "RAG / Memory / Knowledge",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi",
-        "github-notoriouslab-vault-curate",
-        "github-titanwings-distilly",
-        "threads-dcuhxije1zf-9b4063",
-        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 9
     },
@@ -749,6 +753,32 @@
       "card_count": 2
     },
     {
+      "id": "tag-hybrid-retrieval",
+      "label": "hybrid-retrieval",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-hkuds-lightrag"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-knowledge-graph",
+      "label": "knowledge-graph",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-hkuds-lightrag",
+        "github-notoriouslab-vault-curate"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-memory-consolidation",
       "label": "memory-consolidation",
       "type": "topic",
@@ -866,6 +896,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-python",
+      "label": "Python",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-hkuds-lightrag"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-rust",
       "label": "Rust",
       "type": "topic",
@@ -979,6 +1022,19 @@
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-vector-retrieval",
+      "label": "vector-retrieval",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-hkuds-lightrag"
       ],
       "card_count": 2
     },
@@ -1539,6 +1595,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "tag-vector-retrieval",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "vector-retrieval"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-charliie-dev-claude-code-hidden-settings",
       "concept_id": "category-agent",
       "strength": 1,
@@ -1698,6 +1766,18 @@
         {
           "kind": "tag",
           "value": "embeddings"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-cynthianani-a-simple-nest",
+      "concept_id": "tag-hybrid-retrieval",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "hybrid-retrieval"
         }
       ],
       "origin": "shared-tag"
@@ -2200,6 +2280,18 @@
     },
     {
       "card_id": "github-harry0703-moneyprinterturbo",
+      "concept_id": "tag-python",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Python"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-harry0703-moneyprinterturbo",
       "concept_id": "tag-skill-md",
       "strength": 0.9,
       "evidence": [
@@ -2218,6 +2310,102 @@
         {
           "kind": "tag",
           "value": "text-to-speech"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-hkuds-lightrag",
+      "concept_id": "agent-memory",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-hkuds-lightrag",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hkuds-lightrag",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hkuds-lightrag",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hkuds-lightrag",
+      "concept_id": "tag-hybrid-retrieval",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "hybrid-retrieval"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-hkuds-lightrag",
+      "concept_id": "tag-knowledge-graph",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "knowledge-graph"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-hkuds-lightrag",
+      "concept_id": "tag-python",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Python"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-hkuds-lightrag",
+      "concept_id": "tag-vector-retrieval",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "vector-retrieval"
         }
       ],
       "origin": "shared-tag"
@@ -3538,6 +3726,18 @@
         {
           "kind": "tag",
           "value": "embeddings"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-notoriouslab-vault-curate",
+      "concept_id": "tag-knowledge-graph",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "knowledge-graph"
         }
       ],
       "origin": "shared-tag"
@@ -4928,12 +5128,13 @@
       "source": "agent-memory",
       "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
+        "github-hkuds-lightrag",
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
         "github-notoriouslab-vault-curate",
@@ -5352,17 +5553,6 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "tag-local-llm",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mayocream-koharu"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
       "target": "tag-metal",
       "type": "co_occurs_with",
       "support": 2,
@@ -5370,6 +5560,17 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-python",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-hkuds-lightrag"
       ]
     },
     {
@@ -5611,6 +5812,17 @@
     },
     {
       "source": "category-llm",
+      "target": "tag-hybrid-retrieval",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-hkuds-lightrag"
+      ]
+    },
+    {
+      "source": "category-llm",
       "target": "tag-local-llm",
       "type": "co_occurs_with",
       "support": 3,
@@ -5678,17 +5890,6 @@
       ]
     },
     {
-      "source": "category-llm",
-      "target": "tag-prompt-caching",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-minijinai75-tavern-claude-bridge"
-      ]
-    },
-    {
       "source": "category-rag-memory-knowledge",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
@@ -5735,13 +5936,24 @@
     },
     {
       "source": "category-rag-memory-knowledge",
-      "target": "tag-memory-consolidation",
+      "target": "tag-hybrid-retrieval",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest"
+        "github-cynthianani-a-simple-nest",
+        "github-hkuds-lightrag"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "tag-knowledge-graph",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-hkuds-lightrag",
+        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -5753,17 +5965,6 @@
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
-        "github-notoriouslab-vault-curate"
-      ]
-    },
-    {
-      "source": "category-rag-memory-knowledge",
-      "target": "tag-webgpu",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-moeru-ai-airi",
         "github-notoriouslab-vault-curate"
       ]
     },
@@ -6588,9 +6789,9 @@
     }
   ],
   "stats": {
-    "card_count": 38,
-    "concept_count": 65,
-    "card_concept_edge_count": 302,
+    "card_count": 39,
+    "concept_count": 69,
+    "card_concept_edge_count": 314,
     "concept_relation_edge_count": 150
   }
 }
