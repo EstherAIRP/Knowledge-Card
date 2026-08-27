@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-26T05:31:15.822Z",
-  "input_hash": "61f1b14213655d4f993ef9fccbdeabc4cf86fa593f9e0dc2cc1fe4d2db7f3631",
+  "generated_at": "2026-08-27T07:32:39.354Z",
+  "input_hash": "72b6540b4116263f5be7ae2bc0c908ff633dc366eb361a608fd8f9389aa5e8a0",
   "concepts": [
     {
       "id": "category-agent",
@@ -34,12 +34,13 @@
         "github-s1dashu-ip-as-logo-skill",
         "github-stablyai-orca",
         "github-titanwings-distilly",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 27
+      "card_count": 28
     },
     {
       "id": "coding-agent-tooling",
@@ -118,12 +119,13 @@
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-dchbjcxenzb-725dd0",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 15
+      "card_count": 16
     },
     {
       "id": "category-general-tools",
@@ -184,7 +186,28 @@
         "github-moeru-ai-airi",
         "github-openbmb-voxcpm",
         "github-rimagination-h3lite",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 10
+    },
+    {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-g36maid-deepseek-harness",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-stablyai-orca",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-db-fphwgfos-7d09e0",
+        "threads-dcglstsogz3-fa0168"
       ],
       "card_count": 9
     },
@@ -282,25 +305,6 @@
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "github-titanwings-distilly"
-      ],
-      "card_count": 8
-    },
-    {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-dstack-tee-dstack",
-        "github-g36maid-deepseek-harness",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-stablyai-orca",
-        "threads-db-fphwgfos-7d09e0",
-        "threads-dcglstsogz3-fa0168"
       ],
       "card_count": 8
     },
@@ -767,6 +771,19 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-multi-agent",
+      "label": "multi-agent",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 2
     },
@@ -4082,6 +4099,66 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+      "concept_id": "tag-multi-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "multi-agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "threads-db-fphwgfos-7d09e0",
       "concept_id": "category-agent",
       "strength": 1,
@@ -4521,6 +4598,18 @@
         {
           "kind": "tag",
           "value": "mcp"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-dclcucpas-z-66b25b",
+      "concept_id": "tag-multi-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "multi-agent"
         }
       ],
       "origin": "shared-tag"
@@ -5556,6 +5645,17 @@
     },
     {
       "source": "category-llm",
+      "target": "tag-multi-agent",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-dclcucpas-z-66b25b"
+      ]
+    },
+    {
+      "source": "category-llm",
       "target": "tag-on-device-inference",
       "type": "co_occurs_with",
       "support": 2,
@@ -5586,17 +5686,6 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge"
-      ]
-    },
-    {
-      "source": "category-llm",
-      "target": "tag-rust",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-mayocream-koharu"
       ]
     },
     {
@@ -6499,9 +6588,9 @@
     }
   ],
   "stats": {
-    "card_count": 37,
-    "concept_count": 64,
-    "card_concept_edge_count": 296,
+    "card_count": 38,
+    "concept_count": 65,
+    "card_concept_edge_count": 302,
     "concept_relation_edge_count": 150
   }
 }
