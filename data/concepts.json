@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-27T09:45:48.547Z",
-  "input_hash": "408ba37c9736ca1aa002f80a4b93e98a7eb1c083acd879bc1f1a9f137103e0e0",
+  "generated_at": "2026-08-28T07:07:56.229Z",
+  "input_hash": "0df435f623945ecb99d0881b46e902115c8fa00d6eee0cf9665f60369d908b14",
   "concepts": [
     {
       "id": "category-agent",
@@ -22,6 +22,7 @@
         "github-harry0703-moneyprinterturbo",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
+        "github-k-dense-ai-scientific-agent-skills",
         "github-kevintsai1202-humanizer-zh-tw",
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
@@ -41,7 +42,7 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 29
+      "card_count": 30
     },
     {
       "id": "coding-agent-tooling",
@@ -59,6 +60,7 @@
         "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
+        "github-k-dense-ai-scientific-agent-skills",
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
@@ -72,7 +74,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 20
+      "card_count": 21
     },
     {
       "id": "category-ai-coding-devtools",
@@ -90,6 +92,7 @@
         "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
+        "github-k-dense-ai-scientific-agent-skills",
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
@@ -101,7 +104,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 18
+      "card_count": 19
     },
     {
       "id": "category-llm",
@@ -130,6 +133,29 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 17
+    },
+    {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-harry0703-moneyprinterturbo",
+        "github-hkuds-lightrag",
+        "github-k-dense-ai-scientific-agent-skills",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-openbmb-voxcpm",
+        "github-rimagination-h3lite",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 12
     },
     {
       "id": "category-general-tools",
@@ -173,28 +199,6 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 11
-    },
-    {
-      "id": "category-ai-ml",
-      "label": "AI / ML",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI / ML",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-dstack-tee-dstack",
-        "github-harry0703-moneyprinterturbo",
-        "github-hkuds-lightrag",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-openbmb-voxcpm",
-        "github-rimagination-h3lite",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-dcrihmdd46t-183b20"
       ],
       "card_count": 11
     },
@@ -464,6 +468,20 @@
       "card_count": 4
     },
     {
+      "id": "tag-agent-skills",
+      "label": "Agent Skills",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-k-dense-ai-scientific-agent-skills",
+        "github-mattpocock-skills"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-agent-memory",
       "label": "agent-memory",
       "type": "topic",
@@ -548,6 +566,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-python",
+      "label": "Python",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-hkuds-lightrag",
+        "github-k-dense-ai-scientific-agent-skills"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-responsive-design",
       "label": "responsive-design",
       "type": "topic",
@@ -602,19 +634,6 @@
         "github-kevintsai1202-humanizer-zh-tw"
       ],
       "card_count": 3
-    },
-    {
-      "id": "tag-agent-skills",
-      "label": "Agent Skills",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-harry0703-moneyprinterturbo",
-        "github-mattpocock-skills"
-      ],
-      "card_count": 2
     },
     {
       "id": "tag-agent-loop",
@@ -912,19 +931,6 @@
       "card_ids": [
         "github-kevintsai1202-humanizer-zh-tw",
         "github-s1dashu-ip-as-logo-skill"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-python",
-      "label": "Python",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-harry0703-moneyprinterturbo",
-        "github-hkuds-lightrag"
       ],
       "card_count": 2
     },
@@ -2650,6 +2656,78 @@
         {
           "kind": "tag",
           "value": "mcp"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-k-dense-ai-scientific-agent-skills",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-k-dense-ai-scientific-agent-skills",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-k-dense-ai-scientific-agent-skills",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-k-dense-ai-scientific-agent-skills",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-k-dense-ai-scientific-agent-skills",
+      "concept_id": "tag-agent-skills",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Agent Skills"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-k-dense-ai-scientific-agent-skills",
+      "concept_id": "tag-python",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Python"
         }
       ],
       "origin": "shared-tag"
@@ -5527,7 +5605,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 18,
+      "support": 19,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -5538,6 +5616,7 @@
         "github-g36maid-deepseek-harness",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
+        "github-k-dense-ai-scientific-agent-skills",
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
@@ -5661,6 +5740,17 @@
     },
     {
       "source": "category-ai-ml",
+      "target": "tag-agent-skills",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-k-dense-ai-scientific-agent-skills"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
       "target": "tag-comfyui",
       "type": "co_occurs_with",
       "support": 2,
@@ -5668,17 +5758,6 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-rimagination-h3lite"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
-      "target": "tag-electron",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
       ]
     },
     {
@@ -5696,11 +5775,12 @@
       "source": "category-ai-ml",
       "target": "tag-python",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-harry0703-moneyprinterturbo",
-        "github-hkuds-lightrag"
+        "github-hkuds-lightrag",
+        "github-k-dense-ai-scientific-agent-skills"
       ]
     },
     {
@@ -6522,6 +6602,17 @@
     },
     {
       "source": "tag-agent-skills",
+      "target": "tag-python",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-k-dense-ai-scientific-agent-skills"
+      ]
+    },
+    {
+      "source": "tag-agent-skills",
       "target": "tag-skill-md",
       "type": "co_occurs_with",
       "support": 2,
@@ -6921,9 +7012,9 @@
     }
   ],
   "stats": {
-    "card_count": 40,
+    "card_count": 41,
     "concept_count": 70,
-    "card_concept_edge_count": 323,
-    "concept_relation_edge_count": 150
+    "card_concept_edge_count": 329,
+    "concept_relation_edge_count": 151
   }
 }
