@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-28T07:07:56.229Z",
-  "input_hash": "0df435f623945ecb99d0881b46e902115c8fa00d6eee0cf9665f60369d908b14",
+  "generated_at": "2026-08-28T09:07:31.841Z",
+  "input_hash": "515c5a4dc5cecf354fa6d6226e58dbd2991f91585922c7b2e647a0a1aead553f",
   "concepts": [
     {
       "id": "category-agent",
@@ -30,6 +30,7 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi",
+        "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill",
@@ -42,7 +43,7 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 30
+      "card_count": 31
     },
     {
       "id": "coding-agent-tooling",
@@ -65,6 +66,7 @@
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
+        "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-santifer-career-ops",
         "github-stablyai-orca",
@@ -74,7 +76,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 21
+      "card_count": 22
     },
     {
       "id": "category-ai-coding-devtools",
@@ -96,6 +98,7 @@
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
+        "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-santifer-career-ops",
         "github-stablyai-orca",
@@ -104,7 +107,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 19
+      "card_count": 20
     },
     {
       "id": "category-llm",
@@ -126,13 +129,14 @@
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
+        "github-nanako0129-sepia",
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-dchbjcxenzb-725dd0",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 17
+      "card_count": 18
     },
     {
       "id": "category-ai-ml",
@@ -245,6 +249,46 @@
       "card_count": 10
     },
     {
+      "id": "tag-agent-skill",
+      "label": "agent skill",
+      "type": "topic",
+      "description": "至少出現在 9 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master",
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-max0821-web-design-skill",
+        "github-nanako0129-sepia",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill",
+        "github-santifer-career-ops",
+        "github-titanwings-distilly"
+      ],
+      "card_count": 9
+    },
+    {
+      "id": "tag-claude-code",
+      "label": "claude-code",
+      "type": "topic",
+      "description": "至少出現在 9 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-charliie-dev-claude-code-hidden-settings",
+        "github-danyuchn-iso-24495-skill",
+        "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-nanako0129-sepia",
+        "github-nutlope-hallmark",
+        "github-stablyai-orca",
+        "github-titanwings-distilly"
+      ],
+      "card_count": 9
+    },
+    {
       "id": "category-infrastructure-deployment",
       "label": "Infrastructure / Deployment",
       "type": "category",
@@ -284,25 +328,6 @@
       "card_count": 8
     },
     {
-      "id": "tag-agent-skill",
-      "label": "agent skill",
-      "type": "topic",
-      "description": "至少出現在 8 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-max0821-web-design-skill",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill",
-        "github-santifer-career-ops",
-        "github-titanwings-distilly"
-      ],
-      "card_count": 8
-    },
-    {
       "id": "character-runtime",
       "label": "Character Runtime",
       "type": "architecture",
@@ -318,25 +343,6 @@
         "github-titanwings-distilly",
         "threads-dchbjcxenzb-725dd0",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 8
-    },
-    {
-      "id": "tag-claude-code",
-      "label": "claude-code",
-      "type": "topic",
-      "description": "至少出現在 8 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-charliie-dev-claude-code-hidden-settings",
-        "github-danyuchn-iso-24495-skill",
-        "github-mattpocock-skills",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca",
-        "github-titanwings-distilly"
       ],
       "card_count": 8
     },
@@ -362,17 +368,18 @@
       "id": "tag-codex",
       "label": "Codex",
       "type": "topic",
-      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
+        "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "github-titanwings-distilly"
       ],
-      "card_count": 5
+      "card_count": 6
     },
     {
       "id": "category-image-generation",
@@ -566,6 +573,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-prompt-engineering",
+      "label": "prompt-engineering",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-nanako0129-sepia",
+        "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-python",
       "label": "Python",
       "type": "topic",
@@ -658,6 +679,19 @@
       "card_ids": [
         "github-mattpocock-skills",
         "threads-db-wlkkgtu-18d1ea"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-ai-writing",
+      "label": "ai-writing",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-nanako0129-sepia"
       ],
       "card_count": 2
     },
@@ -918,19 +952,6 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-prompt-engineering",
-      "label": "prompt-engineering",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-s1dashu-ip-as-logo-skill"
       ],
       "card_count": 2
     },
@@ -2782,6 +2803,18 @@
     },
     {
       "card_id": "github-kevintsai1202-humanizer-zh-tw",
+      "concept_id": "tag-ai-writing",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "ai-writing"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-kevintsai1202-humanizer-zh-tw",
       "concept_id": "tag-prompt-engineering",
       "strength": 0.9,
       "evidence": [
@@ -3752,6 +3785,122 @@
         {
           "kind": "tag",
           "value": "WebGPU"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-nanako0129-sepia",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nanako0129-sepia",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nanako0129-sepia",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nanako0129-sepia",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        },
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-nanako0129-sepia",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-nanako0129-sepia",
+      "concept_id": "tag-ai-writing",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "ai-writing"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-nanako0129-sepia",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "claude-code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-nanako0129-sepia",
+      "concept_id": "tag-codex",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-nanako0129-sepia",
+      "concept_id": "tag-prompt-engineering",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "prompt-engineering"
         }
       ],
       "origin": "shared-tag"
@@ -5517,13 +5666,14 @@
       "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 8,
+      "support": 9,
       "weight": 1,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
         "github-max0821-web-design-skill",
+        "github-nanako0129-sepia",
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill",
         "github-santifer-career-ops",
@@ -5534,7 +5684,7 @@
       "source": "category-agent",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 8,
+      "support": 9,
       "weight": 1,
       "card_ids": [
         "github-charliie-dev-claude-code-hidden-settings",
@@ -5542,6 +5692,7 @@
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
+        "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "github-titanwings-distilly"
@@ -5551,11 +5702,12 @@
       "source": "category-agent",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
+        "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "github-titanwings-distilly"
@@ -5605,7 +5757,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 19,
+      "support": 20,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -5620,6 +5772,7 @@
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
+        "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-santifer-career-ops",
         "github-stablyai-orca",
@@ -5799,7 +5952,7 @@
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 4,
-      "weight": 0.5,
+      "weight": 0.4444,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
@@ -5812,7 +5965,7 @@
       "target": "tag-claude-code",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.375,
+      "weight": 0.3333,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
         "github-mattpocock-skills",
@@ -5824,7 +5977,7 @@
       "target": "tag-codex",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.6,
+      "weight": 0.5,
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
@@ -6012,6 +6165,17 @@
     },
     {
       "source": "category-llm",
+      "target": "tag-ai-writing",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-nanako0129-sepia"
+      ]
+    },
+    {
+      "source": "category-llm",
       "target": "tag-context-engineering",
       "type": "co_occurs_with",
       "support": 2,
@@ -6075,17 +6239,6 @@
       "card_ids": [
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-dclcucpas-z-66b25b"
-      ]
-    },
-    {
-      "source": "category-llm",
-      "target": "tag-on-device-inference",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "threads-dchbjcxenzb-725dd0"
       ]
     },
     {
@@ -6289,7 +6442,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 8,
+      "support": 9,
       "weight": 1,
       "card_ids": [
         "github-charliie-dev-claude-code-hidden-settings",
@@ -6297,6 +6450,7 @@
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
+        "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "github-titanwings-distilly"
@@ -6306,11 +6460,12 @@
       "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
+        "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "github-titanwings-distilly"
@@ -6580,12 +6735,35 @@
     },
     {
       "source": "tag-agent-skill",
-      "target": "tag-claude-code",
+      "target": "tag-ai-writing",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.25,
+      "weight": 1,
+      "card_ids": [
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-nanako0129-sepia"
+      ]
+    },
+    {
+      "source": "tag-agent-skill",
+      "target": "tag-claude-code",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 0.3333,
       "card_ids": [
         "github-danyuchn-iso-24495-skill",
+        "github-nanako0129-sepia",
+        "github-titanwings-distilly"
+      ]
+    },
+    {
+      "source": "tag-agent-skill",
+      "target": "tag-codex",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.3333,
+      "card_ids": [
+        "github-nanako0129-sepia",
         "github-titanwings-distilly"
       ]
     },
@@ -6593,10 +6771,11 @@
       "source": "tag-agent-skill",
       "target": "tag-prompt-engineering",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-kevintsai1202-humanizer-zh-tw",
+        "github-nanako0129-sepia",
         "github-s1dashu-ip-as-logo-skill"
       ]
     },
@@ -6634,13 +6813,25 @@
       ]
     },
     {
+      "source": "tag-ai-writing",
+      "target": "tag-prompt-engineering",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-nanako0129-sepia"
+      ]
+    },
+    {
       "source": "tag-claude-code",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 4,
-      "weight": 0.8,
+      "support": 5,
+      "weight": 0.8333,
       "card_ids": [
         "github-mattpocock-skills",
+        "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "github-titanwings-distilly"
@@ -7012,9 +7203,9 @@
     }
   ],
   "stats": {
-    "card_count": 41,
-    "concept_count": 70,
-    "card_concept_edge_count": 329,
-    "concept_relation_edge_count": 151
+    "card_count": 42,
+    "concept_count": 71,
+    "card_concept_edge_count": 339,
+    "concept_relation_edge_count": 154
   }
 }
