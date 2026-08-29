@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-28T09:07:31.841Z",
-  "input_hash": "515c5a4dc5cecf354fa6d6226e58dbd2991f91585922c7b2e647a0a1aead553f",
+  "generated_at": "2026-08-29T01:43:48.691Z",
+  "input_hash": "dd358a07bfb4e38881146eae22d1fe91667a06084b6e8f548909550ffbe4d55c",
   "concepts": [
     {
       "id": "category-agent",
@@ -139,6 +139,30 @@
       "card_count": 18
     },
     {
+      "id": "category-general-tools",
+      "label": "General Tools",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：General Tools",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-danyuchn-iso-24495-skill",
+        "github-hugohe3-ppt-master",
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-mattpocock-skills",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "github-nutlope-hallmark",
+        "github-santifer-career-ops",
+        "github-twinklestars1029-sillytavern-regex",
+        "threads-dcglstsogz3-fa0168",
+        "threads-dchbjcxenzb-725dd0",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 13
+    },
+    {
       "id": "category-ai-ml",
       "label": "AI / ML",
       "type": "category",
@@ -157,29 +181,6 @@
         "github-openbmb-voxcpm",
         "github-rimagination-h3lite",
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-dcrihmdd46t-183b20"
-      ],
-      "card_count": 12
-    },
-    {
-      "id": "category-general-tools",
-      "label": "General Tools",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：General Tools",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-mattpocock-skills",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-notoriouslab-vault-curate",
-        "github-nutlope-hallmark",
-        "github-santifer-career-ops",
-        "threads-dcglstsogz3-fa0168",
-        "threads-dchbjcxenzb-725dd0",
         "threads-dcrihmdd46t-183b20"
       ],
       "card_count": 12
@@ -269,6 +270,26 @@
       "card_count": 9
     },
     {
+      "id": "character-runtime",
+      "label": "Character Runtime",
+      "type": "architecture",
+      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-cynthianani-a-simple-nest",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-titanwings-distilly",
+        "github-twinklestars1029-sillytavern-regex",
+        "threads-dchbjcxenzb-725dd0",
+        "threads-dfyr62jb6wr-b921df"
+      ],
+      "card_count": 9
+    },
+    {
       "id": "tag-claude-code",
       "label": "claude-code",
       "type": "topic",
@@ -328,25 +349,6 @@
       "card_count": 8
     },
     {
-      "id": "character-runtime",
-      "label": "Character Runtime",
-      "type": "architecture",
-      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-cynthianani-a-simple-nest",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-titanwings-distilly",
-        "threads-dchbjcxenzb-725dd0",
-        "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 8
-    },
-    {
       "id": "category-sillytavern-ai-rpg",
       "label": "SillyTavern / AI RPG",
       "type": "category",
@@ -359,10 +361,11 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
         "github-titanwings-distilly",
+        "github-twinklestars1029-sillytavern-regex",
         "threads-dchbjcxenzb-725dd0",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 7
+      "card_count": 8
     },
     {
       "id": "tag-codex",
@@ -430,6 +433,21 @@
       "card_count": 5
     },
     {
+      "id": "ai-character-interface",
+      "label": "AI Character Interface",
+      "type": "experience",
+      "description": "AI 角色面向使用者的聊天、視覺角色、語音、RP 或互動介面層。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-twinklestars1029-sillytavern-regex"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "tag-coding-agent",
       "label": "coding-agent",
       "type": "topic",
@@ -475,6 +493,21 @@
       "card_count": 4
     },
     {
+      "id": "tag-typescript",
+      "label": "TypeScript",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness",
+        "github-stablyai-orca",
+        "github-twinklestars1029-sillytavern-regex"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "tag-agent-skills",
       "label": "Agent Skills",
       "type": "topic",
@@ -513,20 +546,6 @@
         "earendil-works-pi",
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "ai-character-interface",
-      "label": "AI Character Interface",
-      "type": "experience",
-      "description": "AI 角色面向使用者的聊天、視覺角色、語音、RP 或互動介面層。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
       ],
       "card_count": 3
     },
@@ -625,20 +644,6 @@
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
         "github-notoriouslab-vault-curate"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "tag-typescript",
-      "label": "TypeScript",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "earendil-works-pi",
-        "github-g36maid-deepseek-harness",
-        "github-stablyai-orca"
       ],
       "card_count": 3
     },
@@ -991,6 +996,19 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-sillytavern",
+      "label": "SillyTavern",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-twinklestars1029-sillytavern-regex"
       ],
       "card_count": 2
     },
@@ -3470,6 +3488,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-minijinai75-tavern-claude-bridge",
+      "concept_id": "tag-sillytavern",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SillyTavern"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-mirabarukaso-character-select-stand-alone-app",
       "concept_id": "agent-api-bridge",
       "strength": 0.78,
@@ -4642,6 +4672,78 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-twinklestars1029-sillytavern-regex",
+      "concept_id": "ai-character-interface",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SillyTavern"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-twinklestars1029-sillytavern-regex",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-twinklestars1029-sillytavern-regex",
+      "concept_id": "category-sillytavern-ai-rpg",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-twinklestars1029-sillytavern-regex",
+      "concept_id": "character-runtime",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-twinklestars1029-sillytavern-regex",
+      "concept_id": "tag-sillytavern",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SillyTavern"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-twinklestars1029-sillytavern-regex",
+      "concept_id": "tag-typescript",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "TypeScript"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
       "concept_id": "category-agent",
       "strength": 1,
@@ -5385,17 +5487,6 @@
   "concept_relations": [
     {
       "source": "agent-api-bridge",
-      "target": "ai-character-interface",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
       "support": 7,
@@ -5430,6 +5521,18 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-long-term-memory",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 0.6,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "threads-dclcucpas-z-66b25b"
       ]
     },
     {
@@ -5584,59 +5687,38 @@
     },
     {
       "source": "ai-character-interface",
-      "target": "category-agent",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
-      ]
-    },
-    {
-      "source": "ai-character-interface",
-      "target": "category-ai-ml",
+      "target": "category-general-tools",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
+        "github-twinklestars1029-sillytavern-regex"
       ]
     },
     {
       "source": "ai-character-interface",
       "target": "category-sillytavern-ai-rpg",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
         "github-minijinai75-tavern-claude-bridge",
-        "github-moeru-ai-airi"
+        "github-moeru-ai-airi",
+        "github-twinklestars1029-sillytavern-regex"
       ]
     },
     {
       "source": "ai-character-interface",
       "target": "character-runtime",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
-      ]
-    },
-    {
-      "source": "ai-character-interface",
-      "target": "local-ai-integration",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
+        "github-moeru-ai-airi",
+        "github-twinklestars1029-sillytavern-regex"
       ]
     },
     {
@@ -5651,6 +5733,17 @@
       ]
     },
     {
+      "source": "ai-character-interface",
+      "target": "tag-sillytavern",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-twinklestars1029-sillytavern-regex"
+      ]
+    },
+    {
       "source": "category-agent",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
@@ -5660,6 +5753,18 @@
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dcuhxije1zf-9b4063"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "tag-agent-runtime",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -5830,6 +5935,17 @@
     },
     {
       "source": "category-ai-coding-devtools",
+      "target": "tag-code-review",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-mattpocock-skills",
+        "threads-db-wlkkgtu-18d1ea"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
       "support": 4,
@@ -5851,18 +5967,6 @@
         "github-max0821-web-design-skill",
         "github-nutlope-hallmark",
         "threads-dcdjlucgrwf-66e463"
-      ]
-    },
-    {
-      "source": "category-ai-coding-devtools",
-      "target": "tag-typescript",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "earendil-works-pi",
-        "github-g36maid-deepseek-harness",
-        "github-stablyai-orca"
       ]
     },
     {
@@ -5915,6 +6019,17 @@
     },
     {
       "source": "category-ai-ml",
+      "target": "tag-electron",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
       "target": "tag-metal",
       "type": "co_occurs_with",
       "support": 2,
@@ -5958,18 +6073,6 @@
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
         "github-santifer-career-ops"
-      ]
-    },
-    {
-      "source": "category-general-tools",
-      "target": "tag-claude-code",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.3333,
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-mattpocock-skills",
-        "github-nutlope-hallmark"
       ]
     },
     {
@@ -6336,7 +6439,7 @@
       "source": "category-sillytavern-ai-rpg",
       "target": "character-runtime",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -6344,6 +6447,7 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
         "github-titanwings-distilly",
+        "github-twinklestars1029-sillytavern-regex",
         "threads-dchbjcxenzb-725dd0",
         "threads-dfyr62jb6wr-b921df"
       ]
@@ -6353,7 +6457,7 @@
       "target": "tag-claude-code",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.2857,
+      "weight": 0.25,
       "card_ids": [
         "github-minijinai75-tavern-claude-bridge",
         "github-titanwings-distilly"
@@ -6371,11 +6475,22 @@
       ]
     },
     {
+      "source": "category-sillytavern-ai-rpg",
+      "target": "tag-sillytavern",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-twinklestars1029-sillytavern-regex"
+      ]
+    },
+    {
       "source": "character-runtime",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.25,
+      "weight": 0.2222,
       "card_ids": [
         "github-minijinai75-tavern-claude-bridge",
         "github-titanwings-distilly"
@@ -6412,6 +6527,28 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge"
+      ]
+    },
+    {
+      "source": "character-runtime",
+      "target": "tag-sillytavern",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-minijinai75-tavern-claude-bridge",
+        "github-twinklestars1029-sillytavern-regex"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
+      "target": "tag-agent-loop",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -6497,18 +6634,6 @@
       ]
     },
     {
-      "source": "coding-agent-tooling",
-      "target": "tag-typescript",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "earendil-works-pi",
-        "github-g36maid-deepseek-harness",
-        "github-stablyai-orca"
-      ]
-    },
-    {
       "source": "image-generation-workflow",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
@@ -6576,6 +6701,17 @@
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -6656,17 +6792,6 @@
       ]
     },
     {
-      "source": "tag-agent-loop",
-      "target": "tag-tool-registry",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
       "source": "tag-agent-memory",
       "target": "tag-long-term-memory",
       "type": "co_occurs_with",
@@ -6714,17 +6839,6 @@
     {
       "source": "tag-agent-runtime",
       "target": "tag-session-log",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "tag-agent-runtime",
-      "target": "tag-tool-registry",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
@@ -6868,17 +6982,6 @@
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills"
-      ]
-    },
-    {
-      "source": "tag-coding-agent",
-      "target": "tag-long-term-memory",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.5,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -7203,9 +7306,9 @@
     }
   ],
   "stats": {
-    "card_count": 42,
-    "concept_count": 71,
-    "card_concept_edge_count": 339,
+    "card_count": 43,
+    "concept_count": 72,
+    "card_concept_edge_count": 346,
     "concept_relation_edge_count": 154
   }
 }
