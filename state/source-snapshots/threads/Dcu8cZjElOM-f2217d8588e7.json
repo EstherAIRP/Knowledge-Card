@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "provider": "threads",
+  "source_identity": "threads:Dcu8cZjElOM",
+  "canonical_url": "https://threads.com/@mashbean/post/Dcu8cZjElOM",
+  "root_post_id": "3976381355382690700_63435720744",
+  "root_shortcode": "Dcu8cZjElOM",
+  "author": "mashbean",
+  "thread_total": 2,
+  "captured_at": "2026-09-01T09:38:47.051Z",
+  "source_hash": "b5fbdc27c73055d6c85bfd25b6000bfc765d33ba5cfc0173996af216c401d990",
+  "parts": [
+    {
+      "index": 1,
+      "key": "id:3976381355382690700_63435720744",
+      "id": "3976381355382690700_63435720744",
+      "shortcode": "Dcu8cZjElOM",
+      "canonical_url": "https://threads.com/@mashbean/post/Dcu8cZjElOM",
+      "timestamp": "2026-09-01T05:46:58.000Z",
+      "reply_to": null,
+      "root_post": null,
+      "text_hash": "7bca893fb5164c1cceee9b2959142213142b6afafdbede2c1637e6846c880bea",
+      "media_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "references_hash": "6f19703542c95f260e6d00f17c7323922211afee219d4b4892352701d4fae2f0",
+      "structure_hash": "3b06476d6cd9f918c9a9b6c795a71f608fb78f11ca288e0aaf58c9e55d730441",
+      "content_hash": "9b22dd1d553a07327eb61e728bec99eccaabfb577d9ca77ec22e94c0d971d892"
+    },
+    {
+      "index": 2,
+      "key": "id:3976381393299178391_63435720744",
+      "id": "3976381393299178391_63435720744",
+      "shortcode": "Dcu8c83EgOX",
+      "canonical_url": "https://threads.com/@mashbean/post/Dcu8c83EgOX",
+      "timestamp": "2026-09-01T05:47:02.000Z",
+      "reply_to": null,
+      "root_post": null,
+      "text_hash": "4eae069a19916f18067f135d382b89aaefbfe41765d07683e6407980e6a8e348",
+      "media_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "references_hash": "6f19703542c95f260e6d00f17c7323922211afee219d4b4892352701d4fae2f0",
+      "structure_hash": "4a27df865b351e7aa18f5af5244f88d2b841eca562ebb3d15f17afd374e05f0b",
+      "content_hash": "059b9ca3e68f4acdd0976040d04d6ecb3ad7f98c3bfe6aa8c18d14aa4ec91da9"
+    }
+  ]
+}
