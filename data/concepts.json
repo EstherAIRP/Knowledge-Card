@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-30T03:17:08.324Z",
-  "input_hash": "0f58076327d35f980dea29c4a0adf40310b4626051a0c5bc7a2892f7c23dcb90",
+  "generated_at": "2026-09-01T09:44:12.741Z",
+  "input_hash": "93989c449b5cef16d11336f8986405737337d0c39220a3b70efb4d024f921c8d",
   "concepts": [
     {
       "id": "category-agent",
@@ -41,9 +41,10 @@
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
         "threads-dclcucpas-z-66b25b",
+        "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 31
+      "card_count": 32
     },
     {
       "id": "coding-agent-tooling",
@@ -159,9 +160,10 @@
         "github-twinklestars1029-sillytavern-regex",
         "threads-dcglstsogz3-fa0168",
         "threads-dchbjcxenzb-725dd0",
-        "threads-dcrihmdd46t-183b20"
+        "threads-dcrihmdd46t-183b20",
+        "threads-dcu8czjelom-f2217d"
       ],
-      "card_count": 14
+      "card_count": 15
     },
     {
       "id": "category-ai-ml",
@@ -715,6 +717,19 @@
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-notoriouslab-vault-curate"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-cloudflare",
+      "label": "cloudflare",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "threads-dcglstsogz3-fa0168",
+        "threads-dcu8czjelom-f2217d"
       ],
       "card_count": 2
     },
@@ -5169,6 +5184,18 @@
       "origin": "category"
     },
     {
+      "card_id": "threads-dcglstsogz3-fa0168",
+      "concept_id": "tag-cloudflare",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "cloudflare"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "threads-dchbjcxenzb-725dd0",
       "concept_id": "category-general-tools",
       "strength": 1,
@@ -5368,6 +5395,42 @@
         {
           "kind": "tag",
           "value": "traditional-chinese"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-dcu8czjelom-f2217d",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-dcu8czjelom-f2217d",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-dcu8czjelom-f2217d",
+      "concept_id": "tag-cloudflare",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Cloudflare"
         }
       ],
       "origin": "shared-tag"
@@ -6129,15 +6192,13 @@
     },
     {
       "source": "category-general-tools",
-      "target": "tag-agent-skill",
+      "target": "tag-cloudflare",
       "type": "co_occurs_with",
-      "support": 4,
-      "weight": 0.4444,
+      "support": 2,
+      "weight": 1,
       "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "github-hugohe3-ppt-master",
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-santifer-career-ops"
+        "threads-dcglstsogz3-fa0168",
+        "threads-dcu8czjelom-f2217d"
       ]
     },
     {
@@ -7396,9 +7457,9 @@
     }
   ],
   "stats": {
-    "card_count": 44,
-    "concept_count": 72,
-    "card_concept_edge_count": 351,
+    "card_count": 45,
+    "concept_count": 73,
+    "card_concept_edge_count": 355,
     "concept_relation_edge_count": 156
   }
 }
