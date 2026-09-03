@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-01T09:44:12.741Z",
-  "input_hash": "93989c449b5cef16d11336f8986405737337d0c39220a3b70efb4d024f921c8d",
+  "generated_at": "2026-09-03T02:06:05.039Z",
+  "input_hash": "10b701423f9456cf3fb4fa0da8cae545ef50a90196b5dee0f76b1c7a7c97780d",
   "concepts": [
     {
       "id": "category-agent",
@@ -20,6 +20,7 @@
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
         "github-harry0703-moneyprinterturbo",
+        "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-k-dense-ai-scientific-agent-skills",
@@ -44,7 +45,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 32
+      "card_count": 33
     },
     {
       "id": "coding-agent-tooling",
@@ -60,6 +61,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
+        "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-k-dense-ai-scientific-agent-skills",
@@ -77,7 +79,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 22
+      "card_count": 23
     },
     {
       "id": "category-ai-coding-devtools",
@@ -93,6 +95,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
+        "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-k-dense-ai-scientific-agent-skills",
@@ -108,7 +111,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 20
+      "card_count": 21
     },
     {
       "id": "category-llm",
@@ -233,6 +236,27 @@
       "card_count": 11
     },
     {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-g36maid-deepseek-harness",
+        "github-herdrdev-herdr",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-stablyai-orca",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-db-fphwgfos-7d09e0",
+        "threads-dcglstsogz3-fa0168"
+      ],
+      "card_count": 10
+    },
+    {
       "id": "category-rag-memory-knowledge",
       "label": "RAG / Memory / Knowledge",
       "type": "category",
@@ -310,26 +334,6 @@
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "github-titanwings-distilly"
-      ],
-      "card_count": 9
-    },
-    {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-dstack-tee-dstack",
-        "github-g36maid-deepseek-harness",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-stablyai-orca",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-db-fphwgfos-7d09e0",
-        "threads-dcglstsogz3-fa0168"
       ],
       "card_count": 9
     },
@@ -641,6 +645,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-rust",
+      "label": "Rust",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-herdrdev-herdr",
+        "github-mayocream-koharu"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-sqlite",
       "label": "SQLite",
       "type": "topic",
@@ -678,6 +696,19 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-agent-orchestration",
+      "label": "agent-orchestration",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-herdrdev-herdr",
+        "github-stablyai-orca"
       ],
       "card_count": 2
     },
@@ -968,6 +999,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-plugin-system",
+      "label": "plugin-system",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-herdrdev-herdr",
+        "github-santifer-career-ops"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-prompt-caching",
       "label": "prompt-caching",
       "type": "topic",
@@ -977,19 +1021,6 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-rust",
-      "label": "Rust",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-mayocream-koharu"
       ],
       "card_count": 2
     },
@@ -1068,6 +1099,19 @@
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-terminal-ui",
+      "label": "terminal-ui",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-herdrdev-herdr"
       ],
       "card_count": 2
     },
@@ -1235,6 +1279,18 @@
         {
           "kind": "tag",
           "value": "coding-agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "earendil-works-pi",
+      "concept_id": "tag-terminal-ui",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "terminal-ui"
         }
       ],
       "origin": "shared-tag"
@@ -2395,6 +2451,102 @@
         {
           "kind": "tag",
           "value": "text-to-speech"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-herdrdev-herdr",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-herdrdev-herdr",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-herdrdev-herdr",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-herdrdev-herdr",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-herdrdev-herdr",
+      "concept_id": "tag-agent-orchestration",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-orchestration"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-herdrdev-herdr",
+      "concept_id": "tag-plugin-system",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "plugin-system"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-herdrdev-herdr",
+      "concept_id": "tag-rust",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Rust"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-herdrdev-herdr",
+      "concept_id": "tag-terminal-ui",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "terminal-ui"
         }
       ],
       "origin": "shared-tag"
@@ -4500,6 +4652,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-santifer-career-ops",
+      "concept_id": "tag-plugin-system",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "plugin-system"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-stablyai-orca",
       "concept_id": "category-agent",
       "strength": 1,
@@ -4554,6 +4718,18 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "github-stablyai-orca",
+      "concept_id": "tag-agent-orchestration",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent orchestration"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "github-stablyai-orca",
@@ -5704,7 +5880,7 @@
       "target": "tag-rust",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-mayocream-koharu"
@@ -5990,7 +6166,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 20,
+      "support": 21,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -5999,6 +6175,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
+        "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
         "github-k-dense-ai-scientific-agent-skills",
@@ -6040,6 +6217,17 @@
     },
     {
       "source": "category-ai-coding-devtools",
+      "target": "tag-agent-orchestration",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-herdrdev-herdr",
+        "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
       "target": "tag-agent-runtime",
       "type": "co_occurs_with",
       "support": 3,
@@ -6053,17 +6241,6 @@
     {
       "source": "category-ai-coding-devtools",
       "target": "tag-ai-coding",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-mattpocock-skills",
-        "threads-db-wlkkgtu-18d1ea"
-      ]
-    },
-    {
-      "source": "category-ai-coding-devtools",
-      "target": "tag-code-review",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
@@ -6330,6 +6507,17 @@
     },
     {
       "source": "category-infrastructure-deployment",
+      "target": "tag-agent-orchestration",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-herdrdev-herdr",
+        "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
       "target": "tag-cordis",
       "type": "co_occurs_with",
       "support": 2,
@@ -6386,17 +6574,6 @@
     {
       "source": "category-infrastructure-deployment",
       "target": "tag-tool-registry",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "category-infrastructure-deployment",
-      "target": "tag-web-ui",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
@@ -6881,7 +7058,7 @@
       "target": "tag-rust",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-mayocream-koharu"
@@ -7457,9 +7634,9 @@
     }
   ],
   "stats": {
-    "card_count": 45,
-    "concept_count": 73,
-    "card_concept_edge_count": 355,
+    "card_count": 46,
+    "concept_count": 76,
+    "card_concept_edge_count": 366,
     "concept_relation_edge_count": 156
   }
 }
