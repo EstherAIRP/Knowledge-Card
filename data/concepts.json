@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-03T02:06:05.039Z",
-  "input_hash": "10b701423f9456cf3fb4fa0da8cae545ef50a90196b5dee0f76b1c7a7c97780d",
+  "generated_at": "2026-09-03T02:25:57.725Z",
+  "input_hash": "7ae8d6eb06492dd3a19d3ad0145d8ae07dc2069cf6dc3f6088cd85e5803a9378",
   "concepts": [
     {
       "id": "category-agent",
@@ -32,6 +32,7 @@
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi",
         "github-nanako0129-sepia",
+        "github-nevertoday-xxd-panel-102",
         "github-nutlope-hallmark",
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill",
@@ -45,7 +46,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 33
+      "card_count": 34
     },
     {
       "id": "coding-agent-tooling",
@@ -376,6 +377,42 @@
       "card_count": 8
     },
     {
+      "id": "category-image-generation",
+      "label": "Image Generation",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Image Generation",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nevertoday-xxd-panel-102",
+        "github-promptfairy-prompt-fairy",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 7
+    },
+    {
+      "id": "image-generation-workflow",
+      "label": "Image Generation Workflow",
+      "type": "workflow",
+      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nevertoday-xxd-panel-102",
+        "github-promptfairy-prompt-fairy",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 7
+    },
+    {
       "id": "tag-codex",
       "label": "Codex",
       "type": "topic",
@@ -389,40 +426,6 @@
         "github-nutlope-hallmark",
         "github-stablyai-orca",
         "github-titanwings-distilly"
-      ],
-      "card_count": 6
-    },
-    {
-      "id": "category-image-generation",
-      "label": "Image Generation",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Image Generation",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-promptfairy-prompt-fairy",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill"
-      ],
-      "card_count": 6
-    },
-    {
-      "id": "image-generation-workflow",
-      "label": "Image Generation Workflow",
-      "type": "workflow",
-      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-promptfairy-prompt-fairy",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill"
       ],
       "card_count": 6
     },
@@ -4108,6 +4111,42 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-nevertoday-xxd-panel-102",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nevertoday-xxd-panel-102",
+      "concept_id": "category-image-generation",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nevertoday-xxd-panel-102",
+      "concept_id": "image-generation-workflow",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
       "card_id": "github-notoriouslab-vault-curate",
       "concept_id": "agent-memory",
       "strength": 0.78,
@@ -6276,32 +6315,6 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "category-image-generation",
-      "type": "co_occurs_with",
-      "support": 4,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-rimagination-h3lite"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
-      "target": "image-generation-workflow",
-      "type": "co_occurs_with",
-      "support": 4,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-rimagination-h3lite"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
       "target": "tag-agent-skills",
       "type": "co_occurs_with",
       "support": 2,
@@ -6335,10 +6348,32 @@
     },
     {
       "source": "category-ai-ml",
+      "target": "tag-local-llm",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
       "target": "tag-metal",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
@@ -6450,12 +6485,13 @@
       "source": "category-image-generation",
       "target": "image-generation-workflow",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "github-harry0703-moneyprinterturbo",
         "github-mayocream-koharu",
         "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nevertoday-xxd-panel-102",
         "github-promptfairy-prompt-fairy",
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill"
@@ -6466,7 +6502,7 @@
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.3333,
+      "weight": 0.2857,
       "card_ids": [
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill"
@@ -6954,7 +6990,7 @@
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.3333,
+      "weight": 0.2857,
       "card_ids": [
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill"
@@ -7634,9 +7670,9 @@
     }
   ],
   "stats": {
-    "card_count": 46,
+    "card_count": 47,
     "concept_count": 76,
-    "card_concept_edge_count": 366,
+    "card_concept_edge_count": 369,
     "concept_relation_edge_count": 156
   }
 }
