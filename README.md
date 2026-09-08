@@ -39,8 +39,8 @@ LocalBackend → 必要時切換 RemoteBackend
 驗證 + commit/push
    ↓
 GitHub Actions
-   ├─ 卡片語意關聯
-   ├─ 概念圖譜
+   ├─ 單一 Release 產生 embeddings / relations / concepts
+   ├─ 驗證 Knowledge Graph 與網站
    └─ VitePress 建置 / Pages 部署
 ```
 
@@ -72,9 +72,7 @@ Knowledge-Card/
 │   └── workflows/
 │       ├── validate.yml
 │       ├── deploy-pages.yml
-│       ├── remote-ingest.yml
-│       ├── update-relations.yml
-│       └── rebuild-relations.yml
+│       └── remote-ingest.yml
 ├── AGENTS.md
 ├── README.md
 ├── package.json
@@ -231,11 +229,9 @@ npm run docs:preview
 
 目前工作流程包含：
 
-- [validate.yml](.github/workflows/validate.yml) — PR／非 `main` 分支測試、驗證、文件治理檢查、VitePress 建置與輸出驗證。
-- [deploy-pages.yml](.github/workflows/deploy-pages.yml) — `main` 驗證／建置關卡與 GitHub Pages 部署。
+- [validate.yml](.github/workflows/validate.yml) — PR／手動測試、驗證、文件治理檢查、VitePress 建置與輸出驗證。
+- [deploy-pages.yml](.github/workflows/deploy-pages.yml) — `main` 的單一 Release Pipeline；負責增量語意圖譜、每週完整重建、產生索引持久化、完整驗證、VitePress 建置與 GitHub Pages 部署。
 - [remote-ingest.yml](.github/workflows/remote-ingest.yml) — 本機執行環境缺少必要能力時，執行受信任的 Remote Ingest。
-- [update-relations.yml](.github/workflows/update-relations.yml) — 增量維護向量嵌入、關聯與概念索引。
-- [rebuild-relations.yml](.github/workflows/rebuild-relations.yml) — 排程或手動完整重建知識圖譜。
 
 實際執行內容以 workflow YAML 為權威來源；[docs/AUTOMATION.md](docs/AUTOMATION.md) 說明操作模型。
 
