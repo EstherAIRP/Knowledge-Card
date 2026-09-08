@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-03T04:30:04.796Z",
-  "input_hash": "c3134eed12e6d424bcfb45825cc33b1a3d52c02ae2439fa452eab35288706ae4",
+  "generated_at": "2026-09-08T06:16:19.972Z",
+  "input_hash": "a7351197a661bc9701d019aba261add4037460392fd759a789fafeb251fae32a",
   "concepts": [
     {
       "id": "category-agent",
@@ -40,6 +40,7 @@
         "github-santifer-career-ops",
         "github-stablyai-orca",
         "github-titanwings-distilly",
+        "github-tsun-u-agent-game-table",
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
@@ -47,7 +48,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 35
+      "card_count": 36
     },
     {
       "id": "coding-agent-tooling",
@@ -165,13 +166,14 @@
         "github-nutlope-hallmark",
         "github-promptfairy-prompt-fairy",
         "github-santifer-career-ops",
+        "github-tsun-u-agent-game-table",
         "github-twinklestars1029-sillytavern-regex",
         "threads-dcglstsogz3-fa0168",
         "threads-dchbjcxenzb-725dd0",
         "threads-dcrihmdd46t-183b20",
         "threads-dcu8czjelom-f2217d"
       ],
-      "card_count": 16
+      "card_count": 17
     },
     {
       "id": "category-ai-ml",
@@ -193,6 +195,29 @@
         "github-rimagination-h3lite",
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 12
+    },
+    {
+      "id": "local-ai-integration",
+      "label": "Local AI Integration",
+      "type": "integration",
+      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "github-promptfairy-prompt-fairy",
+        "github-santifer-career-ops",
+        "github-titanwings-distilly",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 12
     },
@@ -219,26 +244,25 @@
       "card_count": 11
     },
     {
-      "id": "local-ai-integration",
-      "label": "Local AI Integration",
-      "type": "integration",
-      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
+      "id": "character-runtime",
+      "label": "Character Runtime",
+      "type": "architecture",
+      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
       "origin": "promoted",
       "aliases": [],
       "card_ids": [
         "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
+        "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
-        "github-notoriouslab-vault-curate",
-        "github-promptfairy-prompt-fairy",
-        "github-santifer-career-ops",
+        "github-moeru-ai-airi",
         "github-titanwings-distilly",
-        "threads-dclcucpas-z-66b25b"
+        "github-tsun-u-agent-game-table",
+        "github-twinklestars1029-sillytavern-regex",
+        "threads-dchbjcxenzb-725dd0",
+        "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 11
+      "card_count": 10
     },
     {
       "id": "tag-claude-code",
@@ -304,6 +328,26 @@
       "card_count": 10
     },
     {
+      "id": "agent-api-bridge",
+      "label": "Agent API Bridge",
+      "type": "integration",
+      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-drumih-turbo-fieldfare",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 9
+    },
+    {
       "id": "tag-agent-skill",
       "label": "agent skill",
       "type": "topic",
@@ -324,45 +368,6 @@
       "card_count": 9
     },
     {
-      "id": "character-runtime",
-      "label": "Character Runtime",
-      "type": "architecture",
-      "description": "讓 AI 角色具備對話、角色呈現、互動或外部能力整合的 runtime／execution layer。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-cynthianani-a-simple-nest",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-titanwings-distilly",
-        "github-twinklestars1029-sillytavern-regex",
-        "threads-dchbjcxenzb-725dd0",
-        "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 9
-    },
-    {
-      "id": "agent-api-bridge",
-      "label": "Agent API Bridge",
-      "type": "integration",
-      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-drumih-turbo-fieldfare",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 8
-    },
-    {
       "id": "category-sillytavern-ai-rpg",
       "label": "SillyTavern / AI RPG",
       "type": "category",
@@ -375,11 +380,12 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
         "github-titanwings-distilly",
+        "github-tsun-u-agent-game-table",
         "github-twinklestars1029-sillytavern-regex",
         "threads-dchbjcxenzb-725dd0",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 8
+      "card_count": 9
     },
     {
       "id": "tag-codex",
@@ -484,6 +490,22 @@
       "card_count": 5
     },
     {
+      "id": "tag-mcp",
+      "label": "MCP",
+      "type": "topic",
+      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 5
+    },
+    {
       "id": "tag-agent-skills",
       "label": "agent-skills",
       "type": "topic",
@@ -510,21 +532,6 @@
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi",
         "github-twinklestars1029-sillytavern-regex"
-      ],
-      "card_count": 4
-    },
-    {
-      "id": "tag-mcp",
-      "label": "MCP",
-      "type": "topic",
-      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 4
     },
@@ -5200,6 +5207,90 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-tsun-u-agent-game-table",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-tsun-u-agent-game-table",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-tsun-u-agent-game-table",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-tsun-u-agent-game-table",
+      "concept_id": "category-sillytavern-ai-rpg",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-tsun-u-agent-game-table",
+      "concept_id": "character-runtime",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "SillyTavern / AI RPG"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-tsun-u-agent-game-table",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-tsun-u-agent-game-table",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-twinklestars1029-sillytavern-regex",
       "concept_id": "ai-character-interface",
       "strength": 0.78,
@@ -6065,8 +6156,8 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 7,
-      "weight": 0.875,
+      "support": 8,
+      "weight": 0.8889,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
@@ -6074,6 +6165,7 @@
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
+        "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ]
     },
@@ -6115,12 +6207,13 @@
       "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
+        "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ]
     },
@@ -6224,6 +6317,17 @@
     },
     {
       "source": "agent-memory",
+      "target": "tag-hybrid-retrieval",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-hkuds-lightrag"
+      ]
+    },
+    {
+      "source": "agent-memory",
       "target": "tag-long-term-memory",
       "type": "co_occurs_with",
       "support": 5,
@@ -6234,19 +6338,6 @@
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
-      ]
-    },
-    {
-      "source": "agent-memory",
-      "target": "tag-mcp",
-      "type": "co_occurs_with",
-      "support": 4,
-      "weight": 1,
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b"
       ]
     },
     {
@@ -6418,12 +6509,13 @@
       "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
+        "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ]
     },
@@ -7032,7 +7124,7 @@
       "source": "category-sillytavern-ai-rpg",
       "target": "character-runtime",
       "type": "co_occurs_with",
-      "support": 8,
+      "support": 9,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -7040,9 +7132,21 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
         "github-titanwings-distilly",
+        "github-tsun-u-agent-game-table",
         "github-twinklestars1029-sillytavern-regex",
         "threads-dchbjcxenzb-725dd0",
         "threads-dfyr62jb6wr-b921df"
+      ]
+    },
+    {
+      "source": "category-sillytavern-ai-rpg",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.4,
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-tsun-u-agent-game-table"
       ]
     },
     {
@@ -7076,6 +7180,17 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
+      ]
+    },
+    {
+      "source": "character-runtime",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.4,
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-tsun-u-agent-game-table"
       ]
     },
     {
@@ -7281,12 +7396,13 @@
       "source": "local-ai-integration",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
+        "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ]
     },
@@ -7677,7 +7793,7 @@
       "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.5,
+      "weight": 0.4,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
@@ -7842,7 +7958,7 @@
       "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.75,
+      "weight": 0.6,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
@@ -8005,9 +8121,9 @@
     }
   ],
   "stats": {
-    "card_count": 48,
+    "card_count": 49,
     "concept_count": 78,
-    "card_concept_edge_count": 384,
-    "concept_relation_edge_count": 164
+    "card_concept_edge_count": 391,
+    "concept_relation_edge_count": 166
   }
 }
