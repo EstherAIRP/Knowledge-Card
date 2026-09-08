@@ -39,6 +39,11 @@ const GOVERNANCE_MARKDOWN = [
   'docs/WEBSITE.md'
 ];
 
+const RETIRED_GRAPH_WORKFLOWS = [
+  'update-relations.yml',
+  'rebuild-relations.yml'
+];
+
 function read(root, relativePath) {
   return fs.readFileSync(path.join(root, relativePath), 'utf8');
 }
@@ -139,11 +144,15 @@ export function checkDocumentationGovernance({ root = process.cwd() } = {}) {
       'npm run ingest:dispatch -- <URL>',
       'npm run docs:check',
       'remote-ingest.yml',
-      'update-relations.yml',
-      'rebuild-relations.yml'
+      'deploy-pages.yml'
     ]) {
       if (!readme.includes(requiredText)) {
         errors.push(`README.md must reference current repository contract/capability: ${requiredText}`);
+      }
+    }
+    for (const retiredWorkflow of RETIRED_GRAPH_WORKFLOWS) {
+      if (readme.includes(retiredWorkflow)) {
+        errors.push(`README.md still references retired graph workflow: ${retiredWorkflow}`);
       }
     }
     if (/Resolve a URL before ingestion:/i.test(readme) || /URL\s*\n\s*(?:→|->)\s*npm run ingest:resolve/i.test(readme)) {
@@ -179,9 +188,36 @@ export function checkDocumentationGovernance({ root = process.cwd() } = {}) {
     }
   }
 
-  for (const workflow of ['.github/workflows/validate.yml', '.github/workflows/deploy-pages.yml']) {
-    if (fs.existsSync(path.join(root, workflow)) && !read(root, workflow).includes('npm run docs:check')) {
-      errors.push(`${workflow} must run npm run docs:check.`);
+  const validateWorkflowPath = '.github/workflows/validate.yml';
+  if (fs.existsSync(path.join(root, validateWorkflowPath))) {
+    const workflow = read(root, validateWorkflowPath);
+    if (!workflow.includes('npm run docs:check')) {
+      errors.push(`${validateWorkflowPath} must run npm run docs:check.`);
+    }
+    if (/\npush:\s*\n/.test(workflow) || /\n\s+push:\s*\n/.test(workflow)) {
+      errors.push(`${validateWorkflowPath} must not run branch-push CI in addition to pull_request validation.`);
+    }
+  }
+
+  const deployWorkflowPath = '.github/workflows/deploy-pages.yml';
+  if (fs.existsSync(path.join(root, deployWorkflowPath))) {
+    const workflow = read(root, deployWorkflowPath);
+    for (const requiredText of [
+      'npm run docs:check',
+      'npm run relations:build:semantic',
+      'npm run relations:rebuild',
+      'Persist generated indexes',
+      'Ensure release source is still current'
+    ]) {
+      if (!workflow.includes(requiredText)) {
+        errors.push(`${deployWorkflowPath} is missing unified release invariant: ${requiredText}`);
+      }
+    }
+  }
+
+  for (const retiredWorkflow of RETIRED_GRAPH_WORKFLOWS) {
+    if (fs.existsSync(path.join(root, '.github', 'workflows', retiredWorkflow))) {
+      errors.push(`Retired graph workflow must not exist: .github/workflows/${retiredWorkflow}`);
     }
   }
 
@@ -200,8 +236,16 @@ export function checkDocumentationGovernance({ root = process.cwd() } = {}) {
     }
   }
 
-  if (fs.existsSync(path.join(root, 'docs/AUTOMATION.md')) && !read(root, 'docs/AUTOMATION.md').includes('npm run docs:check')) {
-    errors.push('docs/AUTOMATION.md must document the documentation governance check.');
+  if (fs.existsSync(path.join(root, 'docs/AUTOMATION.md'))) {
+    const automation = read(root, 'docs/AUTOMATION.md');
+    if (!automation.includes('npm run docs:check')) {
+      errors.push('docs/AUTOMATION.md must document the documentation governance check.');
+    }
+    for (const retiredWorkflow of RETIRED_GRAPH_WORKFLOWS) {
+      if (automation.includes(retiredWorkflow)) {
+        errors.push(`docs/AUTOMATION.md still references retired graph workflow: ${retiredWorkflow}`);
+      }
+    }
   }
 
   return errors;

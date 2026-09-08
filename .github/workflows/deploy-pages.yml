@@ -4,24 +4,34 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: "17 3 * * 0"
   workflow_dispatch:
+    inputs:
+      full_rebuild:
+        description: Rebuild all embeddings and graph indexes before deployment
+        required: false
+        default: false
+        type: boolean
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: knowledge-release-main
+  cancel-in-progress: true
 
 jobs:
   build:
-    name: Validate and build
+    name: Build release
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     env:
       TRANSFORMERS_CACHE_DIR: .cache/transformers
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
     steps:
       - name: Checkout repository
@@ -43,29 +53,36 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
-      - name: Build embedding index
-        run: npm run embeddings:build
+      - name: Build knowledge graph
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "schedule" || "${{ inputs.full_rebuild }}" == "true" ]]; then
+            echo "Running full knowledge graph rebuild."
+            npm run relations:rebuild
+          else
+            echo "Running incremental semantic knowledge graph build."
+            npm run embeddings:build
+            npm run relations:build:semantic
+            npm run concepts:build
+          fi
+
+      - name: Report relation diagnostics
+        run: npm run relations:report
 
       - name: Validate embedding index
         run: npm run embeddings:validate
-
-      - name: Build relation index
-        run: npm run relations:build
-
-      - name: Build concept graph
-        run: npm run concepts:build
-
-      - name: Run unit tests
-        run: npm test
-
-      - name: Validate Knowledge Cards
-        run: npm run validate
 
       - name: Validate relation index
         run: npm run relations:validate
 
       - name: Validate concept graph
         run: npm run concepts:validate
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Validate Knowledge Cards
+        run: npm run validate
 
       - name: Check documentation governance
         run: npm run docs:check
@@ -75,6 +92,30 @@ jobs:
 
       - name: Verify built site output
         run: npm run verify:site
+
+      - name: Ensure release source is still current
+        shell: bash
+        run: |
+          git fetch origin main
+          current_main="$(git rev-parse origin/main)"
+          if [[ "$current_main" != "$GITHUB_SHA" ]]; then
+            echo "main advanced from $GITHUB_SHA to $current_main while this release was building."
+            echo "Aborting this stale release; the newer main revision will produce its own release."
+            exit 1
+          fi
+
+      - name: Persist generated indexes
+        shell: bash
+        run: |
+          git add data/embeddings.json data/relations.json data/concepts.json
+          if git diff --cached --quiet; then
+            echo "Knowledge graph indexes are already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh knowledge graph indexes"
+          git push origin HEAD:main
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6

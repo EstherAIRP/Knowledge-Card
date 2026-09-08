@@ -2,10 +2,6 @@ name: Validate Knowledge Radar
 
 on:
   pull_request:
-  push:
-    branches-ignore:
-      - main
-      - 'runtime/ingest/**'
   workflow_dispatch:
 
 permissions:
