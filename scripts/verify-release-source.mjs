@@ -48,11 +48,15 @@ export function verifyRemoteRef({
 }) {
   assertFullSha('expected_sha', expectedSha);
 
+  const remoteRef = `${remote}/${branch}`;
   if (fetch) {
-    runGit(cwd, ['fetch', remote, branch]);
+    runGit(cwd, [
+      'fetch',
+      remote,
+      `+refs/heads/${branch}:refs/remotes/${remote}/${branch}`
+    ]);
   }
 
-  const remoteRef = `${remote}/${branch}`;
   const actual = resolveCommit(cwd, remoteRef);
   const expected = resolveCommit(cwd, expectedSha);
 
