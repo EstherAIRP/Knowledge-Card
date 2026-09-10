@@ -247,3 +247,26 @@ jobs:
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+      - name: Verify live release provenance
+        shell: bash
+        run: |
+          node scripts/verify-live-release.mjs \
+            --site-url "${{ steps.deployment.outputs.page_url }}" \
+            --release-id "${{ needs.build.outputs.release_id }}" \
+            --source "${{ needs.build.outputs.source_sha }}" \
+            --index-commit "${{ needs.build.outputs.index_commit_sha }}" \
+            --build-mode "${{ needs.build.outputs.build_mode }}"
+
+      - name: Write live release summary
+        shell: bash
+        run: |
+          {
+            echo "## Live release verified"
+            echo
+            echo "- URL: ${{ steps.deployment.outputs.page_url }}"
+            echo "- Release ID: ${{ needs.build.outputs.release_id }}"
+            echo "- Source SHA (S): ${{ needs.build.outputs.source_sha }}"
+            echo "- Index commit SHA (P): ${{ needs.build.outputs.index_commit_sha }}"
+            echo "- Build mode: ${{ needs.build.outputs.build_mode }}"
+          } >> "$GITHUB_STEP_SUMMARY"

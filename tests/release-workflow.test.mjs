@@ -67,3 +67,21 @@ test('deploy job refuses to deploy when main no longer equals P', () => {
   assert.match(guard.run, /verify-release-source\.mjs remote/);
   assert.match(guard.run, /--fetch/);
 });
+
+test('deploy job verifies the live release metadata after Pages deployment', () => {
+  const workflow = loadWorkflow();
+  const steps = workflow.jobs?.deploy?.steps ?? [];
+  const deployIndex = steps.findIndex((step) => step.name === 'Deploy GitHub Pages');
+  const verifyIndex = steps.findIndex((step) => step.name === 'Verify live release provenance');
+
+  assert.ok(deployIndex >= 0);
+  assert.ok(verifyIndex > deployIndex);
+
+  const verify = steps[verifyIndex];
+  assert.match(verify.run, /verify-live-release\.mjs/);
+  assert.match(verify.run, /steps\.deployment\.outputs\.page_url/);
+  assert.match(verify.run, /needs\.build\.outputs\.release_id/);
+  assert.match(verify.run, /needs\.build\.outputs\.source_sha/);
+  assert.match(verify.run, /needs\.build\.outputs\.index_commit_sha/);
+  assert.match(verify.run, /needs\.build\.outputs\.build_mode/);
+});
