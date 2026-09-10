@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
@@ -14,59 +15,69 @@ function sha256(buffer) {
   return crypto.createHash('sha256').update(buffer).digest('hex');
 }
 
-function inspectIndexFile(root, relativePath) {
-  const fullPath = path.resolve(root, relativePath);
-
-  if (!fs.existsSync(fullPath)) {
-    throw new Error(`Missing release index: ${relativePath}`);
-  }
-
-  const stat = fs.statSync(fullPath);
-  if (!stat.isFile() || stat.size === 0) {
+function inspectBytes(bytes, relativePath) {
+  if (!Buffer.isBuffer(bytes) || bytes.length === 0) {
     throw new Error(`Release index is empty or invalid: ${relativePath}`);
   }
-
-  const bytes = fs.readFileSync(fullPath);
   try {
     JSON.parse(bytes.toString('utf8'));
   } catch (error) {
     throw new Error(`Cannot parse release index ${relativePath}: ${error.message}`);
   }
-
-  return {
-    sha256: sha256(bytes),
-    bytes: bytes.length
-  };
+  return { sha256: sha256(bytes), bytes: bytes.length };
 }
 
-export function createIndexManifest({ root = process.cwd(), indexPaths = INDEX_PATHS } = {}) {
-  const indexes = {};
-  for (const relativePath of indexPaths) {
-    indexes[relativePath] = inspectIndexFile(root, relativePath);
+function inspectIndexFile(root, relativePath) {
+  const fullPath = path.resolve(root, relativePath);
+  if (!fs.existsSync(fullPath)) throw new Error(`Missing release index: ${relativePath}`);
+  const stat = fs.statSync(fullPath);
+  if (!stat.isFile()) throw new Error(`Release index is empty or invalid: ${relativePath}`);
+  return inspectBytes(fs.readFileSync(fullPath), relativePath);
+}
+
+function runGitText(cwd, args) {
+  try {
+    return execFileSync('git', args, {
+      cwd,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe']
+    }).trim();
+  } catch (error) {
+    const stderr = error.stderr?.toString?.().trim();
+    throw new Error(`git ${args.join(' ')} failed: ${stderr || error.message}`);
   }
-
-  return {
-    schema_version: 1,
-    indexes
-  };
 }
 
-export function verifyIndexManifest(
-  manifest,
-  { root = process.cwd(), indexPaths = INDEX_PATHS } = {}
-) {
+function readGitBlob(cwd, commit, relativePath) {
+  try {
+    return execFileSync('git', ['show', `${commit}:${relativePath}`], {
+      cwd,
+      encoding: 'buffer',
+      stdio: ['ignore', 'pipe', 'pipe'],
+      maxBuffer: 1024 * 1024 * 128
+    });
+  } catch (error) {
+    const stderr = error.stderr?.toString?.().trim();
+    throw new Error(
+      `Cannot read release index ${relativePath} from Git commit ${commit}: ${stderr || error.message}`
+    );
+  }
+}
+
+function validateManifestShape(manifest) {
   if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
     throw new Error('Release manifest must be an object.');
   }
-
   if (manifest.schema_version !== 1) {
     throw new Error(`Unsupported release manifest schema_version: ${manifest.schema_version}`);
   }
-
   if (!manifest.indexes || typeof manifest.indexes !== 'object' || Array.isArray(manifest.indexes)) {
     throw new Error('Release manifest indexes must be an object.');
   }
+}
 
+function compareManifest(manifest, inspect, indexPaths) {
+  validateManifestShape(manifest);
   const errors = [];
   for (const relativePath of indexPaths) {
     const expected = manifest.indexes[relativePath];
@@ -77,7 +88,7 @@ export function verifyIndexManifest(
 
     let actual;
     try {
-      actual = inspectIndexFile(root, relativePath);
+      actual = inspect(relativePath);
     } catch (error) {
       errors.push(error.message);
       continue;
@@ -88,7 +99,6 @@ export function verifyIndexManifest(
         `SHA-256 mismatch for ${relativePath}: expected ${expected.sha256}, got ${actual.sha256}`
       );
     }
-
     if (actual.bytes !== expected.bytes) {
       errors.push(
         `Byte-size mismatch for ${relativePath}: expected ${expected.bytes}, got ${actual.bytes}`
@@ -99,8 +109,40 @@ export function verifyIndexManifest(
   if (errors.length) {
     throw new Error(`Release index verification failed:\n- ${errors.join('\n- ')}`);
   }
-
   return true;
+}
+
+export function createIndexManifest({ root = process.cwd(), indexPaths = INDEX_PATHS } = {}) {
+  const indexes = {};
+  for (const relativePath of indexPaths) {
+    indexes[relativePath] = inspectIndexFile(root, relativePath);
+  }
+  return { schema_version: 1, indexes };
+}
+
+export function verifyIndexManifest(
+  manifest,
+  { root = process.cwd(), indexPaths = INDEX_PATHS } = {}
+) {
+  return compareManifest(
+    manifest,
+    (relativePath) => inspectIndexFile(root, relativePath),
+    indexPaths
+  );
+}
+
+export function verifyIndexManifestAtGitCommit(
+  manifest,
+  { cwd = process.cwd(), commit, indexPaths = INDEX_PATHS } = {}
+) {
+  if (!commit) throw new Error('Git commit is required for release index verification.');
+  const resolvedCommit = runGitText(cwd, ['rev-parse', `${commit}^{commit}`]);
+  compareManifest(
+    manifest,
+    (relativePath) => inspectBytes(readGitBlob(cwd, resolvedCommit, relativePath), relativePath),
+    indexPaths
+  );
+  return { commit: resolvedCommit, indexes: indexPaths.length };
 }
 
 export function readManifest(filePath) {
@@ -122,23 +164,15 @@ export function writeManifest(filePath, manifest) {
 function parseArgs(argv) {
   const [command, ...rest] = argv;
   const options = {};
-
   for (let index = 0; index < rest.length; index += 1) {
     const token = rest[index];
-    if (!token.startsWith('--')) {
-      throw new Error(`Unexpected argument: ${token}`);
-    }
-
+    if (!token.startsWith('--')) throw new Error(`Unexpected argument: ${token}`);
     const key = token.slice(2);
     const value = rest[index + 1];
-    if (!value || value.startsWith('--')) {
-      throw new Error(`Missing value for --${key}`);
-    }
-
+    if (!value || value.startsWith('--')) throw new Error(`Missing value for --${key}`);
     options[key] = value;
     index += 1;
   }
-
   return { command, options };
 }
 
@@ -146,6 +180,9 @@ function printUsage() {
   console.error('Usage:');
   console.error('  node scripts/release-manifest.mjs create [--root <dir>] [--output <file>]');
   console.error('  node scripts/release-manifest.mjs verify --manifest <file> [--root <dir>]');
+  console.error(
+    '  node scripts/release-manifest.mjs verify-git --manifest <file> --commit <sha> [--root <dir>]'
+  );
 }
 
 function main(argv = process.argv.slice(2)) {
@@ -164,13 +201,21 @@ function main(argv = process.argv.slice(2)) {
   }
 
   if (command === 'verify') {
-    if (!options.manifest) {
-      throw new Error('verify requires --manifest <file>.');
-    }
-
-    const manifest = readManifest(options.manifest);
-    verifyIndexManifest(manifest, { root });
+    if (!options.manifest) throw new Error('verify requires --manifest <file>.');
+    verifyIndexManifest(readManifest(options.manifest), { root });
     console.log('Release index manifest verified.');
+    return;
+  }
+
+  if (command === 'verify-git') {
+    if (!options.manifest || !options.commit) {
+      throw new Error('verify-git requires --manifest <file> --commit <sha>.');
+    }
+    const result = verifyIndexManifestAtGitCommit(readManifest(options.manifest), {
+      cwd: root,
+      commit: options.commit
+    });
+    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
     return;
   }
 
