@@ -1,0 +1,172 @@
+import fs from 'node:fs';
+
+function requireArray(value, label) {
+  if (!Array.isArray(value)) {
+    throw new Error(`${label} must be an array.`);
+  }
+  return value;
+}
+
+function requireObject(value, label) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    throw new Error(`${label} must be an object.`);
+  }
+  return value;
+}
+
+function requireString(value, label) {
+  if (typeof value !== 'string' || value.length === 0) {
+    throw new Error(`${label} must be a non-empty string.`);
+  }
+  return value;
+}
+
+export function readRequiredJson(filePath, { label = filePath } = {}) {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Missing required graph input: ${label}`);
+  }
+
+  const stat = fs.statSync(filePath);
+  if (!stat.isFile() || stat.size === 0) {
+    throw new Error(`Graph input is empty or invalid: ${label}`);
+  }
+
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch (error) {
+    throw new Error(`Cannot parse graph input ${label}: ${error.message}`);
+  }
+}
+
+function assertUniqueIds(items, getId, label) {
+  const seen = new Set();
+  for (const item of items) {
+    const id = getId(item);
+    if (seen.has(id)) {
+      throw new Error(`Duplicate ${label} id in graph projection: ${id}`);
+    }
+    seen.add(id);
+  }
+}
+
+export function projectGraph({ cards, concepts, relations }) {
+  requireArray(cards, 'cards');
+  requireObject(concepts, 'concepts index');
+  requireObject(relations, 'relations index');
+
+  const conceptList = requireArray(concepts.concepts, 'concepts.concepts');
+  const cardConcepts = requireArray(concepts.card_concepts, 'concepts.card_concepts');
+  const conceptRelations = requireArray(concepts.concept_relations, 'concepts.concept_relations');
+  const cardRelations = requireArray(relations.edges, 'relations.edges');
+
+  assertUniqueIds(
+    cards,
+    (card) => requireString(card?.data?.id, 'card.data.id'),
+    'card'
+  );
+  assertUniqueIds(
+    conceptList,
+    (concept) => requireString(concept?.id, 'concept.id'),
+    'concept'
+  );
+
+  const cardById = new Map(cards.map((card) => [card.data.id, card]));
+  const conceptById = new Map(conceptList.map((concept) => [concept.id, concept]));
+  const cardConceptDegree = new Map();
+
+  for (const edge of cardConcepts) {
+    const cardId = requireString(edge?.card_id, 'card_concepts[].card_id');
+    const conceptId = requireString(edge?.concept_id, 'card_concepts[].concept_id');
+    if (!cardById.has(cardId)) {
+      throw new Error(`Card-concept edge references missing card: ${cardId}`);
+    }
+    if (!conceptById.has(conceptId)) {
+      throw new Error(`Card-concept edge references missing concept: ${conceptId}`);
+    }
+    cardConceptDegree.set(cardId, (cardConceptDegree.get(cardId) ?? 0) + 1);
+  }
+
+  for (const edge of conceptRelations) {
+    const source = requireString(edge?.source, 'concept_relations[].source');
+    const target = requireString(edge?.target, 'concept_relations[].target');
+    if (!conceptById.has(source)) {
+      throw new Error(`Concept relation references missing source concept: ${source}`);
+    }
+    if (!conceptById.has(target)) {
+      throw new Error(`Concept relation references missing target concept: ${target}`);
+    }
+  }
+
+  for (const edge of cardRelations) {
+    const source = requireString(edge?.source, 'relations.edges[].source');
+    const target = requireString(edge?.target, 'relations.edges[].target');
+    if (!cardById.has(source)) {
+      throw new Error(`Card relation references missing source card: ${source}`);
+    }
+    if (!cardById.has(target)) {
+      throw new Error(`Card relation references missing target card: ${target}`);
+    }
+  }
+
+  const nodes = [
+    ...cards.map((card) => ({
+      id: `card:${card.data.id}`,
+      entityId: card.data.id,
+      kind: 'card',
+      label: card.data.title,
+      description: card.data.summary,
+      route: `/knowledge/${card.data.id}`,
+      degree: cardConceptDegree.get(card.data.id) ?? 0
+    })),
+    ...conceptList.map((concept) => ({
+      id: `concept:${concept.id}`,
+      entityId: concept.id,
+      kind: 'concept',
+      conceptType: concept.type,
+      label: concept.label,
+      description: concept.description,
+      route: `/concepts/${concept.id}`,
+      degree: concept.card_count
+    }))
+  ];
+
+  const edges = [
+    ...cardConcepts.map((edge) => ({
+      source: `card:${edge.card_id}`,
+      target: `concept:${edge.concept_id}`,
+      kind: 'card-concept',
+      type: 'has_concept',
+      weight: edge.strength,
+      evidence: edge.evidence
+    })),
+    ...conceptRelations.map((edge) => ({
+      source: `concept:${edge.source}`,
+      target: `concept:${edge.target}`,
+      kind: 'concept-concept',
+      type: edge.type,
+      weight: edge.weight,
+      support: edge.support
+    })),
+    ...cardRelations.map((edge) => ({
+      source: `card:${edge.source}`,
+      target: `card:${edge.target}`,
+      kind: 'card-card',
+      type: edge.type,
+      weight: edge.score,
+      direction: edge.direction ?? 'undirected'
+    }))
+  ];
+
+  return {
+    generatedAt: concepts.generated_at ?? null,
+    stats: {
+      cards: cards.length,
+      concepts: conceptList.length,
+      cardConceptEdges: cardConcepts.length,
+      conceptRelations: conceptRelations.length,
+      cardRelations: cardRelations.length
+    },
+    nodes,
+    edges
+  };
+}
