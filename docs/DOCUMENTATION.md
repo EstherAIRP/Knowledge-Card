@@ -2,7 +2,7 @@
 
 > **角色：** 文件導航／索引  
 > **權威性：** 僅負責導航；本文件不會覆蓋規範契約。  
-> **最近盤點：** 2026-08-18  
+> **最近盤點：** 2026-09-11  
 > **權威來源索引：** [`AUTHORITY_MAP.md`](./AUTHORITY_MAP.md)
 
 本頁回答的是「**要去哪裡找規則**」。連結指向的契約、Schema、設定檔、workflow 或實作，仍各自對其責任範圍具有權威性。
@@ -27,6 +27,7 @@
 | 修改分類／Action／Status／Source Type／Relevance 維度 | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) |
 | 修改公開個人化內容 | [Public Profile](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) | [儲存庫規則](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) 的公開安全規則 |
 | 了解 GitHub Actions／部署 | [`AUTOMATION.md`](./AUTOMATION.md) | [實際 workflows](https://github.com/EstherAIRP/Knowledge-Card/tree/main/.github/workflows) |
+| 查證某次公開網站發布來源 | [`AUTOMATION.md`](./AUTOMATION.md#發布來源證明與版本模型) | [線上發布驗證器](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/verify-live-release.mjs) |
 | 了解 Card-to-Card 關聯 | [`RELATIONS.md`](./RELATIONS.md) | [設定所有權](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/AGENTS.md)、產生資料所有權 |
 | 了解 Concept Graph | [`CONCEPTS.md`](./CONCEPTS.md) | [設定所有權](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/AGENTS.md)、[產生資料所有權](https://github.com/EstherAIRP/Knowledge-Card/blob/main/data/AGENTS.md) |
 | 了解網站架構 | [`WEBSITE.md`](./WEBSITE.md) | [VitePress 實作](https://github.com/EstherAIRP/Knowledge-Card/tree/main/docs/.vitepress) |
@@ -94,6 +95,7 @@ Schema / config / 範圍所有權規則
 - [Threads 判定驗證器](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs) — 共用執行期 JSON Schema 驗證器與契約詞彙輸出。
 - [Threads 續篇驗證程式碼](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs) — Phase 7 依證據決定接受結果的確定性實作。
 - [儲存庫 scripts](https://github.com/EstherAIRP/Knowledge-Card/tree/main/scripts) — 可執行的收錄、驗證、關聯、Concept 與網站支援邏輯。
+- [線上發布驗證器](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/verify-live-release.mjs) — 從公開 Pages 回讀 `release-meta.json`，核對本批次 S／P 與索引 SHA-256。
 - [Runtime Changelog](https://github.com/EstherAIRP/Knowledge-Card/blob/main/prompts/CHANGELOG.md) — Runtime 歷史；歷史紀錄永遠不覆蓋目前契約。
 
 舊的 `THREADS_PHASE7_RECOVERY.md` 已在 Phase 3 合併進 `THREADS_INGESTION.md` 並移除，不再是競爭規格。
