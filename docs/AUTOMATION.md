@@ -45,10 +45,11 @@ checkout
 - 每週日排程；
 - 手動 `workflow_dispatch`。
 
-一般 `main` push 會執行增量語意圖譜：
+一般 `main` push 會執行增量語意圖譜。Release 一開始先固定來源版本 `S`、唯一 `release_id` 與 `build_mode`；Knowledge Card 驗證會在昂貴的圖譜建置之前執行：
 
 ```text
-目前 main revision
+固定 source_sha = S / release_id / build_mode
+→ Knowledge Card 驗證
 → 增量 embeddings
 → semantic relation candidates
 → OPENAI_API_KEY 可用時執行 LLM relation 分類
@@ -56,14 +57,19 @@ checkout
 → 重建 Concept Graph
 → graph validators
 → npm test
-→ Knowledge Card 驗證
 → npm run docs:check
+→ 固定三個索引的 SHA-256 manifest
 → VitePress build
-→ site output verification
-→ 確認 main 沒有在建置期間前進
-→ 有實質差異時提交 data/*.json
+→ 再次確認索引位元組與 manifest 一致
+→ site output + graph projection verification
+→ 確認 origin/main == S
+→ 保存索引版本 P
+→ 從 Git P 回讀三個索引並核對 SHA-256
+→ 寫入 Pages artifact 專用 release-meta.json
 → Upload Pages artifact
+→ 確認 origin/main == P
 → Deploy GitHub Pages
+→ 回讀公開 release-meta.json 並做端到端驗證
 ```
 
 每週日排程，或手動將 `full_rebuild=true` 時，會把前段改成完整重建：
@@ -80,20 +86,73 @@ checkout
 
 因此不論是增量更新或週期 full rebuild，網站與 `data/embeddings.json`、`data/relations.json`、`data/concepts.json` 都來自同一個 workflow run 的同一份 graph build。
 
-#### Stale release 防護
+#### 發布來源證明與版本模型
 
-在提交產生索引之前，workflow 會重新抓取 `origin/main` 並與本次 `GITHUB_SHA` 比對。
-
-若建置期間 `main` 已前進：
+Release 使用兩個 Git 版本識別：
 
 ```text
-GITHUB_SHA != origin/main
-→ 本次 release 失敗並停止
-→ 不提交舊 graph
-→ 不部署舊 Pages artifact
+S = source_sha
+    本批次開始建置時的來源版本
+
+P = index_commit_sha
+    本批次三個生成索引在 Git 中的保存版本
 ```
 
-同一條 workflow 使用 `cancel-in-progress: true`，較新的 `main` revision 會取代較舊的 release run。
+如果索引重建後沒有任何位元組差異，`P = S`。如果索引有差異，workflow 只能建立一個直接以 `S` 為父提交、且只修改以下三個檔案的 `P`：
+
+```text
+data/embeddings.json
+data/relations.json
+data/concepts.json
+```
+
+三個索引在完成 validators 後只建立一次 SHA-256 manifest；VitePress 建站後會再次核對工作目錄中的原始位元組，索引保存後還會直接從 Git commit `P` 讀取相同檔案並核對 SHA-256。這使網站建置、Git 中的索引與發布 metadata 可以由同一份 manifest 串接。
+
+每批 Pages artifact 會額外包含：
+
+```text
+release-meta.json
+```
+
+其中記錄 `schema_version`、`release_id`、`source_sha`、`index_commit_sha`、`build_mode`、產生時間，以及三個索引各自的 SHA-256 與位元組大小。這個檔案只屬於 Pages artifact，不提交回 Git，避免發布 metadata 對自身 commit 形成循環引用。
+
+純生成索引提交已列入 `push.paths-ignore`。因此 workflow 自己保存 `P` 時不會再觸發第二輪 Release，也不會因 `cancel-in-progress: true` 取消仍在完成中的原批次。
+
+#### 過期發布防護
+
+發布流程有兩道 Git 版本守門：
+
+```text
+索引保存前：
+origin/main == S
+
+真正部署前：
+origin/main == P
+```
+
+若建置期間有其他來源變更使 `main` 離開 `S`，本批次不會提交舊索引；若索引保存後、Pages 真正部署前 `main` 又離開 `P`，舊 artifact 也不會部署。較新的來源 revision 會由自己的 Release 取代舊批次。
+
+#### 線上回讀驗證
+
+`actions/deploy-pages` 成功後，workflow 會執行 `scripts/verify-live-release.mjs`，從實際 `page_url` 回讀 `release-meta.json`。驗證器會核對：
+
+- `release_id`；
+- `source_sha = S`；
+- `index_commit_sha = P`；
+- `build_mode`；
+- 線上 metadata 中三個索引 SHA-256 是否與 Git commit `P` 的原始位元組一致。
+
+為容許 GitHub Pages／CDN 的短暫傳播時間，線上驗證使用有限次重試，且每次請求帶入 cache-busting query；超過重試次數仍不一致就採保守失敗。
+
+因此應區分兩種狀態：
+
+```text
+Deploy Pages API 成功
+≠
+端到端 Release 驗證成功
+```
+
+只有部署動作與線上回讀都通過，才可把本批次回報為完整發布成功。
 
 #### 權限
 
@@ -199,16 +258,15 @@ config/concept-config.yaml
 
 ## 建置輸出驗證
 
-`scripts/verify-site-output.mjs` 會在 VitePress 後執行，並要求：
+`scripts/verify-site-output.mjs` 會在 VitePress 後執行。除了要求首頁、graph、每個 Card／Concept 頁面與 JavaScript／CSS 資產存在，也會使用與 `docs/graph.data.js` 相同的共用 graph projection 邏輯核對：
 
-- `docs/.vitepress/dist/index.html`；
-- `docs/.vitepress/dist/graph.html`；
-- 每個 Card ID 都有一個 Knowledge Card HTML 頁面；
-- 每個產生的 Concept ID 都有一個 Concept HTML 頁面；
-- 至少一個 JavaScript bundle；
-- 至少一個 CSS bundle。
+- Card 與 Concept 節點；
+- Card↔Concept、Concept↔Concept、Card↔Card 三類邊；
+- Card↔Card 關聯方向；
+- 每條邊的來源／目標端點確實存在；
+- graph 統計數量與目前索引一致。
 
-這可以抓出 VitePress 本身成功退出，但某類動態路由頁面沒有產生的失敗情況。
+`docs/graph.data.js` 對必要圖譜索引採保守失敗：缺檔、空檔、JSON 損壞或無效關聯端點不再退回空圖。因此 VitePress 成功退出但圖譜資料實際錯誤，不會被視為可發布成果。
 
 ## 部署 URL
 
@@ -226,22 +284,23 @@ https://estherairp.github.io/Knowledge-Card/
 
 除非另行設定 custom domain。
 
-## 部署不變量
+## 發布不變量
 
-Pages 部署前必須全部通過：
+Pages artifact 進入部署前必須全部通過：
 
-1. 向量嵌入產生與覆蓋率驗證；
-2. 語意關聯產生與驗證；
-3. Concept Graph 產生與驗證；
-4. 單元／網站測試；
-5. JSON Schema 與 Knowledge Card 驗證；
-6. `npm run docs:check`；
-7. VitePress 正式編譯；
-8. 首頁、graph、Card 路由與 Concept 路由 smoke verification；
-9. stale release SHA 檢查；
-10. generated indexes 與 Pages artifact 來自同一次 graph build。
+1. Knowledge Card 驗證；
+2. 向量嵌入產生與覆蓋率驗證；
+3. 語意關聯與 Concept Graph 產生／驗證；
+4. 單元測試與 `npm run docs:check`；
+5. 三個固定索引 manifest 已建立，且 VitePress 建站後位元組未漂移；
+6. 網站頁面、資產與 graph projection 驗證；
+7. 保存索引前 `origin/main == S`；
+8. `P = S`，或 `P` 是只修改三個生成索引的直接子提交；
+9. Git commit `P` 中的索引 SHA-256 與建站 manifest 完全一致；
+10. 真正部署前 `origin/main == P`；
+11. Pages artifact 已包含本批次 `release-meta.json`。
 
-任一階段失敗，Pages artifact 都不得部署。
+任一部署前條件失敗，Pages artifact 都不得部署。部署 API 完成後還必須通過公開 `release-meta.json` 的線上回讀驗證；這項驗證失敗時，應標示為「部署動作已完成，但端到端發布未驗證」，不能回報為完整發布成功。
 
 ## 相依套件安裝
 
