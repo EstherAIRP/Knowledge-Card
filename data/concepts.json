@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-10T12:32:53.638Z",
-  "input_hash": "abb47c9126201a5b83ead59881486a94e9d517658e429915e9be3c4071ff5165",
+  "generated_at": "2026-09-10T22:05:57.571Z",
+  "input_hash": "08070870e0a36aee307fedbbe16f14a21ff42b21e21cb4375a20b20a869488f5",
   "concepts": [
     {
       "id": "category-agent",
@@ -16,6 +16,7 @@
         "github-ai21002102-riverbend",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-cynthianani-a-simple-nest",
@@ -51,7 +52,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 39
+      "card_count": 40
     },
     {
       "id": "coding-agent-tooling",
@@ -65,6 +66,7 @@
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
@@ -89,7 +91,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 27
+      "card_count": 28
     },
     {
       "id": "category-ai-coding-devtools",
@@ -103,6 +105,7 @@
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
@@ -125,7 +128,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 25
+      "card_count": 26
     },
     {
       "id": "category-general-tools",
@@ -137,6 +140,7 @@
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
@@ -155,7 +159,7 @@
         "threads-dcrihmdd46t-183b20",
         "threads-dcu8czjelom-f2217d"
       ],
-      "card_count": 19
+      "card_count": 20
     },
     {
       "id": "category-llm",
@@ -211,6 +215,30 @@
       "card_count": 13
     },
     {
+      "id": "local-ai-integration",
+      "label": "Local AI Integration",
+      "type": "integration",
+      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "github-promptfairy-prompt-fairy",
+        "github-santifer-career-ops",
+        "github-titanwings-distilly",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 13
+    },
+    {
       "id": "agent-memory",
       "label": "Agent Memory",
       "type": "architecture",
@@ -257,29 +285,6 @@
       "card_count": 12
     },
     {
-      "id": "local-ai-integration",
-      "label": "Local AI Integration",
-      "type": "integration",
-      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-notoriouslab-vault-curate",
-        "github-promptfairy-prompt-fairy",
-        "github-santifer-career-ops",
-        "github-titanwings-distilly",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 12
-    },
-    {
       "id": "category-rag-memory-knowledge",
       "label": "RAG / Memory / Knowledge",
       "type": "category",
@@ -300,6 +305,27 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 11
+    },
+    {
+      "id": "agent-api-bridge",
+      "label": "Agent API Bridge",
+      "type": "integration",
+      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-drumih-turbo-fieldfare",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 10
     },
     {
       "id": "tag-agent-skill",
@@ -344,6 +370,27 @@
       "card_count": 10
     },
     {
+      "id": "tag-codex",
+      "label": "Codex",
+      "type": "topic",
+      "description": "至少出現在 10 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-cathrynlavery-diagram-design",
+        "github-mattpocock-skills",
+        "github-nanako0129-sepia",
+        "github-nutlope-hallmark",
+        "github-stablyai-orca",
+        "github-titanwings-distilly",
+        "github-tsun-u-tsunu-superpowers"
+      ],
+      "card_count": 10
+    },
+    {
       "id": "category-infrastructure-deployment",
       "label": "Infrastructure / Deployment",
       "type": "category",
@@ -363,46 +410,6 @@
         "threads-dcglstsogz3-fa0168"
       ],
       "card_count": 10
-    },
-    {
-      "id": "agent-api-bridge",
-      "label": "Agent API Bridge",
-      "type": "integration",
-      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-drumih-turbo-fieldfare",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 9
-    },
-    {
-      "id": "tag-codex",
-      "label": "Codex",
-      "type": "topic",
-      "description": "至少出現在 9 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-cathrynlavery-diagram-design",
-        "github-mattpocock-skills",
-        "github-nanako0129-sepia",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca",
-        "github-titanwings-distilly",
-        "github-tsun-u-tsunu-superpowers"
-      ],
-      "card_count": 9
     },
     {
       "id": "category-sillytavern-ai-rpg",
@@ -478,6 +485,23 @@
       "card_count": 6
     },
     {
+      "id": "tag-mcp",
+      "label": "MCP",
+      "type": "topic",
+      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-intuition-lab-personal-model",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 6
+    },
+    {
       "id": "tag-coding-agent",
       "label": "coding-agent",
       "type": "topic",
@@ -522,22 +546,6 @@
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
-      ],
-      "card_count": 5
-    },
-    {
-      "id": "tag-mcp",
-      "label": "MCP",
-      "type": "topic",
-      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 5
     },
@@ -2050,6 +2058,106 @@
         {
           "kind": "tag",
           "value": "vector-retrieval"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-bensonmaxai-line-desktop-mcp",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-bensonmaxai-line-desktop-mcp",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-bensonmaxai-line-desktop-mcp",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-bensonmaxai-line-desktop-mcp",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-bensonmaxai-line-desktop-mcp",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-bensonmaxai-line-desktop-mcp",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-bensonmaxai-line-desktop-mcp",
+      "concept_id": "tag-codex",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-bensonmaxai-line-desktop-mcp",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
         }
       ],
       "origin": "shared-tag"
@@ -6627,11 +6735,12 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 8,
-      "weight": 0.8889,
+      "support": 9,
+      "weight": 0.9,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-intuition-lab-personal-model",
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
@@ -6667,11 +6776,12 @@
       "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-intuition-lab-personal-model",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
@@ -6934,11 +7044,12 @@
       "source": "category-agent",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-mattpocock-skills",
         "github-nanako0129-sepia",
@@ -6980,11 +7091,12 @@
       "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-intuition-lab-personal-model",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
@@ -6994,13 +7106,14 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 25,
+      "support": 26,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
@@ -7621,7 +7734,7 @@
       "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.4,
+      "weight": 0.3333,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-tsun-u-agent-game-table"
@@ -7665,7 +7778,7 @@
       "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.4,
+      "weight": 0.3333,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-tsun-u-agent-game-table"
@@ -7767,11 +7880,12 @@
       "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-mattpocock-skills",
         "github-nanako0129-sepia",
@@ -7869,11 +7983,12 @@
       "source": "local-ai-integration",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-intuition-lab-personal-model",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
@@ -8703,9 +8818,9 @@
     }
   ],
   "stats": {
-    "card_count": 52,
+    "card_count": 53,
     "concept_count": 81,
-    "card_concept_edge_count": 422,
+    "card_concept_edge_count": 430,
     "concept_relation_edge_count": 175
   }
 }
