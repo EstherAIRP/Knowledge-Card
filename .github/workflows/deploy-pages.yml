@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - data/embeddings.json
+      - data/relations.json
+      - data/concepts.json
   schedule:
     - cron: "17 3 * * 0"
   workflow_dispatch:
@@ -33,6 +37,12 @@ jobs:
       TRANSFORMERS_CACHE_DIR: .cache/transformers
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
+    outputs:
+      source_sha: ${{ steps.release_identity.outputs.source_sha }}
+      index_commit_sha: ${{ steps.persist_indexes.outputs.index_commit_sha }}
+      release_id: ${{ steps.release_identity.outputs.release_id }}
+      build_mode: ${{ steps.release_identity.outputs.build_mode }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -44,6 +54,29 @@ jobs:
         with:
           node-version: 24
 
+      - name: Resolve release identity
+        id: release_identity
+        shell: bash
+        run: |
+          source_sha="$(git rev-parse HEAD)"
+          if [[ "$source_sha" != "$GITHUB_SHA" ]]; then
+            echo "Checkout mismatch: expected $GITHUB_SHA, got $source_sha."
+            exit 1
+          fi
+
+          if [[ "${{ github.event_name }}" == "schedule" || "${{ inputs.full_rebuild }}" == "true" ]]; then
+            build_mode="full"
+          else
+            build_mode="incremental"
+          fi
+
+          release_id="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${source_sha:0:12}"
+          echo "source_sha=$source_sha" >> "$GITHUB_OUTPUT"
+          echo "release_id=$release_id" >> "$GITHUB_OUTPUT"
+          echo "build_mode=$build_mode" >> "$GITHUB_OUTPUT"
+
+          node scripts/verify-release-source.mjs checkout --source "$source_sha"
+
       - name: Cache embedding model
         uses: actions/cache@v4
         with:
@@ -53,10 +86,13 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
 
+      - name: Validate Knowledge Cards
+        run: npm run validate
+
       - name: Build knowledge graph
         shell: bash
         run: |
-          if [[ "${{ github.event_name }}" == "schedule" || "${{ inputs.full_rebuild }}" == "true" ]]; then
+          if [[ "${{ steps.release_identity.outputs.build_mode }}" == "full" ]]; then
             echo "Running full knowledge graph rebuild."
             npm run relations:rebuild
           else
@@ -81,14 +117,23 @@ jobs:
       - name: Run unit tests
         run: npm test
 
-      - name: Validate Knowledge Cards
-        run: npm run validate
-
       - name: Check documentation governance
         run: npm run docs:check
 
+      - name: Freeze release index manifest
+        shell: bash
+        run: |
+          node scripts/release-manifest.mjs create \
+            --output "$RUNNER_TEMP/release-index-manifest.json"
+
       - name: Build VitePress site
         run: npm run docs:build
+
+      - name: Verify frozen indexes after site build
+        shell: bash
+        run: |
+          node scripts/release-manifest.mjs verify \
+            --manifest "$RUNNER_TEMP/release-index-manifest.json"
 
       - name: Verify built site output
         run: npm run verify:site
@@ -96,26 +141,65 @@ jobs:
       - name: Ensure release source is still current
         shell: bash
         run: |
-          git fetch origin main
-          current_main="$(git rev-parse origin/main)"
-          if [[ "$current_main" != "$GITHUB_SHA" ]]; then
-            echo "main advanced from $GITHUB_SHA to $current_main while this release was building."
-            echo "Aborting this stale release; the newer main revision will produce its own release."
-            exit 1
-          fi
+          node scripts/verify-release-source.mjs remote \
+            --expected "${{ steps.release_identity.outputs.source_sha }}" \
+            --fetch
 
       - name: Persist generated indexes
+        id: persist_indexes
         shell: bash
         run: |
+          source_sha="${{ steps.release_identity.outputs.source_sha }}"
           git add data/embeddings.json data/relations.json data/concepts.json
+
           if git diff --cached --quiet; then
             echo "Knowledge graph indexes are already current."
-            exit 0
+            index_commit_sha="$source_sha"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore: refresh knowledge graph indexes"
+            index_commit_sha="$(git rev-parse HEAD)"
+
+            node scripts/verify-release-source.mjs index \
+              --source "$source_sha" \
+              --index-commit "$index_commit_sha"
+
+            git push origin HEAD:main
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: refresh knowledge graph indexes"
-          git push origin HEAD:main
+
+          echo "index_commit_sha=$index_commit_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Verify persisted release indexes
+        shell: bash
+        run: |
+          source_sha="${{ steps.release_identity.outputs.source_sha }}"
+          index_commit_sha="${{ steps.persist_indexes.outputs.index_commit_sha }}"
+
+          node scripts/verify-release-source.mjs index \
+            --source "$source_sha" \
+            --index-commit "$index_commit_sha"
+
+          node scripts/verify-release-source.mjs remote \
+            --expected "$index_commit_sha" \
+            --fetch
+
+          node scripts/release-manifest.mjs verify-git \
+            --manifest "$RUNNER_TEMP/release-index-manifest.json" \
+            --commit "$index_commit_sha"
+
+      - name: Write release metadata
+        shell: bash
+        run: |
+          node scripts/release-meta.mjs create \
+            --manifest "$RUNNER_TEMP/release-index-manifest.json" \
+            --source "${{ steps.release_identity.outputs.source_sha }}" \
+            --index-commit "${{ steps.persist_indexes.outputs.index_commit_sha }}" \
+            --release-id "${{ steps.release_identity.outputs.release_id }}" \
+            --build-mode "${{ steps.release_identity.outputs.build_mode }}" \
+            --output docs/.vitepress/dist/release-meta.json
+
+          test -s docs/.vitepress/dist/release-meta.json
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
@@ -124,6 +208,18 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
+
+      - name: Write release summary
+        shell: bash
+        run: |
+          {
+            echo "## Knowledge Radar release"
+            echo
+            echo "- Release ID: ${{ steps.release_identity.outputs.release_id }}"
+            echo "- Source SHA (S): ${{ steps.release_identity.outputs.source_sha }}"
+            echo "- Index commit SHA (P): ${{ steps.persist_indexes.outputs.index_commit_sha }}"
+            echo "- Build mode: ${{ steps.release_identity.outputs.build_mode }}"
+          } >> "$GITHUB_STEP_SUMMARY"
 
   deploy:
     name: Deploy to GitHub Pages
@@ -136,6 +232,18 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
+      - name: Checkout source revision
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Guard against stale deployment
+        shell: bash
+        run: |
+          node scripts/verify-release-source.mjs remote \
+            --expected "${{ needs.build.outputs.index_commit_sha }}" \
+            --fetch
+
       - name: Deploy GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
