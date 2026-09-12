@@ -232,8 +232,7 @@ export function projectGraph({ cards, concepts, relations, layout = null }) {
       concepts: conceptList.length,
       cardConceptEdges: cardConcepts.length,
       conceptRelations: conceptRelations.length,
-      cardRelations: cardRelations.length,
-      positionedCards: cardPositions.size
+      cardRelations: cardRelations.length
     },
     nodes,
     edges
