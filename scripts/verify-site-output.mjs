@@ -162,6 +162,41 @@ function verifyGraphProjection(graph, cards, concepts, relations, embeddings, la
         errors.push(`Graph semantic neighbor leaks embedding vector for ${card.data.id} -> ${neighbor.cardId}.`);
       }
     }
+
+    const distances = semantic?.distancesByCard?.[card.data.id];
+    if (!Array.isArray(distances)) {
+      errors.push(`Graph semantic distance index is missing for ${card.data.id}.`);
+      continue;
+    }
+    if (distances.length !== Math.max(0, cards.length - 1)) {
+      errors.push(
+        `Graph semantic distance count mismatch for ${card.data.id}: expected ${Math.max(0, cards.length - 1)}, got ${distances.length}.`
+      );
+    }
+    const distanceIds = new Set();
+    for (const item of distances) {
+      if (!item?.cardId || item.cardId === card.data.id) {
+        errors.push(`Graph semantic distance target is invalid for ${card.data.id}.`);
+      }
+      if (distanceIds.has(item.cardId)) {
+        errors.push(`Graph semantic distance target is duplicated for ${card.data.id} -> ${item.cardId}.`);
+      }
+      distanceIds.add(item.cardId);
+      if (!Number.isFinite(Number(item.similarity)) || !Number.isFinite(Number(item.distance))) {
+        errors.push(`Graph semantic distance metrics are invalid for ${card.data.id} -> ${item.cardId}.`);
+      }
+      if (Object.prototype.hasOwnProperty.call(item, 'embedding')) {
+        errors.push(`Graph semantic distance index leaks embedding vector for ${card.data.id} -> ${item.cardId}.`);
+      }
+    }
+
+    const node = graph.nodes.find((item) => item.id === `card:${card.data.id}`);
+    if (!Array.isArray(node?.categories) || !Array.isArray(node?.tags) || !Array.isArray(node?.actions)) {
+      errors.push(`Graph filter metadata arrays are missing for ${card.data.id}.`);
+    }
+    if (!node?.relevance || typeof node.relevance !== 'object') {
+      errors.push(`Graph relevance metadata is missing for ${card.data.id}.`);
+    }
   }
 }
 
