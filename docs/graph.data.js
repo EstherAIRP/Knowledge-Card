@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import { loadCards } from '../scripts/lib/knowledge.mjs';
-import { projectGraph, readRequiredJson } from '../scripts/lib/graph-projection.mjs';
+import { projectGraph, readOptionalJson, readRequiredJson } from '../scripts/lib/graph-projection.mjs';
 
 const contentRoot = fileURLToPath(new URL('../content/knowledge/', import.meta.url));
 const conceptPath = fileURLToPath(new URL('../data/concepts.json', import.meta.url));
@@ -13,7 +13,7 @@ export default {
     const cards = loadCards(contentRoot);
     const concepts = readRequiredJson(conceptPath, { label: 'data/concepts.json' });
     const relations = readRequiredJson(relationPath, { label: 'data/relations.json' });
-    const layout = readRequiredJson(layoutPath, { label: 'data/graph-layout.json' });
+    const layout = readOptionalJson(layoutPath);
 
     return projectGraph({ cards, concepts, relations, layout });
   }
