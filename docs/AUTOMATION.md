@@ -77,6 +77,7 @@ checkout
 ```text
 所有 Cards
 → 全量重建 embeddings
+→ 依 cosine distance 重建二維 semantic graph layout
 → 全量重新計算 semantic relations
 → 可用時重新執行 LLM relation classification
 → 分類器不可用時保留仍有效的 LLM 快取判定
@@ -84,7 +85,7 @@ checkout
 → 接續相同的驗證、建站、索引持久化與 Pages 部署
 ```
 
-因此不論是增量更新或週期 full rebuild，網站與 `data/embeddings.json`、`data/relations.json`、`data/concepts.json` 都來自同一個 workflow run 的同一份 graph build。
+因此不論是增量更新或週期 full rebuild，網站與 `data/embeddings.json`、`data/graph-layout.json`、`data/relations.json`、`data/concepts.json` 都來自同一個 workflow run 的同一份 graph build。
 
 #### 發布來源證明與版本模型
 
@@ -95,18 +96,19 @@ S = source_sha
     本批次開始建置時的來源版本
 
 P = index_commit_sha
-    本批次三個生成索引在 Git 中的保存版本
+    本批次四個生成索引在 Git 中的保存版本
 ```
 
-如果索引重建後沒有任何位元組差異，`P = S`。如果索引有差異，workflow 只能建立一個直接以 `S` 為父提交、且只修改以下三個檔案的 `P`：
+如果索引重建後沒有任何位元組差異，`P = S`。如果索引有差異，workflow 只能建立一個直接以 `S` 為父提交、且只修改以下四個檔案的 `P`：
 
 ```text
 data/embeddings.json
+data/graph-layout.json
 data/relations.json
 data/concepts.json
 ```
 
-三個索引在完成 validators 後只建立一次 SHA-256 manifest；VitePress 建站後會再次核對工作目錄中的原始位元組，索引保存後還會直接從 Git commit `P` 讀取相同檔案並核對 SHA-256。這使網站建置、Git 中的索引與發布 metadata 可以由同一份 manifest 串接。
+四個索引在完成 validators 後只建立一次 SHA-256 manifest；VitePress 建站後會再次核對工作目錄中的原始位元組，索引保存後還會直接從 Git commit `P` 讀取相同檔案並核對 SHA-256。這使網站建置、Git 中的索引與發布 metadata 可以由同一份 manifest 串接。
 
 每批 Pages artifact 會額外包含：
 
@@ -114,7 +116,7 @@ data/concepts.json
 release-meta.json
 ```
 
-其中記錄 `schema_version`、`release_id`、`source_sha`、`index_commit_sha`、`build_mode`、產生時間，以及三個索引各自的 SHA-256 與位元組大小。這個檔案只屬於 Pages artifact，不提交回 Git，避免發布 metadata 對自身 commit 形成循環引用。
+其中記錄 `schema_version`、`release_id`、`source_sha`、`index_commit_sha`、`build_mode`、產生時間，以及四個索引各自的 SHA-256 與位元組大小。這個檔案只屬於 Pages artifact，不提交回 Git，避免發布 metadata 對自身 commit 形成循環引用。
 
 純生成索引提交已列入 `push.paths-ignore`。因此 workflow 自己保存 `P` 時不會再觸發第二輪 Release，也不會因 `cancel-in-progress: true` 取消仍在完成中的原批次。
 
@@ -241,6 +243,7 @@ Release Pipeline 只能自動提交以下產生索引：
 
 ```text
 data/embeddings.json
+data/graph-layout.json
 data/relations.json
 data/concepts.json
 ```
