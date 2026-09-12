@@ -87,6 +87,7 @@ Knowledge-Card/
 ├── data/
 │   ├── AGENTS.md
 │   ├── embeddings.json
+│   ├── graph-layout.json
 │   ├── relations.json
 │   └── concepts.json
 ├── docs/
