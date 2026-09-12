@@ -26,6 +26,7 @@
 - Concept 座標不儲存在此檔案；網站 graph projection 依 Card↔Concept strength 由相關 Card 座標計算加權重心。
 - 人工修正不得直接寫入此檔案；若未來需要人工 pin position，應另外定義 repository-owned/user-owned override 契約。
 - 實質 embedding input 未變時，產生器不得只因 timestamp 改變而重寫檔案。
+- 提交產生的 layout 前，執行 `npm run graph-layout:validate`，確認 Card 覆蓋率、embedding provenance、座標範圍與品質 metadata 一致。
 
 ## `relations.json`
 
