@@ -8,6 +8,8 @@ const root = process.cwd();
 const contentRoot = path.join(root, 'content/knowledge');
 const conceptPath = path.join(root, 'data/concepts.json');
 const relationPath = path.join(root, 'data/relations.json');
+const embeddingPath = path.join(root, 'data/embeddings.json');
+const layoutPath = path.join(root, 'data/graph-layout.json');
 const distRoot = path.join(root, 'docs/.vitepress/dist');
 const errors = [];
 
@@ -29,7 +31,7 @@ function edgeKey(edge) {
   return [edge.kind, edge.source, edge.target, edge.type, direction].join('|');
 }
 
-function verifyGraphProjection(graph, cards, concepts, relations) {
+function verifyGraphProjection(graph, cards, concepts, relations, embeddings, layout) {
   const conceptList = concepts.concepts ?? [];
   const cardConcepts = concepts.card_concepts ?? [];
   const conceptRelations = concepts.concept_relations ?? [];
@@ -113,6 +115,54 @@ function verifyGraphProjection(graph, cards, concepts, relations) {
   if (conceptList.length > 0 && !graph.nodes.some((node) => node.kind === 'concept')) {
     errors.push('Graph projection contains no Concept nodes.');
   }
+
+  if (graph.layout?.method !== layout.method) {
+    errors.push(`Graph layout method mismatch: expected ${layout.method}, got ${graph.layout?.method}.`);
+  }
+  if (graph.layout?.metric !== layout.metric) {
+    errors.push(`Graph layout metric mismatch: expected ${layout.metric}, got ${graph.layout?.metric}.`);
+  }
+  if (graph.layout?.embeddingInputHash !== layout.embedding_input_hash) {
+    errors.push('Graph projection embedding input hash does not match graph layout.');
+  }
+
+  for (const card of cards) {
+    const node = graph.nodes.find((item) => item.id === `card:${card.data.id}`);
+    const point = layout.nodes?.[card.data.id];
+    if (!node || !point) continue;
+    if (node.x !== point.x || node.y !== point.y) {
+      errors.push(`Graph Card position mismatch for ${card.data.id}.`);
+    }
+  }
+
+  const semantic = graph.semantic;
+  if (semantic?.metric !== 'cosine-distance') {
+    errors.push(`Graph semantic metric mismatch: expected cosine-distance, got ${semantic?.metric}.`);
+  }
+  if (semantic?.embeddingModel !== embeddings.model) {
+    errors.push('Graph semantic embedding model does not match embedding index.');
+  }
+  for (const card of cards) {
+    const neighbors = semantic?.neighborsByCard?.[card.data.id];
+    if (!Array.isArray(neighbors)) {
+      errors.push(`Graph semantic neighbors are missing for ${card.data.id}.`);
+      continue;
+    }
+    const expectedNeighborCount = Math.min(Number(semantic.neighborLimit) || 0, Math.max(0, cards.length - 1));
+    if (neighbors.length !== expectedNeighborCount) {
+      errors.push(
+        `Graph semantic neighbor count mismatch for ${card.data.id}: expected ${expectedNeighborCount}, got ${neighbors.length}.`
+      );
+    }
+    for (const neighbor of neighbors) {
+      if (!Number.isFinite(Number(neighbor.similarity)) || !Number.isFinite(Number(neighbor.distance))) {
+        errors.push(`Graph semantic neighbor metrics are invalid for ${card.data.id} -> ${neighbor.cardId}.`);
+      }
+      if (Object.prototype.hasOwnProperty.call(neighbor, 'embedding')) {
+        errors.push(`Graph semantic neighbor leaks embedding vector for ${card.data.id} -> ${neighbor.cardId}.`);
+      }
+    }
+  }
 }
 
 if (!fs.existsSync(distRoot)) {
@@ -130,6 +180,8 @@ for (const card of cards) {
 
 let concepts;
 let relations;
+let embeddings;
+let layout;
 try {
   concepts = readRequiredJson(conceptPath, { label: 'data/concepts.json' });
 } catch (error) {
@@ -137,6 +189,16 @@ try {
 }
 try {
   relations = readRequiredJson(relationPath, { label: 'data/relations.json' });
+} catch (error) {
+  errors.push(error.message);
+}
+try {
+  embeddings = readRequiredJson(embeddingPath, { label: 'data/embeddings.json' });
+} catch (error) {
+  errors.push(error.message);
+}
+try {
+  layout = readRequiredJson(layoutPath, { label: 'data/graph-layout.json' });
 } catch (error) {
   errors.push(error.message);
 }
@@ -151,10 +213,10 @@ if (concepts) {
   }
 }
 
-if (concepts && relations) {
+if (concepts && relations && embeddings && layout) {
   try {
-    const graph = projectGraph({ cards, concepts, relations });
-    verifyGraphProjection(graph, cards, concepts, relations);
+    const graph = projectGraph({ cards, concepts, relations, embeddings, layout });
+    verifyGraphProjection(graph, cards, concepts, relations, embeddings, layout);
   } catch (error) {
     errors.push(`Graph projection failed: ${error.message}`);
   }
@@ -180,5 +242,5 @@ if (errors.length) {
 }
 
 console.log(
-  `Site output verified: homepage + graph + ${cards.length} Knowledge Card pages + ${concepts.concepts.length} Concept pages + graph projection + JS/CSS assets.`
+  `Site output verified: homepage + graph + ${cards.length} Knowledge Card pages + ${concepts.concepts.length} Concept pages + semantic graph projection + JS/CSS assets.`
 );
