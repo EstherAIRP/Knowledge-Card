@@ -51,6 +51,7 @@ checkout
 固定 source_sha = S / release_id / build_mode
 → Knowledge Card 驗證
 → 增量 embeddings
+→ 依 cosine distance 重建二維 semantic graph layout
 → semantic relation candidates
 → OPENAI_API_KEY 可用時執行 LLM relation 分類
 → 不可用時使用既有快取或確定性備援
@@ -58,13 +59,13 @@ checkout
 → graph validators
 → npm test
 → npm run docs:check
-→ 固定三個索引的 SHA-256 manifest
+→ 固定四個索引的 SHA-256 manifest
 → VitePress build
 → 再次確認索引位元組與 manifest 一致
 → site output + graph projection verification
 → 確認 origin/main == S
 → 保存索引版本 P
-→ 從 Git P 回讀三個索引並核對 SHA-256
+→ 從 Git P 回讀四個索引並核對 SHA-256
 → 寫入 Pages artifact 專用 release-meta.json
 → Upload Pages artifact
 → 確認 origin/main == P
