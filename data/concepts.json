@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-12T08:21:47.555Z",
-  "input_hash": "819b804426ca6691fb0ff14b696051f5f84dcea0136ae07126e239634b165f08",
+  "generated_at": "2026-09-12T12:32:52.357Z",
+  "input_hash": "102590f744148337b2c48ccd9868a7fef093878f90282806dd7f7209c7aab150",
   "concepts": [
     {
       "id": "category-agent",
@@ -40,6 +40,7 @@
         "github-nutlope-hallmark",
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill",
+        "github-salsensei-suno-v6-songcraft",
         "github-santifer-career-ops",
         "github-stablyai-orca",
         "github-titanwings-distilly",
@@ -53,7 +54,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 41
+      "card_count": 42
     },
     {
       "id": "coding-agent-tooling",
@@ -83,6 +84,7 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
+        "github-salsensei-suno-v6-songcraft",
         "github-santifer-career-ops",
         "github-stablyai-orca",
         "github-titanwings-distilly",
@@ -93,7 +95,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 29
+      "card_count": 30
     },
     {
       "id": "category-ai-coding-devtools",
@@ -154,6 +156,7 @@
         "github-notoriouslab-vault-curate",
         "github-nutlope-hallmark",
         "github-promptfairy-prompt-fairy",
+        "github-salsensei-suno-v6-songcraft",
         "github-santifer-career-ops",
         "github-tsun-u-agent-game-table",
         "github-tsun-u-tsunu-superpowers",
@@ -163,7 +166,7 @@
         "threads-dcrihmdd46t-183b20",
         "threads-dcu8czjelom-f2217d"
       ],
-      "card_count": 21
+      "card_count": 22
     },
     {
       "id": "category-llm",
@@ -292,6 +295,29 @@
       "card_count": 13
     },
     {
+      "id": "tag-agent-skill",
+      "label": "agent-skill",
+      "type": "topic",
+      "description": "至少出現在 12 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-cathrynlavery-diagram-design",
+        "github-danyuchn-iso-24495-skill",
+        "github-graphify-labs-graphify",
+        "github-hugohe3-ppt-master",
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-max0821-web-design-skill",
+        "github-nanako0129-sepia",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill",
+        "github-salsensei-suno-v6-songcraft",
+        "github-santifer-career-ops",
+        "github-titanwings-distilly"
+      ],
+      "card_count": 12
+    },
+    {
       "id": "category-rag-memory-knowledge",
       "label": "RAG / Memory / Knowledge",
       "type": "category",
@@ -337,24 +363,24 @@
       "card_count": 11
     },
     {
-      "id": "tag-agent-skill",
-      "label": "agent-skill",
+      "id": "tag-codex",
+      "label": "Codex",
       "type": "topic",
       "description": "至少出現在 11 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
-        "github-danyuchn-iso-24495-skill",
-        "github-graphify-labs-graphify",
-        "github-hugohe3-ppt-master",
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-max0821-web-design-skill",
+        "github-mattpocock-skills",
         "github-nanako0129-sepia",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill",
-        "github-santifer-career-ops",
-        "github-titanwings-distilly"
+        "github-nutlope-hallmark",
+        "github-salsensei-suno-v6-songcraft",
+        "github-stablyai-orca",
+        "github-titanwings-distilly",
+        "github-tsun-u-tsunu-superpowers"
       ],
       "card_count": 11
     },
@@ -376,27 +402,6 @@
         "github-twinklestars1029-sillytavern-regex",
         "threads-dchbjcxenzb-725dd0",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 10
-    },
-    {
-      "id": "tag-codex",
-      "label": "Codex",
-      "type": "topic",
-      "description": "至少出現在 10 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-cathrynlavery-diagram-design",
-        "github-mattpocock-skills",
-        "github-nanako0129-sepia",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca",
-        "github-titanwings-distilly",
-        "github-tsun-u-tsunu-superpowers"
       ],
       "card_count": 10
     },
@@ -592,6 +597,21 @@
       "card_count": 4
     },
     {
+      "id": "tag-prompt-engineering",
+      "label": "prompt-engineering",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-nanako0129-sepia",
+        "github-s1dashu-ip-as-logo-skill",
+        "github-salsensei-suno-v6-songcraft"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "tag-typescript",
       "label": "TypeScript",
       "type": "topic",
@@ -730,20 +750,6 @@
         "github-addyosmani-agent-skills",
         "github-mensfeld-code-on-incus",
         "github-stablyai-orca"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "tag-prompt-engineering",
-      "label": "prompt-engineering",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-nanako0129-sepia",
-        "github-s1dashu-ip-as-logo-skill"
       ],
       "card_count": 3
     },
@@ -5457,6 +5463,78 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-salsensei-suno-v6-songcraft",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-salsensei-suno-v6-songcraft",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-salsensei-suno-v6-songcraft",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-salsensei-suno-v6-songcraft",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-salsensei-suno-v6-songcraft",
+      "concept_id": "tag-codex",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-salsensei-suno-v6-songcraft",
+      "concept_id": "tag-prompt-engineering",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "prompt-engineering"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-santifer-career-ops",
       "concept_id": "category-agent",
       "strength": 1,
@@ -7326,7 +7404,7 @@
       "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 11,
+      "support": 12,
       "weight": 1,
       "card_ids": [
         "github-cathrynlavery-diagram-design",
@@ -7338,6 +7416,7 @@
         "github-nanako0129-sepia",
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill",
+        "github-salsensei-suno-v6-songcraft",
         "github-santifer-career-ops",
         "github-titanwings-distilly"
       ]
@@ -7383,7 +7462,7 @@
       "source": "category-agent",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 10,
+      "support": 11,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -7393,6 +7472,7 @@
         "github-mattpocock-skills",
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
+        "github-salsensei-suno-v6-songcraft",
         "github-stablyai-orca",
         "github-titanwings-distilly",
         "github-tsun-u-tsunu-superpowers"
@@ -8199,7 +8279,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 10,
+      "support": 11,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -8209,6 +8289,7 @@
         "github-mattpocock-skills",
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
+        "github-salsensei-suno-v6-songcraft",
         "github-stablyai-orca",
         "github-titanwings-distilly",
         "github-tsun-u-tsunu-superpowers"
@@ -8573,12 +8654,13 @@
       "source": "tag-agent-skill",
       "target": "tag-prompt-engineering",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
         "github-kevintsai1202-humanizer-zh-tw",
         "github-nanako0129-sepia",
-        "github-s1dashu-ip-as-logo-skill"
+        "github-s1dashu-ip-as-logo-skill",
+        "github-salsensei-suno-v6-songcraft"
       ]
     },
     {
@@ -9194,9 +9276,9 @@
     }
   ],
   "stats": {
-    "card_count": 55,
+    "card_count": 56,
     "concept_count": 85,
-    "card_concept_edge_count": 452,
+    "card_concept_edge_count": 458,
     "concept_relation_edge_count": 178
   }
 }
