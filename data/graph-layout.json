@@ -1,0 +1,235 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-12T10:51:19.331Z",
+  "method": "classical-mds",
+  "metric": "cosine-distance",
+  "embedding_provider": "local-transformers",
+  "embedding_model": "Xenova/multilingual-e5-small",
+  "embedding_input_hash": "f3d16cefbbe59b0bedd4c3fa15542fbd55d39819b3d6489a9abfe8db89cafb09",
+  "card_count": 55,
+  "quality": {
+    "stress": 0.63155985
+  },
+  "nodes": {
+    "earendil-works-pi": {
+      "x": 0.0006506698293838947,
+      "y": 0.3857866493918314
+    },
+    "github-addyosmani-agent-skills": {
+      "x": -0.5718505366798586,
+      "y": -0.06487244738810613
+    },
+    "github-ai21002102-riverbend": {
+      "x": -0.038668939545467323,
+      "y": 0.0033444208259815356
+    },
+    "github-ai72dope-codex-engineering-system-zh-tw": {
+      "x": -0.2838561640762035,
+      "y": 0.08817359982620877
+    },
+    "github-akitaonrails-ai-memory": {
+      "x": 0.19296657159571382,
+      "y": 0.2669315495818541
+    },
+    "github-appfromapexxx-taiwan-subtitle": {
+      "x": 1,
+      "y": -0.7778334391118095
+    },
+    "github-bensonmaxai-line-desktop-mcp": {
+      "x": 0.5547013853552866,
+      "y": 0.5582414984457386
+    },
+    "github-cathrynlavery-diagram-design": {
+      "x": -0.5001679476749914,
+      "y": -0.11340010130574894
+    },
+    "github-charliie-dev-claude-code-hidden-settings": {
+      "x": -0.10775101682002927,
+      "y": 0.28191808419391395
+    },
+    "github-cynthianani-a-simple-nest": {
+      "x": -0.05896581620734313,
+      "y": 0.03832644225973632
+    },
+    "github-danyuchn-iso-24495-skill": {
+      "x": -0.5570225357566403,
+      "y": -0.2865431136669618
+    },
+    "github-drumih-turbo-fieldfare": {
+      "x": 0.5254776659131608,
+      "y": -0.32614313160863695
+    },
+    "github-dstack-tee-dstack": {
+      "x": 0.195981975122055,
+      "y": 0.043516708859390865
+    },
+    "github-g36maid-deepseek-harness": {
+      "x": 0.10412167717000591,
+      "y": 0.4660960360163555
+    },
+    "github-graphify-labs-graphify": {
+      "x": 0.1648561068009633,
+      "y": -0.27977640555524796
+    },
+    "github-harry0703-moneyprinterturbo": {
+      "x": 0.24829384921185707,
+      "y": -0.3927639862061715
+    },
+    "github-herdrdev-herdr": {
+      "x": -0.13899926147106095,
+      "y": 0.43730301171042063
+    },
+    "github-hkuds-lightrag": {
+      "x": 0.2392566833892024,
+      "y": 0.028554861317567893
+    },
+    "github-hugohe3-ppt-master": {
+      "x": -0.10247956491549186,
+      "y": -0.3799930256409153
+    },
+    "github-intuition-lab-personal-model": {
+      "x": 0.16628469323258233,
+      "y": 0.2075097632935845
+    },
+    "github-k-dense-ai-scientific-agent-skills": {
+      "x": -0.5791750271888906,
+      "y": -0.2608113162708522
+    },
+    "github-kevintsai1202-humanizer-zh-tw": {
+      "x": -0.34024235947698267,
+      "y": -0.2858541884973697
+    },
+    "github-mattpocock-skills": {
+      "x": -0.5865623552018292,
+      "y": -0.1628984013818185
+    },
+    "github-max0821-web-design-skill": {
+      "x": -0.5539922956450756,
+      "y": -0.5115913737459922
+    },
+    "github-mayocream-koharu": {
+      "x": 0.43988856596919446,
+      "y": -0.044822050133206136
+    },
+    "github-mensfeld-code-on-incus": {
+      "x": -0.07881475960566134,
+      "y": 0.6052373310219007
+    },
+    "github-minijinai75-tavern-claude-bridge": {
+      "x": 0.00029895583566135777,
+      "y": 0.3233909105440247
+    },
+    "github-mirabarukaso-character-select-stand-alone-app": {
+      "x": 0.4163995830658102,
+      "y": 0.09340287083006311
+    },
+    "github-moeru-ai-airi": {
+      "x": 0.23743078643885127,
+      "y": 0.1487220344102883
+    },
+    "github-nanako0129-sepia": {
+      "x": -0.3113043413417676,
+      "y": -0.19532407707085914
+    },
+    "github-nevertoday-xxd-panel-102": {
+      "x": -0.4637461807381153,
+      "y": -0.23450777342111664
+    },
+    "github-notoriouslab-vault-curate": {
+      "x": 0.08994088846117525,
+      "y": 0.06990112604883499
+    },
+    "github-nutlope-hallmark": {
+      "x": -0.3615491588577116,
+      "y": 0.07251028711879301
+    },
+    "github-openbmb-voxcpm": {
+      "x": 0.6821020918396483,
+      "y": -0.2038606900986891
+    },
+    "github-promptfairy-prompt-fairy": {
+      "x": 0.33191126248349617,
+      "y": -0.13245576631893358
+    },
+    "github-rimagination-h3lite": {
+      "x": -0.06804096925205816,
+      "y": -0.009738842059840498
+    },
+    "github-s1dashu-ip-as-logo-skill": {
+      "x": -0.33987871035852735,
+      "y": -0.4208102472811923
+    },
+    "github-santifer-career-ops": {
+      "x": -0.36841421680159436,
+      "y": 0.0833300248915834
+    },
+    "github-stablyai-orca": {
+      "x": -0.10352392608787143,
+      "y": 0.3235931066788405
+    },
+    "github-titanwings-distilly": {
+      "x": -0.4457213686006405,
+      "y": -0.16539412627322456
+    },
+    "github-tsun-u-agent-game-table": {
+      "x": -0.04525998509564316,
+      "y": 0.05127093811163636
+    },
+    "github-tsun-u-memory-toolkit": {
+      "x": -0.41262158612922173,
+      "y": 0.07385694545146768
+    },
+    "github-tsun-u-tsunu-superpowers": {
+      "x": -0.49822998450329975,
+      "y": 0.08477197120177178
+    },
+    "github-twinklestars1029-sillytavern-regex": {
+      "x": 0.23047221174742571,
+      "y": -0.28262055625464344
+    },
+    "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab": {
+      "x": 0.11186346453482499,
+      "y": 0.3373479709902715
+    },
+    "threads-db-fphwgfos-7d09e0": {
+      "x": 0.1547191707216287,
+      "y": 0.46052698859850044
+    },
+    "threads-db-wlkkgtu-18d1ea": {
+      "x": -0.08706460365228677,
+      "y": -0.011325337980949715
+    },
+    "threads-dcdjlucgrwf-66e463": {
+      "x": 0.02757068481077087,
+      "y": -0.3265246648035486
+    },
+    "threads-dcglstsogz3-fa0168": {
+      "x": 0.4746189967060037,
+      "y": 0.17960896881585717
+    },
+    "threads-dchbjcxenzb-725dd0": {
+      "x": 0.31651583020616036,
+      "y": 0.07354751723017092
+    },
+    "threads-dclcucpas-z-66b25b": {
+      "x": 0.05240316042927423,
+      "y": 0.3989538604179788
+    },
+    "threads-dcrihmdd46t-183b20": {
+      "x": 0.7014477045121733,
+      "y": -0.5664471593543098
+    },
+    "threads-dcu8czjelom-f2217d": {
+      "x": 0.14959468440523174,
+      "y": 0.21787283036955354
+    },
+    "threads-dcuhxije1zf-9b4063": {
+      "x": 0.02822367536826097,
+      "y": 0.18636803408736005
+    },
+    "threads-dfyr62jb6wr-b921df": {
+      "x": 0.16591061652846062,
+      "y": -0.15360412111133653
+    }
+  }
+}
