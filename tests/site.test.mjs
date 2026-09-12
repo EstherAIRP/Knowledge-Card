@@ -106,4 +106,16 @@ test('graph data loader unifies Card, Concept, and relation edge families', () =
   assert.equal(typeof personalModelNeighbors[0].similarity, 'number');
   assert.equal(typeof personalModelNeighbors[0].distance, 'number');
   assert.equal('embedding' in personalModelNeighbors[0], false);
+
+  const personalModelNode = graph.nodes.find((node) => node.id === 'card:github-intuition-lab-personal-model');
+  assert.ok(personalModelNode);
+  assert.ok(personalModelNode.categories.includes('Agent'));
+  assert.ok(personalModelNode.actions.includes('TRY'));
+  assert.ok(personalModelNode.tags.includes('mcp'));
+  assert.equal(personalModelNode.sourceType, 'github');
+  assert.equal(personalModelNode.relevance.overall, 5);
+
+  const personalModelDistances = graph.semantic.distancesByCard['github-intuition-lab-personal-model'];
+  assert.equal(personalModelDistances.length, graph.stats.cards - 1);
+  assert.equal('embedding' in personalModelDistances[0], false);
 });
