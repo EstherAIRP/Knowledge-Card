@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-12T08:17:38.332Z",
-  "input_hash": "0cfda8c0d9ba3c730c0d28e3da7e865db7402f5eb488064dbeb955e89a9486f2",
+  "generated_at": "2026-09-12T08:21:47.555Z",
+  "input_hash": "819b804426ca6691fb0ff14b696051f5f84dcea0136ae07126e239634b165f08",
   "concepts": [
     {
       "id": "category-agent",
@@ -22,6 +22,7 @@
         "github-cynthianani-a-simple-nest",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
+        "github-graphify-labs-graphify",
         "github-harry0703-moneyprinterturbo",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
@@ -52,7 +53,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 40
+      "card_count": 41
     },
     {
       "id": "coding-agent-tooling",
@@ -71,6 +72,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
+        "github-graphify-labs-graphify",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
@@ -91,7 +93,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 28
+      "card_count": 29
     },
     {
       "id": "category-ai-coding-devtools",
@@ -110,6 +112,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
+        "github-graphify-labs-graphify",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
@@ -128,7 +131,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 26
+      "card_count": 27
     },
     {
       "id": "category-general-tools",
@@ -192,6 +195,55 @@
       "card_count": 18
     },
     {
+      "id": "local-ai-integration",
+      "label": "Local AI Integration",
+      "type": "integration",
+      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "github-promptfairy-prompt-fairy",
+        "github-santifer-career-ops",
+        "github-titanwings-distilly",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 14
+    },
+    {
+      "id": "agent-memory",
+      "label": "Agent Memory",
+      "type": "architecture",
+      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-graphify-labs-graphify",
+        "github-hkuds-lightrag",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate",
+        "github-titanwings-distilly",
+        "github-tsun-u-memory-toolkit",
+        "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063",
+        "threads-dfyr62jb6wr-b921df"
+      ],
+      "card_count": 13
+    },
+    {
       "id": "category-ai-ml",
       "label": "AI / ML",
       "type": "category",
@@ -240,53 +292,6 @@
       "card_count": 13
     },
     {
-      "id": "local-ai-integration",
-      "label": "Local AI Integration",
-      "type": "integration",
-      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-notoriouslab-vault-curate",
-        "github-promptfairy-prompt-fairy",
-        "github-santifer-career-ops",
-        "github-titanwings-distilly",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 13
-    },
-    {
-      "id": "agent-memory",
-      "label": "Agent Memory",
-      "type": "architecture",
-      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-hkuds-lightrag",
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi",
-        "github-notoriouslab-vault-curate",
-        "github-titanwings-distilly",
-        "github-tsun-u-memory-toolkit",
-        "threads-dclcucpas-z-66b25b",
-        "threads-dcuhxije1zf-9b4063",
-        "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 12
-    },
-    {
       "id": "category-rag-memory-knowledge",
       "label": "RAG / Memory / Knowledge",
       "type": "category",
@@ -297,6 +302,7 @@
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
+        "github-graphify-labs-graphify",
         "github-hkuds-lightrag",
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
@@ -306,7 +312,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 11
+      "card_count": 12
     },
     {
       "id": "agent-api-bridge",
@@ -320,6 +326,7 @@
         "github-akitaonrails-ai-memory",
         "github-bensonmaxai-line-desktop-mcp",
         "github-drumih-turbo-fieldfare",
+        "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
@@ -327,18 +334,19 @@
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ],
-      "card_count": 10
+      "card_count": 11
     },
     {
       "id": "tag-agent-skill",
       "label": "agent-skill",
       "type": "topic",
-      "description": "至少出現在 10 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 11 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
         "github-cathrynlavery-diagram-design",
         "github-danyuchn-iso-24495-skill",
+        "github-graphify-labs-graphify",
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
         "github-max0821-web-design-skill",
@@ -348,7 +356,7 @@
         "github-santifer-career-ops",
         "github-titanwings-distilly"
       ],
-      "card_count": 10
+      "card_count": 11
     },
     {
       "id": "character-runtime",
@@ -470,6 +478,24 @@
       "card_count": 7
     },
     {
+      "id": "tag-mcp",
+      "label": "MCP",
+      "type": "topic",
+      "description": "至少出現在 7 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 7
+    },
+    {
       "id": "tag-agent-skills",
       "label": "agent-skills",
       "type": "topic",
@@ -487,19 +513,19 @@
       "card_count": 6
     },
     {
-      "id": "tag-mcp",
-      "label": "MCP",
+      "id": "tag-local-first",
+      "label": "local-first",
       "type": "topic",
       "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
+        "github-mayocream-koharu",
+        "github-notoriouslab-vault-curate",
+        "github-promptfairy-prompt-fairy",
+        "github-santifer-career-ops"
       ],
       "card_count": 6
     },
@@ -516,22 +542,6 @@
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
-      ],
-      "card_count": 5
-    },
-    {
-      "id": "tag-local-first",
-      "label": "local-first",
-      "type": "topic",
-      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-notoriouslab-vault-curate",
-        "github-promptfairy-prompt-fairy",
-        "github-santifer-career-ops"
       ],
       "card_count": 5
     },
@@ -664,6 +674,20 @@
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi",
         "github-stablyai-orca"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-knowledge-graph",
+      "label": "knowledge-graph",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-graphify-labs-graphify",
+        "github-hkuds-lightrag",
+        "github-notoriouslab-vault-curate"
       ],
       "card_count": 3
     },
@@ -1030,6 +1054,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-graph-retrieval",
+      "label": "graph-retrieval",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-graphify-labs-graphify"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-human-in-the-loop",
       "label": "human-in-the-loop",
       "type": "topic",
@@ -1052,19 +1089,6 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-hkuds-lightrag"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-knowledge-graph",
-      "label": "knowledge-graph",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-hkuds-lightrag",
-        "github-notoriouslab-vault-curate"
       ],
       "card_count": 2
     },
@@ -2028,6 +2052,18 @@
         {
           "kind": "tag",
           "value": "coding-agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "tag-graph-retrieval",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "graph-retrieval"
         }
       ],
       "origin": "shared-tag"
@@ -3012,6 +3048,154 @@
         {
           "kind": "tag",
           "value": "zh-TW"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "agent-memory",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "local-ai-integration",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        },
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "tag-graph-retrieval",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "graph-retrieval"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "tag-knowledge-graph",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "knowledge-graph"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "tag-local-first",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-graphify-labs-graphify",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
         }
       ],
       "origin": "shared-tag"
@@ -6872,31 +7056,32 @@
   "concept_relations": [
     {
       "source": "agent-api-bridge",
-      "target": "ai-character-interface",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.5,
-      "card_ids": [
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 9,
-      "weight": 0.9,
+      "support": 10,
+      "weight": 0.9091,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-graph-retrieval",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-graphify-labs-graphify"
       ]
     },
     {
@@ -6926,12 +7111,13 @@
       "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
@@ -6975,12 +7161,13 @@
       "source": "agent-memory",
       "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
-      "support": 11,
+      "support": 12,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest",
+        "github-graphify-labs-graphify",
         "github-hkuds-lightrag",
         "github-intuition-lab-personal-model",
         "github-moeru-ai-airi",
@@ -7039,13 +7226,14 @@
     },
     {
       "source": "agent-memory",
-      "target": "tag-hybrid-retrieval",
+      "target": "tag-knowledge-graph",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-hkuds-lightrag"
+        "github-graphify-labs-graphify",
+        "github-hkuds-lightrag",
+        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -7138,11 +7326,12 @@
       "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 10,
+      "support": 11,
       "weight": 1,
       "card_ids": [
         "github-cathrynlavery-diagram-design",
         "github-danyuchn-iso-24495-skill",
+        "github-graphify-labs-graphify",
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
         "github-max0821-web-design-skill",
@@ -7241,12 +7430,13 @@
       "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
@@ -7256,7 +7446,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 26,
+      "support": 27,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -7268,6 +7458,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
+        "github-graphify-labs-graphify",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
@@ -7596,7 +7787,7 @@
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.4,
+      "weight": 0.3333,
       "card_ids": [
         "github-mayocream-koharu",
         "github-promptfairy-prompt-fairy"
@@ -7828,22 +8019,23 @@
     },
     {
       "source": "category-rag-memory-knowledge",
-      "target": "tag-hybrid-retrieval",
+      "target": "tag-graph-retrieval",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-hkuds-lightrag"
+        "github-akitaonrails-ai-memory",
+        "github-graphify-labs-graphify"
       ]
     },
     {
       "source": "category-rag-memory-knowledge",
       "target": "tag-knowledge-graph",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "github-graphify-labs-graphify",
         "github-hkuds-lightrag",
         "github-notoriouslab-vault-curate"
       ]
@@ -7880,17 +8072,6 @@
     },
     {
       "source": "category-sillytavern-ai-rpg",
-      "target": "tag-mcp",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.3333,
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-tsun-u-agent-game-table"
-      ]
-    },
-    {
-      "source": "category-sillytavern-ai-rpg",
       "target": "tag-prompt-caching",
       "type": "co_occurs_with",
       "support": 2,
@@ -7920,17 +8101,6 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
-      ]
-    },
-    {
-      "source": "character-runtime",
-      "target": "tag-mcp",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.3333,
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-tsun-u-agent-game-table"
       ]
     },
     {
@@ -8097,7 +8267,7 @@
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.4,
+      "weight": 0.3333,
       "card_ids": [
         "github-mayocream-koharu",
         "github-promptfairy-prompt-fairy"
@@ -8116,11 +8286,34 @@
     },
     {
       "source": "local-ai-integration",
-      "target": "tag-local-first",
+      "target": "tag-graph-retrieval",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 2,
       "weight": 1,
       "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-graphify-labs-graphify"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
+      "target": "tag-knowledge-graph",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-graphify-labs-graphify",
+        "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
+      "target": "tag-local-first",
+      "type": "co_occurs_with",
+      "support": 6,
+      "weight": 1,
+      "card_ids": [
+        "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-mayocream-koharu",
         "github-notoriouslab-vault-curate",
@@ -8132,12 +8325,13 @@
       "source": "local-ai-integration",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
@@ -8163,28 +8357,6 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-titanwings-distilly"
-      ]
-    },
-    {
-      "source": "local-ai-integration",
-      "target": "tag-rust",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-mayocream-koharu"
-      ]
-    },
-    {
-      "source": "local-ai-integration",
-      "target": "tag-sqlite",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -8373,6 +8545,17 @@
       "card_ids": [
         "github-cathrynlavery-diagram-design",
         "github-max0821-web-design-skill"
+      ]
+    },
+    {
+      "source": "tag-agent-skill",
+      "target": "tag-local-first",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.3333,
+      "card_ids": [
+        "github-graphify-labs-graphify",
+        "github-santifer-career-ops"
       ]
     },
     {
@@ -8756,6 +8939,39 @@
       ]
     },
     {
+      "source": "tag-graph-retrieval",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-graphify-labs-graphify"
+      ]
+    },
+    {
+      "source": "tag-knowledge-graph",
+      "target": "tag-local-first",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-graphify-labs-graphify",
+        "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "tag-local-first",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.3333,
+      "card_ids": [
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model"
+      ]
+    },
+    {
       "source": "tag-local-llm",
       "target": "tag-metal",
       "type": "co_occurs_with",
@@ -8978,9 +9194,9 @@
     }
   ],
   "stats": {
-    "card_count": 54,
-    "concept_count": 84,
-    "card_concept_edge_count": 439,
-    "concept_relation_edge_count": 176
+    "card_count": 55,
+    "concept_count": 85,
+    "card_concept_edge_count": 452,
+    "concept_relation_edge_count": 178
   }
 }
