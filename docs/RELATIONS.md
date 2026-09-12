@@ -182,9 +182,11 @@ Phase 3 從三個視角呈現同一份圖譜：
 
 - Card↔Concept 成員邊；
 - Concept↔Concept 共現邊；
-- 可選的 Phase 2 Card↔Card 語意邊。
+- 可選的 Phase 2 Card↔Card 語意邊；
+- 由 embedding cosine distance 經 classical MDS 產生的 Card 2D 語意位置；
+- 選取 Card 後顯示原始 embedding 的最近鄰 similarity／distance。
 
-目前 SVG 版面是確定性的呈現幾何，不代表畫面距離等同向量嵌入距離。
+MDS 幾何保留的是高維距離的 2D 近似；精確語意距離仍以原始 embedding 計算值為準。
 
 ## 產生資料所有權
 
@@ -193,7 +195,7 @@ Phase 3 從三個視角呈現同一份圖譜：
 ```text
 Knowledge Cards + repository config + generator code
                     ↓
- embeddings.json / relations.json / concepts.json
+ embeddings.json / graph-layout.json / relations.json / concepts.json
 ```
 
 不要手動編輯產生的 JSON。Concept 規則變更應修改 `config/concept-config.yaml`；人工 Card 關聯決策應修改 `config/relation-overrides.yaml`。
@@ -207,6 +209,13 @@ Concept ID 是 `/concepts/<id>` 下的公開路由識別字，除非進行明確
 ```bash
 npm run embeddings:build
 npm run embeddings:validate
+```
+
+語意版面：
+
+```bash
+npm run graph-layout:build
+npm run graph-layout:validate
 ```
 
 Card↔Card 關聯：
@@ -233,22 +242,24 @@ npm run relations:rebuild
 
 ## 自動化
 
-相關 `main` 變更會執行 **Update Knowledge Graph Indexes** workflow：
+相關 `main` 變更由 **Deploy Knowledge Radar** 單一 Release Pipeline 處理：
 
 ```text
 增量 embeddings
+→ graph layout
 → 語意 relations
 → Concept Graph
-→ 驗證 + 測試
-→ 有變更時提交產生索引
+→ validators + tests
+→ 凍結四個索引 manifest
+→ 建站
+→ 保存產生索引
+→ Pages 部署與線上 provenance 驗證
 ```
 
-每週的 **Full Knowledge Graph Rebuild** 會重新產生全部向量嵌入、關聯候選／分類狀態與 Concept graph，清除過期產生狀態。
-
-PR CI 與 Pages 部署都會在靜態網站產生前建立並驗證 Concepts。Concept 擷取本身不需要外部 API key。
+每週排程或 `full_rebuild=true` 會重新產生全部向量嵌入、graph layout、關聯候選／分類狀態與 Concept graph。PR CI 與 Pages Release 都會在靜態網站產生前建立並驗證 graph layout 與 Concepts。Concept 擷取與 MDS layout 本身不需要外部 API key。
 
 ## 驗證邊界
 
 Phase 3 驗證的是圖譜完整性，而不是只檢查 JSON 能否解析。除了 Phase 2 關聯不變量外，Concept 驗證還會檢查唯一穩定 ID、有效 Card／Concept 參照、對應證據與強度、支援 Card 數量、重複／自指 Concept 邊、relation support／weight 與 promoted Concept 設定一致性。
 
-目前 Phase 3 刻意停在完整 ontology reasoning 之前。LLM 輔助 Concept 提案、人工審核佇列、Concept merge／split 遷移、語意圖譜版面與有類型的階層 Concept 關聯，都屬於後續圖譜演進，不應在現階段偷偷推論。
+目前仍刻意停在完整 ontology reasoning 之前。LLM 輔助 Concept 提案、人工審核佇列、Concept merge／split 遷移與有類型的階層 Concept 關聯，都屬於後續圖譜演進，不應在現階段偷偷推論。

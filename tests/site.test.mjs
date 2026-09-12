@@ -92,6 +92,12 @@ test('graph data loader unifies Card, Concept, and relation edge families', () =
   assert.ok(graph.edges.some((edge) => edge.kind === 'card-card'));
   assert.equal(graph.stats.cards, knowledgeData.load().length);
   assert.ok(graph.stats.concepts > 0);
+  assert.equal(graph.layout.method, 'classical-mds');
+  assert.equal(graph.layout.metric, 'cosine-distance');
+  for (const node of graph.nodes) {
+    assert.ok(Number.isFinite(node.x), `expected finite x for ${node.id}`);
+    assert.ok(Number.isFinite(node.y), `expected finite y for ${node.id}`);
+  }
   assert.equal(graph.semantic.metric, 'cosine-distance');
   assert.equal(typeof graph.semantic.embeddingModel, 'string');
   const personalModelNeighbors = graph.semantic.neighborsByCard['github-intuition-lab-personal-model'];

@@ -8,6 +8,7 @@ import {
   normalizeCoordinates
 } from '../scripts/lib/graph-layout.mjs';
 import { buildSemanticNeighbors, projectGraph } from '../scripts/lib/graph-projection.mjs';
+import { validateGraphLayoutIndex } from '../scripts/validate-graph-layout.mjs';
 
 test('cosine similarity and distance matrix preserve semantic closeness', () => {
   const entries = [
@@ -105,4 +106,74 @@ test('semantic neighbors use raw cosine similarity and preserve relation metadat
   assert.equal(nearest.relation.type, 'similar_to');
   assert.equal(nearest.relation.direction, 'undirected');
   assert.equal('embedding' in nearest, false);
+});
+
+
+test('graph layout validator accepts matching embedding provenance and normalized coverage', () => {
+  const embeddings = {
+    schema_version: 1,
+    provider: 'local-transformers',
+    model: 'test-model',
+    input_hash: 'abc123',
+    card_count: 2,
+    entries: [
+      { card_id: 'a', embedding: [1, 0] },
+      { card_id: 'b', embedding: [0, 1] }
+    ]
+  };
+  const layout = {
+    schema_version: 1,
+    generated_at: '2026-09-12T00:00:00.000Z',
+    method: 'classical-mds',
+    metric: 'cosine-distance',
+    embedding_provider: 'local-transformers',
+    embedding_model: 'test-model',
+    embedding_input_hash: 'abc123',
+    card_count: 2,
+    quality: { stress: 0.04 },
+    nodes: {
+      a: { x: -1, y: 0.25 },
+      b: { x: 1, y: -0.25 }
+    }
+  };
+
+  assert.deepEqual(validateGraphLayoutIndex(layout, embeddings), []);
+});
+
+test('graph layout validator rejects stale provenance, missing cards, extras, and invalid coordinates', () => {
+  const embeddings = {
+    schema_version: 1,
+    provider: 'local-transformers',
+    model: 'test-model',
+    input_hash: 'current-hash',
+    card_count: 2,
+    entries: [
+      { card_id: 'a', embedding: [1, 0] },
+      { card_id: 'b', embedding: [0, 1] }
+    ]
+  };
+  const layout = {
+    schema_version: 1,
+    generated_at: 'not-a-date',
+    method: 'classical-mds',
+    metric: 'cosine-distance',
+    embedding_provider: 'local-transformers',
+    embedding_model: 'old-model',
+    embedding_input_hash: 'stale-hash',
+    card_count: 2,
+    quality: { stress: -1 },
+    nodes: {
+      a: { x: 1.5, y: 0 },
+      stale: { x: 0, y: 0 }
+    }
+  };
+
+  const errors = validateGraphLayoutIndex(layout, embeddings);
+  assert.ok(errors.some((message) => message.includes('embedding model does not match')));
+  assert.ok(errors.some((message) => message.includes('embedding input hash does not match')));
+  assert.ok(errors.some((message) => message.includes('missing card b')));
+  assert.ok(errors.some((message) => message.includes('not present in embeddings: stale')));
+  assert.ok(errors.some((message) => message.includes('normalized range')));
+  assert.ok(errors.some((message) => message.includes('quality.stress')));
+  assert.ok(errors.some((message) => message.includes('generated_at')));
 });

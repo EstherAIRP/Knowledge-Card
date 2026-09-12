@@ -7,6 +7,7 @@ import { pathToFileURL } from 'node:url';
 
 export const INDEX_PATHS = Object.freeze([
   'data/embeddings.json',
+  'data/graph-layout.json',
   'data/relations.json',
   'data/concepts.json'
 ]);

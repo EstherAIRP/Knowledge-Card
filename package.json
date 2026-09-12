@@ -19,7 +19,7 @@
     "graph-layout:build": "node scripts/build-graph-layout.mjs",
     "relations:build": "node scripts/build-relations.mjs",
     "relations:build:semantic": "node scripts/build-relations.mjs --semantic --classify",
-    "relations:rebuild": "node scripts/build-embeddings.mjs --full && node scripts/build-relations.mjs --semantic --classify --full && node scripts/build-concepts.mjs",
+    "relations:rebuild": "node scripts/build-embeddings.mjs --full && node scripts/build-graph-layout.mjs && node scripts/build-relations.mjs --semantic --classify --full && node scripts/build-concepts.mjs",
     "relations:report": "node scripts/report-relations.mjs",
     "relations:validate": "node scripts/validate-relations.mjs",
     "concepts:build": "node scripts/build-concepts.mjs",
@@ -30,7 +30,8 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "verify:site": "node scripts/verify-site-output.mjs"
+    "verify:site": "node scripts/verify-site-output.mjs",
+    "graph-layout:validate": "node scripts/validate-graph-layout.mjs"
   },
   "dependencies": {
     "@huggingface/transformers": "3.8.1",

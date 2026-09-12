@@ -22,6 +22,7 @@ checkout
 → 還原／快取本機 embedding 模型
 → npm install
 → 建立 + 驗證 embeddings
+→ 建立 + 驗證 graph layout
 → 建立 relation 索引
 → relation 診斷
 → 建立 + 驗證 Concept Graph
@@ -51,6 +52,7 @@ checkout
 固定 source_sha = S / release_id / build_mode
 → Knowledge Card 驗證
 → 增量 embeddings
+→ 重建 + 驗證 graph layout
 → semantic relation candidates
 → OPENAI_API_KEY 可用時執行 LLM relation 分類
 → 不可用時使用既有快取或確定性備援
@@ -58,13 +60,13 @@ checkout
 → graph validators
 → npm test
 → npm run docs:check
-→ 固定三個索引的 SHA-256 manifest
+→ 固定四個索引的 SHA-256 manifest
 → VitePress build
 → 再次確認索引位元組與 manifest 一致
 → site output + graph projection verification
 → 確認 origin/main == S
 → 保存索引版本 P
-→ 從 Git P 回讀三個索引並核對 SHA-256
+→ 從 Git P 回讀四個索引並核對 SHA-256
 → 寫入 Pages artifact 專用 release-meta.json
 → Upload Pages artifact
 → 確認 origin/main == P
@@ -77,6 +79,7 @@ checkout
 ```text
 所有 Cards
 → 全量重建 embeddings
+→ 重建 graph layout
 → 全量重新計算 semantic relations
 → 可用時重新執行 LLM relation classification
 → 分類器不可用時保留仍有效的 LLM 快取判定
@@ -84,7 +87,7 @@ checkout
 → 接續相同的驗證、建站、索引持久化與 Pages 部署
 ```
 
-因此不論是增量更新或週期 full rebuild，網站與 `data/embeddings.json`、`data/relations.json`、`data/concepts.json` 都來自同一個 workflow run 的同一份 graph build。
+因此不論是增量更新或週期 full rebuild，網站與 `data/embeddings.json`、`data/graph-layout.json`、`data/relations.json`、`data/concepts.json` 都來自同一個 workflow run 的同一份 graph build。
 
 #### 發布來源證明與版本模型
 
@@ -95,18 +98,19 @@ S = source_sha
     本批次開始建置時的來源版本
 
 P = index_commit_sha
-    本批次三個生成索引在 Git 中的保存版本
+    本批次四個生成索引在 Git 中的保存版本
 ```
 
-如果索引重建後沒有任何位元組差異，`P = S`。如果索引有差異，workflow 只能建立一個直接以 `S` 為父提交、且只修改以下三個檔案的 `P`：
+如果索引重建後沒有任何位元組差異，`P = S`。如果索引有差異，workflow 只能建立一個直接以 `S` 為父提交、且只修改以下四個檔案的 `P`：
 
 ```text
 data/embeddings.json
+data/graph-layout.json
 data/relations.json
 data/concepts.json
 ```
 
-三個索引在完成 validators 後只建立一次 SHA-256 manifest；VitePress 建站後會再次核對工作目錄中的原始位元組，索引保存後還會直接從 Git commit `P` 讀取相同檔案並核對 SHA-256。這使網站建置、Git 中的索引與發布 metadata 可以由同一份 manifest 串接。
+四個索引在完成 validators 後只建立一次 SHA-256 manifest；VitePress 建站後會再次核對工作目錄中的原始位元組，索引保存後還會直接從 Git commit `P` 讀取相同檔案並核對 SHA-256。這使網站建置、Git 中的索引與發布 metadata 可以由同一份 manifest 串接。
 
 每批 Pages artifact 會額外包含：
 
@@ -114,7 +118,7 @@ data/concepts.json
 release-meta.json
 ```
 
-其中記錄 `schema_version`、`release_id`、`source_sha`、`index_commit_sha`、`build_mode`、產生時間，以及三個索引各自的 SHA-256 與位元組大小。這個檔案只屬於 Pages artifact，不提交回 Git，避免發布 metadata 對自身 commit 形成循環引用。
+其中記錄 `schema_version`、`release_id`、`source_sha`、`index_commit_sha`、`build_mode`、產生時間，以及四個索引各自的 SHA-256 與位元組大小。這個檔案只屬於 Pages artifact，不提交回 Git，避免發布 metadata 對自身 commit 形成循環引用。
 
 純生成索引提交已列入 `push.paths-ignore`。因此 workflow 自己保存 `P` 時不會再觸發第二輪 Release，也不會因 `cancel-in-progress: true` 取消仍在完成中的原批次。
 
@@ -140,7 +144,7 @@ origin/main == P
 - `source_sha = S`；
 - `index_commit_sha = P`；
 - `build_mode`；
-- 線上 metadata 中三個索引 SHA-256 是否與 Git commit `P` 的原始位元組一致。
+- 線上 metadata 中四個索引 SHA-256 是否與 Git commit `P` 的原始位元組一致。
 
 為容許 GitHub Pages／CDN 的短暫傳播時間，線上驗證使用有限次重試，且每次請求帶入 cache-busting query；超過重試次數仍不一致就採保守失敗。
 
@@ -241,6 +245,7 @@ Release Pipeline 只能自動提交以下產生索引：
 
 ```text
 data/embeddings.json
+data/graph-layout.json
 data/relations.json
 data/concepts.json
 ```
@@ -290,12 +295,12 @@ Pages artifact 進入部署前必須全部通過：
 
 1. Knowledge Card 驗證；
 2. 向量嵌入產生與覆蓋率驗證；
-3. 語意關聯與 Concept Graph 產生／驗證；
+3. 語意 layout、語意關聯與 Concept Graph 產生／驗證；
 4. 單元測試與 `npm run docs:check`；
-5. 三個固定索引 manifest 已建立，且 VitePress 建站後位元組未漂移；
+5. 四個固定索引 manifest 已建立，且 VitePress 建站後位元組未漂移；
 6. 網站頁面、資產與 graph projection 驗證；
 7. 保存索引前 `origin/main == S`；
-8. `P = S`，或 `P` 是只修改三個生成索引的直接子提交；
+8. `P = S`，或 `P` 是只修改四個生成索引的直接子提交；
 9. Git commit `P` 中的索引 SHA-256 與建站 manifest 完全一致；
 10. 真正部署前 `origin/main == P`；
 11. Pages artifact 已包含本批次 `release-meta.json`。

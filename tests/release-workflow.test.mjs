@@ -5,9 +5,14 @@ import path from 'node:path';
 import { parse as parseYaml } from 'yaml';
 
 const workflowPath = path.join(process.cwd(), '.github/workflows/deploy-pages.yml');
+const validateWorkflowPath = path.join(process.cwd(), '.github/workflows/validate.yml');
 
 function loadWorkflow() {
   return parseYaml(fs.readFileSync(workflowPath, 'utf8'));
+}
+
+function loadValidateWorkflow() {
+  return parseYaml(fs.readFileSync(validateWorkflowPath, 'utf8'));
 }
 
 test('release workflow ignores pure generated-index pushes to prevent recursive deployment', () => {
@@ -16,6 +21,7 @@ test('release workflow ignores pure generated-index pushes to prevent recursive 
 
   assert.deepEqual(ignored, [
     'data/embeddings.json',
+    'data/graph-layout.json',
     'data/relations.json',
     'data/concepts.json'
   ]);
@@ -44,7 +50,7 @@ test('release workflow freezes indexes, verifies persisted Git bytes, and writes
 
   const persist = steps.find((step) => step.name === 'Persist generated indexes');
   assert.equal(persist.id, 'persist_indexes');
-  assert.match(persist.run, /git add data\/embeddings\.json data\/relations\.json data\/concepts\.json/);
+  assert.match(persist.run, /git add data\/embeddings\.json data\/graph-layout\.json data\/relations\.json data\/concepts\.json/);
   assert.match(persist.run, /git push origin HEAD:main/);
 
   const verify = steps.find((step) => step.name === 'Verify persisted release indexes');
@@ -84,4 +90,36 @@ test('deploy job verifies the live release metadata after Pages deployment', () 
   assert.match(verify.run, /needs\.build\.outputs\.source_sha/);
   assert.match(verify.run, /needs\.build\.outputs\.index_commit_sha/);
   assert.match(verify.run, /needs\.build\.outputs\.build_mode/);
+});
+
+
+test('release workflow builds and validates graph layout before freezing release indexes', () => {
+  const workflow = loadWorkflow();
+  const steps = workflow.jobs?.build?.steps ?? [];
+  const build = steps.find((step) => step.name === 'Build knowledge graph');
+  const validate = steps.find((step) => step.name === 'Validate graph layout');
+  const freezeIndex = steps.findIndex((step) => step.name === 'Freeze release index manifest');
+  const validateIndex = steps.findIndex((step) => step.name === 'Validate graph layout');
+
+  assert.ok(build);
+  assert.match(build.run, /npm run graph-layout:build/);
+  assert.ok(validate);
+  assert.match(validate.run, /npm run graph-layout:validate/);
+  assert.ok(validateIndex >= 0 && validateIndex < freezeIndex);
+});
+
+
+test('PR validation workflow builds and validates graph layout before site build', () => {
+  const workflow = loadValidateWorkflow();
+  const steps = workflow.jobs?.validate?.steps ?? [];
+  const names = steps.map((step) => step.name);
+  const buildIndex = names.indexOf('Build graph layout');
+  const validateIndex = names.indexOf('Validate graph layout');
+  const siteIndex = names.indexOf('Build VitePress site');
+
+  assert.ok(buildIndex >= 0);
+  assert.ok(validateIndex > buildIndex);
+  assert.ok(siteIndex > validateIndex);
+  assert.equal(steps[buildIndex].run, 'npm run graph-layout:build');
+  assert.equal(steps[validateIndex].run, 'npm run graph-layout:validate');
 });
