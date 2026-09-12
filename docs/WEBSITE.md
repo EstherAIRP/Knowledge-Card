@@ -134,14 +134,17 @@ Knowledge Card embedding
 
 圖譜支援：
 
-- Concept／Card 關鍵字搜尋；
-- 節點類型篩選；
-- 可選的 Card↔Card 語意邊顯示；
-- 選取 Card 後顯示 Top 語意鄰居、原始 cosine similarity／distance 與既有 relation；
-- 從圖譜節點直接導覽到 Card／Concept 詳細頁；
-- 窄螢幕上的響應式水平捲動。
+- **按需標籤（label on demand）**：初始只標示少數高 degree Concept；選取、搜尋命中、滑鼠移入與 Top 語意鄰居才顯示名稱，避免密集文字覆蓋語意空間；
+- **Progressive disclosure**：初始只保留稀疏 Concept↔Concept 結構；Card↔Concept 邊在選取 Card 時展開，全部 Card↔Card 邊維持可選；
+- Concept／Card 關鍵字搜尋與節點類型篩選；
+- **自動 Fit**：依目前語意節點實際 bounding box 使用單一等比例縮放，置中並保留 padding，不以不同 x/y 比例扭曲 MDS 幾何；
+- **Pan / Zoom**：桌機支援拖曳、滾輪縮放、雙擊 Fit；手機支援單指拖曳、雙指縮放，另提供 +/-/Fit 控制；
+- **全域地圖 / 聚焦模式**：聚焦模式只保留選取 Card、Top 語意鄰居與直接 Concept；手機預設使用聚焦模式；
+- 選取 Card 後顯示原始 embedding 直接計算的 Top 語意鄰居、cosine similarity／distance 與既有 relation；
+- 語意 layout 的 MDS、stress、距離 metric 與 embedding model 收在「語意地圖」資訊面板，不佔主要視覺層級；
+- 從圖譜節點直接導覽到 Card／Concept 詳細頁。
 
-視覺化以 Vue + SVG 實作，不新增 D3／Cytoscape 執行階段依賴。
+圖上的節點位置先由 `graph-layout.json` 投影，再由 viewport transform 執行 Pan / Zoom；viewport transform 只影響觀看方式，不修改或重新計算語意座標。視覺化以 Vue + SVG 實作，不新增 D3／Cytoscape 執行階段依賴。
 
 ## 搜尋
 
@@ -181,9 +184,13 @@ docs/.vitepress/theme/components/
 
 ## 建置指令
 
-靜態網站產生前必須先有圖譜資料：
+靜態網站產生前必須先有完整語意圖譜資料：
 
 ```bash
+npm run embeddings:build
+npm run embeddings:validate
+npm run graph-layout:build
+npm run graph-layout:validate
 npm run concepts:build
 npm run concepts:validate
 npm run docs:build
