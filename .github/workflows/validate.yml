@@ -45,6 +45,12 @@ jobs:
       - name: Validate embedding index
         run: npm run embeddings:validate
 
+      - name: Build graph layout
+        run: npm run graph-layout:build
+
+      - name: Validate graph layout
+        run: npm run graph-layout:validate
+
       - name: Build relation index
         run: npm run relations:build
 
