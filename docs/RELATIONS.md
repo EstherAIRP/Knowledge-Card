@@ -211,6 +211,13 @@ npm run embeddings:build
 npm run embeddings:validate
 ```
 
+語意版面：
+
+```bash
+npm run graph-layout:build
+npm run graph-layout:validate
+```
+
 Card↔Card 關聯：
 
 ```bash
