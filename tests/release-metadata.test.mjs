@@ -21,6 +21,7 @@ function writeJson(filePath, value) {
 
 function writeIndexes(root) {
   writeJson(path.join(root, 'data/embeddings.json'), { schema_version: 1, embeddings: [] });
+  writeJson(path.join(root, 'data/graph-layout.json'), { schema_version: 1, nodes: {} });
   writeJson(path.join(root, 'data/relations.json'), { schema_version: 1, edges: [] });
   writeJson(path.join(root, 'data/concepts.json'), { schema_version: 1, concepts: [] });
 }
@@ -47,7 +48,7 @@ test('release manifest can verify the exact index bytes stored in a Git commit',
 
   const result = verifyIndexManifestAtGitCommit(manifest, { cwd: root, commit });
   assert.equal(result.commit, commit);
-  assert.equal(result.indexes, 3);
+  assert.equal(result.indexes, 4);
 
   writeJson(path.join(root, 'data/relations.json'), {
     schema_version: 1,
@@ -100,6 +101,7 @@ test('release metadata binds release id, S, P, build mode, and frozen index hash
   assert.equal(meta.generated_at, '2026-09-11T00:00:00.000Z');
   assert.deepEqual(Object.keys(meta.indexes), [
     'data/embeddings.json',
+    'data/graph-layout.json',
     'data/relations.json',
     'data/concepts.json'
   ]);
