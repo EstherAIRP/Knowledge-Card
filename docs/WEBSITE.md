@@ -15,6 +15,7 @@ content/knowledge/**/*.md
 ```text
 data/relations.json
 data/concepts.json
+data/graph-layout.json
 ```
 
 `docs/` 目錄是 VitePress 呈現層。
@@ -34,7 +35,10 @@ content/knowledge/**/*.md
         │      ├─ docs/concepts/[id].paths.js
         │      └─ docs/graph.data.js
         │
-        └─ data/relations.json
+        ├─ data/relations.json
+        │      └─ docs/graph.data.js
+        │
+        └─ data/graph-layout.json
                └─ docs/graph.data.js
 
                          ↓
@@ -111,6 +115,8 @@ Concept 頁面提供：
 ## 知識圖譜
 
 `docs/graph.md` 掛載 `KnowledgeGraph.vue`，資料由 `docs/graph.data.js` 提供。
+
+圖譜資料載入器會額外讀取 `data/graph-layout.json`，將每張 Knowledge Card 的 metric MDS 二維座標投影到節點資料，並依 Card↔Concept strength 計算 Concept 的加權重心。這一層目前只提供幾何資料；`KnowledgeGraph.vue` 仍維持既有同心圓視覺版面，待後續 UI 階段才會正式採用 semantic layout。
 
 圖譜資料載入器整合三種邊：
 

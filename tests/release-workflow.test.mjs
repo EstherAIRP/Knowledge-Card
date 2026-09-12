@@ -16,6 +16,7 @@ test('release workflow ignores pure generated-index pushes to prevent recursive 
 
   assert.deepEqual(ignored, [
     'data/embeddings.json',
+    'data/graph-layout.json',
     'data/relations.json',
     'data/concepts.json'
   ]);
@@ -44,7 +45,7 @@ test('release workflow freezes indexes, verifies persisted Git bytes, and writes
 
   const persist = steps.find((step) => step.name === 'Persist generated indexes');
   assert.equal(persist.id, 'persist_indexes');
-  assert.match(persist.run, /git add data\/embeddings\.json data\/relations\.json data\/concepts\.json/);
+  assert.match(persist.run, /git add data\/embeddings\.json data\/graph-layout\.json data\/relations\.json data\/concepts\.json/);
   assert.match(persist.run, /git push origin HEAD:main/);
 
   const verify = steps.find((step) => step.name === 'Verify persisted release indexes');

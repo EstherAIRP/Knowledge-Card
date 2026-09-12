@@ -193,7 +193,7 @@ Phase 3 從三個視角呈現同一份圖譜：
 ```text
 Knowledge Cards + repository config + generator code
                     ↓
- embeddings.json / relations.json / concepts.json
+ embeddings.json / graph-layout.json / relations.json / concepts.json
 ```
 
 不要手動編輯產生的 JSON。Concept 規則變更應修改 `config/concept-config.yaml`；人工 Card 關聯決策應修改 `config/relation-overrides.yaml`。
@@ -208,6 +208,14 @@ Concept ID 是 `/concepts/<id>` 下的公開路由識別字，除非進行明確
 npm run embeddings:build
 npm run embeddings:validate
 ```
+
+二維語意版面：
+
+```bash
+npm run graph-layout:build
+```
+
+`graph-layout.json` 以完整 Card embedding cosine distance 矩陣為輸入，使用 metric MDS（SMACOF）產生確定性二維 Card 座標；Concept 座標由網站投影層依 Card↔Concept strength 計算加權重心。現階段 UI 尚未直接使用這組座標。
 
 Card↔Card 關聯：
 
@@ -237,13 +245,14 @@ npm run relations:rebuild
 
 ```text
 增量 embeddings
+→ semantic graph layout
 → 語意 relations
 → Concept Graph
 → 驗證 + 測試
 → 有變更時提交產生索引
 ```
 
-每週的 **Full Knowledge Graph Rebuild** 會重新產生全部向量嵌入、關聯候選／分類狀態與 Concept graph，清除過期產生狀態。
+每週的 **Full Knowledge Graph Rebuild** 會重新產生全部向量嵌入、semantic graph layout、關聯候選／分類狀態與 Concept graph，清除過期產生狀態。
 
 PR CI 與 Pages 部署都會在靜態網站產生前建立並驗證 Concepts。Concept 擷取本身不需要外部 API key。
 

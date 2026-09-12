@@ -224,6 +224,6 @@ Phase 3 建立的是可導航、可驗證、以 Concept 為中心的圖譜，但
 - LLM 輔助的 Concept 提案佇列，而不是直接寫入正式 ontology；
 - 人工核准／拒絕 Concept 候選；
 - `is_a`／`part_of`／`enables` 等類型化 Concept 關聯；
-- 依語意向量嵌入或 community detection 排布圖譜；
+- 將既有 semantic graph layout 座標套用到 `KnowledgeGraph.vue`，並評估 community detection；
 - Concept merge／split 遷移工具；
 - 圖譜品質指標與過期 Concept 審查。

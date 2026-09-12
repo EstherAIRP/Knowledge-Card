@@ -17,6 +17,14 @@
 - 人工修正不得寫入此檔案。
 - 提交產生的 embeddings 前，執行 `npm run embeddings:validate`。
 
+## `graph-layout.json`
+
+- 由 `npm run graph-layout:build` 根據目前 `embeddings.json` 產生。
+- 使用 Card embedding 的 cosine distance 建立完整距離矩陣，再以確定性的 metric MDS（SMACOF）投影為二維座標。
+- 只儲存 Card 座標；Concept 座標由網站投影層依 Card↔Concept strength 計算加權重心。
+- 必須記錄 embedding provider、model 與 `embedding_input_hash`，避免網站誤用舊版座標。
+- 人工不得直接修改節點座標；若要改變演算法或視覺語意，應修改 generator／設定後重新產生。
+
 ## `relations.json`
 
 - 由 `npm run relations:build` 或 `npm run relations:build:semantic` 產生。
@@ -38,4 +46,4 @@
 
 ## 產生資料提交
 
-自動化可以提交 `data/embeddings.json`、`data/relations.json` 與 `data/concepts.json`。產生資料 commit 不得因副作用修改 `content/knowledge/` 或儲存庫／使用者擁有的設定。
+自動化可以提交 `data/embeddings.json`、`data/graph-layout.json`、`data/relations.json` 與 `data/concepts.json`。產生資料 commit 不得因副作用修改 `content/knowledge/` 或儲存庫／使用者擁有的設定。
