@@ -7,7 +7,7 @@ import {
   cosineSimilarity,
   normalizeCoordinates
 } from '../scripts/lib/graph-layout.mjs';
-import { projectGraph } from '../scripts/lib/graph-projection.mjs';
+import { buildSemanticNeighbors, projectGraph } from '../scripts/lib/graph-projection.mjs';
 
 test('cosine similarity and distance matrix preserve semantic closeness', () => {
   const entries = [
@@ -72,4 +72,37 @@ test('graph projection uses card layout and weighted concept centroid', () => {
 
   assert.deepEqual({ x: cardA.x, y: cardA.y }, { x: 0, y: 0 });
   assert.deepEqual({ x: concept.x, y: concept.y }, { x: 0.75, y: 0.75 });
+});
+
+
+test('semantic neighbors use raw cosine similarity and preserve relation metadata', () => {
+  const cards = [
+    { data: { id: 'a', title: 'A', summary: 'A' } },
+    { data: { id: 'b', title: 'B', summary: 'B' } },
+    { data: { id: 'c', title: 'C', summary: 'C' } }
+  ];
+  const embeddings = {
+    provider: 'test',
+    model: 'test-model',
+    entries: [
+      { card_id: 'a', embedding: [1, 0] },
+      { card_id: 'b', embedding: [0.99, 0.1] },
+      { card_id: 'c', embedding: [0, 1] }
+    ]
+  };
+  const cardRelations = [
+    { source: 'a', target: 'b', type: 'similar_to', direction: 'undirected', score: 0.8, confidence: 0.9 }
+  ];
+
+  const semantic = buildSemanticNeighbors({ cards, embeddings, cardRelations, limit: 2 });
+  const nearest = semantic.neighborsByCard.a[0];
+
+  assert.equal(semantic.metric, 'cosine-distance');
+  assert.equal(semantic.embeddingModel, 'test-model');
+  assert.equal(nearest.cardId, 'b');
+  assert.ok(nearest.similarity > 0.99);
+  assert.equal(nearest.distance, Number((1 - nearest.similarity).toFixed(6)));
+  assert.equal(nearest.relation.type, 'similar_to');
+  assert.equal(nearest.relation.direction, 'undirected');
+  assert.equal('embedding' in nearest, false);
 });
