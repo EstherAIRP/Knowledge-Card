@@ -92,4 +92,11 @@ test('graph data loader unifies Card, Concept, and relation edge families', () =
   assert.ok(graph.edges.some((edge) => edge.kind === 'card-card'));
   assert.equal(graph.stats.cards, knowledgeData.load().length);
   assert.ok(graph.stats.concepts > 0);
+  assert.equal(graph.layout.method, 'metric_mds_smacof');
+  assert.equal(graph.layout.metric, 'cosine_distance');
+  assert.ok(Number.isFinite(graph.layout.stress));
+  assert.ok(
+    graph.nodes.every((node) => Number.isFinite(node.x) && Number.isFinite(node.y)),
+    'expected every graph node to expose finite semantic-layout coordinates'
+  );
 });
