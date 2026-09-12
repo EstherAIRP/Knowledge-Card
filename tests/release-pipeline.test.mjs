@@ -25,6 +25,7 @@ function writeJson(filePath, value) {
 
 function writeIndexes(root) {
   writeJson(path.join(root, 'data/embeddings.json'), { schema_version: 1, embeddings: [] });
+  writeJson(path.join(root, 'data/graph-layout.json'), { schema_version: 1, nodes: {} });
   writeJson(path.join(root, 'data/relations.json'), { schema_version: 1, edges: [] });
   writeJson(path.join(root, 'data/concepts.json'), { schema_version: 1, concepts: [] });
 }
@@ -51,7 +52,7 @@ function commitAll(root, message) {
   return git(root, ['rev-parse', 'HEAD']);
 }
 
-test('release manifest records and verifies the three fixed indexes', () => {
+test('release manifest records and verifies the four fixed indexes', () => {
   const root = makeTempDir('knowledge-card-release-manifest-');
   writeIndexes(root);
 
@@ -60,6 +61,7 @@ test('release manifest records and verifies the three fixed indexes', () => {
   assert.equal(manifest.schema_version, 1);
   assert.deepEqual(Object.keys(manifest.indexes), [
     'data/embeddings.json',
+    'data/graph-layout.json',
     'data/relations.json',
     'data/concepts.json'
   ]);
