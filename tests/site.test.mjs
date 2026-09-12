@@ -92,4 +92,12 @@ test('graph data loader unifies Card, Concept, and relation edge families', () =
   assert.ok(graph.edges.some((edge) => edge.kind === 'card-card'));
   assert.equal(graph.stats.cards, knowledgeData.load().length);
   assert.ok(graph.stats.concepts > 0);
+  assert.equal(graph.semantic.metric, 'cosine-distance');
+  assert.equal(typeof graph.semantic.embeddingModel, 'string');
+  const personalModelNeighbors = graph.semantic.neighborsByCard['github-intuition-lab-personal-model'];
+  assert.ok(Array.isArray(personalModelNeighbors));
+  assert.ok(personalModelNeighbors.length > 0);
+  assert.equal(typeof personalModelNeighbors[0].similarity, 'number');
+  assert.equal(typeof personalModelNeighbors[0].distance, 'number');
+  assert.equal('embedding' in personalModelNeighbors[0], false);
 });

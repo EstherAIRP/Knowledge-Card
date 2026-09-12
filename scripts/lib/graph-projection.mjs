@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import { cosineSimilarity } from './graph-layout.mjs';
 
 function requireArray(value, label) {
   if (!Array.isArray(value)) {
@@ -68,6 +69,84 @@ function assertUniqueIds(items, getId, label) {
   }
 }
 
+function relationPairKey(left, right) {
+  return [left, right].sort((a, b) => a.localeCompare(b)).join('::');
+}
+
+function roundedMetric(value) {
+  return Number(value.toFixed(6));
+}
+
+export function buildSemanticNeighbors({ cards, embeddings, cardRelations, limit = 6 }) {
+  requireArray(cards, 'cards');
+  requireObject(embeddings, 'embeddings index');
+  requireArray(embeddings.entries, 'embeddings.entries');
+  requireArray(cardRelations, 'card relations');
+
+  const cardById = new Map(cards.map((card) => [card.data.id, card]));
+  const embeddingById = new Map();
+  for (const entry of embeddings.entries) {
+    const cardId = requireString(entry?.card_id, 'embeddings.entries[].card_id');
+    if (!cardById.has(cardId)) continue;
+    if (!Array.isArray(entry.embedding) || entry.embedding.length === 0) {
+      throw new Error(`Embedding is missing for graph card: ${cardId}`);
+    }
+    embeddingById.set(cardId, entry.embedding);
+  }
+
+  for (const cardId of cardById.keys()) {
+    if (!embeddingById.has(cardId)) {
+      throw new Error(`Embedding index is missing graph card: ${cardId}`);
+    }
+  }
+
+  const relationByPair = new Map(cardRelations.map((edge) => [
+    relationPairKey(edge.source, edge.target),
+    edge
+  ]));
+  const safeLimit = Math.max(1, Number(limit) || 6);
+  const neighborsByCard = {};
+
+  for (const [cardId, card] of cardById) {
+    const sourceEmbedding = embeddingById.get(cardId);
+    const neighbors = [];
+    for (const [targetId, targetCard] of cardById) {
+      if (targetId === cardId) continue;
+      const similarity = cosineSimilarity(sourceEmbedding, embeddingById.get(targetId));
+      const relation = relationByPair.get(relationPairKey(cardId, targetId));
+      neighbors.push({
+        cardId: targetId,
+        nodeId: `card:${targetId}`,
+        label: targetCard.data.title,
+        route: `/knowledge/${targetId}`,
+        similarity: roundedMetric(similarity),
+        distance: roundedMetric(Math.max(0, Math.min(2, 1 - similarity))),
+        relation: relation ? {
+          type: relation.type,
+          direction: relation.direction ?? 'undirected',
+          source: relation.source,
+          target: relation.target,
+          score: Number.isFinite(Number(relation.score)) ? Number(relation.score) : null,
+          confidence: Number.isFinite(Number(relation.confidence)) ? Number(relation.confidence) : null
+        } : null
+      });
+    }
+
+    neighbors.sort((left, right) =>
+      right.similarity - left.similarity || left.cardId.localeCompare(right.cardId)
+    );
+    neighborsByCard[cardId] = neighbors.slice(0, safeLimit);
+  }
+
+  return {
+    metric: 'cosine-distance',
+    embeddingProvider: embeddings.provider ?? null,
+    embeddingModel: embeddings.model ?? null,
+    neighborLimit: safeLimit,
+    neighborsByCard
+  };
+}
+
 function conceptCentroid(conceptId, cardConcepts, cardPositions) {
   let xSum = 0;
   let ySum = 0;
@@ -89,7 +168,7 @@ function conceptCentroid(conceptId, cardConcepts, cardPositions) {
     : { x: xSum / weightSum, y: ySum / weightSum };
 }
 
-export function projectGraph({ cards, concepts, relations, layout = null }) {
+export function projectGraph({ cards, concepts, relations, embeddings = null, layout = null }) {
   requireArray(cards, 'cards');
   requireObject(concepts, 'concepts index');
   requireObject(relations, 'relations index');
@@ -166,6 +245,16 @@ export function projectGraph({ cards, concepts, relations, layout = null }) {
     }
   }
 
+  const semantic = embeddings
+    ? buildSemanticNeighbors({ cards, embeddings, cardRelations })
+    : {
+        metric: 'cosine-distance',
+        embeddingProvider: null,
+        embeddingModel: null,
+        neighborLimit: 0,
+        neighborsByCard: {}
+      };
+
   const nodes = [
     ...cards.map((card) => ({
       id: `card:${card.data.id}`,
@@ -219,6 +308,7 @@ export function projectGraph({ cards, concepts, relations, layout = null }) {
 
   return {
     generatedAt: concepts.generated_at ?? null,
+    semantic,
     layout: {
       generatedAt: layout?.generated_at ?? null,
       method: layout?.method ?? null,
