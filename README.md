@@ -39,7 +39,7 @@ LocalBackend → 必要時切換 RemoteBackend
 驗證 + commit/push
    ↓
 GitHub Actions
-   ├─ 單一 Release 產生 embeddings / relations / concepts
+   ├─ 單一 Release 產生 embeddings / graph-layout / relations / concepts
    ├─ 驗證 Knowledge Graph 與網站
    └─ VitePress 建置 / Pages 部署
 ```
@@ -55,6 +55,7 @@ GitHub Actions
 - AI 擁有狀態與使用者明確覆寫狀態分離。
 - 已接受 Threads 來源快照與變更偵測。
 - 使用本機向量嵌入與可選的關聯分類，建立 Card↔Card 語意關聯。
+- 由向量嵌入計算 cosine distance，使用 MDS 產生可重建的 2D 語意 layout。
 - 從 Knowledge Card 集合產生概念圖譜。
 - 透過 VitePress 提供可搜尋的 Knowledge Radar、卡片、圖譜與概念頁面。
 - CI/CD 驗證、產生索引維護與 GitHub Pages 部署。
@@ -87,6 +88,7 @@ Knowledge-Card/
 ├── data/
 │   ├── AGENTS.md
 │   ├── embeddings.json
+│   ├── graph-layout.json
 │   ├── relations.json
 │   └── concepts.json
 ├── docs/
@@ -188,6 +190,8 @@ npm run docs:check
 ```bash
 npm run embeddings:build
 npm run embeddings:validate
+npm run graph-layout:build
+npm run graph-layout:validate
 npm run relations:build
 npm run relations:validate
 npm run concepts:build
