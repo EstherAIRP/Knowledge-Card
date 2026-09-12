@@ -17,6 +17,16 @@
 - 人工修正不得寫入此檔案。
 - 提交產生的 embeddings 前，執行 `npm run embeddings:validate`。
 
+## `graph-layout.json`
+
+- 由 `npm run graph-layout:build` 根據目前 `data/embeddings.json` 產生。
+- 使用 Card embedding 的 cosine distance 建立完整距離矩陣，再以 classical MDS 投影成穩定的 2D 座標。
+- 儲存 layout 方法、距離 metric、embedding provider/model/input hash、Card 座標與 stress 品質指標。
+- 座標是高維語意距離的 2D 近似，不得解讀為所有 Card pair 的原始 cosine distance 精確值。
+- Concept 座標不儲存在此檔案；網站 graph projection 依 Card↔Concept strength 由相關 Card 座標計算加權重心。
+- 人工修正不得直接寫入此檔案；若未來需要人工 pin position，應另外定義 repository-owned/user-owned override 契約。
+- 實質 embedding input 未變時，產生器不得只因 timestamp 改變而重寫檔案。
+
 ## `relations.json`
 
 - 由 `npm run relations:build` 或 `npm run relations:build:semantic` 產生。
@@ -38,4 +48,4 @@
 
 ## 產生資料提交
 
-自動化可以提交 `data/embeddings.json`、`data/relations.json` 與 `data/concepts.json`。產生資料 commit 不得因副作用修改 `content/knowledge/` 或儲存庫／使用者擁有的設定。
+自動化可以提交 `data/embeddings.json`、`data/graph-layout.json`、`data/relations.json` 與 `data/concepts.json`。產生資料 commit 不得因副作用修改 `content/knowledge/` 或儲存庫／使用者擁有的設定。
