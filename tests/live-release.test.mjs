@@ -27,6 +27,7 @@ function initFixture() {
   git(root, ['config', 'user.email', 'release-test@example.invalid']);
 
   writeJson(path.join(root, 'data/embeddings.json'), { schema_version: 1, embeddings: [] });
+  writeJson(path.join(root, 'data/graph-layout.json'), { schema_version: 1, nodes: {} });
   writeJson(path.join(root, 'data/relations.json'), { schema_version: 1, edges: [] });
   writeJson(path.join(root, 'data/concepts.json'), { schema_version: 1, concepts: [] });
 
