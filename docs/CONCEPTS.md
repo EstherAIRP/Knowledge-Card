@@ -161,17 +161,9 @@ Concept ID 因此屬於穩定公開識別字。一般規則調整不應隨意重
 
 `/graph` 使用純 Vue + SVG，不引入 D3／Cytoscape 執行階段依賴。
 
-預設版面：
+預設版面由 `data/graph-layout.json` 提供 Knowledge Card 的 classical MDS 2D 座標；Concept 依 Card↔Concept strength 位於相關 Card 的加權重心。MDS 座標是由 cosine distance 最佳化出的 2D 近似，不宣稱畫面距離就是原始高維距離。
 
-```text
-outer ring  = Knowledge Cards
-inner ring  = Concepts
-center      = Knowledge Radar
-```
-
-預設顯示 Card↔Concept 與 Concept↔Concept；Card↔Card 語意關聯可以切換顯示。UI 支援文字搜尋與節點類型篩選，節點可直接連到 Knowledge Card 或 Concept 詳細頁。
-
-目前版面是確定性的視覺化，不宣稱圖上的幾何距離等同向量嵌入距離。
+預設顯示 Card↔Concept 與 Concept↔Concept；Card↔Card 語意關聯可以切換顯示。UI 支援文字搜尋與節點類型篩選。選取 Card 後會顯示原始 embedding 直接計算的最近語意鄰居、similarity／distance，以及既有 relation；節點可直接連到 Knowledge Card 或 Concept 詳細頁。
 
 ## 指令
 
@@ -188,10 +180,11 @@ npm run relations:rebuild
 
 ## 自動化
 
-`Update Knowledge Graph Indexes` 會在 Card、relation config、concept config 或相關 generator 變動時執行：
+`main` 的單一 Release Pipeline 會在同一批次重建並驗證語意與 Concept 索引：
 
 ```text
 embedding index
+→ graph layout
 → semantic relation index
 → concept graph index
 → validate relations/concepts
