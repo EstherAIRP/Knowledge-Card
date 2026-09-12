@@ -180,19 +180,19 @@ npm run relations:rebuild
 
 ## 自動化
 
-`main` 的單一 Release Pipeline 會在同一批次重建並驗證語意與 Concept 索引：
+`main` 的單一 Release Pipeline 會在同一批次重建並驗證語意 layout、關聯與 Concept 索引：
 
 ```text
 embedding index
 → graph layout
 → semantic relation index
 → concept graph index
-→ validate relations/concepts
+→ validate layout/relations/concepts
 → unit tests
 → commit generated indexes
 ```
 
-每週 `Full Knowledge Graph Rebuild` 會完整重建 embeddings、relations 與 concepts，以移除過期產生狀態。
+每週排程的 `Deploy Knowledge Radar` 會以 full rebuild 模式完整重建 embeddings、graph layout、relations 與 concepts，以移除過期產生狀態。
 
 ## 驗證不變量
 
