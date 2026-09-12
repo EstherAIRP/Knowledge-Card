@@ -339,10 +339,20 @@ function relationClass(type) {
 }
 
 function edgeClass(edge) {
+  const sourceNode = nodeMap.value.get(edge.source);
+  const targetNode = nodeMap.value.get(edge.target);
+  const filterDimmed =
+    filterActive.value &&
+    filters.displayMode === 'dim' &&
+    sourceNode &&
+    targetNode &&
+    (!nodeMatchesFilter(sourceNode) || !nodeMatchesFilter(targetNode));
+
   return [
     'graph-edge',
     `graph-edge--${edge.kind}`,
-    edge.kind === 'card-card' ? `graph-edge--relation-${relationClass(edge.type)}` : ''
+    edge.kind === 'card-card' ? `graph-edge--relation-${relationClass(edge.type)}` : '',
+    filterDimmed ? 'graph-edge--filter-dimmed' : ''
   ].filter(Boolean).join(' ');
 }
 
@@ -1085,6 +1095,7 @@ onBeforeUnmount(() => {
 .graph-edge--card-concept { stroke: var(--vp-c-brand-2); opacity: .34; }
 .graph-edge--concept-concept { stroke: var(--vp-c-text-2); opacity: .13; stroke-dasharray: 5 7; }
 .graph-edge--card-card { opacity: .62; }
+.graph-edge--filter-dimmed { opacity: .025 !important; }
 .graph-edge--relation-similar-to { stroke: #2563eb; }
 .graph-edge--relation-alternative-to { stroke: #d97706; stroke-dasharray: 10 4; }
 .graph-edge--relation-complements { stroke: #059669; stroke-dasharray: 6 3; }
