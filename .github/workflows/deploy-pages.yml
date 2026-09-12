@@ -6,6 +6,7 @@ on:
       - main
     paths-ignore:
       - data/embeddings.json
+      - data/graph-layout.json
       - data/relations.json
       - data/concepts.json
   schedule:
@@ -98,6 +99,7 @@ jobs:
           else
             echo "Running incremental semantic knowledge graph build."
             npm run embeddings:build
+            npm run graph-layout:build
             npm run relations:build:semantic
             npm run concepts:build
           fi
@@ -107,6 +109,9 @@ jobs:
 
       - name: Validate embedding index
         run: npm run embeddings:validate
+
+      - name: Validate graph layout
+        run: npm run graph-layout:validate
 
       - name: Validate relation index
         run: npm run relations:validate
@@ -150,7 +155,7 @@ jobs:
         shell: bash
         run: |
           source_sha="${{ steps.release_identity.outputs.source_sha }}"
-          git add data/embeddings.json data/relations.json data/concepts.json
+          git add data/embeddings.json data/graph-layout.json data/relations.json data/concepts.json
 
           if git diff --cached --quiet; then
             echo "Knowledge graph indexes are already current."
