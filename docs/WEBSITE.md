@@ -13,6 +13,8 @@ content/knowledge/**/*.md
 產生的圖譜索引仍是可重建的呈現／查詢資料：
 
 ```text
+data/embeddings.json
+data/graph-layout.json
 data/relations.json
 data/concepts.json
 ```
@@ -140,11 +142,19 @@ Knowledge Card embedding
 - **自動 Fit**：依目前語意節點實際 bounding box 使用單一等比例縮放，置中並保留 padding，不以不同 x/y 比例扭曲 MDS 幾何；
 - **Pan / Zoom**：桌機支援拖曳、滾輪縮放、雙擊 Fit；手機支援單指拖曳、雙指縮放，另提供 +/-/Fit 控制；
 - **全域地圖 / 聚焦模式**：聚焦模式只保留選取 Card、Top 語意鄰居與直接 Concept；手機預設使用聚焦模式；
+- **多條件篩選**：Category、Action、Tag、Source Type、GitHub Resource Kind、最低 Relevance 與 Relation Type；同一條件群組採 OR，不同群組之間採 AND；
+- **語意鄰域篩選**：選取 Card 後可使用 Top N 或原始 cosine distance ≤ X，距離條件使用不含 embedding vector 的完整 pairwise distance index；
+- **篩選顯示策略**：可選擇淡化不符合節點或完全隱藏，並可使用 Fit Results 只調整鏡頭到符合條件的節點；篩選本身不重新執行 MDS；
+- **顏色視覺編碼**：Knowledge Card 可依 Category、Action 或 Overall Relevance 上色；多值欄位使用第一個有效值作為主色，但篩選仍匹配所有有效值；
+- **Relation 視覺編碼**：Card↔Card 關聯同時使用線色與線型區分類型，避免只靠顏色辨識；
+- **響應式 Filter UX**：桌機使用可收合側欄，手機使用 bottom drawer，避免在工具列堆疊大量控制項；
 - 選取 Card 後顯示原始 embedding 直接計算的 Top 語意鄰居、cosine similarity／distance 與既有 relation；
 - 語意 layout 的 MDS、stress、距離 metric 與 embedding model 收在「語意地圖」資訊面板，不佔主要視覺層級；
 - 從圖譜節點直接導覽到 Card／Concept 詳細頁。
 
-圖上的節點位置先由 `graph-layout.json` 投影，再由 viewport transform 執行 Pan / Zoom；viewport transform 只影響觀看方式，不修改或重新計算語意座標。視覺化以 Vue + SVG 實作，不新增 D3／Cytoscape 執行階段依賴。
+圖上的節點位置先由 `graph-layout.json` 投影，再由 viewport transform 執行 Pan / Zoom。篩選、顏色切換、Dim／Hide 與 Fit Results 都只改變呈現狀態或鏡頭，不修改 `graph-layout.json`、不重新計算 MDS，因此節點空間位置在不同分析視角間保持穩定。
+
+Graph projection 會把有效的 Category、Tag、Action、Source Type、Resource Kind 與 Relevance 一併投影到 Card node；另外由原始 embedding 在建置時產生不含向量的 compact pairwise distance index，提供瀏覽器端的語意距離篩選。視覺化以 Vue + SVG 實作，不新增 D3／Cytoscape 執行階段依賴。
 
 ## 搜尋
 
@@ -177,6 +187,7 @@ docs/.vitepress/theme/components/
 ├── KnowledgeRelations.vue
 ├── KnowledgeConcepts.vue
 ├── ConceptPage.vue
+├── GraphFilterPanel.vue
 └── KnowledgeGraph.vue
 ```
 
