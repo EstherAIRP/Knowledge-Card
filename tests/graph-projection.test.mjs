@@ -9,6 +9,71 @@ function makeTempDir() {
   return fs.mkdtempSync(path.join(os.tmpdir(), 'knowledge-card-graph-'));
 }
 
+function fixtureLayout() {
+  return {
+    schema_version: 1,
+    generated_at: '2026-09-12T00:00:00.000Z',
+    method: 'metric_mds_smacof',
+    metric: 'cosine_distance',
+    dimensions: 2,
+    embedding_provider: 'fixture',
+    embedding_model: 'fixture-model',
+    embedding_input_hash: 'fixture-hash',
+    card_count: 2,
+    quality: { stress: 0.1, iterations: 10 },
+    nodes: {
+      a: { x: -1, y: 0 },
+      b: { x: 1, y: 0 }
+    }
+  };
+}
+
+function fixtureGraphInputs() {
+  return {
+    cards: [
+      { data: { id: 'a', title: 'A', summary: 'Card A' } },
+      { data: { id: 'b', title: 'B', summary: 'Card B' } }
+    ],
+    concepts: {
+      generated_at: '2026-09-11T00:00:00.000Z',
+      concepts: [
+        {
+          id: 'agent-memory',
+          label: 'Agent Memory',
+          type: 'workflow',
+          description: 'Memory',
+          card_count: 2
+        }
+      ],
+      card_concepts: [
+        { card_id: 'a', concept_id: 'agent-memory', strength: 0.9, evidence: ['tag'] },
+        { card_id: 'b', concept_id: 'agent-memory', strength: 0.8, evidence: ['tag'] }
+      ],
+      concept_relations: [
+        {
+          source: 'agent-memory',
+          target: 'agent-memory',
+          type: 'co_occurs',
+          weight: 1,
+          support: 2
+        }
+      ]
+    },
+    relations: {
+      edges: [
+        {
+          source: 'a',
+          target: 'b',
+          type: 'depends_on',
+          score: 0.75,
+          direction: 'target_to_source'
+        }
+      ]
+    },
+    layout: fixtureLayout()
+  };
+}
+
 test('readRequiredJson fails closed for missing, empty, and invalid graph inputs', () => {
   const root = makeTempDir();
   const filePath = path.join(root, 'graph.json');
@@ -31,51 +96,11 @@ test('readRequiredJson fails closed for missing, empty, and invalid graph inputs
   );
 });
 
-test('projectGraph projects all graph families and preserves card relation direction', () => {
-  const cards = [
-    { data: { id: 'a', title: 'A', summary: 'Card A' } },
-    { data: { id: 'b', title: 'B', summary: 'Card B' } }
-  ];
-  const concepts = {
-    generated_at: '2026-09-11T00:00:00.000Z',
-    concepts: [
-      {
-        id: 'agent-memory',
-        label: 'Agent Memory',
-        type: 'workflow',
-        description: 'Memory',
-        card_count: 2
-      }
-    ],
-    card_concepts: [
-      { card_id: 'a', concept_id: 'agent-memory', strength: 0.9, evidence: ['tag'] },
-      { card_id: 'b', concept_id: 'agent-memory', strength: 0.8, evidence: ['tag'] }
-    ],
-    concept_relations: [
-      {
-        source: 'agent-memory',
-        target: 'agent-memory',
-        type: 'co_occurs',
-        weight: 1,
-        support: 2
-      }
-    ]
-  };
-  const relations = {
-    edges: [
-      {
-        source: 'a',
-        target: 'b',
-        type: 'depends_on',
-        score: 0.75,
-        direction: 'target_to_source'
-      }
-    ]
-  };
+test('projectGraph projects semantic Card coordinates and weighted Concept centroids', () => {
+  const inputs = fixtureGraphInputs();
+  const graph = projectGraph(inputs);
 
-  const graph = projectGraph({ cards, concepts, relations });
-
-  assert.equal(graph.generatedAt, concepts.generated_at);
+  assert.equal(graph.generatedAt, inputs.concepts.generated_at);
   assert.deepEqual(graph.stats, {
     cards: 2,
     concepts: 1,
@@ -83,24 +108,24 @@ test('projectGraph projects all graph families and preserves card relation direc
     conceptRelations: 1,
     cardRelations: 1
   });
-  assert.deepEqual(
-    graph.nodes.map((node) => node.id),
-    ['card:a', 'card:b', 'concept:agent-memory']
-  );
-  assert.equal(graph.nodes.find((node) => node.id === 'card:a').degree, 1);
+  assert.equal(graph.layout.method, 'metric_mds_smacof');
+  assert.equal(graph.layout.embeddingInputHash, 'fixture-hash');
+
+  const cardA = graph.nodes.find((node) => node.id === 'card:a');
+  const cardB = graph.nodes.find((node) => node.id === 'card:b');
+  const concept = graph.nodes.find((node) => node.id === 'concept:agent-memory');
+
+  assert.deepEqual({ x: cardA.x, y: cardA.y }, { x: -1, y: 0 });
+  assert.deepEqual({ x: cardB.x, y: cardB.y }, { x: 1, y: 0 });
+  assert.ok(Math.abs(concept.x - (-0.1 / 1.7)) < 1e-12);
+  assert.equal(concept.y, 0);
+  assert.equal(cardA.degree, 1);
+
   assert.ok(
     graph.edges.some(
       (edge) =>
         edge.kind === 'card-concept' &&
         edge.source === 'card:a' &&
-        edge.target === 'concept:agent-memory'
-    )
-  );
-  assert.ok(
-    graph.edges.some(
-      (edge) =>
-        edge.kind === 'concept-concept' &&
-        edge.source === 'concept:agent-memory' &&
         edge.target === 'concept:agent-memory'
     )
   );
@@ -116,26 +141,31 @@ test('projectGraph projects all graph families and preserves card relation direc
 });
 
 test('projectGraph rejects graph edges whose endpoints are missing', () => {
-  const cards = [{ data: { id: 'a', title: 'A', summary: 'Card A' } }];
-  const concepts = {
-    concepts: [{ id: 'c', label: 'C', type: 'tag', description: 'C', card_count: 1 }],
-    card_concepts: [{ card_id: 'missing', concept_id: 'c', strength: 1, evidence: [] }],
-    concept_relations: []
-  };
-  const relations = { edges: [] };
+  const inputs = fixtureGraphInputs();
+  inputs.concepts.card_concepts[0].card_id = 'missing';
 
   assert.throws(
-    () => projectGraph({ cards, concepts, relations }),
+    () => projectGraph(inputs),
     /Card-concept edge references missing card: missing/
   );
 });
 
-test('projectGraph rejects malformed index collections instead of substituting empty arrays', () => {
-  const cards = [{ data: { id: 'a', title: 'A', summary: 'Card A' } }];
-  const concepts = { concepts: [], card_concepts: [], concept_relations: [] };
+test('projectGraph rejects missing or stale layout card coverage', () => {
+  const inputs = fixtureGraphInputs();
+  delete inputs.layout.nodes.b;
 
   assert.throws(
-    () => projectGraph({ cards, concepts, relations: {} }),
+    () => projectGraph(inputs),
+    /Graph layout is missing card: b/
+  );
+});
+
+test('projectGraph rejects malformed index collections instead of substituting empty arrays', () => {
+  const inputs = fixtureGraphInputs();
+  inputs.relations = {};
+
+  assert.throws(
+    () => projectGraph(inputs),
     /relations\.edges must be an array/
   );
 });
