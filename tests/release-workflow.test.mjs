@@ -5,9 +5,14 @@ import path from 'node:path';
 import { parse as parseYaml } from 'yaml';
 
 const workflowPath = path.join(process.cwd(), '.github/workflows/deploy-pages.yml');
+const validateWorkflowPath = path.join(process.cwd(), '.github/workflows/validate.yml');
 
 function loadWorkflow() {
   return parseYaml(fs.readFileSync(workflowPath, 'utf8'));
+}
+
+function loadValidateWorkflow() {
+  return parseYaml(fs.readFileSync(validateWorkflowPath, 'utf8'));
 }
 
 test('release workflow ignores pure generated-index pushes to prevent recursive deployment', () => {
@@ -101,4 +106,20 @@ test('release workflow builds and validates graph layout before freezing release
   assert.ok(validate);
   assert.match(validate.run, /npm run graph-layout:validate/);
   assert.ok(validateIndex >= 0 && validateIndex < freezeIndex);
+});
+
+
+test('PR validation workflow builds and validates graph layout before site build', () => {
+  const workflow = loadValidateWorkflow();
+  const steps = workflow.jobs?.validate?.steps ?? [];
+  const names = steps.map((step) => step.name);
+  const buildIndex = names.indexOf('Build graph layout');
+  const validateIndex = names.indexOf('Validate graph layout');
+  const siteIndex = names.indexOf('Build VitePress site');
+
+  assert.ok(buildIndex >= 0);
+  assert.ok(validateIndex > buildIndex);
+  assert.ok(siteIndex > validateIndex);
+  assert.equal(steps[buildIndex].run, 'npm run graph-layout:build');
+  assert.equal(steps[validateIndex].run, 'npm run graph-layout:validate');
 });
