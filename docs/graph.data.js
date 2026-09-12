@@ -5,16 +5,18 @@ import { projectGraph, readOptionalJson, readRequiredJson } from '../scripts/lib
 const contentRoot = fileURLToPath(new URL('../content/knowledge/', import.meta.url));
 const conceptPath = fileURLToPath(new URL('../data/concepts.json', import.meta.url));
 const relationPath = fileURLToPath(new URL('../data/relations.json', import.meta.url));
+const embeddingPath = fileURLToPath(new URL('../data/embeddings.json', import.meta.url));
 const layoutPath = fileURLToPath(new URL('../data/graph-layout.json', import.meta.url));
 
 export default {
-  watch: ['../content/knowledge/**/*.md', '../data/concepts.json', '../data/relations.json', '../data/graph-layout.json'],
+  watch: ['../content/knowledge/**/*.md', '../data/concepts.json', '../data/relations.json', '../data/embeddings.json', '../data/graph-layout.json'],
   load() {
     const cards = loadCards(contentRoot);
     const concepts = readRequiredJson(conceptPath, { label: 'data/concepts.json' });
     const relations = readRequiredJson(relationPath, { label: 'data/relations.json' });
+    const embeddings = readRequiredJson(embeddingPath, { label: 'data/embeddings.json' });
     const layout = readOptionalJson(layoutPath);
 
-    return projectGraph({ cards, concepts, relations, layout });
+    return projectGraph({ cards, concepts, relations, embeddings, layout });
   }
 };
