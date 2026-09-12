@@ -106,6 +106,11 @@ test('semantic neighbors use raw cosine similarity and preserve relation metadat
   assert.equal(nearest.relation.type, 'similar_to');
   assert.equal(nearest.relation.direction, 'undirected');
   assert.equal('embedding' in nearest, false);
+  assert.equal(semantic.distancesByCard.a.length, 2);
+  assert.deepEqual(
+    Object.keys(semantic.distancesByCard.a[0]).sort(),
+    ['cardId', 'distance', 'similarity']
+  );
 });
 
 
