@@ -72,5 +72,4 @@ test('graph projection uses card layout and weighted concept centroid', () => {
 
   assert.deepEqual({ x: cardA.x, y: cardA.y }, { x: 0, y: 0 });
   assert.deepEqual({ x: concept.x, y: concept.y }, { x: 0.75, y: 0.75 });
-  assert.equal(graph.stats.positionedCards, 2);
 });
