@@ -120,21 +120,24 @@ Concept ↔ Concept    co_occurs_with
 Card ↔ Card          Phase 2 semantic relation
 ```
 
-預設視覺化使用確定性的同心圓版面：
+預設視覺化使用可重建的語意版面：
 
 ```text
-outer ring = Knowledge Cards
-inner ring = Concepts
-center     = Knowledge Radar
+Knowledge Card embedding
+→ cosine distance matrix
+→ classical MDS
+→ graph-layout.json 的 2D 座標
+→ Concept 依 Card↔Concept strength 計算加權重心
 ```
 
-此幾何只用於呈現，不代表畫面距離等同向量嵌入距離。
+畫面上的 2D 距離是高維向量距離的近似，不等於原始 cosine distance；使用者選取 Card 時，介面另外顯示由原始 embedding 直接計算的相似度與距離。
 
 圖譜支援：
 
 - Concept／Card 關鍵字搜尋；
 - 節點類型篩選；
 - 可選的 Card↔Card 語意邊顯示；
+- 選取 Card 後顯示 Top 語意鄰居、原始 cosine similarity／distance 與既有 relation；
 - 從圖譜節點直接導覽到 Card／Concept 詳細頁；
 - 窄螢幕上的響應式水平捲動。
 
