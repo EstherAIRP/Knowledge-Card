@@ -21,6 +21,14 @@ function requireString(value, label) {
   return value;
 }
 
+function requireCoordinate(value, label) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) {
+    throw new Error(`${label} must be a finite number.`);
+  }
+  return number;
+}
+
 export function readRequiredJson(filePath, { label = filePath } = {}) {
   if (!fs.existsSync(filePath)) {
     throw new Error(`Missing required graph input: ${label}`);
@@ -49,7 +57,46 @@ function assertUniqueIds(items, getId, label) {
   }
 }
 
-export function projectGraph({ cards, concepts, relations }) {
+function projectLayout(cards, layout) {
+  requireObject(layout, 'graph layout index');
+  if (layout.schema_version !== 1) {
+    throw new Error(`Unsupported graph layout schema_version: ${layout.schema_version}`);
+  }
+  if (layout.dimensions !== 2) {
+    throw new Error(`graph layout dimensions must equal 2; got ${layout.dimensions}`);
+  }
+
+  const layoutNodes = requireObject(layout.nodes, 'graph layout nodes');
+  if (Number(layout.card_count) !== cards.length) {
+    throw new Error(
+      `graph layout card_count ${layout.card_count} does not match ${cards.length} Knowledge Cards.`
+    );
+  }
+
+  const cardIds = new Set(cards.map((card) => card.data.id));
+  const positions = new Map();
+  for (const card of cards) {
+    const cardId = card.data.id;
+    if (!Object.prototype.hasOwnProperty.call(layoutNodes, cardId)) {
+      throw new Error(`Graph layout is missing card: ${cardId}`);
+    }
+    const point = requireObject(layoutNodes[cardId], `graph layout node ${cardId}`);
+    positions.set(cardId, {
+      x: requireCoordinate(point.x, `graph layout node ${cardId}.x`),
+      y: requireCoordinate(point.y, `graph layout node ${cardId}.y`)
+    });
+  }
+
+  for (const cardId of Object.keys(layoutNodes)) {
+    if (!cardIds.has(cardId)) {
+      throw new Error(`Graph layout references missing card: ${cardId}`);
+    }
+  }
+
+  return positions;
+}
+
+export function projectGraph({ cards, concepts, relations, layout }) {
   requireArray(cards, 'cards');
   requireObject(concepts, 'concepts index');
   requireObject(relations, 'relations index');
@@ -72,7 +119,9 @@ export function projectGraph({ cards, concepts, relations }) {
 
   const cardById = new Map(cards.map((card) => [card.data.id, card]));
   const conceptById = new Map(conceptList.map((concept) => [concept.id, concept]));
+  const cardPositions = projectLayout(cards, layout);
   const cardConceptDegree = new Map();
+  const conceptPositionSums = new Map();
 
   for (const edge of cardConcepts) {
     const cardId = requireString(edge?.card_id, 'card_concepts[].card_id');
@@ -83,7 +132,18 @@ export function projectGraph({ cards, concepts, relations }) {
     if (!conceptById.has(conceptId)) {
       throw new Error(`Card-concept edge references missing concept: ${conceptId}`);
     }
+    const strength = Number(edge?.strength);
+    if (!Number.isFinite(strength) || strength <= 0 || strength > 1) {
+      throw new Error(`Card-concept edge strength must be within (0, 1]: ${cardId} -> ${conceptId}`);
+    }
+
     cardConceptDegree.set(cardId, (cardConceptDegree.get(cardId) ?? 0) + 1);
+    const position = cardPositions.get(cardId);
+    const sum = conceptPositionSums.get(conceptId) ?? { x: 0, y: 0, weight: 0 };
+    sum.x += position.x * strength;
+    sum.y += position.y * strength;
+    sum.weight += strength;
+    conceptPositionSums.set(conceptId, sum);
   }
 
   for (const edge of conceptRelations) {
@@ -109,25 +169,38 @@ export function projectGraph({ cards, concepts, relations }) {
   }
 
   const nodes = [
-    ...cards.map((card) => ({
-      id: `card:${card.data.id}`,
-      entityId: card.data.id,
-      kind: 'card',
-      label: card.data.title,
-      description: card.data.summary,
-      route: `/knowledge/${card.data.id}`,
-      degree: cardConceptDegree.get(card.data.id) ?? 0
-    })),
-    ...conceptList.map((concept) => ({
-      id: `concept:${concept.id}`,
-      entityId: concept.id,
-      kind: 'concept',
-      conceptType: concept.type,
-      label: concept.label,
-      description: concept.description,
-      route: `/concepts/${concept.id}`,
-      degree: concept.card_count
-    }))
+    ...cards.map((card) => {
+      const position = cardPositions.get(card.data.id);
+      return {
+        id: `card:${card.data.id}`,
+        entityId: card.data.id,
+        kind: 'card',
+        label: card.data.title,
+        description: card.data.summary,
+        route: `/knowledge/${card.data.id}`,
+        degree: cardConceptDegree.get(card.data.id) ?? 0,
+        x: position.x,
+        y: position.y
+      };
+    }),
+    ...conceptList.map((concept) => {
+      const sum = conceptPositionSums.get(concept.id);
+      if (!sum || sum.weight <= 0) {
+        throw new Error(`Concept has no positioned supporting cards: ${concept.id}`);
+      }
+      return {
+        id: `concept:${concept.id}`,
+        entityId: concept.id,
+        kind: 'concept',
+        conceptType: concept.type,
+        label: concept.label,
+        description: concept.description,
+        route: `/concepts/${concept.id}`,
+        degree: concept.card_count,
+        x: sum.x / sum.weight,
+        y: sum.y / sum.weight
+      };
+    })
   ];
 
   const edges = [
@@ -159,6 +232,16 @@ export function projectGraph({ cards, concepts, relations }) {
 
   return {
     generatedAt: concepts.generated_at ?? null,
+    layout: {
+      generatedAt: layout.generated_at ?? null,
+      method: layout.method,
+      metric: layout.metric,
+      dimensions: layout.dimensions,
+      stress: layout.quality?.stress ?? null,
+      embeddingProvider: layout.embedding_provider,
+      embeddingModel: layout.embedding_model,
+      embeddingInputHash: layout.embedding_input_hash
+    },
     stats: {
       cards: cards.length,
       concepts: conceptList.length,
