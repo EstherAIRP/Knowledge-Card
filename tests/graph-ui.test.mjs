@@ -56,3 +56,34 @@ test('Knowledge Graph mobile layout no longer forces the old 720px-wide horizont
   assert.doesNotMatch(text, /min-width:\s*720px/);
   assert.match(text, /\.knowledge-graph \{ aspect-ratio: 1 \/ 1; \}/);
 });
+
+
+test('Knowledge Graph exposes metadata filters, color modes, and filter result fitting', () => {
+  const text = source();
+
+  assert.match(text, /GraphFilterPanel/);
+  assert.match(text, /matchingCardIdSet/);
+  assert.match(text, /colorBy/);
+  assert.match(text, /Fit Results|fitFilterResults/);
+  assert.match(text, /displayMode/);
+  assert.match(text, /graph-filter-chips/);
+});
+
+test('Knowledge Graph supports relation and semantic-distance filtering without recomputing layout', () => {
+  const text = source();
+
+  assert.match(text, /filters\.relationTypes/);
+  assert.match(text, /semanticMaxDistance/);
+  assert.match(text, /semanticTopN/);
+  assert.match(text, /graph\.semantic/);
+  assert.doesNotMatch(text, /classicalMds\(/);
+});
+
+test('Knowledge Graph provides a mobile filter drawer and stable color legend', () => {
+  const text = source();
+
+  assert.match(text, /graph-filter-backdrop/);
+  assert.match(text, /mobile/);
+  assert.match(text, /graphColorLegend/);
+  assert.match(text, /graph-relation-legend/);
+});
