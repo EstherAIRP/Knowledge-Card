@@ -21,6 +21,14 @@ function requireString(value, label) {
   return value;
 }
 
+function requireFiniteNumber(value, label) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) {
+    throw new Error(`${label} must be a finite number.`);
+  }
+  return number;
+}
+
 export function readRequiredJson(filePath, { label = filePath } = {}) {
   if (!fs.existsSync(filePath)) {
     throw new Error(`Missing required graph input: ${label}`);
@@ -38,6 +46,17 @@ export function readRequiredJson(filePath, { label = filePath } = {}) {
   }
 }
 
+export function readOptionalJson(filePath) {
+  if (!fs.existsSync(filePath)) return null;
+  const stat = fs.statSync(filePath);
+  if (!stat.isFile() || stat.size === 0) return null;
+  try {
+    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
 function assertUniqueIds(items, getId, label) {
   const seen = new Set();
   for (const item of items) {
@@ -49,7 +68,28 @@ function assertUniqueIds(items, getId, label) {
   }
 }
 
-export function projectGraph({ cards, concepts, relations }) {
+function conceptCentroid(conceptId, cardConcepts, cardPositions) {
+  let xSum = 0;
+  let ySum = 0;
+  let weightSum = 0;
+
+  for (const edge of cardConcepts) {
+    if (edge.concept_id !== conceptId) continue;
+    const position = cardPositions.get(edge.card_id);
+    if (!position) continue;
+    const strength = Number(edge.strength);
+    const weight = Number.isFinite(strength) && strength > 0 ? strength : 1;
+    xSum += position.x * weight;
+    ySum += position.y * weight;
+    weightSum += weight;
+  }
+
+  return weightSum === 0
+    ? { x: null, y: null }
+    : { x: xSum / weightSum, y: ySum / weightSum };
+}
+
+export function projectGraph({ cards, concepts, relations, layout = null }) {
   requireArray(cards, 'cards');
   requireObject(concepts, 'concepts index');
   requireObject(relations, 'relations index');
@@ -73,6 +113,24 @@ export function projectGraph({ cards, concepts, relations }) {
   const cardById = new Map(cards.map((card) => [card.data.id, card]));
   const conceptById = new Map(conceptList.map((concept) => [concept.id, concept]));
   const cardConceptDegree = new Map();
+  const cardPositions = new Map();
+
+  if (layout) {
+    requireObject(layout, 'graph layout index');
+    const layoutNodes = requireObject(layout.nodes, 'layout.nodes');
+    for (const card of cards) {
+      const position = requireObject(layoutNodes[card.data.id], `layout.nodes[${card.data.id}]`);
+      cardPositions.set(card.data.id, {
+        x: requireFiniteNumber(position.x, `layout.nodes[${card.data.id}].x`),
+        y: requireFiniteNumber(position.y, `layout.nodes[${card.data.id}].y`)
+      });
+    }
+    for (const layoutCardId of Object.keys(layoutNodes)) {
+      if (!cardById.has(layoutCardId)) {
+        throw new Error(`Graph layout references missing card: ${layoutCardId}`);
+      }
+    }
+  }
 
   for (const edge of cardConcepts) {
     const cardId = requireString(edge?.card_id, 'card_concepts[].card_id');
@@ -116,7 +174,8 @@ export function projectGraph({ cards, concepts, relations }) {
       label: card.data.title,
       description: card.data.summary,
       route: `/knowledge/${card.data.id}`,
-      degree: cardConceptDegree.get(card.data.id) ?? 0
+      degree: cardConceptDegree.get(card.data.id) ?? 0,
+      ...(cardPositions.get(card.data.id) ?? { x: null, y: null })
     })),
     ...conceptList.map((concept) => ({
       id: `concept:${concept.id}`,
@@ -126,7 +185,8 @@ export function projectGraph({ cards, concepts, relations }) {
       label: concept.label,
       description: concept.description,
       route: `/concepts/${concept.id}`,
-      degree: concept.card_count
+      degree: concept.card_count,
+      ...conceptCentroid(concept.id, cardConcepts, cardPositions)
     }))
   ];
 
@@ -159,6 +219,14 @@ export function projectGraph({ cards, concepts, relations }) {
 
   return {
     generatedAt: concepts.generated_at ?? null,
+    layout: {
+      generatedAt: layout?.generated_at ?? null,
+      method: layout?.method ?? null,
+      metric: layout?.metric ?? null,
+      stress: layout?.quality?.stress ?? null,
+      embeddingModel: layout?.embedding_model ?? null,
+      embeddingInputHash: layout?.embedding_input_hash ?? null
+    },
     stats: {
       cards: cards.length,
       concepts: conceptList.length,
