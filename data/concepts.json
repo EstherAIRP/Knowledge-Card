@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-10T22:05:57.571Z",
-  "input_hash": "08070870e0a36aee307fedbbe16f14a21ff42b21e21cb4375a20b20a869488f5",
+  "generated_at": "2026-09-12T08:17:38.332Z",
+  "input_hash": "0cfda8c0d9ba3c730c0d28e3da7e865db7402f5eb488064dbeb955e89a9486f2",
   "concepts": [
     {
       "id": "category-agent",
@@ -140,6 +140,7 @@
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-appfromapexxx-taiwan-subtitle",
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-danyuchn-iso-24495-skill",
@@ -159,7 +160,7 @@
         "threads-dcrihmdd46t-183b20",
         "threads-dcu8czjelom-f2217d"
       ],
-      "card_count": 20
+      "card_count": 21
     },
     {
       "id": "category-llm",
@@ -189,6 +190,30 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 18
+    },
+    {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-harry0703-moneyprinterturbo",
+        "github-hkuds-lightrag",
+        "github-k-dense-ai-scientific-agent-skills",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-openbmb-voxcpm",
+        "github-rimagination-h3lite",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 13
     },
     {
       "id": "tag-claude-code",
@@ -258,29 +283,6 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 12
-    },
-    {
-      "id": "category-ai-ml",
-      "label": "AI / ML",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI / ML",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-dstack-tee-dstack",
-        "github-harry0703-moneyprinterturbo",
-        "github-hkuds-lightrag",
-        "github-k-dense-ai-scientific-agent-skills",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-openbmb-voxcpm",
-        "github-rimagination-h3lite",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-dcrihmdd46t-183b20"
       ],
       "card_count": 12
     },
@@ -806,6 +808,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-traditional-chinese",
+      "label": "Traditional Chinese",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-danyuchn-iso-24495-skill",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-agent-loop",
       "label": "agent-loop",
       "type": "topic",
@@ -854,6 +870,19 @@
       "card_ids": [
         "github-kevintsai1202-humanizer-zh-tw",
         "github-nanako0129-sepia"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-apple-silicon",
+      "label": "Apple Silicon",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-drumih-turbo-fieldfare"
       ],
       "card_count": 2
     },
@@ -958,6 +987,19 @@
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-ffmpeg",
+      "label": "ffmpeg",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-harry0703-moneyprinterturbo"
       ],
       "card_count": 2
     },
@@ -1196,6 +1238,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-speech-to-text",
+      "label": "speech-to-text",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-tauri",
       "label": "tauri",
       "type": "topic",
@@ -1244,19 +1299,6 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-traditional-chinese",
-      "label": "Traditional Chinese",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-danyuchn-iso-24495-skill",
-        "threads-dcrihmdd46t-183b20"
       ],
       "card_count": 2
     },
@@ -2063,6 +2105,78 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-appfromapexxx-taiwan-subtitle",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-appfromapexxx-taiwan-subtitle",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-appfromapexxx-taiwan-subtitle",
+      "concept_id": "tag-apple-silicon",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Apple Silicon"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-appfromapexxx-taiwan-subtitle",
+      "concept_id": "tag-ffmpeg",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "ffmpeg"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-appfromapexxx-taiwan-subtitle",
+      "concept_id": "tag-speech-to-text",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "speech-to-text"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-appfromapexxx-taiwan-subtitle",
+      "concept_id": "tag-traditional-chinese",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Traditional Chinese"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-bensonmaxai-line-desktop-mcp",
       "concept_id": "agent-api-bridge",
       "strength": 0.78,
@@ -2640,6 +2754,18 @@
     },
     {
       "card_id": "github-drumih-turbo-fieldfare",
+      "concept_id": "tag-apple-silicon",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Apple Silicon"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-drumih-turbo-fieldfare",
       "concept_id": "tag-local-llm",
       "strength": 0.9,
       "evidence": [
@@ -2946,6 +3072,18 @@
         {
           "kind": "tag",
           "value": "Agent Skills"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-harry0703-moneyprinterturbo",
+      "concept_id": "tag-ffmpeg",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "FFmpeg"
         }
       ],
       "origin": "shared-tag"
@@ -6496,6 +6634,18 @@
     },
     {
       "card_id": "threads-dcrihmdd46t-183b20",
+      "concept_id": "tag-speech-to-text",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "speech-to-text"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-dcrihmdd46t-183b20",
       "concept_id": "tag-traditional-chinese",
       "strength": 0.9,
       "evidence": [
@@ -7226,15 +7376,13 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "category-image-generation",
+      "target": "tag-apple-silicon",
       "type": "co_occurs_with",
-      "support": 4,
-      "weight": 0.5714,
+      "support": 2,
+      "weight": 1,
       "card_ids": [
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-rimagination-h3lite"
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-drumih-turbo-fieldfare"
       ]
     },
     {
@@ -7261,13 +7409,13 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "tag-local-llm",
+      "target": "tag-ffmpeg",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mayocream-koharu"
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-harry0703-moneyprinterturbo"
       ]
     },
     {
@@ -7283,17 +7431,6 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "tag-openai-compatible-api",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mayocream-koharu"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
       "target": "tag-python",
       "type": "co_occurs_with",
       "support": 3,
@@ -7302,6 +7439,17 @@
         "github-harry0703-moneyprinterturbo",
         "github-hkuds-lightrag",
         "github-k-dense-ai-scientific-agent-skills"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-speech-to-text",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "threads-dcrihmdd46t-183b20"
       ]
     },
     {
@@ -7372,6 +7520,17 @@
     },
     {
       "source": "category-general-tools",
+      "target": "tag-speech-to-text",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "threads-dcrihmdd46t-183b20"
+      ]
+    },
+    {
+      "source": "category-general-tools",
       "target": "tag-tdd",
       "type": "co_occurs_with",
       "support": 3,
@@ -7386,22 +7545,12 @@
       "source": "category-general-tools",
       "target": "tag-traditional-chinese",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
         "github-danyuchn-iso-24495-skill",
         "threads-dcrihmdd46t-183b20"
-      ]
-    },
-    {
-      "source": "category-general-tools",
-      "target": "tag-workflow-orchestration",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-tsun-u-tsunu-superpowers"
       ]
     },
     {
@@ -8795,6 +8944,17 @@
       ]
     },
     {
+      "source": "tag-speech-to-text",
+      "target": "tag-traditional-chinese",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "threads-dcrihmdd46t-183b20"
+      ]
+    },
+    {
       "source": "tag-tdd",
       "target": "tag-zh-tw",
       "type": "co_occurs_with",
@@ -8818,9 +8978,9 @@
     }
   ],
   "stats": {
-    "card_count": 53,
-    "concept_count": 81,
-    "card_concept_edge_count": 430,
-    "concept_relation_edge_count": 175
+    "card_count": 54,
+    "concept_count": 84,
+    "card_concept_edge_count": 439,
+    "concept_relation_edge_count": 176
   }
 }
