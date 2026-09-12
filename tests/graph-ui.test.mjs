@@ -24,8 +24,8 @@ test('Knowledge Graph uses labels on demand instead of rendering every node labe
 test('Knowledge Graph exposes global and focus exploration modes', () => {
   const text = source();
 
-  assert.match(text, />全域地圖</);
-  assert.match(text, />聚焦模式</);
+  assert.match(text, /全域地圖/);
+  assert.match(text, /聚焦模式/);
   assert.match(text, /focusNodeIds/);
   assert.match(text, /if \(isMobile\.value\) focusMode\.value = true/);
 });
