@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import { cosineSimilarity } from './graph-layout.mjs';
+import { effectiveOwnershipValue, effectiveResourceKind } from './knowledge.mjs';
 
 function requireArray(value, label) {
   if (!Array.isArray(value)) {
@@ -77,7 +78,26 @@ function roundedMetric(value) {
   return Number(value.toFixed(6));
 }
 
-export function buildSemanticNeighbors({ cards, embeddings, cardRelations, limit = 6 }) {
+function effectiveRelevance(relevance) {
+  const ai = relevance?.ai ?? {};
+  const user = relevance?.user ?? {};
+  const keys = new Set([...Object.keys(ai), ...Object.keys(user)]);
+  return Object.fromEntries([...keys].map((key) => [key, user[key] ?? ai[key] ?? null]));
+}
+
+function projectCardMetadata(data) {
+  return {
+    categories: effectiveOwnershipValue(data?.classification?.categories) ?? [],
+    tags: effectiveOwnershipValue(data?.classification?.tags) ?? [],
+    actions: effectiveOwnershipValue(data?.actions) ?? [],
+    sourceType: data?.source?.type ?? null,
+    resourceKind: effectiveResourceKind(data),
+    relevance: effectiveRelevance(data?.relevance),
+    status: effectiveOwnershipValue(data?.status)
+  };
+}
+
+export function buildSemanticNeighbors({ cards, embeddings, cardRelations, limit = 12 }) {
   requireArray(cards, 'cards');
   requireObject(embeddings, 'embeddings index');
   requireArray(embeddings.entries, 'embeddings.entries');
@@ -106,21 +126,23 @@ export function buildSemanticNeighbors({ cards, embeddings, cardRelations, limit
   ]));
   const safeLimit = Math.max(1, Number(limit) || 6);
   const neighborsByCard = {};
+  const distancesByCard = {};
 
   for (const [cardId, card] of cardById) {
     const sourceEmbedding = embeddingById.get(cardId);
     const neighbors = [];
     for (const [targetId, targetCard] of cardById) {
       if (targetId === cardId) continue;
-      const similarity = cosineSimilarity(sourceEmbedding, embeddingById.get(targetId));
+      const similarity = roundedMetric(cosineSimilarity(sourceEmbedding, embeddingById.get(targetId)));
+      const distance = roundedMetric(Math.max(0, Math.min(2, 1 - similarity)));
       const relation = relationByPair.get(relationPairKey(cardId, targetId));
       neighbors.push({
         cardId: targetId,
         nodeId: `card:${targetId}`,
         label: targetCard.data.title,
         route: `/knowledge/${targetId}`,
-        similarity: roundedMetric(similarity),
-        distance: roundedMetric(Math.max(0, Math.min(2, 1 - similarity))),
+        similarity,
+        distance,
         relation: relation ? {
           type: relation.type,
           direction: relation.direction ?? 'undirected',
@@ -136,6 +158,11 @@ export function buildSemanticNeighbors({ cards, embeddings, cardRelations, limit
       right.similarity - left.similarity || left.cardId.localeCompare(right.cardId)
     );
     neighborsByCard[cardId] = neighbors.slice(0, safeLimit);
+    distancesByCard[cardId] = neighbors.map(({ cardId: targetId, similarity, distance }) => ({
+      cardId: targetId,
+      similarity,
+      distance
+    }));
   }
 
   return {
@@ -143,7 +170,8 @@ export function buildSemanticNeighbors({ cards, embeddings, cardRelations, limit
     embeddingProvider: embeddings.provider ?? null,
     embeddingModel: embeddings.model ?? null,
     neighborLimit: safeLimit,
-    neighborsByCard
+    neighborsByCard,
+    distancesByCard
   };
 }
 
@@ -264,6 +292,7 @@ export function projectGraph({ cards, concepts, relations, embeddings = null, la
       description: card.data.summary,
       route: `/knowledge/${card.data.id}`,
       degree: cardConceptDegree.get(card.data.id) ?? 0,
+      ...projectCardMetadata(card.data),
       ...(cardPositions.get(card.data.id) ?? { x: null, y: null })
     })),
     ...conceptList.map((concept) => ({
