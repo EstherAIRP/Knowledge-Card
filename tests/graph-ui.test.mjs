@@ -27,7 +27,7 @@ test('Knowledge Graph exposes global and focus exploration modes', () => {
   assert.match(text, /全域地圖/);
   assert.match(text, /聚焦模式/);
   assert.match(text, /focusNodeIds/);
-  assert.match(text, /if \(isMobile\.value\) focusMode\.value = true/);
+  assert.match(text, /focusMode\.value = isMobile\.value/);
 });
 
 test('Knowledge Graph supports pan, wheel zoom, pinch zoom, and Fit controls', () => {
