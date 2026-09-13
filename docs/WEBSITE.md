@@ -204,13 +204,16 @@ docs/.vitepress/theme/styles/
 - `shared.css`：真正跨元件重用的 UI primitive。
 - Vue 元件的特殊排版與互動樣式留在各自的 `<style scoped>`，避免形成另一個大型全域 stylesheet。
 
-目前三種主要版型：
+目前改採「共用頁面框架 + 局部內容寬度」：
 
-| Layout | 用途 | 最大寬度 |
+| 層級 | 用途 | 最大寬度 |
 | --- | --- | ---: |
-| Standard | Radar、Knowledge Card 外層、Concept | 1200px |
-| Reading | Knowledge Card Markdown 正文 | 820px |
-| Wide | Knowledge Graph | 1600px |
+| Page Frame | Radar、Knowledge Card、Concept、Graph 標題／控制列 | 1440px |
+| Reading | Knowledge Card Markdown 正文 | 920px |
+| Aside | Knowledge Card / Concept 文章目錄 | 256px |
+| Canvas Breakout | Knowledge Graph 工作區 | 1600px |
+
+Radar、Knowledge Card、Concept 與 Graph 的主要頁面骨架都由 `--kc-page-max` 控制，因此標題、主要區塊與控制列使用同一條視覺基準線。Graph 只有 `.graph-explorer` 使用 `--kc-canvas-max` 向左右延伸；頁面標題與工具列仍留在共用 Page Frame。
 
 左右留白統一由 `--kc-page-gutter` 控制。Knowledge Card 與 Concept 透過 VitePress frontmatter `pageClass` 限定 DefaultTheme override，不會影響其他文件頁。
 
@@ -222,7 +225,7 @@ PR 驗證除了既有 `graph-ui:verify` 外，另使用：
 npm run layout-ui:verify
 ```
 
-以 Playwright 在桌面與手機 viewport 檢查 Radar、Knowledge Card、Concept 與 Graph 的最大寬度、正文閱讀寬度與水平 overflow。
+以 Playwright 在 1920px、1440px 與手機 viewport 檢查 Radar、Knowledge Card、Concept、Graph 的共同 Page Frame、Knowledge Card 正文閱讀寬度、Graph Canvas Breakout 與水平 overflow。
 
 ## Theme 元件
 

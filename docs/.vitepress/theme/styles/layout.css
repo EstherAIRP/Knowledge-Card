@@ -1,8 +1,9 @@
 /*
  * Knowledge Card layout system.
  *
- * Page components own their internal layout. This file owns only page width,
- * gutters, reading width, and scoped VitePress DefaultTheme overrides.
+ * Page components own their internal layout. This file owns the shared page
+ * frame, optional canvas breakout, reading width, gutters, and scoped
+ * VitePress DefaultTheme overrides.
  */
 
 .VPHome {
@@ -26,15 +27,21 @@
 .kc-shell {
   margin-inline: max(
     var(--kc-page-gutter),
-    calc((100% - var(--kc-layout-standard)) / 2)
+    calc((100% - var(--kc-page-max)) / 2)
   );
 }
 
-.kc-shell--wide {
-  margin-inline: max(
-    var(--kc-page-gutter),
-    calc((100% - var(--kc-layout-wide)) / 2)
+/*
+ * Keep page chrome aligned to the shared frame, while allowing spatial tools
+ * such as the graph canvas to use a wider work area when the viewport allows.
+ */
+.kc-canvas-breakout {
+  --kc-breakout-width: min(
+    var(--kc-canvas-max),
+    calc(100vw - 2 * var(--kc-page-gutter))
   );
+  width: var(--kc-breakout-width);
+  margin-inline: calc((100% - var(--kc-breakout-width)) / 2);
 }
 
 .kc-reading {
@@ -51,7 +58,7 @@
 .kc-page-concept .VPDoc {
   padding-inline: max(
     var(--kc-page-gutter),
-    calc((100% - var(--kc-layout-standard)) / 2)
+    calc((100% - var(--kc-page-max)) / 2)
   );
 }
 
@@ -62,7 +69,7 @@
    * attributes make those selectors more specific than ordinary theme CSS,
    * so these page-scoped framework overrides intentionally use !important.
    */
-  max-width: var(--kc-layout-standard) !important;
+  max-width: var(--kc-page-max) !important;
 }
 
 .kc-page-knowledge .VPDoc:not(.has-sidebar) .content,
@@ -75,6 +82,13 @@
 .kc-page-knowledge .VPDoc:not(.has-sidebar) .content-container,
 .kc-page-concept .VPDoc:not(.has-sidebar) .content-container {
   max-width: none !important;
+}
+
+@media (min-width: 1280px) {
+  .kc-page-knowledge .VPDoc:not(.has-sidebar) .aside,
+  .kc-page-concept .VPDoc:not(.has-sidebar) .aside {
+    max-width: var(--kc-aside-width);
+  }
 }
 
 /*
