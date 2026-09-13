@@ -40,7 +40,7 @@ test('Knowledge Graph supports pan, wheel zoom, pinch zoom, and Fit controls', (
   assert.match(text, /@pointermove="handlePointerMove"/);
   assert.match(text, /@wheel\.prevent="handleWheel"/);
   assert.match(text, /pointDistance\(left, right\)/);
-  assert.match(text, /aria-label="顯示全部節點"/);
+  assert.match(text, /aria-label="顯示全部視角"/);
   assert.match(text, /touch-action: none/);
 });
 
@@ -49,7 +49,7 @@ test('Knowledge Graph keeps technical layout diagnostics behind an information d
 
   assert.match(text, /<details class="graph-layout-details">/);
   assert.match(text, /Stress：/);
-  assert.match(text, /原始 cosine 距離/);
+  assert.match(text, /原始餘弦距離/);
   assert.match(text, /graph-neighbor__bar/);
 });
 
