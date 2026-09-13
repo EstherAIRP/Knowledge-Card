@@ -1200,9 +1200,8 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .knowledge-graph-shell {
-  width: 100%;
-  margin: 0 auto;
-  padding: 20px clamp(16px, 2vw, 28px) 64px;
+  padding-top: 20px;
+  padding-bottom: 64px;
 }
 .graph-hero { margin-bottom: 16px; }
 .graph-hero__title-row {
@@ -1456,7 +1455,7 @@ onBeforeUnmount(() => {
 .graph-inspector-backdrop { z-index: 90; }
 
 @media (max-width: 760px) {
-  .knowledge-graph-shell { padding: 16px 12px 56px; }
+  .knowledge-graph-shell { padding-top: 16px; padding-bottom: 56px; }
   .graph-hero__title-row { align-items: start; gap: 12px; }
   .graph-hero p { font-size: 12px; line-height: 1.55; }
   .graph-stats { justify-content: flex-start; font-size: 10px; }
