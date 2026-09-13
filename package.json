@@ -31,6 +31,7 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "verify:site": "node scripts/verify-site-output.mjs",
+    "graph-ui:verify": "node scripts/verify-graph-ui.mjs",
     "graph-layout:validate": "node scripts/validate-graph-layout.mjs"
   },
   "dependencies": {

@@ -37,6 +37,7 @@ const filterTrigger = ref(null);
 const inspectorPanel = ref(null);
 const layoutWidth = ref(1440);
 const canvasCssScale = ref(1);
+const canvasViewHeight = ref(720);
 const viewport = ref({ x: 0, y: 0, scale: 1 });
 
 const filters = reactive({
@@ -64,12 +65,15 @@ let layoutObserver = null;
 let canvasObserver = null;
 
 const isMobile = computed(() => layoutWidth.value < 760);
-const canvasHeight = computed(() => desktopHeight);
+const canvasHeight = computed(() => canvasViewHeight.value);
+const canvasLayoutPadding = computed(() =>
+  (isMobile.value ? 38 : 56) / Math.max(canvasCssScale.value, 0.25)
+);
 
 const positionedNodes = computed(() => fitNodesToViewport(graph.nodes, {
   width,
   height: canvasHeight.value,
-  padding: isMobile.value ? 96 : 78
+  padding: canvasLayoutPadding.value
 }).nodes);
 
 const nodeMap = computed(() => new Map(positionedNodes.value.map((node) => [node.id, node])));
@@ -504,7 +508,9 @@ function fitFilterResults() {
 
 async function selectCard(cardId) {
   const deselecting = selectedCardId.value === cardId;
-  if (!deselecting && filterIsDrawer.value) filterPanelOpen.value = false;
+  if (!deselecting && filterPanelOpen.value && layoutWidth.value < 1260) {
+    filterPanelOpen.value = false;
+  }
   selectedCardId.value = deselecting ? null : cardId;
 
   if (!selectedCardId.value) {
@@ -741,9 +747,11 @@ function handleDoubleClick(event) {
 function syncCanvasScale() {
   const rect = graphSvg.value?.getBoundingClientRect?.();
   if (!rect?.width || !rect?.height) return;
-  canvasCssScale.value = Math.max(
-    0.05,
-    Math.min(rect.width / width, rect.height / canvasHeight.value)
+
+  canvasCssScale.value = Math.max(0.05, rect.width / width);
+  canvasViewHeight.value = Math.max(
+    280,
+    Math.min(1600, width * (rect.height / rect.width))
   );
 }
 
@@ -774,7 +782,7 @@ function handleGlobalKeydown(event) {
 
 onMounted(() => {
   filterPanelOpen.value = false;
-  layoutWidth.value = graphShell.value?.getBoundingClientRect?.().width ?? window.innerWidth;
+  layoutWidth.value = graphExplorer.value?.getBoundingClientRect?.().width ?? window.innerWidth;
   focusMode.value = isMobile.value;
 
   if (typeof ResizeObserver !== 'undefined') {
@@ -782,7 +790,7 @@ onMounted(() => {
       const widthValue = entries[0]?.contentRect?.width;
       if (widthValue) syncLayoutWidth(widthValue);
     });
-    if (graphShell.value) layoutObserver.observe(graphShell.value);
+    if (graphExplorer.value) layoutObserver.observe(graphExplorer.value);
 
     canvasObserver = new ResizeObserver(syncCanvasScale);
     if (graphSvg.value) canvasObserver.observe(graphSvg.value);
