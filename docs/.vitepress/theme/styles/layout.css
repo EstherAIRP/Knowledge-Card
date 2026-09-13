@@ -13,6 +13,16 @@
   padding-top: 0;
 }
 
+/*
+ * VPHomeContent defaults to max-width: 1280px with large inner padding,
+ * which leaves only 1152px for custom homepage content on desktop.
+ * The Radar owns its width through kc-shell, so remove that parent constraint.
+ */
+.VPHome > .vp-doc.container {
+  max-width: none;
+  padding-inline: 0;
+}
+
 .kc-shell {
   margin-inline: max(
     var(--kc-page-gutter),
