@@ -4,6 +4,7 @@ description: Concept-centric Knowledge Graph
 layout: page
 sidebar: false
 outline: false
+pageClass: kc-page-graph
 ---
 
 <script setup>
