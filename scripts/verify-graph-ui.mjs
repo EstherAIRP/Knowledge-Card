@@ -54,9 +54,12 @@ async function collectMetrics(page) {
     const shellRect = shell?.getBoundingClientRect();
     const explorerRect = explorer?.getBoundingClientRect();
     const labelRect = label?.getBoundingClientRect();
+    const rootStyle = getComputedStyle(document.documentElement);
 
     return {
       shellWidth: shellRect?.width ?? 0,
+      wideMax: Number.parseFloat(rootStyle.getPropertyValue('--kc-layout-wide')) || 0,
+      pageGutter: Number.parseFloat(rootStyle.getPropertyValue('--kc-page-gutter')) || 0,
       explorerWidth: explorerRect?.width ?? 0,
       canvasWidth: canvasRect?.width ?? 0,
       canvasHeight: canvasRect?.height ?? 0,
@@ -96,9 +99,13 @@ async function verifyViewport(browser, viewport) {
     assert.ok(initial.labelHeight >= 10.5, `主要標籤顯示過小：${initial.labelHeight}px`);
 
     if (viewport.width >= 1440) {
+      const expectedWidth = Math.min(
+        initial.wideMax,
+        viewport.width - (initial.pageGutter * 2)
+      );
       assert.ok(
-        initial.shellWidth >= viewport.width * 0.9,
-        `寬版頁面未充分使用視窗：${initial.shellWidth}px / ${viewport.width}px`
+        Math.abs(initial.shellWidth - expectedWidth) <= 2,
+        `寬版頁面寬度不符合 Layout Token：${initial.shellWidth}px / expected ${expectedWidth}px`
       );
     }
 
