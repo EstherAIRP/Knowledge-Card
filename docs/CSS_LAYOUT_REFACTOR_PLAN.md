@@ -1,6 +1,6 @@
 # 全站 CSS 與 Layout 統一化開發計畫
 
-> 狀態：Planning  
+> 狀態：Implementation — PR #63  
 > 範圍：VitePress 公開網站呈現層  
 > 目的：統一全站頁寬、留白、Surface、Border、Radius 與共用樣式來源，降低「改 A 沒改 B」的維護成本。  
 > 非目標：本次不重做視覺設計、不改 Knowledge Graph 資料模型、不改 Knowledge Card 結構與收錄流程。
