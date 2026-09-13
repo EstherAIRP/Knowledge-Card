@@ -5,6 +5,14 @@
  * gutters, reading width, and scoped VitePress DefaultTheme overrides.
  */
 
+.VPHome {
+  padding-bottom: 64px !important;
+}
+
+.VPHome .VPHomeContent {
+  padding-top: 0;
+}
+
 .kc-shell {
   margin-inline: max(
     var(--kc-page-gutter),
