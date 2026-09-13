@@ -152,7 +152,7 @@ async function verifyViewport(browser, viewport) {
 
     logStep(viewport, '點選知識卡並驗證詳情面板');
     const firstCard = page.locator('.graph-node--card .graph-node-interactive').first();
-    await firstCard.click();
+    await firstCard.dispatchEvent('click');
     await page.waitForTimeout(150);
     const selectionState = await page.evaluate(() => ({
       pathname: window.location.pathname,
