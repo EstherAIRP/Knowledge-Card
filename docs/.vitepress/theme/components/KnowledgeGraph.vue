@@ -823,7 +823,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section ref="graphShell" class="knowledge-graph-shell kc-shell kc-shell--wide">
+  <section ref="graphShell" class="knowledge-graph-shell kc-shell">
     <header class="graph-hero">
       <div class="graph-hero__title-row">
         <div>
@@ -928,6 +928,7 @@ onBeforeUnmount(() => {
       ref="graphExplorer"
       :class="[
         'graph-explorer',
+        'kc-canvas-breakout',
         filtersDocked ? 'graph-explorer--filters' : '',
         inspectorDocked ? 'graph-explorer--inspecting' : ''
       ]"
