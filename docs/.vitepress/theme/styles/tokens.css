@@ -1,0 +1,29 @@
+:root {
+  --vp-c-brand-1: #536bff;
+  --vp-c-brand-2: #6f82ff;
+  --vp-c-brand-3: #4056dc;
+
+  /* Layout */
+  --kc-layout-standard: 1200px;
+  --kc-layout-wide: 1600px;
+  --kc-reading-max: 820px;
+  --kc-page-gutter: clamp(16px, 3vw, 32px);
+
+  /* Spacing */
+  --kc-space-xs: 6px;
+  --kc-space-sm: 10px;
+  --kc-space-md: 16px;
+  --kc-space-lg: 24px;
+  --kc-space-xl: 32px;
+
+  /* Radius */
+  --kc-radius-sm: 8px;
+  --kc-radius-md: 12px;
+  --kc-radius-lg: 18px;
+  --kc-radius-xl: 24px;
+
+  /* Shared surfaces */
+  --kc-border: color-mix(in srgb, var(--vp-c-divider) 78%, transparent);
+  --kc-panel: color-mix(in srgb, var(--vp-c-bg-soft) 82%, transparent);
+  --kc-muted: var(--vp-c-text-2);
+}
