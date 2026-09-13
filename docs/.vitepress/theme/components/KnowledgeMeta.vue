@@ -81,3 +81,121 @@ function width(score) {
     </div>
   </section>
 </template>
+
+<style scoped>
+.knowledge-detail-head {
+  margin: 12px 0 34px;
+  padding: 22px;
+  border: 1px solid var(--kc-border);
+  border-radius: 18px;
+  background: var(--kc-panel);
+}
+
+.knowledge-detail-top,
+.knowledge-detail-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.knowledge-detail-source,
+.knowledge-detail-footer {
+  color: var(--vp-c-text-3);
+  font-size: 12px;
+}
+
+.knowledge-detail-actions,
+.knowledge-detail-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.knowledge-detail-actions span {
+  padding: 5px 9px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--vp-c-brand-1) 11%, var(--vp-c-bg));
+  color: var(--vp-c-brand-1);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.knowledge-detail-categories span {
+  padding: 5px 9px;
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-2);
+  font-size: 11px;
+}
+
+.relevance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px 18px;
+  margin: 20px 0;
+}
+
+.relevance-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 5px 10px;
+  align-items: center;
+}
+
+.relevance-item label,
+.relevance-item strong {
+  font-size: 11px;
+}
+
+.relevance-item label {
+  color: var(--kc-muted);
+}
+
+.relevance-track {
+  grid-column: 1 / -1;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--vp-c-bg-soft);
+}
+
+.relevance-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--vp-c-brand-1);
+}
+
+.knowledge-detail-footer {
+  padding-top: 14px;
+  border-top: 1px solid var(--kc-border);
+}
+
+.knowledge-detail-footer a {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+}
+
+.knowledge-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.knowledge-detail-head .knowledge-tags span {
+  color: var(--vp-c-text-3);
+  font-size: 11px;
+}
+
+@media (max-width: 900px) {
+  .relevance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .relevance-grid { grid-template-columns: 1fr; }
+  .knowledge-detail-top,
+  .knowledge-detail-footer { flex-direction: column; }
+}
+</style>
