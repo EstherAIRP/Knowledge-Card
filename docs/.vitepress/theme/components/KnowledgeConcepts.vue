@@ -36,13 +36,13 @@ const concepts = computed(() => params.value.card?.concepts ?? []);
 </template>
 
 <style scoped>
-.knowledge-concepts { margin-top: 46px; padding-top: 24px; border-top: 1px solid var(--vp-c-divider); }
+.knowledge-concepts { margin-top: 46px; padding-top: 24px; border-top: 1px solid var(--kc-border); }
 .knowledge-concepts-head { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 14px; }
 .knowledge-concepts-head span { font-size: 10px; font-weight: 800; letter-spacing: .1em; opacity: .55; }
 .knowledge-concepts-head h2 { margin: 4px 0 0; padding: 0; border: 0; }
 .knowledge-concepts-head > a { font-size: 12px; font-weight: 700; white-space: nowrap; }
 .knowledge-concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
-.knowledge-concept { display: block; padding: 14px; border: 1px solid var(--vp-c-divider); border-radius: 13px; color: inherit; text-decoration: none; background: var(--vp-c-bg-soft); transition: transform .18s ease, border-color .18s ease; }
+.knowledge-concept { display: block; padding: 14px; border: 1px solid var(--kc-border); border-radius: 13px; color: inherit; text-decoration: none; background: var(--kc-panel); transition: transform .18s ease, border-color .18s ease; }
 .knowledge-concept:hover { transform: translateY(-2px); border-color: var(--vp-c-brand-1); }
 .knowledge-concept-top { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
 .knowledge-concept-top span { font-size: 9px; text-transform: uppercase; letter-spacing: .08em; opacity: .55; }
