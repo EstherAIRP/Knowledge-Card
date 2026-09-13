@@ -2,7 +2,7 @@
 
 > **角色：** 文件治理盤點／權威來源索引  
 > **權威性：** 描述儲存庫中的責任歸屬；不會覆蓋連結指向的規範契約。  
-> **最近盤點：** 2026-08-18  
+> **最近盤點：** 2026-09-13  
 > **文件導航：** [`DOCUMENTATION.md`](./DOCUMENTATION.md)
 
 本文件回答一個問題：**每一條規則由哪個檔案負責？**
@@ -50,7 +50,7 @@ Phase 5 — 文件治理防護與 README                   COMPLETE
 | Threads 語意判定輸出格式／標籤詞彙 | [Threads 判定 Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) | [共用驗證器](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs)、本機／受管理排序器 |
 | Threads 受管理分類器提示詞 | [threads-continuation-ranker.agent.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) | 共用 Schema + Copilot adapter |
 | Knowledge Card YAML 前置欄位結構 | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) | 驗證程式碼、範本 |
-| 受控分類／Action／Status／Source Type／Relevance 維度 | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | Knowledge Card Schema 漂移驗證 |
+| Human Navigation／語意分類／Resource Kind／Action／Status／Source Type／Relevance 維度 | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | [`TAXONOMY.md`](./TAXONOMY.md)、Knowledge Card Schema 漂移驗證 |
 | 公開個人化邊界 | [Public Profile](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) | Runtime／AGENTS 公開安全不變量 |
 | Knowledge Card 正文範例 | [Knowledge Card 範例](https://github.com/EstherAIRP/Knowledge-Card/blob/main/templates/knowledge-card.example.md) | Runtime 分析標準 |
 | 設定所有權 | [config/AGENTS.md](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/AGENTS.md) | `config/*.yaml` |

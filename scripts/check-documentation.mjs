@@ -14,6 +14,7 @@ const REQUIRED_FILES = [
   'docs/THREADS_INGESTION.md',
   'docs/AUTOMATION.md',
   'docs/RELATIONS.md',
+  'docs/TAXONOMY.md',
   'docs/CONCEPTS.md',
   'docs/WEBSITE.md',
   'schema/knowledge-card.schema.json',
@@ -35,6 +36,7 @@ const GOVERNANCE_MARKDOWN = [
   'docs/THREADS_INGESTION.md',
   'docs/AUTOMATION.md',
   'docs/RELATIONS.md',
+  'docs/TAXONOMY.md',
   'docs/CONCEPTS.md',
   'docs/WEBSITE.md'
 ];
