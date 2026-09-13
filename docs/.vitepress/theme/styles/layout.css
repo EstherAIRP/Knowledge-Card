@@ -55,21 +55,26 @@
   );
 }
 
-.kc-page-knowledge .VPDoc .container,
-.kc-page-concept .VPDoc .container {
-  max-width: var(--kc-layout-standard);
+.kc-page-knowledge .VPDoc:not(.has-sidebar) .container,
+.kc-page-concept .VPDoc:not(.has-sidebar) .container {
+  /*
+   * VPDoc.vue uses scoped desktop rules (992px / 1104px). The scoped
+   * attributes make those selectors more specific than ordinary theme CSS,
+   * so these page-scoped framework overrides intentionally use !important.
+   */
+  max-width: var(--kc-layout-standard) !important;
 }
 
-.kc-page-knowledge .VPDoc .content,
-.kc-page-concept .VPDoc .content {
+.kc-page-knowledge .VPDoc:not(.has-sidebar) .content,
+.kc-page-concept .VPDoc:not(.has-sidebar) .content {
   min-width: 0;
-  max-width: none;
-  padding-inline: 0;
+  max-width: none !important;
+  padding-inline: 0 !important;
 }
 
-.kc-page-knowledge .VPDoc .content-container,
-.kc-page-concept .VPDoc .content-container {
-  max-width: none;
+.kc-page-knowledge .VPDoc:not(.has-sidebar) .content-container,
+.kc-page-concept .VPDoc:not(.has-sidebar) .content-container {
+  max-width: none !important;
 }
 
 /*
