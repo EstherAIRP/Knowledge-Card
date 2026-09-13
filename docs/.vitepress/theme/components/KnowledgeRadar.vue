@@ -675,7 +675,7 @@ function resetFilters() {
 
 .radar-controls-summary small {
   margin-top: 3px;
-  color: var(--radar-muted);
+  color: var(--kc-muted);
   font-size: 11px;
 }
 
@@ -693,7 +693,7 @@ function resetFilters() {
 
 .radar-controls-body {
   padding: 20px 22px 22px;
-  border-top: 1px solid var(--radar-border);
+  border-top: 1px solid var(--kc-border);
 }
 
 @media (max-width: 640px) {
