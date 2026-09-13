@@ -4,9 +4,10 @@
   --vp-c-brand-3: #4056dc;
 
   /* Layout */
-  --kc-layout-standard: 1200px;
-  --kc-layout-wide: 1600px;
-  --kc-reading-max: 820px;
+  --kc-page-max: 1440px;
+  --kc-canvas-max: 1600px;
+  --kc-reading-max: 920px;
+  --kc-aside-width: 256px;
   --kc-page-gutter: clamp(16px, 3vw, 32px);
 
   /* Spacing */
