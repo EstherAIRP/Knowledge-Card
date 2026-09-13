@@ -823,7 +823,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section ref="graphShell" class="knowledge-graph-shell">
+  <section ref="graphShell" class="knowledge-graph-shell kc-shell kc-shell--wide">
     <header class="graph-hero">
       <div class="graph-hero__title-row">
         <div>
