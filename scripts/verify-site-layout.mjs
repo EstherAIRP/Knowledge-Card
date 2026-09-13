@@ -89,6 +89,7 @@ async function collectMetrics(page, spec) {
       shellLeft: shellRect?.left ?? 0,
       shellRight: shellRect?.right ?? 0,
       maxWidth: Number.parseFloat(rootStyle.getPropertyValue(maxToken)) || 0,
+      pageGutter: Number.parseFloat(rootStyle.getPropertyValue('--kc-page-gutter')) || 0,
       readingWidth: readingRect?.width ?? 0,
       readingMax: Number.parseFloat(rootStyle.getPropertyValue('--kc-reading-max')) || 0,
       horizontalOverflow:
@@ -117,9 +118,13 @@ async function verifyPage(browser, viewport, spec) {
     const metrics = await collectMetrics(page, spec);
 
     assert.ok(metrics.shellWidth > 0, `${spec.name}: shell width must be positive`);
+    const expectedShellWidth = Math.min(
+      metrics.maxWidth,
+      viewport.width - (metrics.pageGutter * 2)
+    );
     assert.ok(
-      metrics.shellWidth <= metrics.maxWidth + 2,
-      `${spec.name}: shell ${metrics.shellWidth}px exceeds token ${metrics.maxWidth}px`
+      Math.abs(metrics.shellWidth - expectedShellWidth) <= 2,
+      `${spec.name}: shell ${metrics.shellWidth}px does not match expected ${expectedShellWidth}px`
     );
     assert.ok(
       metrics.horizontalOverflow <= 1,
