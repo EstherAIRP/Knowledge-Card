@@ -26,30 +26,35 @@ const pages = [
     name: 'radar',
     url: `${origin}${siteBase}`,
     shell: '.radar-shell',
-    maxToken: '--kc-layout-standard'
+    maxToken: '--kc-page-max'
   },
   {
     name: 'knowledge',
     url: `${origin}${siteBase}knowledge/${sampleCardId}`,
     shell: '.VPDoc .container',
-    maxToken: '--kc-layout-standard',
+    maxToken: '--kc-page-max',
     reading: true
   },
   {
     name: 'concept',
     url: `${origin}${siteBase}concepts/${sampleConceptId}`,
     shell: '.VPDoc .container',
-    maxToken: '--kc-layout-standard'
+    maxToken: '--kc-page-max'
   },
   {
     name: 'graph',
     url: `${origin}${siteBase}graph`,
     shell: '.knowledge-graph-shell',
-    maxToken: '--kc-layout-wide'
+    maxToken: '--kc-page-max',
+    breakout: {
+      selector: '.graph-explorer',
+      maxToken: '--kc-canvas-max'
+    }
   }
 ];
 
 const viewports = [
+  { width: 1920, height: 1080 },
   { width: 1440, height: 900 },
   { width: 390, height: 844 }
 ];
@@ -75,7 +80,7 @@ async function waitForPreview(url, preview, timeoutMs = 30_000) {
 }
 
 async function collectMetrics(page, spec) {
-  return page.evaluate(({ shellSelector, maxToken, reading }) => {
+  return page.evaluate(({ shellSelector, maxToken, reading, breakout }) => {
     const rootStyle = getComputedStyle(document.documentElement);
     const shell = document.querySelector(shellSelector);
     const shellRect = shell?.getBoundingClientRect();
@@ -83,6 +88,10 @@ async function collectMetrics(page, spec) {
       ? document.querySelector('.vp-doc h1, .vp-doc h2, .vp-doc p')
       : null;
     const readingRect = readingNode?.getBoundingClientRect();
+    const breakoutNode = breakout?.selector
+      ? document.querySelector(breakout.selector)
+      : null;
+    const breakoutRect = breakoutNode?.getBoundingClientRect();
     const gutterProbe = document.createElement('div');
     gutterProbe.style.position = 'absolute';
     gutterProbe.style.visibility = 'hidden';
@@ -97,6 +106,10 @@ async function collectMetrics(page, spec) {
       shellRight: shellRect?.right ?? 0,
       maxWidth: Number.parseFloat(rootStyle.getPropertyValue(maxToken)) || 0,
       pageGutter,
+      breakoutWidth: breakoutRect?.width ?? 0,
+      breakoutMax: breakout?.maxToken
+        ? Number.parseFloat(rootStyle.getPropertyValue(breakout.maxToken)) || 0
+        : 0,
       readingWidth: readingRect?.width ?? 0,
       readingMax: Number.parseFloat(rootStyle.getPropertyValue('--kc-reading-max')) || 0,
       horizontalOverflow:
@@ -105,7 +118,8 @@ async function collectMetrics(page, spec) {
   }, {
     shellSelector: spec.shell,
     maxToken: spec.maxToken,
-    reading: Boolean(spec.reading)
+    reading: Boolean(spec.reading),
+    breakout: spec.breakout ?? null
   });
 }
 
@@ -141,6 +155,17 @@ async function verifyPage(browser, viewport, spec) {
       metrics.shellLeft >= -1 && metrics.shellRight <= viewport.width + 1,
       `${spec.name}: shell must stay inside viewport`
     );
+
+    if (spec.breakout) {
+      const expectedBreakoutWidth = Math.min(
+        metrics.breakoutMax,
+        viewport.width - (metrics.pageGutter * 2)
+      );
+      assert.ok(
+        Math.abs(metrics.breakoutWidth - expectedBreakoutWidth) <= 2,
+        `${spec.name}: breakout ${metrics.breakoutWidth}px does not match expected ${expectedBreakoutWidth}px`
+      );
+    }
 
     if (spec.reading) {
       assert.ok(metrics.readingWidth > 0, 'knowledge: readable Markdown node not found');
