@@ -132,3 +132,12 @@ test('Knowledge Graph avoids SVG anchors that break VitePress prefetch', () => {
   assert.match(text, /router\.go\(withBase\(node\.route\)\)/);
   assert.doesNotMatch(text, /:href="withBase\(node\.route\)"/);
 });
+
+
+test('Knowledge Graph preserves node click targets while using pointer capture', () => {
+  const text = source();
+
+  assert.match(text, /const nodeTarget = event\.target\?\.closest\?\.\('\.graph-node'\) \?\? null/);
+  assert.match(text, /pointers\.size === 1 && !nodeTarget/);
+  assert.match(text, /for \(const pointerId of pointers\.keys\(\)\)/);
+});
