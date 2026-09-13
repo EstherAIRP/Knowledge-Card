@@ -1,0 +1,72 @@
+/*
+ * Knowledge Card layout system.
+ *
+ * Page components own their internal layout. This file owns only page width,
+ * gutters, reading width, and scoped VitePress DefaultTheme overrides.
+ */
+
+.kc-shell {
+  margin-inline: max(
+    var(--kc-page-gutter),
+    calc((100% - var(--kc-layout-standard)) / 2)
+  );
+}
+
+.kc-shell--wide {
+  margin-inline: max(
+    var(--kc-page-gutter),
+    calc((100% - var(--kc-layout-wide)) / 2)
+  );
+}
+
+.kc-reading {
+  width: min(100%, var(--kc-reading-max));
+  margin-inline: auto;
+}
+
+/*
+ * Knowledge and Concept pages use VPDoc, whose default content width is
+ * intentionally narrow. Scope overrides through pageClass so other VitePress
+ * documentation pages keep the DefaultTheme layout.
+ */
+.kc-page-knowledge .VPDoc,
+.kc-page-concept .VPDoc {
+  padding-inline: max(
+    var(--kc-page-gutter),
+    calc((100% - var(--kc-layout-standard)) / 2)
+  );
+}
+
+.kc-page-knowledge .VPDoc .container,
+.kc-page-concept .VPDoc .container {
+  max-width: var(--kc-layout-standard);
+}
+
+.kc-page-knowledge .VPDoc .content,
+.kc-page-concept .VPDoc .content {
+  min-width: 0;
+  max-width: none;
+  padding-inline: 0;
+}
+
+.kc-page-knowledge .VPDoc .content-container,
+.kc-page-concept .VPDoc .content-container {
+  max-width: none;
+}
+
+/*
+ * Keep the article body readable while allowing metadata, concepts, and
+ * relations to use the wider page shell.
+ */
+.kc-page-knowledge .vp-doc > :not(.knowledge-detail-head):not(.knowledge-concepts):not(.knowledge-relations) {
+  max-width: var(--kc-reading-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 959px) {
+  .kc-page-knowledge .VPDoc,
+  .kc-page-concept .VPDoc {
+    padding-inline: var(--kc-page-gutter);
+  }
+}
