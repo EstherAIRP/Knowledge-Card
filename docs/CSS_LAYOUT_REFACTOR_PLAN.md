@@ -803,3 +803,34 @@ npm run layout-ui:verify
 ```
 
 這個順序的目的，是先修正「全站結構」，再整理「樣式所有權」，避免同時重構版型與大量元件細節而增加除錯成本。
+
+---
+
+## 14. 2026-09-13 視覺幅寬修正
+
+實際上線後以 Radar、Knowledge Graph、Knowledge Card 三頁並排檢視，發現第一版雖已統一 CSS 管理來源，但仍把 Standard / Wide / Reading 直接當成三種頁面寬度，造成視覺上仍像三套不同版型。
+
+因此 Layout 模型修正為：
+
+```text
+Shared Page Frame 1440px
+├── Radar
+├── Knowledge Card / Concept
+│   ├── Reading 920px
+│   └── Aside 256px
+└── Knowledge Graph
+    └── Canvas Breakout 1600px
+```
+
+新的原則是「頁面骨架一致，內容區依用途調整」，而不是讓不同功能頁各自擁有不同外層寬度。
+
+對應 Token：
+
+```text
+--kc-page-max: 1440px
+--kc-reading-max: 920px
+--kc-aside-width: 256px
+--kc-canvas-max: 1600px
+```
+
+Graph 的標題、說明、搜尋與控制列留在 1440px Page Frame，只有實際圖譜工作區可以向左右延伸到 1600px。
