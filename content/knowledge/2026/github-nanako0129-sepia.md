@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Writing / Documentation
+    user: null
 created_at: 2026-08-28
-updated_at: 2026-08-28
+updated_at: 2026-09-13
 last_checked_at: 2026-08-28
 summary: sepia 是一個跨 Claude Code、Codex、Grok Build 與 Antigravity 的 Agent Skill，將「去 AI 味」從單純換詞提升到敘事架構、篇章流動與場景化專業寫作規則；它以研究摘要、診斷 rubric 與模型指紋作為修訂依據，提供 write、review、refactor、recreate 四種操作。
 classification:

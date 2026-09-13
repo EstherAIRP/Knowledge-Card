@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Image Creation / Design
+    user: null
 created_at: 2026-09-09
-updated_at: 2026-09-09
+updated_at: 2026-09-13
 last_checked_at: 2026-09-09
 summary: Diagram Design 是一套面向 Claude Code、Codex、Pi 等 Agent Host 的圖解設計 Skill，提供 39 種編輯式圖解、語意模式、品牌樣式導入、draw.io／Mermaid 重繪與 HTML／SVG／PNG 匯出。它把圖解生成拆成「行為模式 → 版面類型 → 設計系統 → 自我檢查／渲染驗證」，重點不是單純自動排版，而是讓 Agent 產出可讀、可品牌化、可驗證且具可及性的視覺成果。
 classification:

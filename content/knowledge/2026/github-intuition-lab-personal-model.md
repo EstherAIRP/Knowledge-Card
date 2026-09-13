@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Memory / RAG / Knowledge
+    user: null
 created_at: 2026-08-11
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: Personal Model 是一套 local-first、以證據來源為核心的長期記憶 Runtime，將 macOS 上經授權的工作活動整理成可檢查、修正與匯出的個人模型，並透過 MCP 供 Codex、Claude Code、Cursor Agent 等可信任 AI client 共用。
 classification:

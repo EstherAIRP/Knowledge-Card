@@ -7,8 +7,17 @@ source:
   type: article
   url: https://threads.com/@aiposthub/post/DcLCUcpAS-z
   identity: threads:DcLCUcpAS-z
+resource_kind:
+  ai: article
+  user: null
+navigation:
+  categories:
+    ai:
+      - Agent / Harness
+      - Automation / Productivity
+    user: null
 created_at: 2026-08-18
-updated_at: 2026-08-18
+updated_at: 2026-09-13
 last_checked_at: 2026-08-18
 summary: "這篇 Threads 長文介紹 Nous Research 的 Hermes Desktop Bot Mode：將不同 AI Profile 轉成可長期存在的 Bot，分別配置模型、記憶、Skills／MCP、角色設定、API 與排程，並透過多 Bot 協作與 Routines 組成可重複執行的工作流程；同時提醒 Profile 並不等同 Sandbox，需注意本機權限、模型呼叫成本與記憶老化。"
 classification:

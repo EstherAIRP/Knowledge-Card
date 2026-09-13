@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Agent / Harness
+      - Character AI / AI RPG
+    user: null
 created_at: 2026-09-08
-updated_at: 2026-09-08
+updated_at: 2026-09-13
 last_checked_at: 2026-09-08
 summary: 一套讓人類與 AI Agent 透過 MCP 共桌遊玩的自架牌桌平台。Host 掌握伺服器權威狀態，Agent 只接收自己的私有資訊與伺服器計算後的合法動作，支援 STDIO 與 Remote MCP、觀戰與代打、多桌管理及多款台灣常見牌戲。
 classification:

@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Vision / Multimodal
+      - Image Creation / Design
+    user: null
 created_at: 2026-08-16
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: Koharu 是以 Rust 開發的 local-first 漫畫翻譯工具，將文字區域與氣泡偵測、OCR、inpainting、LLM／機器翻譯與 CJK／RTL 文字排版串成完整工作流，並支援多種 GPU 後端與可編輯 PSD 匯出。
 classification:

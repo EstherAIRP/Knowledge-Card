@@ -175,7 +175,7 @@ The ownership checker is an executable guard against accidental stable/user-stat
 
 Do not maintain a second enum list in this file.
 
-- controlled categories/actions/status/source types/relevance dimensions come from `config/taxonomy.yaml`;
+- controlled semantic categories/navigation categories/resource kinds/actions/status/source types/relevance dimensions come from `config/taxonomy.yaml`;
 - frontmatter shape comes from `schema/knowledge-card.schema.json`;
 - the expected analysis body and section order come from `templates/knowledge-card.example.md` and repository validation;
 - explanatory prose, completion reports, and user-facing repository summaries default to natural Traditional Chinese (`zh-TW`);
@@ -184,6 +184,8 @@ Do not maintain a second enum list in this file.
 - when an important technical term benefits from bilingual disambiguation, use `中文（English）` at first occurrence, then prefer Chinese thereafter;
 - avoid unnecessary Chinese-English code-switching, especially sentence-level English nouns or verbs that have natural Chinese equivalents;
 - quoted source text, schema/config controlled values, executable literals, and required metadata values are exempt and must remain exact;
+- `navigation.categories` is the human-facing topic facet and must remain separate from semantic `classification.categories`;
+- `resource_kind` describes the resource nature rather than its source medium;
 - free-form tags may be generated, but should be specific and technically useful;
 - related-card links may reference only Cards that actually exist.
 

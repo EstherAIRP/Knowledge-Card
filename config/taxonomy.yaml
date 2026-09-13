@@ -12,6 +12,21 @@ categories:
   - Infrastructure / Deployment
   - General Tools
 
+navigation_categories:
+  - Agent / Harness
+  - AI Coding / DevTools
+  - Memory / RAG / Knowledge
+  - Character AI / AI RPG
+  - Automation / Productivity
+  - Infrastructure / Security
+  - Model / Inference
+  - Vision / Multimodal
+  - Image Creation / Design
+  - Video Creation
+  - Audio / Music / Speech
+  - Writing / Documentation
+  - Research / Science
+
 relevance_dimensions:
   overall:
     label: Overall
@@ -67,3 +82,9 @@ source_types:
 resource_kinds:
   - project
   - skill
+  - tutorial
+  - guide
+  - article
+  - reference
+  - paper
+  - tool

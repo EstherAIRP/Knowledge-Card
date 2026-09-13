@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Image Creation / Design
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-08-23
-updated_at: 2026-08-23
+updated_at: 2026-09-13
 last_checked_at: 2026-08-23
 summary: Web Design Skill 是一套以視覺優先為核心的 Agent Skill，將網站設計從「直接產生 HTML」改造成可核准、可拆解、可反覆驗證的設計到程式流程，透過 Approved Visual Target、四種結構圖、資產鎖定與實際渲染 QA，降低 AI 網頁設計的模板化與視覺漂移。
 classification:

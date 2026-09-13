@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Memory / RAG / Knowledge
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-08-16
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: ai-memory 是以 Rust 實作的 Coding Agent 長期記憶與跨 Agent handoff 系統，透過 lifecycle hooks 蒐集經清理的工作觀察，編譯成 Git 版本化 Markdown wiki，並以 SQLite／FTS5／entity／graph／可選 vector retrieval 提供召回；同時支援 Claude Code、Codex、OpenCode、OpenClaw 等多種 Agent CLI 之間延續同一工作脈絡。
 classification:

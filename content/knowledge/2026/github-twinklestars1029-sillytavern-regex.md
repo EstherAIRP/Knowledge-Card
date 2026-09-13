@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Character AI / AI RPG
+    user: null
 created_at: 2026-08-29
-updated_at: 2026-08-29
+updated_at: 2026-09-13
 last_checked_at: 2026-08-29
 summary: Regex Tavern 是一個面向 SillyTavern 使用者的繁體中文 Regex 互動學習網站，以 15 課、77 題行為式評分練習、安全 Playground、錯題複習、速查模板與案例，把角色扮演介面常見的文字匹配與替換需求轉成可直接操作的教材；前端以 TypeScript、React、Vinext 建構並部署於 GitHub Pages。
 classification:

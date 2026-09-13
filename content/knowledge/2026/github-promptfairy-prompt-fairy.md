@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Image Creation / Design
+    user: null
 created_at: 2026-08-30
-updated_at: 2026-08-30
+updated_at: 2026-09-13
 last_checked_at: 2026-08-30
 summary: 胖譜小精靈是一個本機優先（local-first）的 AI 圖像提示詞整理、角色置換與版本管理 PWA；以角色卡、咒語匣、胖譜庫和工作台組織生成流程，可在本機規則與 OpenAI／Gemini API 間切換，重視使用者控制與資料留在瀏覽器。
 classification:

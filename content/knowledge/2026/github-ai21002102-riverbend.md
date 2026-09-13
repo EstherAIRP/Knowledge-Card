@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Memory / RAG / Knowledge
+      - Character AI / AI RPG
+    user: null
 created_at: 2026-08-18
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: Riverbend 是一套源自實際 AI 伴侶系統的長期記憶方法論，主張「記憶不是儲存問題，而是注意力問題」，以睜眼層、召回層、書庫三層架構，搭配混合檢索、跨視窗近況推送、來源標示與結構式防幻覺閘門，整理出如何讓長期 Agent 在多視窗與上下文壓縮下維持連續性的設計判準。
 classification:

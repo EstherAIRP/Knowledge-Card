@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Agent / Harness
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-08-15
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: DeepSeek Harness 是 DeepSeek AI 的開源 agent harness，以 Cordis 實作「Everything is a Plugin」架構，把 agent loop、模型介面、工具、session、權限與執行能力拆成可替換的 plugin／service seam；此 fork 另維護繁體中文文件、Web UI locale 與 zh-TW 轉換驗證管線，適合作為可組合 Agent Runtime 與在地化工程的架構參考。
 classification:

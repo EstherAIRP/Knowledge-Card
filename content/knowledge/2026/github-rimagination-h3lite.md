@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Video Creation
+      - Model / Inference
+    user: null
 created_at: 2026-08-26
-updated_at: 2026-08-26
+updated_at: 2026-09-13
 last_checked_at: 2026-08-26
 summary: H3 Lite 是給 Codex、WorkBuddy 等 AI Agent 使用的 MiniMax H3 本地影片生成 Skill，將 Windows + NVIDIA + ComfyUI 的硬體檢查、元件組選擇、低顯存規劃、提示詞路由、影片生成與結果驗收整合成可重複執行的工作流程。
 classification:

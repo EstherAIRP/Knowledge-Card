@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Infrastructure / Security
+      - Model / Inference
+    user: null
 created_at: 2026-08-26
-updated_at: 2026-08-26
+updated_at: 2026-09-13
 last_checked_at: 2026-08-26
 summary: dstack 是開源的機密 AI（Confidential AI）部署框架，利用 Intel TDX、AMD SEV-SNP、AWS Nitro 與 NVIDIA Confidential Computing 等可信執行環境，讓既有 Docker 工作負載在受硬體保護的機密虛擬機中執行，並透過遠端證明、可重現映像、每應用程式金鑰與治理機制，讓使用者能驗證實際執行的程式與硬體環境。
 classification:

@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Image Creation / Design
+    user: null
 created_at: 2026-08-12
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: Character Select SAA 是一套 Electron 桌面式 AI 圖像生成前端，從角色縮圖選擇、Tag 補全與 AI Prompt，一路整合 ComfyUI／Forge Neo、ControlNet、IP-Adapter、ADetailer、Regional Prompt、MiraITU 與 ONNX Image Tagger；並透過 SAAC WebSocket 服務與 Python SAA Agent，讓瀏覽器或本機 Agent 直接呼叫生成流程。
 classification:

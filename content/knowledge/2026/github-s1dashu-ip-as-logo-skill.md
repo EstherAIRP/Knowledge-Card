@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Image Creation / Design
+    user: null
 created_at: 2026-08-20
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: IP as Logo 是一份遵循開放 Agent Skills 格式的影像生成 Skill，透過明確的形狀、色彩、構圖與批次流程約束，協助相容 Agent 產生極度簡化、圓潤可愛、適合品牌使用的 IP 吉祥物候選圖；本身不含生成程式碼，實際輸出依賴 Agent 既有的影像生成能力。
 classification:

@@ -4,6 +4,20 @@
 
 ---
 
+## 1.13.0 — 2026-09-13
+
+### Added
+
+- 新增 Human Navigation Taxonomy v2：`navigation.categories` 專門負責人類搜尋／篩選主題，與既有 `classification.categories` 語意 taxonomy 分離。
+- 擴充 `resource_kind` 為 `project`、`skill`、`tutorial`、`guide`、`article`、`reference`、`paper`、`tool`，並要求所有 Card 明確標註。
+- 全量補齊既有 Knowledge Card 的 Human Navigation 主題與資源型態，不重寫既有 semantic classification、Tag、Relevance、Action 或來源檢查日期。
+
+### Changed
+
+- Knowledge Radar 與 Graph 的人類分類篩選改讀 Human Navigation 主題；Relation、Embedding 與 Concept 仍使用既有 semantic classification，避免導航分類反向主導語意距離。
+- Runtime、Schema、Validator、網站與所有權規則同步新欄位。
+
+---
 ## 1.12.2 — 2026-08-18
 
 ### Clarified

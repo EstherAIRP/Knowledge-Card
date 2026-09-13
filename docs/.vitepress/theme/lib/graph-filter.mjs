@@ -51,6 +51,7 @@ export function nodeMatchesGraphSearch(node, query) {
     node?.conceptType,
     ...(node?.tags ?? []),
     ...(node?.categories ?? []),
+    ...(node?.semanticCategories ?? []),
     ...(node?.actions ?? []),
     node?.sourceType,
     node?.resourceKind

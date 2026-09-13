@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Writing / Documentation
+    user: null
 created_at: 2026-08-14
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: ISO 24495 Skill 是一套供 Claude Code 使用的雙語 Plain Language Skill，將 ISO 24495-1 的 Relevant、Findable、Understandable、Usable 四項讀者結果轉成固定改寫流程，並為英文與繁體中文分別提供技法層；繁中層特別處理歐化長句、公文腔、成語堆疊、中英夾雜與指代不明。
 classification:

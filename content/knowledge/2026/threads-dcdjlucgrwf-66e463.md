@@ -7,8 +7,17 @@ source:
   type: article
   url: https://threads.com/@licca_bobo/post/DcDjLUcgRwF
   identity: threads:DcDjLUcgRwF
+resource_kind:
+  ai: article
+  user: null
+navigation:
+  categories:
+    ai:
+      - AI Coding / DevTools
+      - Image Creation / Design
+    user: null
 created_at: 2026-08-15
-updated_at: 2026-08-15
+updated_at: 2026-09-13
 last_checked_at: 2026-08-15
 summary: 這篇文章指出，AI 已能快速完成 RWD 的 media query、版面縮放與多尺寸比對，但真正的響應式設計並不是讓所有裝置都不破版，而是根據實際流量、裝置特性與轉換資料，決定哪些尺寸值得精修，以及不同螢幕上應如何調整資訊層級、CTA 與互動流程。AI 解決的是實作速度，人仍需負責產品取捨與注意力配置。
 classification:

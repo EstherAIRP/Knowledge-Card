@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Character AI / AI RPG
+      - Agent / Harness
+    user: null
 created_at: 2026-08-12
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: Claude Bridge 是一套將 SillyTavern 接到本機 Claude Code／Claude Agent SDK 的橋接擴充，提供 OpenAI-compatible chat endpoint、串流回覆、圖片輸入、思考摘要切換與長對話 prompt cache 拆塊；其特色不只是轉發 API，而是針對 RP prompt 結構、快取命中與診斷做專門處理。
 classification:

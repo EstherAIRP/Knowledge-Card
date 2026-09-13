@@ -25,8 +25,17 @@ const sourceLabel = computed(() => {
   const source = card.value.sourceType === 'github' ? 'GitHub' : card.value.sourceType;
   const kind = card.value.resourceKind;
   if (!kind) return source;
-  const kindLabel = kind === 'skill' ? 'Skill' : 'Project';
-  return `${source} · ${kindLabel}`;
+  const labels = {
+    project: '專案',
+    skill: 'Skill',
+    tutorial: '教學',
+    guide: '指南',
+    article: '文章',
+    reference: '參考資料',
+    paper: '論文',
+    tool: '工具'
+  };
+  return `${source} · ${labels[kind] ?? kind}`;
 });
 
 function width(score) {

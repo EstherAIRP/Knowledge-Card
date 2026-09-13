@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import { cosineSimilarity } from './graph-layout.mjs';
-import { effectiveOwnershipValue, effectiveResourceKind } from './knowledge.mjs';
+import { effectiveNavigationCategories, effectiveOwnershipValue, effectiveResourceKind } from './knowledge.mjs';
 
 function requireArray(value, label) {
   if (!Array.isArray(value)) {
@@ -87,7 +87,8 @@ function effectiveRelevance(relevance) {
 
 function projectCardMetadata(data) {
   return {
-    categories: effectiveOwnershipValue(data?.classification?.categories) ?? [],
+    categories: effectiveNavigationCategories(data),
+    semanticCategories: effectiveOwnershipValue(data?.classification?.categories) ?? [],
     tags: effectiveOwnershipValue(data?.classification?.tags) ?? [],
     actions: effectiveOwnershipValue(data?.actions) ?? [],
     sourceType: data?.source?.type ?? null,

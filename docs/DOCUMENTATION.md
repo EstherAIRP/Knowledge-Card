@@ -2,7 +2,7 @@
 
 > **角色：** 文件導航／索引  
 > **權威性：** 僅負責導航；本文件不會覆蓋規範契約。  
-> **最近盤點：** 2026-09-11  
+> **最近盤點：** 2026-09-13  
 > **權威來源索引：** [`AUTHORITY_MAP.md`](./AUTHORITY_MAP.md)
 
 本頁回答的是「**要去哪裡找規則**」。連結指向的契約、Schema、設定檔、workflow 或實作，仍各自對其責任範圍具有權威性。
@@ -24,7 +24,7 @@
 | 了解 Threads Phase 7／僅根貼文復原 | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md#8-phase-7--semantic-continuation--root-only-recovery) | [判定 Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json)、[續篇驗證程式碼](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/sources/threads/continuation-recovery.mjs) |
 | 修改 Threads 語意判定欄位／標籤 | [Threads 判定 Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/threads-continuation-judgement.schema.json) | [`THREADS_INGESTION.md`](./THREADS_INGESTION.md)、[共用驗證器](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/lib/contracts/threads-continuation-judgement.mjs)、[受管理提示詞](https://github.com/EstherAIRP/Knowledge-Card/blob/main/.github/agents/threads-continuation-ranker.agent.md) |
 | 修改 Knowledge Card YAML 前置欄位 | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml)、[Card 範例](https://github.com/EstherAIRP/Knowledge-Card/blob/main/templates/knowledge-card.example.md) |
-| 修改分類／Action／Status／Source Type／Relevance 維度 | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml) | [Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) |
+| 修改人類導航主題／語意分類／Resource Kind／Action／Status／Source Type／Relevance 維度 | [`TAXONOMY.md`](./TAXONOMY.md) | [Taxonomy](https://github.com/EstherAIRP/Knowledge-Card/blob/main/config/taxonomy.yaml)、[Knowledge Card Schema](https://github.com/EstherAIRP/Knowledge-Card/blob/main/schema/knowledge-card.schema.json) |
 | 修改公開個人化內容 | [Public Profile](https://github.com/EstherAIRP/Knowledge-Card/blob/main/profile/public-profile.yaml) | [儲存庫規則](https://github.com/EstherAIRP/Knowledge-Card/blob/main/AGENTS.md) 的公開安全規則 |
 | 了解 GitHub Actions／部署 | [`AUTOMATION.md`](./AUTOMATION.md) | [實際 workflows](https://github.com/EstherAIRP/Knowledge-Card/tree/main/.github/workflows) |
 | 查證某次公開網站發布來源 | [`AUTOMATION.md`](./AUTOMATION.md#發布來源證明與版本模型) | [線上發布驗證器](https://github.com/EstherAIRP/Knowledge-Card/blob/main/scripts/verify-live-release.mjs) |
@@ -76,6 +76,7 @@ Schema / config / 範圍所有權規則
 - [`THREADS_INGESTION.md`](./THREADS_INGESTION.md) — 唯一的詳細 Threads 來源／完整性規格，包含 Phase 1–7、快照、受管理排序器與語意轉交。
 - [`AUTOMATION.md`](./AUTOMATION.md) — CI/CD、Remote Ingest 概覽、文件治理檢查、產生索引維護與 Pages workflow 說明。
 - [`RELATIONS.md`](./RELATIONS.md) — Card-to-Card 語意關聯架構。
+- [`TAXONOMY.md`](./TAXONOMY.md) — Human Navigation、semantic classification、Resource Kind、Source Type 與 Tags 的責任邊界。
 - [`CONCEPTS.md`](./CONCEPTS.md) — Concept Graph 架構。
 - [`WEBSITE.md`](./WEBSITE.md) — VitePress 呈現層架構。
 

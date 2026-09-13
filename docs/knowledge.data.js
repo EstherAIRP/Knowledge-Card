@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'node:url';
-import { effectiveResourceKind, loadCards } from '../scripts/lib/knowledge.mjs';
+import { effectiveNavigationCategories, effectiveResourceKind, loadCards } from '../scripts/lib/knowledge.mjs';
 
 const contentRoot = fileURLToPath(new URL('../content/knowledge/', import.meta.url));
 
@@ -29,7 +29,8 @@ function normalizeCard(card) {
     createdAt: data.created_at,
     updatedAt: data.updated_at,
     lastCheckedAt: data.last_checked_at,
-    categories: effectiveValue(data.classification?.categories) ?? [],
+    categories: effectiveNavigationCategories(data),
+    semanticCategories: effectiveValue(data.classification?.categories) ?? [],
     tags: effectiveValue(data.classification?.tags) ?? [],
     relevance: effectiveRelevance(data.relevance),
     actions: effectiveValue(data.actions) ?? [],

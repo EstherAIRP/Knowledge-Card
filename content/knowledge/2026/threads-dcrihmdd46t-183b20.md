@@ -7,8 +7,17 @@ source:
   type: article
   url: https://threads.com/@musclenet2003/post/DcRIHmdD46t
   identity: threads:DcRIHmdD46t
+resource_kind:
+  ai: article
+  user: null
+navigation:
+  categories:
+    ai:
+      - Audio / Music / Speech
+      - Video Creation
+    user: null
 created_at: 2026-08-21
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: 一款由 Threads 作者分享的免費影片語音辨識字幕工具 V2.0；程式本體不再內含大型模型，啟動後可依硬體下載 large-v3、medium、small、base 等模型，預設輸出繁體中文。作者宣稱新版辨識速度約每秒 65–70 字，並強調 large-v3 的中英夾雜與時間軸表現；目前公開來源未提供原始碼、完整技術文件或可獨立核對的安全認證細節。
 classification:

@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-09-03
-updated_at: 2026-09-03
+updated_at: 2026-09-13
 last_checked_at: 2026-09-03
 summary: Agent Skills 是 Addy Osmani 維護的軟體工程 Agent Skill 套件，把規格、規劃、增量實作、TDD、除錯、審查、安全、效能、CI/CD、文件與發布等資深工程流程封裝成可重用工作流，並提供 Claude Code、Codex、Cursor、Gemini CLI、OpenCode 等多種 Coding Agent 的整合方式。
 classification:

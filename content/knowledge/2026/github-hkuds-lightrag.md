@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Memory / RAG / Knowledge
+    user: null
 created_at: 2026-08-27
-updated_at: 2026-08-27
+updated_at: 2026-09-13
 last_checked_at: 2026-08-27
 summary: LightRAG 是 HKUDS 開源的圖結構 RAG 系統，將實體／關係知識圖譜與向量檢索結合，透過 local、global、hybrid、mix 等查詢模式支援不同層次的知識召回，並提供增量更新、reranker、引用、WebUI、API、多種儲存後端與多模態文件解析。它適合作為知識圖譜 × RAG 架構、企業知識庫與 Agent 外部知識層的實作參考。
 classification:

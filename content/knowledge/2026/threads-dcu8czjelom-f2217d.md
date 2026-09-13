@@ -7,8 +7,16 @@ source:
   type: article
   url: https://threads.com/@mashbean/post/Dcu8cZjElOM
   identity: threads:Dcu8cZjElOM
+resource_kind:
+  ai: article
+  user: null
+navigation:
+  categories:
+    ai:
+      - Automation / Productivity
+    user: null
 created_at: 2026-09-01
-updated_at: 2026-09-01
+updated_at: 2026-09-13
 last_checked_at: 2026-09-01
 summary: 一個受 Polis 啟發的輕量化開源線上審議工具；作者表示不需自行架設 host server，只要 Cloudflare 帳號與 AI Agent，即可快速發起線上審議活動。公開 Threads 來源目前僅揭露概念與入口，尚未提供可驗證的實作架構、授權與部署細節。
 classification:

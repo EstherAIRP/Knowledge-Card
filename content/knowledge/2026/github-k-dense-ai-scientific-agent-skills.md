@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Research / Science
+    user: null
 created_at: 2026-08-28
-updated_at: 2026-08-28
+updated_at: 2026-09-13
 last_checked_at: 2026-08-28
 summary: Scientific Agent Skills 是 K-Dense 維護的大型科學 Agent Skill 資料庫，將生物資訊、化學資訊、藥物探索、醫學研究、科學計算、資料分析與研究寫作等工作流程包成可攜式能力模組，並同時支援 Agent Skills 與 Agent Plugins 規格；適合用來補強研究型 Agent 的領域知識、工具操作與證據邊界。
 classification:

@@ -46,6 +46,11 @@ export function effectiveOwnershipValue(wrapper) {
   return wrapper?.user ?? wrapper?.ai ?? null;
 }
 
+export function effectiveNavigationCategories(data) {
+  return effectiveOwnershipValue(data?.navigation?.categories) ??
+    effectiveOwnershipValue(data?.classification?.categories) ?? [];
+}
+
 export function effectiveResourceKind(data) {
   const explicit = effectiveOwnershipValue(data?.resource_kind);
   if (explicit) return explicit;
@@ -262,6 +267,7 @@ export function compareUserOwnedState(before, after) {
     ['id', before.data.id, after.data.id],
     ['created_at', before.data.created_at, after.data.created_at],
     ['resource_kind.user', before.data?.resource_kind?.user ?? null, after.data?.resource_kind?.user ?? null],
+    ['navigation.categories.user', before.data?.navigation?.categories?.user ?? null, after.data?.navigation?.categories?.user ?? null],
     ['classification.categories.user', before.data?.classification?.categories?.user, after.data?.classification?.categories?.user],
     ['classification.tags.user', before.data?.classification?.tags?.user, after.data?.classification?.tags?.user],
     ['relevance.user', before.data?.relevance?.user, after.data?.relevance?.user],

@@ -51,15 +51,15 @@ content/knowledge/**/*.md
 
 `docs/index.md` 掛載 `KnowledgeRadar.vue`。
 
-Radar 可以依標題、摘要、來源類型、分類、標籤與 Action 篩選中繼資料，也支援 GitHub `Project`／`Skill` 類型、相關性維度選擇、最低分數篩選、排序、自動統計與響應式 Card 網格。
+Radar 可以依標題、摘要、來源類型、人類導航主題、標籤與 Action 篩選中繼資料，也支援完整的資源型態、相關性維度選擇、最低分數篩選、排序、自動統計與響應式 Card 網格。
 
-GitHub 類型來自 Knowledge Card 的有效 `resource_kind`：
+資源型態來自 Knowledge Card 的有效 `resource_kind`，適用於所有來源，而不只 GitHub：
 
 ```text
 resource_kind = user ?? ai
 ```
 
-為了相容在此欄位加入前建立的舊 GitHub Card，網站會暫時把具有明確 Agent Skill 標記的舊卡推定為 `skill`，其餘舊 GitHub Card 視為 `project`。新建立或重新分析的 GitHub Card 應正式寫入 `resource_kind`，因此舊資料的推定只是一層過渡相容，不是新的內容權威來源。
+`resource_kind` 與 `source.type` 分開：前者描述資源本身是專案、Skill、教學、指南、文章、參考資料、論文或工具；後者只描述來源媒介。所有 Card 都應明確寫入 `resource_kind`。
 
 所選的相關性維度會同時影響篩選結果與每張 Card 顯示的分數。
 
@@ -142,7 +142,7 @@ Knowledge Card embedding
 - **自動 Fit**：依目前語意節點實際 bounding box 使用單一等比例縮放，置中並保留 padding，不以不同 x/y 比例扭曲 MDS 幾何；
 - **Pan / Zoom**：桌機支援拖曳、滾輪縮放、雙擊 Fit；手機支援單指拖曳、雙指縮放，另提供 +/-/Fit 控制；
 - **全域地圖 / 聚焦模式**：聚焦模式只保留選取 Card、Top 語意鄰居與直接 Concept；手機預設使用聚焦模式；
-- **多條件篩選**：Category、Action、Tag、Source Type、GitHub Resource Kind、最低 Relevance 與 Relation Type；同一條件群組採 OR，不同群組之間採 AND；
+- **多條件篩選**：Human Navigation Category、Action、Tag、Source Type、Resource Kind、最低 Relevance 與 Relation Type；同一條件群組採 OR，不同群組之間採 AND；
 - **語意鄰域篩選**：選取 Card 後可使用 Top N 或原始 cosine distance ≤ X，距離條件使用不含 embedding vector 的完整 pairwise distance index；
 - **篩選顯示策略**：可選擇淡化不符合節點或完全隱藏，並可使用 Fit Results 只調整鏡頭到符合條件的節點；篩選本身不重新執行 MDS；
 - **顏色視覺編碼**：Knowledge Card 可依 Category、Action 或 Overall Relevance 上色；多值欄位使用第一個有效值作為主色，但篩選仍匹配所有有效值；
@@ -154,7 +154,7 @@ Knowledge Card embedding
 
 圖上的節點位置先由 `graph-layout.json` 投影，再由 viewport transform 執行 Pan / Zoom。篩選、顏色切換、Dim／Hide 與 Fit Results 都只改變呈現狀態或鏡頭，不修改 `graph-layout.json`、不重新計算 MDS，因此節點空間位置在不同分析視角間保持穩定。
 
-Graph projection 會把有效的 Category、Tag、Action、Source Type、Resource Kind 與 Relevance 一併投影到 Card node；另外由原始 embedding 在建置時產生不含向量的 compact pairwise distance index，提供瀏覽器端的語意距離篩選。視覺化以 Vue + SVG 實作，不新增 D3／Cytoscape 執行階段依賴。
+Graph projection 會把 Human Navigation Category、既有 semantic Category、Tag、Action、Source Type、Resource Kind 與 Relevance 一併投影到 Card node；畫面分類篩選與上色使用 Human Navigation Category，既有 semantic Category 只保留給語意／Concept 系統與文字搜尋；另外由原始 embedding 在建置時產生不含向量的 compact pairwise distance index，提供瀏覽器端的語意距離篩選。視覺化以 Vue + SVG 實作，不新增 D3／Cytoscape 執行階段依賴。
 
 ## 搜尋
 

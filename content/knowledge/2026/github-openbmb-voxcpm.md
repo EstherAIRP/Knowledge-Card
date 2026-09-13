@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Audio / Music / Speech
+      - Model / Inference
+    user: null
 created_at: 2026-08-21
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: VoxCPM 是 OpenBMB 開源的無離散語音 tokenizer 文字轉語音系統；目前主版本 VoxCPM2 為 2B 參數模型，支援 30 種語言、語音設計、可控聲音複製、48kHz 輸出、串流生成與 LoRA／全量微調，並可透過 vLLM-Omni、Nano-vLLM 與 llama.cpp-omni 等後端部署。
 classification:

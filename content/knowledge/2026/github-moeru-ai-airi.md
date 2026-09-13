@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Character AI / AI RPG
+      - Agent / Harness
+    user: null
 created_at: 2026-08-12
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: Project AIRI 是開源的 AI VTuber／數位生命 Runtime，將多模型 LLM、即時語音、VRM／Live2D 角色、Web／桌面／行動端與遊戲 Agent 整合在同一個 monorepo；其目標是讓可持有、可延伸的虛擬角色不只聊天，也能聽、說、看、操作遊戲並逐步建立記憶。
 classification:

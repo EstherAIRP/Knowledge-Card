@@ -47,6 +47,12 @@ content/knowledge/**/*.md
 - `config/relation-overrides.yaml` — 使用者擁有的 Card↔Card pin／block／override 決策。
 - `config/concept-config.yaml` — 儲存庫擁有的 Concept 擷取與 promoted Concept 規則。
 
+## Human Navigation 與語意關聯邊界
+
+`navigation.categories` 是人類搜尋與篩選用的主題 facet，不參與 Phase 1 taxonomy score、embedding text、semantic candidate score 或 LLM relation classification。既有 `classification.categories` 才是 Relation pipeline 的 taxonomy 訊號；因此調整 Human Navigation 不會用人工導航分類去拉動 Card 間的語意距離或關聯。
+
+`resource_kind` 同樣只負責資源型態導航，不是 Relation scoring 訊號。
+
 ## Card ↔ Card 語意關聯
 
 Phase 2 子系統維持不變。它會對選定的公開 Card 欄位建立向量嵌入，而不是直接處理整份 Markdown；預設模型為 `Xenova/multilingual-e5-small`。Phase 1 的 taxonomy 分數仍是獨立訊號，並與正規化 cosine similarity 結合形成 LLM 候選集合。

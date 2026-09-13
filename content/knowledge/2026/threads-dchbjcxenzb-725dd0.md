@@ -7,8 +7,17 @@ source:
   type: article
   url: https://threads.com/@pd3mnd/post/DcHBJCXEnZb
   identity: threads:DcHBJCXEnZb
+resource_kind:
+  ai: article
+  user: null
+navigation:
+  categories:
+    ai:
+      - Character AI / AI RPG
+      - Model / Inference
+    user: null
 created_at: 2026-08-17
-updated_at: 2026-08-17
+updated_at: 2026-09-13
 last_checked_at: 2026-08-17
 summary: 這篇 Threads 串文以手機重度 AI 角色聊天的實際使用為主，分享 Saucepan 的低成本與角色卡供應，以及 Google AI Edge Gallery、PocketPal 兩種本地模型 App 的初步體驗，凸顯行動端 AI RPG 在成本、繁中輸出、角色卡搬移與硬體加速相容性上的實務取捨。
 classification:

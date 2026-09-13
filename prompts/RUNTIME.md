@@ -1,6 +1,6 @@
 ---
-prompt_version: 1.12.2
-updated_at: 2026-08-18
+prompt_version: 1.13.0
+updated_at: 2026-09-13
 repository: EstherAIRP/Knowledge-Card
 ---
 
@@ -161,7 +161,14 @@ Knowledge Card 應回答：
 
 ### 受控詞彙
 
-`Category`、`Action`、`Status`、`Source Type` 與 `Relevance` 維度的唯一人類可讀詞彙權威來源是 `config/taxonomy.yaml`；不得在 Runtime 維護第二份列舉清單或臨時新增受控值。
+`Category`、`Navigation Category`、`Resource Kind`、`Action`、`Status`、`Source Type` 與 `Relevance` 維度的唯一人類可讀詞彙權威來源是 `config/taxonomy.yaml`；不得在 Runtime 維護第二份列舉清單或臨時新增受控值。
+
+### Human Navigation
+
+- `navigation.categories` 是人類搜尋／篩選用的主題分類，可多選；只描述「這份收藏主要在談什麼」，不應把每個使用到的技術都升成導航分類。
+- `classification.categories` 保留為既有語意 taxonomy 訊號，供 Relation／Concept 等系統使用；Human Navigation migration 不應為了改善找資料而重寫這個欄位。
+- `resource_kind` 描述「這份資源本身是什麼」，與 `source.type` 的來源媒介分離；建立／重新分析 Card 時都必須判定。
+- Navigation Category 與 Resource Kind 的受控值都以 `config/taxonomy.yaml` 為準。
 
 ### Tags
 
@@ -210,7 +217,7 @@ Knowledge Card 應回答：
 effective_value = user_override ?? ai_value
 ```
 
-AI 重新分析不得覆蓋使用者擁有的 `category`／`tag`／`relevance`／`action`／`status` 覆寫值或 `## 使用者備註`。既有 Card 更新必須通過 ownership validation。
+AI 重新分析不得覆蓋使用者擁有的 `navigation.categories`／`resource_kind`／`category`／`tag`／`relevance`／`action`／`status` 覆寫值或 `## 使用者備註`。既有 Card 更新必須通過 ownership validation。
 
 ## 8. 公開安全
 

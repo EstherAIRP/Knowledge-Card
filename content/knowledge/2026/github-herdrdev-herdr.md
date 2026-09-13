@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Agent / Harness
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-09-03
-updated_at: 2026-09-03
+updated_at: 2026-09-13
 last_checked_at: 2026-09-03
 summary: Herdr 是面向 AI coding agents 的持久化終端工作區與執行環境。它以背景伺服器持有終端工作階段，支援重新連線、Agent 狀態辨識、CLI／socket 控制、遠端附加與外掛，讓多個 coding agents 能在既有終端工具鏈中持續執行與協作。
 classification:

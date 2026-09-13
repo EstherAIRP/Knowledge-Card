@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Writing / Documentation
+    user: null
 created_at: 2026-08-26
-updated_at: 2026-08-26
+updated_at: 2026-09-13
 last_checked_at: 2026-08-26
 summary: Humanizer-zh-TW 是面向繁體中文的 Agent Skill，透過一組寫作規則辨識並改寫常見 AI 寫作痕跡，並另附文字浮水印清理 Skill，將語氣人性化、不可見 Unicode 清理與文字 provenance 處理明確分工。可透過 npx skills 安裝到多種 Agent 環境。
 classification:

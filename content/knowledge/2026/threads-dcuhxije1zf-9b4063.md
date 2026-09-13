@@ -7,8 +7,17 @@ source:
   type: article
   url: https://threads.com/@myps6415/post/DcUhXIJE1ZF
   identity: threads:DcUhXIJE1ZF
+resource_kind:
+  ai: article
+  user: null
+navigation:
+  categories:
+    ai:
+      - Memory / RAG / Knowledge
+      - Agent / Harness
+    user: null
 created_at: 2026-08-23
-updated_at: 2026-08-23
+updated_at: 2026-09-13
 last_checked_at: 2026-08-23
 summary: OpenViking 是火山引擎開源的 Agent 上下文資料庫，將記憶、資源與技能統一放進 viking:// 虛擬檔案系統，透過 L0／L1／L2 分層按需載入內容，並保留可觀測的檢索路徑。官方基準顯示它可明顯提升長對話記憶與多輪任務表現，同時降低輸入 Token 與查詢延遲。
 classification:

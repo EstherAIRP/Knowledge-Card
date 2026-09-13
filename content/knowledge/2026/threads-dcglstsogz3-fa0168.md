@@ -7,8 +7,16 @@ source:
   type: article
   url: https://threads.com/@mngo_tw/post/DcGlstsoGZ3
   identity: threads:DcGlstsoGZ3
+resource_kind:
+  ai: tutorial
+  user: null
+navigation:
+  categories:
+    ai:
+      - Infrastructure / Security
+    user: null
 created_at: 2026-08-17
-updated_at: 2026-08-17
+updated_at: 2026-09-13
 last_checked_at: 2026-08-17
 summary: 一則以自架 AI 服務為情境的 Cloudflare 實務整理，說明如何搭配網域、Cloudflare Tunnel、Zero Trust、Workers、Email Routing 與 DNS 管理，降低直接對外開 Port 的需求，並以作者自己的 Mac mini 與管理後台配置作為具體例子。
 classification:

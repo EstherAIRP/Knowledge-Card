@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Character AI / AI RPG
+      - Memory / RAG / Knowledge
+    user: null
 created_at: 2026-08-24
-updated_at: 2026-08-24
+updated_at: 2026-09-13
 last_checked_at: 2026-08-24
 summary: Distilly 是一套人物建模 Agent Skill，將聊天、文件、郵件、公開資料等來源整理成可攜式、以來源為基礎的 Person Profile，再封裝成可被多種 Agent 宿主載入的 Skill；它把人物經驗、判斷、表達方式與工作模式轉成可重用能力，同時保留持續更新與版本回滾機制。
 classification:

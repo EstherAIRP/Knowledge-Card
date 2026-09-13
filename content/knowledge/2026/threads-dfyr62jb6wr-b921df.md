@@ -7,8 +7,17 @@ source:
   type: article
   url: https://threads.com/@esther1ooo/post/DFyr62jB6Wr
   identity: threads:DFyr62jB6Wr
+resource_kind:
+  ai: guide
+  user: null
+navigation:
+  categories:
+    ai:
+      - Memory / RAG / Knowledge
+      - Character AI / AI RPG
+    user: null
 created_at: 2026-08-13
-updated_at: 2026-08-13
+updated_at: 2026-09-13
 last_checked_at: 2026-08-13
 summary: 這篇 Threads 串文提出一種降低角色對話「失憶」的低成本方法：定期把既有對話壓縮成角色、事件或約會等結構化資料卡，並讓資料卡持續出現在近期上下文中；需要時再指定場景或日期更新，或要求模型先讀取特定資料卡再回覆。本質上是以滾動摘要、重複暴露與顯式檢索提示，提高重要資訊進入有限上下文的機率。
 classification:

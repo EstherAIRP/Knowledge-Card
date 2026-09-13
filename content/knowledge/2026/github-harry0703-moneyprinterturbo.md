@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Video Creation
+      - Automation / Productivity
+    user: null
 created_at: 2026-08-18
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: MoneyPrinterTurbo 是一套以 Python 建構的 AI 短影音自動化工作流，將 LLM 腳本與搜尋詞生成、素材取得、TTS、字幕、配樂、影片合成與 TikTok／Instagram／YouTube Shorts 發布串成完整產線，並提供 WebUI、API、CLI 與可由具終端能力 Agent 執行的 SKILL.md 工作流程。
 classification:

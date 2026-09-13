@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Image Creation / Design
+      - Automation / Productivity
+    user: null
 created_at: 2026-08-12
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: PPT Master 是一套讓 AI Agent 從文件、URL、主題或既有 PPTX 產生原生可編輯 PowerPoint 的開源 Skill／workflow；它以受約束 SVG 作為視覺中介語言，編譯為 DrawingML，並加入模板、原生圖表與表格、動畫轉場、旁白、品質檢查與本機預覽。
 classification:

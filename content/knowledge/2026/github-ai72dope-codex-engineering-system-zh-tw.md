@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-08-24
-updated_at: 2026-08-24
+updated_at: 2026-09-13
 last_checked_at: 2026-08-24
 summary: Codex Engineering System 是一套可安裝到程式碼儲存庫的 Codex 工程工作流程與指令系統，依任務類型、複雜度與風險自適應選擇流程深度，並用規格驅動開發、選擇性 TDD、驗證契約與路由追蹤提升 coding agent 的工程紀律；繁中版本只翻譯使用者文件，核心 Runtime Instructions 維持已驗證的英文原文。
 classification:

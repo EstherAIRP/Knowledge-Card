@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Memory / RAG / Knowledge
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-09-10
-updated_at: 2026-09-10
+updated_at: 2026-09-13
 last_checked_at: 2026-09-10
 summary: memory-toolkit 是一組給長期運作 AI Agent 的 Claude Code 檔案式記憶治理工具：以兩份 Skills 規範「什麼值得記、記到哪、如何寫」，再用兩支 Node.js Hooks 在記憶落檔前與對話壓縮前後強制或提醒檢查。它不提供向量資料庫或記憶檢索引擎，而是把記憶視為會被未來工作階段重讀的 prompt，重點放在品質閘門、索引預算與遺忘前的觸發時機。
 classification:

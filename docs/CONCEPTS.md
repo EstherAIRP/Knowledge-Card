@@ -33,6 +33,10 @@ Phase 2 的 `data/relations.json` 不會被淘汰。`/graph` 可以同時投影�
 - `concept-concept`：Concept 在多張 Cards 中共同出現；
 - `card-card`：Phase 2 語意關聯，可由 UI 選擇是否顯示。
 
+## Human Navigation 與 Concept 邊界
+
+`navigation.categories` 是人類導覽用的主題分類，不會自動升格成 Concept，也不取代既有 ontology。Concept 擷取仍只讀取 `classification.categories`、共用 Tags 與 `promoted_concepts`，因此 Human Navigation 可以依使用者找資料的需求調整，而不會改寫既有 Concept Graph。
+
 ## Concept 來源
 
 Phase 3 第一版使用確定性擷取，避免讓 ontology 是否能建置依賴外部 LLM。

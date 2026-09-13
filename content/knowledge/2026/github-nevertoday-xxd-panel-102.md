@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Image Creation / Design
+    user: null
 created_at: 2026-09-03
-updated_at: 2026-09-03
+updated_at: 2026-09-13
 last_checked_at: 2026-09-03
 summary: XXD Panel 102 是供 Codex、Claude Code 等 Agent 使用的影像生成 Skill，將照片轉譯為幾何化、留白導向的編輯海報。它把原始美學提示詞設為唯一創作權威，再由 Skill 負責輸出模式、尺寸、文字、批次、偏好與生圖通道等執行層變數，形成可重用的風格工作流程。
 classification:

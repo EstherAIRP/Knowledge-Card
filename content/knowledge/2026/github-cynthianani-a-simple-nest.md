@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Character AI / AI RPG
+      - Memory / RAG / Knowledge
+    user: null
 created_at: 2026-08-12
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: A Simple Nest 是一套以「自建持續存在的 AI 伴侶」為目標的工程設計筆記，從 message/context 排序、tool design、Anthropic prompt caching、SQLite＋embedding 長期記憶、hybrid recall、memory consolidation、摘要壓縮，到自主喚醒與主動訊息，整理出一條不依賴現成框架的 stateful companion agent 建構路徑。
 classification:

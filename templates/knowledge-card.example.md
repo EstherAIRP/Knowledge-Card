@@ -10,6 +10,12 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Agent / Harness
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-08-11
 updated_at: 2026-08-11
 last_checked_at: 2026-08-11
@@ -50,7 +56,9 @@ status:
 
 這是一張格式範例，用來展示 Knowledge Card 的 YAML 前置欄位（frontmatter）、分析章節與 AI／使用者所有權寫法；真正收錄內容應放在 `content/knowledge/{YYYY}/`。
 
-GitHub 來源應使用 `resource_kind.ai` 判斷 Repository 的主要交付物是 `project` 或 `skill`。`skill` 指主要供 Agent 載入、遵循或調用的可重用能力／工作流程；一般應用、函式庫、框架、CLI、服務或只是附帶 Skill 範例的 Repository 仍屬 `project`。不得只因為出現 `SKILL.md` 就自動判為 `skill`。
+`navigation.categories` 是給人類找資料用的主題分類，可多選，但只描述主要導航主題；它不取代 `classification.categories`，也不參與既有語意關聯與 Concept taxonomy。
+
+`resource_kind.ai` 描述資源本身的型態，與 `source.type` 分開判斷。可用值包含 `project`、`skill`、`tutorial`、`guide`、`article`、`reference`、`paper`、`tool`。其中 `skill` 指主要供 Agent 載入、遵循或調用的可重用能力／工作流程；一般應用、函式庫、框架、CLI 或服務仍屬 `project`。
 
 ## 它解決什麼問題
 

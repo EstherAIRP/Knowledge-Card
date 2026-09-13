@@ -7,8 +7,17 @@ source:
   type: article
   url: https://threads.com/@aiposthub/post/Db_FPHwgfOS
   identity: threads:Db_FPHwgfOS
+resource_kind:
+  ai: article
+  user: null
+navigation:
+  categories:
+    ai:
+      - Agent / Harness
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-08-14
-updated_at: 2026-08-14
+updated_at: 2026-09-13
 last_checked_at: 2026-08-14
 summary: 這篇 Threads 串文介紹 DeepSeek Harness v0.1：一套以「Everything is a plugin」為核心的開源 Agent Runtime，將模型介面、Tools、Skills、Session、Sandbox、檔案系統、Agent Loop 與 UI 都視為可替換能力。官方架構以 Cordis 組合 plugin tree，並提供 Web UI；目前仍屬 Developer Preview，適合研究 Agent 架構、做 POC、比較多模型與 Sandbox／權限設計，尚不宜直接視為穩定 production runtime。
 classification:

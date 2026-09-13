@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-09-10
-updated_at: 2026-09-10
+updated_at: 2026-09-13
 last_checked_at: 2026-09-10
 summary: Tsunu Superpowers 是一套面向 Codex 與 Claude Code 的正體中文流程紀律框架，以 13 個可組合 skill 把任務分流、思考整理、規劃、驗收標準、執行、驗證、審查與交付串成自適應工作流，並依宿主能力支援本 session、子代理、跨 session 通道與混合並行。
 classification:

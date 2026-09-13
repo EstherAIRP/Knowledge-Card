@@ -45,7 +45,7 @@ const actions = computed(() => {
 const resourceKinds = computed(() => {
   const count = new Map();
   for (const card of cards) {
-    if (card.sourceType !== 'github' || !card.resourceKind) continue;
+    if (!card.resourceKind) continue;
     count.set(card.resourceKind, (count.get(card.resourceKind) ?? 0) + 1);
   }
   return [...count.entries()].sort((a, b) => a[0].localeCompare(b[0]));
@@ -75,6 +75,7 @@ const filteredCards = computed(() => {
         card.sourceType,
         card.resourceKind,
         ...card.categories,
+        ...(card.semanticCategories ?? []),
         ...card.tags,
         ...card.actions
       ].join(' ').toLocaleLowerCase('zh-TW');
@@ -100,7 +101,17 @@ function scoreLabel(score) {
 }
 
 function resourceKindLabel(kind) {
-  return kind === 'skill' ? 'Skill' : 'Project';
+  const labels = {
+    project: '專案',
+    skill: 'Skill',
+    tutorial: '教學',
+    guide: '指南',
+    article: '文章',
+    reference: '參考資料',
+    paper: '論文',
+    tool: '工具'
+  };
+  return labels[kind] ?? kind;
 }
 
 function sourceLabel(card) {
@@ -134,7 +145,7 @@ function resetFilters() {
         <div class="radar-stat"><strong>{{ stats.total }}</strong><span>Knowledge Cards</span></div>
         <div class="radar-stat"><strong>{{ stats.high }}</strong><span>高度相關</span></div>
         <div class="radar-stat"><strong>{{ stats.tryCount }}</strong><span>值得 TRY</span></div>
-        <div class="radar-stat"><strong>{{ stats.categoryCount }}</strong><span>Categories</span></div>
+        <div class="radar-stat"><strong>{{ stats.categoryCount }}</strong><span>主題分類</span></div>
       </div>
     </section>
 
@@ -142,7 +153,7 @@ function resetFilters() {
       <summary class="radar-controls-summary">
         <span>
           <strong>搜尋與篩選</strong>
-          <small>搜尋、GitHub 類型、Tag、Action、Category、相關性與排序</small>
+          <small>搜尋、主題分類、資源型態、Tag、Action、相關性與排序</small>
         </span>
         <span class="radar-controls-chevron" aria-hidden="true">⌄</span>
       </summary>
@@ -154,7 +165,7 @@ function resetFilters() {
             <input v-model="query" type="search" placeholder="專案、Skill、技術、Tag、Action…" />
           </label>
           <label>
-            <span>GitHub 類型</span>
+            <span>資源型態</span>
             <select v-model="resourceKind">
               <option value="ALL">全部</option>
               <option v-for="([item, count]) in resourceKinds" :key="item" :value="item">{{ resourceKindLabel(item) }} ({{ count }})</option>
@@ -186,7 +197,7 @@ function resetFilters() {
         </div>
 
         <div class="radar-control-group">
-          <div class="radar-control-label">Category</div>
+          <div class="radar-control-label">主題分類</div>
           <div class="radar-pills">
             <button :class="{ active: category === 'ALL' }" @click="category = 'ALL'">全部 <small>{{ cards.length }}</small></button>
             <button

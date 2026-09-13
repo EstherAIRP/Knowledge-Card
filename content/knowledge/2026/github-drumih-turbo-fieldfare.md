@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Model / Inference
+    user: null
 created_at: 2026-08-12
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: TurboFieldfare 是針對 Apple Silicon 與 Gemma 4 26B-A4B 特化的 Swift + Metal 本機推論 Runtime，透過讓共用權重與 KV cache 常駐、將 MoE routed experts 由 SSD 按需串流，把約 14.3 GB 的文字模型壓到約 2 GB 實體記憶體 footprint；並提供 Mac App、CLI 與實驗性的 OpenAI-compatible Chat Completions Server。
 classification:

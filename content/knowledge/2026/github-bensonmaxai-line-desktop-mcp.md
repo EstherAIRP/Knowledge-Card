@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Automation / Productivity
+      - Agent / Harness
+    user: null
 created_at: 2026-09-11
-updated_at: 2026-09-11
+updated_at: 2026-09-13
 last_checked_at: 2026-09-11
 summary: 將已登入的 LINE Desktop 透過 MCP 接給 Codex 等本機 AI 客戶端的 Windows 社群擴充版。啟用擴充後提供 24 個工具，涵蓋聊天讀取與搜尋、草稿與訊息發送、紀錄匯出及介面操作，底層結合 AutoHotkey、CUA Driver 與 Windows 本機 OCR，並加入聊天室確認、操作鎖與遠端 HTTP 驗證等保護。
 classification:

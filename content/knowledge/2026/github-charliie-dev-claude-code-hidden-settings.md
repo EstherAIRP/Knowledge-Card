@@ -8,10 +8,15 @@ source:
   url: https://github.com/charliie-dev/claude-code-hidden-settings
   identity: github:charliie-dev/claude-code-hidden-settings
 resource_kind:
-  ai: project
+  ai: reference
   user: null
+navigation:
+  categories:
+    ai:
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-08-23
-updated_at: 2026-08-23
+updated_at: 2026-09-13
 last_checked_at: 2026-08-23
 summary: 針對 Claude Code v2.1.239 的設定與環境變數研究，交叉比對官方文件、Schema、changelog 與固定版本執行檔，整理已文件化設定、文件落差及高信心度隱藏控制項，並透過直接 runtime read 與差分測試區分真正行為與僅出現在字串表中的候選名稱。
 classification:

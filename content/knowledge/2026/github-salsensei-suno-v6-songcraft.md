@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Audio / Music / Speech
+    user: null
 created_at: 2026-09-12
-updated_at: 2026-09-12
+updated_at: 2026-09-13
 last_checked_at: 2026-09-12
 summary: Suno v6 Songcraft 是面向 Codex 的音樂創作 Skill，以中文協作、英文音樂指令與可選語言歌詞協助設計 Suno v6 提示；它結合官方證據分級、MusicBrainz 曲風索引、音樂研究檔案與 Python 驗證工具，把曲風研究、歌詞共創、提示編譯與文字約束檢查整理成可重複流程，但不會自動操作 Suno 或生成音訊。
 classification:

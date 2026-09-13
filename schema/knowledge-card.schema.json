@@ -11,10 +11,12 @@
     "title",
     "canonical_url",
     "source",
+    "resource_kind",
     "created_at",
     "updated_at",
     "last_checked_at",
     "summary",
+    "navigation",
     "classification",
     "relevance",
     "actions",
@@ -40,7 +42,11 @@
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["type", "url", "identity"],
+      "required": [
+        "type",
+        "url",
+        "identity"
+      ],
       "properties": {
         "type": {
           "enum": [
@@ -66,7 +72,7 @@
     },
     "resource_kind": {
       "$ref": "#/$defs/resourceKindOwnership",
-      "description": "Optional resource classification. GitHub repositories should classify the primary deliverable as project or skill when authored or re-analyzed. The user value is an explicit override of the AI value."
+      "description": "Required resource nature for human navigation, independent of source.type. The user value is an explicit override of the AI value."
     },
     "created_at": {
       "type": "string",
@@ -89,7 +95,10 @@
     "classification": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["categories", "tags"],
+      "required": [
+        "categories",
+        "tags"
+      ],
       "properties": {
         "categories": {
           "$ref": "#/$defs/categoryOwnership"
@@ -102,7 +111,10 @@
     "relevance": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["ai", "user"],
+      "required": [
+        "ai",
+        "user"
+      ],
       "properties": {
         "ai": {
           "$ref": "#/$defs/fullRelevance"
@@ -115,15 +127,22 @@
     "actions": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["ai", "user"],
+      "required": [
+        "ai",
+        "user"
+      ],
       "properties": {
         "ai": {
           "$ref": "#/$defs/actions"
         },
         "user": {
           "oneOf": [
-            { "type": "null" },
-            { "$ref": "#/$defs/actionsAllowEmpty" }
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/actionsAllowEmpty"
+            }
           ]
         }
       }
@@ -131,16 +150,35 @@
     "status": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["ai", "user"],
+      "required": [
+        "ai",
+        "user"
+      ],
       "properties": {
         "ai": {
           "$ref": "#/$defs/status"
         },
         "user": {
           "oneOf": [
-            { "type": "null" },
-            { "$ref": "#/$defs/status" }
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/status"
+            }
           ]
+        }
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "categories"
+      ],
+      "properties": {
+        "categories": {
+          "$ref": "#/$defs/navigationCategoryOwnership"
         }
       }
     }
@@ -149,21 +187,34 @@
     "resourceKind": {
       "enum": [
         "project",
-        "skill"
+        "skill",
+        "tutorial",
+        "guide",
+        "article",
+        "reference",
+        "paper",
+        "tool"
       ]
     },
     "resourceKindOwnership": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["ai", "user"],
+      "required": [
+        "ai",
+        "user"
+      ],
       "properties": {
         "ai": {
           "$ref": "#/$defs/resourceKind"
         },
         "user": {
           "oneOf": [
-            { "type": "null" },
-            { "$ref": "#/$defs/resourceKind" }
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/resourceKind"
+            }
           ]
         }
       }
@@ -193,15 +244,22 @@
     "categoryOwnership": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["ai", "user"],
+      "required": [
+        "ai",
+        "user"
+      ],
       "properties": {
         "ai": {
           "$ref": "#/$defs/categoryList"
         },
         "user": {
           "oneOf": [
-            { "type": "null" },
-            { "$ref": "#/$defs/categoryList" }
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/categoryList"
+            }
           ]
         }
       }
@@ -219,15 +277,22 @@
     "tagOwnership": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["ai", "user"],
+      "required": [
+        "ai",
+        "user"
+      ],
       "properties": {
         "ai": {
           "$ref": "#/$defs/tagList"
         },
         "user": {
           "oneOf": [
-            { "type": "null" },
-            { "$ref": "#/$defs/tagList" }
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/tagList"
+            }
           ]
         }
       }
@@ -249,24 +314,48 @@
         "image_gen"
       ],
       "properties": {
-        "overall": { "$ref": "#/$defs/score" },
-        "ai_rd": { "$ref": "#/$defs/score" },
-        "aoi_ai": { "$ref": "#/$defs/score" },
-        "llm_agent": { "$ref": "#/$defs/score" },
-        "sillytavern_ai_rpg": { "$ref": "#/$defs/score" },
-        "image_gen": { "$ref": "#/$defs/score" }
+        "overall": {
+          "$ref": "#/$defs/score"
+        },
+        "ai_rd": {
+          "$ref": "#/$defs/score"
+        },
+        "aoi_ai": {
+          "$ref": "#/$defs/score"
+        },
+        "llm_agent": {
+          "$ref": "#/$defs/score"
+        },
+        "sillytavern_ai_rpg": {
+          "$ref": "#/$defs/score"
+        },
+        "image_gen": {
+          "$ref": "#/$defs/score"
+        }
       }
     },
     "partialRelevance": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "overall": { "$ref": "#/$defs/score" },
-        "ai_rd": { "$ref": "#/$defs/score" },
-        "aoi_ai": { "$ref": "#/$defs/score" },
-        "llm_agent": { "$ref": "#/$defs/score" },
-        "sillytavern_ai_rpg": { "$ref": "#/$defs/score" },
-        "image_gen": { "$ref": "#/$defs/score" }
+        "overall": {
+          "$ref": "#/$defs/score"
+        },
+        "ai_rd": {
+          "$ref": "#/$defs/score"
+        },
+        "aoi_ai": {
+          "$ref": "#/$defs/score"
+        },
+        "llm_agent": {
+          "$ref": "#/$defs/score"
+        },
+        "sillytavern_ai_rpg": {
+          "$ref": "#/$defs/score"
+        },
+        "image_gen": {
+          "$ref": "#/$defs/score"
+        }
       }
     },
     "action": {
@@ -303,6 +392,54 @@
         "archived",
         "unavailable"
       ]
+    },
+    "navigationCategory": {
+      "enum": [
+        "Agent / Harness",
+        "AI Coding / DevTools",
+        "Memory / RAG / Knowledge",
+        "Character AI / AI RPG",
+        "Automation / Productivity",
+        "Infrastructure / Security",
+        "Model / Inference",
+        "Vision / Multimodal",
+        "Image Creation / Design",
+        "Video Creation",
+        "Audio / Music / Speech",
+        "Writing / Documentation",
+        "Research / Science"
+      ]
+    },
+    "navigationCategoryList": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/navigationCategory"
+      }
+    },
+    "navigationCategoryOwnership": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ai",
+        "user"
+      ],
+      "properties": {
+        "ai": {
+          "$ref": "#/$defs/navigationCategoryList"
+        },
+        "user": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/navigationCategoryList"
+            }
+          ]
+        }
+      }
     }
   }
 }

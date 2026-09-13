@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Audio / Music / Speech
+      - Video Creation
+    user: null
 created_at: 2026-09-12
-updated_at: 2026-09-12
+updated_at: 2026-09-13
 last_checked_at: 2026-09-12
 summary: 在 Apple Silicon Mac 本機執行的繁體中文字幕產生工具，以 TEA-ASR 為主要語音辨識模型、Qwen3-ASR 作備援，再用 Qwen3 Forced Aligner 對齊時間戳，最後透過 OpenCC 轉為台灣繁體中文並輸出 SRT、TXT、JSON。
 classification:

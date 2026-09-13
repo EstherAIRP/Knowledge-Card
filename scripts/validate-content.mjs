@@ -30,6 +30,7 @@ function sameArray(a, b) {
 
 function validateContractDrift() {
   const schemaCategories = schema.$defs?.category?.enum;
+  const schemaNavigationCategories = schema.$defs?.navigationCategory?.enum;
   const schemaActions = schema.$defs?.action?.enum;
   const schemaStatuses = schema.$defs?.status?.enum;
   const schemaSourceTypes = schema.properties?.source?.properties?.type?.enum;
@@ -38,6 +39,9 @@ function validateContractDrift() {
 
   if (!sameArray(schemaCategories, taxonomy.categories)) {
     errors.push('CONTRACT: schema categories differ from config/taxonomy.yaml.');
+  }
+  if (!sameArray(schemaNavigationCategories, taxonomy.navigation_categories)) {
+    errors.push('CONTRACT: schema navigation categories differ from config/taxonomy.yaml.');
   }
   if (!sameArray(schemaActions, Object.keys(taxonomy.actions || {}))) {
     errors.push('CONTRACT: schema actions differ from config/taxonomy.yaml.');

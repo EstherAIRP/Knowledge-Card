@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - Agent / Harness
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-08-21
-updated_at: 2026-08-21
+updated_at: 2026-09-13
 last_checked_at: 2026-08-21
 summary: Pi 是以 TypeScript 為主的開源 AI Agent 工具組，將多供應商 LLM API、工具呼叫與狀態管理的 Agent Runtime、互動式 Coding Agent CLI、終端介面與遙測契約整合在同一套 monorepo；適合作為 Agent 基礎架構、Coding Agent 與模型供應商抽象層的實作參考。
 classification:

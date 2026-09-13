@@ -7,8 +7,16 @@ source:
   type: article
   url: https://threads.com/@licca_bobo/post/Db-WLkKgTU_
   identity: threads:Db-WLkKgTU_
+resource_kind:
+  ai: article
+  user: null
+navigation:
+  categories:
+    ai:
+      - AI Coding / DevTools
+    user: null
 created_at: 2026-08-13
-updated_at: 2026-08-13
+updated_at: 2026-09-13
 last_checked_at: 2026-08-13
 summary: 這篇 Threads 文章以 Svelte 5 + Tauri 開發 Multi Agent Desktop Runtime 的經驗，反思 AI Coding 時「把工作全部交給模型」與「保留架構理解、文件閱讀、程式碼審校與親手修改」之間的差異。核心價值不在特定框架教學，而在建立 human-in-the-loop 的開發節奏：AI 負責加速設計與實作，人仍保有系統架構、生命週期、Rust ownership 與前端狀態同步等關鍵技術的理解與決策權。
 classification:

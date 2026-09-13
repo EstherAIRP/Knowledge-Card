@@ -48,7 +48,13 @@ const sourceLabels = {
 
 const resourceLabels = {
   project: '專案',
-  skill: '技能'
+  skill: 'Skill',
+  tutorial: '教學',
+  guide: '指南',
+  article: '文章',
+  reference: '參考資料',
+  paper: '論文',
+  tool: '工具'
 };
 
 function focusPanel() {
@@ -94,7 +100,7 @@ defineExpose({ focusPanel });
     </div>
 
     <details class="graph-filter-group" open>
-      <summary>分類 <span>{{ filters.categories.length || '' }}</span></summary>
+      <summary>主題分類 <span>{{ filters.categories.length || '' }}</span></summary>
       <div class="graph-filter-options">
         <label v-for="item in facets.categories" :key="item">
           <input
@@ -151,7 +157,7 @@ defineExpose({ focusPanel });
         </label>
       </div>
       <template v-if="facets.resourceKinds.length">
-        <div class="graph-filter-subtitle">GitHub 資源</div>
+        <div class="graph-filter-subtitle">資源型態</div>
         <div class="graph-filter-options graph-filter-options--compact">
           <label v-for="item in facets.resourceKinds" :key="item">
             <input

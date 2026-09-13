@@ -10,8 +10,13 @@ source:
 resource_kind:
   ai: skill
   user: null
+navigation:
+  categories:
+    ai:
+      - Automation / Productivity
+    user: null
 created_at: 2026-08-27
-updated_at: 2026-08-27
+updated_at: 2026-09-13
 last_checked_at: 2026-08-27
 summary: career-ops 是一套以 Agent Skill 為核心、在多種 AI coding CLI 內執行的本機優先求職作業系統；它把職缺掃描、適配評估、履歷客製、申請追蹤、面試準備與公司研究整合成可路由的工作流程，並以 Playwright、腳本工具與可選插件延伸能力。
 classification:

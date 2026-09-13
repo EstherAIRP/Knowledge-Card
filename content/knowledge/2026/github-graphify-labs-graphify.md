@@ -10,8 +10,14 @@ source:
 resource_kind:
   ai: project
   user: null
+navigation:
+  categories:
+    ai:
+      - AI Coding / DevTools
+      - Memory / RAG / Knowledge
+    user: null
 created_at: 2026-09-12
-updated_at: 2026-09-12
+updated_at: 2026-09-13
 last_checked_at: 2026-09-12
 summary: Graphify 是本機優先的程式碼與多模態內容知識圖工具，以 tree-sitter 解析程式碼結構、NetworkX 建圖並提供查詢、路徑與概念解釋，也能安裝為多種 AI coding assistant 的 Skill，並選配 MCP、文件／媒體語意擷取與多種圖形匯出。
 classification:
