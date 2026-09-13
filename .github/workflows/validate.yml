@@ -78,5 +78,20 @@ jobs:
       - name: Build VitePress site
         run: npm run docs:build
 
+      - name: Install Chromium for graph UI verification
+        run: npx playwright install --with-deps chromium
+
+      - name: Verify Knowledge Graph UI
+        run: npm run graph-ui:verify
+
+      - name: Upload Knowledge Graph UI screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: knowledge-graph-ui-${{ github.run_id }}
+          path: artifacts/graph-ui
+          if-no-files-found: ignore
+          retention-days: 7
+
       - name: Verify built site output
         run: npm run verify:site

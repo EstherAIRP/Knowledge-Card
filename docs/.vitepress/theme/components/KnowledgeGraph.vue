@@ -1,12 +1,12 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
-import { withBase } from 'vitepress';
+import { useRouter, withBase } from 'vitepress';
 import { data as graph } from '../../../graph.data.js';
 import GraphFilterPanel from './GraphFilterPanel.vue';
 import {
   activeFilterCount as countActiveFilters,
   collectGraphFacets,
-  matchingCardIds as computeMatchingCardIds
+  matchingGraphResults
 } from '../lib/graph-filter.mjs';
 import {
   cardColor,
@@ -20,17 +20,25 @@ import {
   zoomAroundPoint
 } from '../lib/graph-viewport.mjs';
 
+const router = useRouter();
 const query = ref('');
 const showCardRelations = ref(false);
 const selectedKind = ref('ALL');
 const selectedCardId = ref(null);
 const hoveredNodeId = ref(null);
 const focusMode = ref(false);
-const isMobile = ref(false);
 const filterPanelOpen = ref(false);
 const tagSearch = ref('');
 const colorBy = ref('category');
+const graphShell = ref(null);
+const graphExplorer = ref(null);
 const graphSvg = ref(null);
+const filterPanelComponent = ref(null);
+const filterTrigger = ref(null);
+const inspectorPanel = ref(null);
+const layoutWidth = ref(1440);
+const canvasCssScale = ref(1);
+const canvasViewHeight = ref(720);
 const viewport = ref({ x: 0, y: 0, scale: 1 });
 
 const filters = reactive({
@@ -50,24 +58,38 @@ const filters = reactive({
 
 const width = 1000;
 const desktopHeight = 720;
-const mobileHeight = 1000;
 const inspectorNeighborLimit = 6;
 const pointers = new Map();
 let dragState = null;
 let pinchState = null;
-let resizeMedia = null;
+let layoutObserver = null;
+let canvasObserver = null;
 
-const canvasHeight = computed(() => isMobile.value ? mobileHeight : desktopHeight);
+const isMobile = computed(() => layoutWidth.value < 760);
+const canvasHeight = computed(() => canvasViewHeight.value);
+const canvasLayoutPadding = computed(() =>
+  (isMobile.value ? 38 : 56) / Math.max(canvasCssScale.value, 0.25)
+);
 
 const positionedNodes = computed(() => fitNodesToViewport(graph.nodes, {
   width,
   height: canvasHeight.value,
-  padding: isMobile.value ? 96 : 78
+  padding: canvasLayoutPadding.value
 }).nodes);
 
 const nodeMap = computed(() => new Map(positionedNodes.value.map((node) => [node.id, node])));
 const selectedCardNode = computed(() =>
   positionedNodes.value.find((node) => node.kind === 'card' && node.entityId === selectedCardId.value) ?? null
+);
+const filtersDocked = computed(() =>
+  filterPanelOpen.value && layoutWidth.value >= (selectedCardNode.value ? 1260 : 940)
+);
+const inspectorDocked = computed(() =>
+  Boolean(selectedCardNode.value) && layoutWidth.value >= (filterPanelOpen.value ? 1260 : 990)
+);
+const filterIsDrawer = computed(() => filterPanelOpen.value && !filtersDocked.value);
+const inspectorIsDrawer = computed(() =>
+  Boolean(selectedCardNode.value) && !inspectorDocked.value && !filterIsDrawer.value
 );
 const selectedNeighbors = computed(() =>
   selectedCardId.value
@@ -104,37 +126,23 @@ const relationTypes = computed(() => [...new Set(
 const activeFilters = computed(() => countActiveFilters(filters));
 const filterActive = computed(() => activeFilters.value > 0);
 
-const matchingCardIdSet = computed(() => computeMatchingCardIds({
+const searchResults = computed(() => matchingGraphResults({
   nodes: positionedNodes.value,
   edges: graph.edges,
   semantic: graph.semantic,
   selectedCardId: selectedCardId.value,
-  filters
+  filters,
+  query: query.value
 }));
-
-const matchingConceptNodeIds = computed(() => {
-  if (!filterActive.value) {
-    return new Set(positionedNodes.value.filter((node) => node.kind === 'concept').map((node) => node.id));
-  }
-
-  const ids = new Set();
-  for (const edge of graph.edges) {
-    if (edge.kind !== 'card-concept') continue;
-    const cardId = edge.source?.startsWith('card:')
-      ? edge.source.slice(5)
-      : edge.target?.startsWith('card:')
-        ? edge.target.slice(5)
-        : null;
-    const conceptId = edge.source?.startsWith('concept:')
-      ? edge.source
-      : edge.target?.startsWith('concept:')
-        ? edge.target
-        : null;
-
-    if (cardId && conceptId && matchingCardIdSet.value.has(cardId)) ids.add(conceptId);
-  }
-  return ids;
-});
+const matchingCardIdSet = computed(() => searchResults.value.cardIds);
+const matchingConceptNodeIds = computed(() => searchResults.value.contextConceptNodeIds);
+const matchingSearchIds = computed(() => searchResults.value.directNodeIds);
+const needle = computed(() => searchResults.value.needle);
+const searchActive = computed(() => Boolean(needle.value));
+const resultActive = computed(() => filterActive.value || searchActive.value);
+const matchingSearchConceptCount = computed(() =>
+  [...matchingSearchIds.value].filter((id) => id.startsWith('concept:')).length
+);
 
 const selectedRelatedConceptIds = computed(() => {
   if (!selectedCardId.value) return new Set();
@@ -175,20 +183,7 @@ const importantConceptIds = computed(() => new Set(
     .map((node) => node.id)
 ));
 
-const needle = computed(() => query.value.trim().toLocaleLowerCase('zh-TW'));
-const matchingSearchIds = computed(() => {
-  if (!needle.value) return new Set();
-  return new Set(positionedNodes.value
-    .filter((node) =>
-      `${node.label} ${node.description ?? ''} ${node.conceptType ?? ''} ${(node.tags ?? []).join(' ')}`
-        .toLocaleLowerCase('zh-TW')
-        .includes(needle.value)
-    )
-    .map((node) => node.id));
-});
-
-function nodeMatchesFilter(node) {
-  if (!filterActive.value) return true;
+function nodeMatchesResult(node) {
   if (node.kind === 'card') return matchingCardIdSet.value.has(node.entityId);
   if (node.kind === 'concept') return matchingConceptNodeIds.value.has(node.id);
   return true;
@@ -208,12 +203,12 @@ const visibleNodes = computed(() => positionedNodes.value.filter((node) => {
     return false;
   }
 
-  if (needle.value && !matchingSearchIds.value.has(node.id) && !selected) return false;
+  if (needle.value && !nodeMatchesResult(node) && !selected) return false;
 
   if (
     filterActive.value &&
     filters.displayMode === 'hide' &&
-    !nodeMatchesFilter(node) &&
+    !nodeMatchesResult(node) &&
     !selected
   ) {
     return false;
@@ -263,10 +258,18 @@ const visibleEdges = computed(() => {
   });
 });
 
-const filteredFitNodes = computed(() => positionedNodes.value.filter((node) => {
-  if (!filterActive.value) return true;
-  return nodeMatchesFilter(node);
+const resultFitNodes = computed(() => visibleNodes.value.filter((node) => {
+  if (node.kind === 'card') return matchingCardIdSet.value.has(node.entityId);
+  return searchActive.value && node.kind === 'concept' && matchingSearchIds.value.has(node.id);
 }));
+const visibleMatchingCardCount = computed(() =>
+  visibleNodes.value.filter((node) => node.kind === 'card' && matchingCardIdSet.value.has(node.entityId)).length
+);
+const noResults = computed(() =>
+  resultActive.value &&
+  matchingCardIdSet.value.size === 0 &&
+  matchingSearchConceptCount.value === 0
+);
 
 const viewportTransform = computed(() =>
   `translate(${viewport.value.x} ${viewport.value.y}) scale(${viewport.value.scale})`
@@ -277,12 +280,12 @@ const graphColorLegend = computed(() => colorLegend(graph.nodes, colorBy.value))
 const filterChips = computed(() => {
   const chips = [];
   const groups = [
-    ['categories', 'Category'],
-    ['actions', 'Action'],
-    ['tags', 'Tag'],
-    ['sourceTypes', 'Source'],
-    ['resourceKinds', 'Resource'],
-    ['relationTypes', 'Relation']
+    ['categories', '分類'],
+    ['actions', '建議動作'],
+    ['tags', '標籤'],
+    ['sourceTypes', '來源'],
+    ['resourceKinds', '資源'],
+    ['relationTypes', '關係']
   ];
 
   for (const [key, label] of groups) {
@@ -326,12 +329,90 @@ function isRelatedConcept(node) {
   return node.kind === 'concept' && selectedRelatedConceptIds.value.has(node.id);
 }
 
+function nodeLabelPriority(node) {
+  if (isSelectedNode(node)) return 100;
+  if (node.id === hoveredNodeId.value) return 95;
+  if (needle.value && matchingSearchIds.value.has(node.id)) return 90;
+  if (selectedCardId.value && isNeighborNode(node)) return 82;
+  if (selectedCardId.value && isRelatedConcept(node)) return 78;
+  if (!selectedCardId.value && node.kind === 'concept' && importantConceptIds.value.has(node.id)) return 68;
+
+  if (viewport.value.scale >= 1.35 && node.kind === 'concept') {
+    return 52 + Math.min(Number(node.degree ?? 0), 12);
+  }
+
+  if (
+    viewport.value.scale >= 1.9 &&
+    node.kind === 'card' &&
+    Number(node.relevance?.overall ?? 0) >= 4
+  ) {
+    return 42 + Number(node.relevance?.overall ?? 0);
+  }
+
+  if (viewport.value.scale >= 2.6 && node.kind === 'card') return 28;
+  return 0;
+}
+
+const labelFontSize = computed(() =>
+  12.5 / Math.max(canvasCssScale.value * viewport.value.scale, 0.15)
+);
+const labelStrokeWidth = computed(() =>
+  4 / Math.max(canvasCssScale.value * viewport.value.scale, 0.15)
+);
+const labelNodeIds = computed(() => {
+  const candidates = visibleNodes.value
+    .map((node) => ({ node, priority: nodeLabelPriority(node) }))
+    .filter((item) => item.priority > 0)
+    .sort((left, right) =>
+      right.priority - left.priority ||
+      Number(right.node.degree ?? 0) - Number(left.node.degree ?? 0) ||
+      left.node.label.localeCompare(right.node.label, 'zh-TW')
+    );
+
+  const occupied = [];
+  const ids = new Set();
+  const screenScale = Math.max(canvasCssScale.value, 0.05);
+
+  for (const { node, priority } of candidates) {
+    const label = shortLabel(node.label);
+    const screenX = (viewport.value.x + node.x * viewport.value.scale) * screenScale;
+    const screenY = (viewport.value.y + node.y * viewport.value.scale) * screenScale + 24;
+    const labelWidth = Math.min(230, Math.max(48, Array.from(label).length * 10 + 12));
+    const box = {
+      left: screenX - labelWidth / 2 - 4,
+      right: screenX + labelWidth / 2 + 4,
+      top: screenY - 10,
+      bottom: screenY + 12
+    };
+    const overlaps = occupied.some((other) =>
+      box.left < other.right &&
+      box.right > other.left &&
+      box.top < other.bottom &&
+      box.bottom > other.top
+    );
+
+    if (priority >= 78 || !overlaps) {
+      ids.add(node.id);
+      occupied.push(box);
+    }
+  }
+
+  return ids;
+});
+
 function shouldShowLabel(node) {
-  if (isSelectedNode(node)) return true;
-  if (node.id === hoveredNodeId.value) return true;
-  if (needle.value && matchingSearchIds.value.has(node.id)) return true;
-  if (selectedCardId.value && (isNeighborNode(node) || isRelatedConcept(node))) return true;
-  return !selectedCardId.value && node.kind === 'concept' && importantConceptIds.value.has(node.id);
+  return labelNodeIds.value.has(node.id);
+}
+
+function labelStyle() {
+  return {
+    fontSize: `${labelFontSize.value}px`,
+    strokeWidth: `${labelStrokeWidth.value}px`
+  };
+}
+
+function labelY(node) {
+  return nodeRadius(node) + labelFontSize.value * 1.45;
 }
 
 function relationClass(type) {
@@ -346,7 +427,7 @@ function edgeClass(edge) {
     filters.displayMode === 'dim' &&
     sourceNode &&
     targetNode &&
-    (!nodeMatchesFilter(sourceNode) || !nodeMatchesFilter(targetNode));
+    (!nodeMatchesResult(sourceNode) || !nodeMatchesResult(targetNode));
 
   return [
     'graph-edge',
@@ -363,7 +444,7 @@ function nodeClass(node) {
   const filterDimmed =
     filterActive.value &&
     filters.displayMode === 'dim' &&
-    !nodeMatchesFilter(node) &&
+    !nodeMatchesResult(node) &&
     !selected;
   const contextDimmed =
     Boolean(selectedCardId.value) &&
@@ -421,13 +502,17 @@ function fitFocusedView() {
 }
 
 function fitFilterResults() {
-  if (!filteredFitNodes.value.length) return;
-  fitNodes(filteredFitNodes.value, { maximumScale: isMobile.value ? 2.7 : 3.2 });
-  if (isMobile.value) filterPanelOpen.value = false;
+  if (!resultFitNodes.value.length) return;
+  fitNodes(resultFitNodes.value, { maximumScale: isMobile.value ? 2.7 : 3.2 });
+  if (filterIsDrawer.value) closeFilterPanel({ restoreFocus: false });
 }
 
 async function selectCard(cardId) {
-  selectedCardId.value = selectedCardId.value === cardId ? null : cardId;
+  const deselecting = selectedCardId.value === cardId;
+  if (!deselecting && filterPanelOpen.value && layoutWidth.value < 1260) {
+    filterPanelOpen.value = false;
+  }
+  selectedCardId.value = deselecting ? null : cardId;
 
   if (!selectedCardId.value) {
     filters.semanticEnabled = false;
@@ -440,6 +525,10 @@ async function selectCard(cardId) {
   } else if (!selectedCardId.value) {
     resetView();
   }
+
+  if (selectedCardId.value && inspectorIsDrawer.value) {
+    inspectorPanel.value?.focus({ preventScroll: true });
+  }
 }
 
 async function setFocusMode(value) {
@@ -451,10 +540,15 @@ async function setFocusMode(value) {
   else resetView();
 }
 
-function handleNodeClick(event, node) {
-  if (node.kind !== 'card') return;
-  event.preventDefault();
-  selectCard(node.entityId);
+async function activateNode(node) {
+  if (node.kind === 'card') {
+    await selectCard(node.entityId);
+    return;
+  }
+
+  if (node.route) {
+    await router.go(withBase(node.route));
+  }
 }
 
 function toggleFilter(key, value) {
@@ -467,6 +561,32 @@ function toggleFilter(key, value) {
 
 function updateFilter(key, value) {
   filters[key] = value;
+}
+
+function clearSearch() {
+  query.value = '';
+}
+
+async function toggleFilterPanel() {
+  const opening = !filterPanelOpen.value;
+  filterPanelOpen.value = opening;
+  await nextTick();
+  if (opening && filterIsDrawer.value) filterPanelComponent.value?.focusPanel?.();
+}
+
+function closeFilterPanel({ restoreFocus = true } = {}) {
+  filterPanelOpen.value = false;
+  if (restoreFocus) nextTick(() => filterTrigger.value?.focus());
+}
+
+async function closeInspector() {
+  const cardId = selectedCardId.value;
+  if (!cardId) return;
+  await selectCard(cardId);
+  await nextTick();
+  const node = [...(graphSvg.value?.querySelectorAll?.('[data-node-id]') ?? [])]
+    .find((element) => element.dataset.nodeId === `card:${cardId}`);
+  node?.querySelector?.('.graph-node-interactive')?.focus?.();
 }
 
 function resetFilters() {
@@ -532,14 +652,15 @@ function handlePointerDown(event) {
   if (!svg) return;
 
   const point = clientToViewBox(event.clientX, event.clientY);
+  const nodeTarget = event.target?.closest?.('.graph-node') ?? null;
   pointers.set(event.pointerId, point);
-  try {
-    svg.setPointerCapture(event.pointerId);
-  } catch {
-    // Some browsers do not expose pointer capture for every input source.
-  }
 
-  if (pointers.size === 1 && !event.target?.closest?.('.graph-node')) {
+  if (pointers.size === 1 && !nodeTarget) {
+    try {
+      svg.setPointerCapture(event.pointerId);
+    } catch {
+      // Some browsers do not expose pointer capture for every input source.
+    }
     dragState = {
       pointerId: event.pointerId,
       lastPoint: point
@@ -547,6 +668,14 @@ function handlePointerDown(event) {
   }
 
   if (pointers.size >= 2) {
+    for (const pointerId of pointers.keys()) {
+      try {
+        svg.setPointerCapture(pointerId);
+      } catch {
+        // Keep pinch zoom usable even if one pointer cannot be captured.
+      }
+    }
+
     const [left, right] = pointerPair();
     pinchState = {
       distance: Math.max(pointDistance(left, right), 1),
@@ -630,77 +759,112 @@ function handleDoubleClick(event) {
   resetView();
 }
 
-function syncResponsiveMode() {
-  const nextMobile = window.matchMedia('(max-width: 760px)').matches;
-  const changed = nextMobile !== isMobile.value;
-  isMobile.value = nextMobile;
+function syncCanvasScale() {
+  const rect = graphSvg.value?.getBoundingClientRect?.();
+  if (!rect?.width || !rect?.height) return;
 
-  if (changed) {
-    if (nextMobile) {
-      focusMode.value = true;
-      filterPanelOpen.value = false;
-    } else {
-      filterPanelOpen.value = true;
-    }
+  canvasCssScale.value = Math.max(0.05, rect.width / width);
+  canvasViewHeight.value = Math.max(
+    280,
+    Math.min(1600, width * (rect.height / rect.width))
+  );
+}
 
-    nextTick(() => {
-      if (focusMode.value && selectedCardId.value) fitFocusedView();
-      else resetView();
-    });
+function syncLayoutWidth(nextWidth) {
+  const wasMobile = isMobile.value;
+  layoutWidth.value = Math.max(0, Number(nextWidth) || 0);
+  const nextMobile = isMobile.value;
+
+  if (!wasMobile && nextMobile) {
+    focusMode.value = true;
+  }
+
+  nextTick(syncCanvasScale);
+}
+
+function handleGlobalKeydown(event) {
+  if (event.key !== 'Escape') return;
+  if (filterIsDrawer.value) {
+    event.preventDefault();
+    closeFilterPanel();
+    return;
+  }
+  if (inspectorIsDrawer.value) {
+    event.preventDefault();
+    closeInspector();
   }
 }
 
 onMounted(() => {
-  resizeMedia = window.matchMedia('(max-width: 760px)');
-  isMobile.value = resizeMedia.matches;
+  filterPanelOpen.value = false;
+  layoutWidth.value = graphExplorer.value?.getBoundingClientRect?.().width ?? window.innerWidth;
   focusMode.value = isMobile.value;
-  filterPanelOpen.value = !isMobile.value;
-  resizeMedia.addEventListener?.('change', syncResponsiveMode);
+
+  if (typeof ResizeObserver !== 'undefined') {
+    layoutObserver = new ResizeObserver((entries) => {
+      const widthValue = entries[0]?.contentRect?.width;
+      if (widthValue) syncLayoutWidth(widthValue);
+    });
+    if (graphExplorer.value) layoutObserver.observe(graphExplorer.value);
+
+    canvasObserver = new ResizeObserver(syncCanvasScale);
+    if (graphSvg.value) canvasObserver.observe(graphSvg.value);
+  }
+
+  syncCanvasScale();
+  window.addEventListener('keydown', handleGlobalKeydown);
 });
 
 onBeforeUnmount(() => {
-  resizeMedia?.removeEventListener?.('change', syncResponsiveMode);
+  layoutObserver?.disconnect();
+  canvasObserver?.disconnect();
+  window.removeEventListener('keydown', handleGlobalKeydown);
 });
 </script>
 
 <template>
-  <section class="knowledge-graph-shell">
+  <section ref="graphShell" class="knowledge-graph-shell">
     <header class="graph-hero">
-      <div>
-        <div class="graph-kicker">SEMANTIC KNOWLEDGE MAP</div>
-        <h1>Knowledge Graph</h1>
-        <p>距離越近，主題通常越相似。用篩選縮小觀察範圍、用顏色切換閱讀維度；篩選不會重新計算 MDS，因此節點的語意位置保持穩定。</p>
+      <div class="graph-hero__title-row">
+        <div>
+          <div class="graph-kicker">語意知識地圖</div>
+          <h1>Knowledge Graph</h1>
+        </div>
+        <div class="graph-stats">
+          <span><strong>{{ graph.stats.cards }}</strong> 知識卡</span>
+          <span><strong>{{ graph.stats.concepts }}</strong> 概念</span>
+        </div>
       </div>
-      <div class="graph-stats">
-        <div><strong>{{ graph.stats.cards }}</strong><span>Cards</span></div>
-        <div><strong>{{ graph.stats.concepts }}</strong><span>Concepts</span></div>
-        <div><strong>{{ graph.stats.cardConceptEdges }}</strong><span>Mappings</span></div>
-        <div><strong>{{ graph.stats.cardRelations }}</strong><span>Card Links</span></div>
-      </div>
+      <p>距離越近，主題通常越相似。可搜尋、篩選、縮放或點選知識卡探索鄰域；操作只改變顯示與視角，不會改動原始語意座標。</p>
     </header>
 
     <div class="graph-toolbar">
-      <label class="graph-search">
+      <div class="graph-search">
         <span>搜尋</span>
-        <input v-model="query" type="search" placeholder="Concept、Card、Tag、技術關鍵字" />
-      </label>
+        <div class="graph-search__input">
+          <input v-model="query" type="search" placeholder="概念、知識卡、標籤、技術關鍵字" />
+          <button v-if="query" type="button" aria-label="清除搜尋" @click="clearSearch">×</button>
+        </div>
+      </div>
 
       <button
+        ref="filterTrigger"
         type="button"
         :class="['graph-filter-trigger', activeFilters ? 'active' : '']"
-        @click="filterPanelOpen = !filterPanelOpen"
+        :aria-expanded="filterPanelOpen"
+        @click="toggleFilterPanel"
       >
         篩選
         <strong v-if="activeFilters">{{ activeFilters }}</strong>
       </button>
 
       <label class="graph-color-select">
-        <span>顏色</span>
+        <span>顏色依據</span>
         <select v-model="colorBy">
           <option value="none">無</option>
-          <option value="category">Category</option>
-          <option value="action">Action</option>
-          <option value="relevance">Relevance</option>
+          <option value="category">分類</option>
+          <option value="action">建議動作</option>
+          <option value="relevance">關聯度</option>
         </select>
       </label>
 
@@ -725,11 +889,11 @@ onBeforeUnmount(() => {
 
       <label class="graph-toggle">
         <input v-model="showCardRelations" type="checkbox" />
-        <span>全部 Card↔Card</span>
+        <span>卡片間連線</span>
       </label>
 
       <details class="graph-layout-details">
-        <summary>語意地圖 <span aria-hidden="true">ⓘ</span></summary>
+        <summary>圖譜資訊 <span aria-hidden="true">ⓘ</span></summary>
         <div>
           <span>投影：{{ graph.layout?.method ?? 'classical-mds' }}</span>
           <span>距離：{{ graph.layout?.metric ?? 'cosine-distance' }}</span>
@@ -741,7 +905,7 @@ onBeforeUnmount(() => {
       </details>
     </div>
 
-    <div v-if="filterChips.length" class="graph-filter-chips">
+    <div v-if="filterChips.length || resultActive" class="graph-filter-chips">
       <button
         v-for="chip in filterChips"
         :key="chip.key"
@@ -751,18 +915,26 @@ onBeforeUnmount(() => {
       >
         {{ chip.label }} <span>×</span>
       </button>
-      <span class="graph-filter-result-count">{{ matchingCardIdSet.size }} / {{ graph.stats.cards }} Cards</span>
+      <span class="graph-filter-result-count">
+        符合條件 {{ matchingCardIdSet.size }} 張
+        <template v-if="matchingSearchConceptCount">· 命中 {{ matchingSearchConceptCount }} 個概念</template>
+        <template v-if="focusMode && visibleMatchingCardCount !== matchingCardIdSet.size">
+          · 目前顯示 {{ visibleMatchingCardCount }} 張
+        </template>
+      </span>
     </div>
 
     <div
+      ref="graphExplorer"
       :class="[
         'graph-explorer',
-        filterPanelOpen && !isMobile ? 'graph-explorer--filters' : '',
-        selectedCardNode ? 'graph-explorer--inspecting' : ''
+        filtersDocked ? 'graph-explorer--filters' : '',
+        inspectorDocked ? 'graph-explorer--inspecting' : ''
       ]"
     >
       <GraphFilterPanel
-        v-if="filterPanelOpen && !isMobile"
+        v-if="filtersDocked"
+        ref="filterPanelComponent"
         :facets="filterFacets"
         :relation-types="relationTypes"
         :filters="filters"
@@ -770,12 +942,10 @@ onBeforeUnmount(() => {
         :result-count="matchingCardIdSet.size"
         :total-count="graph.stats.cards"
         :tag-search="tagSearch"
-        :color-by="colorBy"
         :selected-card="Boolean(selectedCardNode)"
         @toggle-filter="toggleFilter"
         @update-filter="updateFilter"
         @update:tag-search="tagSearch = $event"
-        @update:color-by="colorBy = $event"
         @reset="resetFilters"
         @fit-results="fitFilterResults"
       />
@@ -788,16 +958,26 @@ onBeforeUnmount(() => {
         <div class="graph-zoom-controls" aria-label="圖譜縮放">
           <button type="button" aria-label="放大圖譜" @click="zoomBy(1.22)">＋</button>
           <button type="button" aria-label="縮小圖譜" @click="zoomBy(0.82)">－</button>
-          <button type="button" aria-label="顯示全部節點" @click="resetView">Fit</button>
+          <button type="button" aria-label="顯示全部視角" @click="resetView">全部</button>
           <button
-            v-if="filterActive"
+            v-if="resultActive"
             type="button"
             class="graph-zoom-controls__result"
-            aria-label="顯示篩選結果"
+            aria-label="顯示符合條件的結果"
+            :disabled="!resultFitNodes.length"
             @click="fitFilterResults"
           >
-            Result
+            結果
           </button>
+        </div>
+
+        <div v-if="noResults" class="graph-empty-state">
+          <strong>沒有符合條件的結果</strong>
+          <span>可清除搜尋或重設篩選後再試一次。</span>
+          <div>
+            <button v-if="searchActive" type="button" @click="clearSearch">清除搜尋</button>
+            <button v-if="filterActive" type="button" @click="resetFilters">重設篩選</button>
+          </div>
         </div>
 
         <svg
@@ -832,13 +1012,24 @@ onBeforeUnmount(() => {
             <g
               v-for="node in visibleNodes"
               :key="node.id"
+              :data-node-id="node.id"
               :class="nodeClass(node)"
               :style="nodeStyle(node)"
               :transform="`translate(${node.x} ${node.y})`"
               @mouseenter="hoveredNodeId = node.id"
               @mouseleave="hoveredNodeId = null"
             >
-              <a :href="withBase(node.route)" @click.stop="handleNodeClick($event, node)">
+              <g
+                class="graph-node-interactive"
+                role="link"
+                tabindex="0"
+                :aria-label="node.label"
+                @click.stop="activateNode(node)"
+                @keydown.enter.prevent.stop="activateNode(node)"
+                @keydown.space.prevent.stop="activateNode(node)"
+                @focus="hoveredNodeId = node.id"
+                @blur="hoveredNodeId = null"
+              >
                 <circle
                   v-if="isSelectedNode(node)"
                   class="graph-node-halo graph-node-halo--selected"
@@ -853,29 +1044,37 @@ onBeforeUnmount(() => {
                 <text
                   v-if="shouldShowLabel(node)"
                   class="graph-node-label"
-                  :y="node.kind === 'concept' ? nodeRadius(node) + 17 : 25"
+                  :style="labelStyle()"
+                  :y="labelY(node)"
                   text-anchor="middle"
                 >
                   {{ shortLabel(node.label) }}
                 </text>
                 <title>{{ node.label }} — {{ node.description }}</title>
-              </a>
+              </g>
             </g>
           </g>
         </svg>
       </div>
 
-      <aside v-if="selectedCardNode" class="graph-inspector">
+      <aside
+        v-if="selectedCardNode && !filterIsDrawer"
+        ref="inspectorPanel"
+        tabindex="-1"
+        :class="['graph-inspector', inspectorIsDrawer ? 'graph-inspector--drawer' : '']"
+        aria-label="知識卡語意鄰居"
+        @keydown.esc.stop="closeInspector"
+      >
         <div class="graph-inspector__header">
           <div>
-            <div class="graph-inspector__eyebrow">已選取 Knowledge Card</div>
+            <div class="graph-inspector__eyebrow">已選取知識卡</div>
             <h2>{{ selectedCardNode.label }}</h2>
           </div>
           <button
             type="button"
             class="graph-inspector__close"
             aria-label="關閉語意鄰居面板"
-            @click="selectCard(selectedCardNode.entityId)"
+            @click="closeInspector"
           >
             ×
           </button>
@@ -893,11 +1092,11 @@ onBeforeUnmount(() => {
         <div class="graph-distance-guide">
           <div>
             <strong>地圖位置</strong>
-            <span>2D MDS 近似</span>
+            <span>2D MDS 近似位置</span>
           </div>
           <div>
             <strong>下方數值</strong>
-            <span>原始 cosine 距離</span>
+            <span>原始餘弦距離</span>
           </div>
         </div>
 
@@ -929,7 +1128,7 @@ onBeforeUnmount(() => {
         </ol>
 
         <p class="graph-inspector__note">
-          2D 圖上的距離用來建立空間直覺；需要精確比較時，以這裡的原始 embedding 數值為準。
+          2D 圖上的距離用來建立空間直覺；需要精確比較時，以這裡的原始向量數值為準。
         </p>
       </aside>
     </div>
@@ -945,18 +1144,18 @@ onBeforeUnmount(() => {
     </div>
 
     <div class="graph-legend">
-      <span><i class="legend-dot legend-dot--concept"></i>Concept</span>
-      <span><i class="legend-dot legend-dot--card"></i>Knowledge Card</span>
+      <span><i class="legend-dot legend-dot--concept"></i>概念</span>
+      <span><i class="legend-dot legend-dot--card"></i>知識卡</span>
       <span><i class="legend-dot legend-dot--neighbor"></i>最近語意鄰居</span>
-      <span v-if="selectedCardNode"><i class="legend-line legend-line--mapping"></i>選取 Card↔Concept</span>
-      <span v-if="!selectedCardNode"><i class="legend-line legend-line--concept"></i>Concept↔Concept</span>
+      <span v-if="selectedCardNode"><i class="legend-line legend-line--mapping"></i>選取卡片↔概念</span>
+      <span v-if="!selectedCardNode"><i class="legend-line legend-line--concept"></i>概念↔概念</span>
     </div>
 
     <div
       v-if="(showCardRelations || filters.relationTypes.length || selectedCardNode) && relationTypes.length"
       class="graph-relation-legend"
     >
-      <strong>Relation</strong>
+      <strong>關係</strong>
       <span
         v-for="item in relationTypes"
         :key="item"
@@ -967,11 +1166,12 @@ onBeforeUnmount(() => {
     </div>
 
     <div
-      v-if="filterPanelOpen && isMobile"
+      v-if="filterIsDrawer"
       class="graph-filter-backdrop"
-      @click.self="filterPanelOpen = false"
+      @click.self="closeFilterPanel"
     >
       <GraphFilterPanel
+        ref="filterPanelComponent"
         :facets="filterFacets"
         :relation-types="relationTypes"
         :filters="filters"
@@ -979,39 +1179,66 @@ onBeforeUnmount(() => {
         :result-count="matchingCardIdSet.size"
         :total-count="graph.stats.cards"
         :tag-search="tagSearch"
-        :color-by="colorBy"
         :selected-card="Boolean(selectedCardNode)"
         mobile
         @toggle-filter="toggleFilter"
         @update-filter="updateFilter"
         @update:tag-search="tagSearch = $event"
-        @update:color-by="colorBy = $event"
         @reset="resetFilters"
         @fit-results="fitFilterResults"
-        @close="filterPanelOpen = false"
+        @close="closeFilterPanel"
       />
     </div>
+
+    <div
+      v-if="inspectorIsDrawer"
+      class="graph-inspector-backdrop"
+      @click.self="closeInspector"
+    ></div>
   </section>
 </template>
 
 <style scoped>
-.knowledge-graph-shell { max-width: 1440px; margin: 0 auto; padding: 36px 24px 80px; }
-.graph-hero { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(280px, .8fr); gap: 32px; align-items: end; margin-bottom: 28px; }
-.graph-kicker { font-size: 12px; font-weight: 800; letter-spacing: .14em; opacity: .6; }
-.graph-hero h1 { margin: 8px 0 10px; font-size: clamp(34px, 6vw, 64px); line-height: .98; letter-spacing: -.035em; }
-.graph-hero p { margin: 0; max-width: 800px; line-height: 1.8; opacity: .76; }
-.graph-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.graph-stats div { border: 1px solid var(--vp-c-divider); border-radius: 14px; padding: 14px 16px; background: var(--vp-c-bg-soft); }
-.graph-stats strong { display: block; font-size: 24px; line-height: 1.1; }
-.graph-stats span { display: block; margin-top: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; opacity: .58; }
+.knowledge-graph-shell {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px clamp(16px, 2vw, 28px) 64px;
+}
+.graph-hero { margin-bottom: 16px; }
+.graph-hero__title-row {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.graph-kicker { font-size: 11px; font-weight: 800; letter-spacing: .1em; opacity: .58; }
+.graph-hero h1 {
+  margin: 4px 0 0;
+  padding: 0;
+  border: 0;
+  font-size: clamp(28px, 3vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -.025em;
+  word-break: keep-all;
+}
+.graph-hero p { margin: 8px 0 0; max-width: 920px; font-size: 13px; line-height: 1.65; opacity: .72; }
+.graph-stats { display: flex; flex-wrap: wrap; gap: 8px 14px; justify-content: flex-end; font-size: 12px; opacity: .72; }
+.graph-stats strong { color: var(--vp-c-text-1); font-size: 16px; }
 
 .graph-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin-bottom: 10px; }
-.graph-toolbar label { display: grid; gap: 5px; font-size: 12px; font-weight: 700; }
+.graph-toolbar label,
+.graph-search { display: grid; gap: 5px; font-size: 12px; font-weight: 700; }
 .graph-toolbar input[type='search'], .graph-toolbar select {
   min-height: 40px; border: 1px solid var(--vp-c-divider); border-radius: 10px; padding: 0 12px;
   background: var(--vp-c-bg); color: var(--vp-c-text-1);
 }
-.graph-search { flex: 1 1 260px; }
+.graph-search { flex: 1 1 320px; }
+.graph-search__input { position: relative; }
+.graph-search__input input { width: 100%; padding-right: 38px !important; }
+.graph-search__input button {
+  position: absolute; right: 7px; top: 50%; width: 28px; height: 28px; transform: translateY(-50%);
+  border: 0; border-radius: 8px; background: transparent; color: var(--vp-c-text-2); font-size: 18px; cursor: pointer;
+}
 .graph-color-select { flex: 0 0 145px; }
 .graph-filter-trigger {
   min-height: 40px; align-self: end; display: inline-flex; align-items: center; gap: 7px;
@@ -1038,7 +1265,7 @@ onBeforeUnmount(() => {
 .graph-view-mode button.active { background: var(--vp-c-bg); color: var(--vp-c-brand-1); box-shadow: 0 1px 3px rgba(0, 0, 0, .08); }
 .graph-layout-details { position: relative; align-self: end; }
 .graph-layout-details summary {
-  min-height: 40px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+  margin: 0; min-height: 40px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
   border: 1px solid var(--vp-c-divider); border-radius: 10px; padding: 0 12px;
   background: var(--vp-c-bg-soft); font-size: 12px; font-weight: 800; list-style: none;
 }
@@ -1049,26 +1276,26 @@ onBeforeUnmount(() => {
   background: var(--vp-c-bg); box-shadow: var(--vp-shadow-3); font-size: 11px; line-height: 1.5;
 }
 
-.graph-filter-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 12px; }
+.graph-filter-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 10px; }
 .graph-filter-chips button {
   border: 1px solid var(--vp-c-brand-1); border-radius: 999px; padding: 5px 8px;
   background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); font: inherit; font-size: 9px; font-weight: 800; cursor: pointer;
 }
 .graph-filter-chips button span { margin-left: 3px; }
-.graph-filter-result-count { margin-left: auto; font-size: 10px; font-weight: 800; opacity: .58; }
+.graph-filter-result-count { margin-left: auto; font-size: 10px; font-weight: 800; opacity: .65; }
 
-.graph-explorer { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-items: start; }
-.graph-explorer--filters { grid-template-columns: 250px minmax(0, 1fr); }
-.graph-explorer--inspecting { grid-template-columns: minmax(0, 1fr) 320px; }
-.graph-explorer--filters.graph-explorer--inspecting { grid-template-columns: 250px minmax(0, 1fr) 310px; }
+.graph-explorer { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-items: start; min-width: 0; }
+.graph-explorer--filters { grid-template-columns: 250px minmax(640px, 1fr); }
+.graph-explorer--inspecting { grid-template-columns: minmax(640px, 1fr) 320px; }
+.graph-explorer--filters.graph-explorer--inspecting { grid-template-columns: 250px minmax(640px, 1fr) 320px; }
 
 .graph-canvas-wrap {
-  position: relative; overflow: hidden; border: 1px solid var(--vp-c-divider); border-radius: 20px;
+  position: relative; min-width: 0; overflow: hidden; border: 1px solid var(--vp-c-divider); border-radius: 20px;
   background: color-mix(in srgb, var(--vp-c-bg-soft) 86%, transparent);
 }
 .knowledge-graph {
-  display: block; width: 100%; height: auto; aspect-ratio: 1000 / 720; user-select: none;
-  touch-action: none; cursor: grab;
+  display: block; width: 100%; height: clamp(480px, calc(100vh - 255px), 760px);
+  min-height: 480px; user-select: none; touch-action: none; cursor: grab;
 }
 .knowledge-graph:active { cursor: grabbing; }
 .graph-hit-area { fill: transparent; }
@@ -1077,6 +1304,20 @@ onBeforeUnmount(() => {
   max-width: calc(100% - 170px); border: 1px solid var(--vp-c-divider); border-radius: 999px;
   padding: 7px 12px; background: color-mix(in srgb, var(--vp-c-bg) 92%, transparent);
   font-size: 11px; font-weight: 700; text-align: center; pointer-events: none;
+}
+.graph-empty-state {
+  position: absolute; z-index: 6; inset: 50% auto auto 50%; transform: translate(-50%, -50%);
+  min-width: min(360px, calc(100% - 48px)); display: grid; gap: 8px; justify-items: center;
+  border: 1px solid var(--vp-c-divider); border-radius: 16px; padding: 18px;
+  background: color-mix(in srgb, var(--vp-c-bg) 94%, transparent); box-shadow: var(--vp-shadow-3);
+  text-align: center;
+}
+.graph-empty-state strong { font-size: 14px; }
+.graph-empty-state span { font-size: 11px; opacity: .65; }
+.graph-empty-state div { display: flex; gap: 8px; }
+.graph-empty-state button {
+  min-height: 34px; border: 1px solid var(--vp-c-divider); border-radius: 9px; padding: 0 10px;
+  background: var(--vp-c-bg-soft); color: var(--vp-c-text-1); font: inherit; font-size: 10px; font-weight: 800; cursor: pointer;
 }
 .graph-zoom-controls {
   position: absolute; z-index: 5; right: 12px; top: 12px; display: grid; overflow: hidden;
@@ -1089,6 +1330,7 @@ onBeforeUnmount(() => {
 }
 .graph-zoom-controls button:last-child { border-bottom: 0; }
 .graph-zoom-controls button:nth-child(n+3) { font-size: 9px; }
+.graph-zoom-controls button:disabled { opacity: .35; cursor: default; }
 .graph-zoom-controls__result { color: var(--vp-c-brand-1) !important; }
 
 .graph-edge { stroke-width: 1.2; vector-effect: non-scaling-stroke; }
@@ -1107,10 +1349,12 @@ onBeforeUnmount(() => {
 .graph-node { transition: opacity .18s ease; }
 .graph-node circle { vector-effect: non-scaling-stroke; transition: opacity .18s ease, stroke-width .18s ease; }
 .graph-node-core { stroke-width: 2; }
-.graph-node a:hover .graph-node-core { stroke-width: 3.5; }
+.graph-node-interactive:hover .graph-node-core,
+.graph-node-interactive:focus .graph-node-core { stroke-width: 3.5; }
+.graph-node-interactive:focus { outline: none; }
 .graph-node-label {
-  font-size: 10.5px; font-weight: 800; fill: var(--vp-c-text-1); pointer-events: none;
-  paint-order: stroke; stroke: var(--vp-c-bg); stroke-width: 4px; stroke-linejoin: round;
+  font-size: 12px; font-weight: 800; fill: var(--vp-c-text-1); pointer-events: none;
+  paint-order: stroke; stroke: var(--vp-c-bg); stroke-linejoin: round;
 }
 .graph-node--concept .graph-node-core { fill: var(--vp-c-brand-1); stroke: var(--vp-c-brand-1); }
 .graph-node--card .graph-node-core { fill: var(--vp-c-bg); stroke: var(--node-accent, var(--vp-c-text-2)); }
@@ -1129,9 +1373,15 @@ onBeforeUnmount(() => {
   border: 1px solid var(--vp-c-divider); border-radius: 20px; padding: 18px;
   background: var(--vp-c-bg-soft); position: sticky; top: 82px;
 }
+.graph-inspector:focus { outline: none; }
+.graph-inspector--drawer {
+  position: fixed; z-index: 101; right: 0; top: 64px; bottom: 0; width: min(380px, 92vw);
+  max-height: none; overflow: auto; border-radius: 20px 0 0 0; background: var(--vp-c-bg);
+  box-shadow: -14px 0 44px rgba(0, 0, 0, .18);
+}
 .graph-inspector__header { display: flex; gap: 12px; align-items: start; justify-content: space-between; }
-.graph-inspector__eyebrow { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; opacity: .55; }
-.graph-inspector h2 { margin: 4px 0 0; font-size: 20px; line-height: 1.3; }
+.graph-inspector__eyebrow { font-size: 10px; font-weight: 800; letter-spacing: .08em; opacity: .55; }
+.graph-inspector h2 { margin: 4px 0 0; padding: 0; border: 0; font-size: 20px; line-height: 1.3; }
 .graph-inspector__close { border: 0; background: transparent; color: var(--vp-c-text-2); font-size: 24px; line-height: 1; cursor: pointer; }
 .graph-inspector__description { margin: 12px 0 8px; font-size: 13px; line-height: 1.65; opacity: .75; }
 .graph-inspector__open { display: inline-block; margin-bottom: 12px; font-size: 12px; font-weight: 800; }
@@ -1169,7 +1419,7 @@ onBeforeUnmount(() => {
 .graph-inspector__note { margin: 14px 0 0; font-size: 10px; line-height: 1.6; opacity: .58; }
 
 .graph-color-legend {
-  margin-top: 14px; border: 1px solid var(--vp-c-divider); border-radius: 14px; padding: 11px 13px;
+  margin-top: 12px; border: 1px solid var(--vp-c-divider); border-radius: 14px; padding: 10px 12px;
   background: var(--vp-c-bg-soft);
 }
 .graph-color-legend > strong { display: block; margin-bottom: 7px; font-size: 10px; }
@@ -1179,7 +1429,7 @@ onBeforeUnmount(() => {
 .graph-color-legend small { display: block; margin-top: 7px; font-size: 8px; opacity: .52; }
 
 .graph-legend, .graph-relation-legend {
-  display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 12px; font-size: 11px; opacity: .72;
+  display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 10px; font-size: 11px; opacity: .72;
 }
 .graph-legend span, .graph-relation-legend span { display: inline-flex; align-items: center; gap: 7px; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
@@ -1199,28 +1449,17 @@ onBeforeUnmount(() => {
 .relation-legend-item--extends i { border-color: #0891b2; border-top-style: dotted; }
 .relation-legend-item--contrasts-with i { border-color: #be123c; border-top-style: dotted; }
 
-.graph-filter-backdrop {
+.graph-filter-backdrop,
+.graph-inspector-backdrop {
   position: fixed; z-index: 100; inset: 0; background: rgba(0, 0, 0, .32);
 }
-
-@media (max-width: 1180px) {
-  .graph-explorer--filters.graph-explorer--inspecting { grid-template-columns: 230px minmax(0, 1fr); }
-  .graph-explorer--filters.graph-explorer--inspecting .graph-inspector { grid-column: 2; position: static; }
-}
-
-@media (max-width: 980px) {
-  .graph-explorer--filters,
-  .graph-explorer--inspecting,
-  .graph-explorer--filters.graph-explorer--inspecting { grid-template-columns: 1fr; }
-  .graph-explorer > .graph-filter-panel { position: static; max-height: none; }
-  .graph-inspector { position: static; }
-}
+.graph-inspector-backdrop { z-index: 90; }
 
 @media (max-width: 760px) {
-  .knowledge-graph-shell { padding: 24px 14px 64px; }
-  .graph-hero { grid-template-columns: 1fr; gap: 18px; margin-bottom: 20px; }
-  .graph-hero p { font-size: 13px; line-height: 1.65; }
-  .graph-stats strong { font-size: 20px; }
+  .knowledge-graph-shell { padding: 16px 12px 56px; }
+  .graph-hero__title-row { align-items: start; gap: 12px; }
+  .graph-hero p { font-size: 12px; line-height: 1.55; }
+  .graph-stats { justify-content: flex-start; font-size: 10px; }
   .graph-toolbar { align-items: stretch; }
   .graph-search { flex-basis: 100%; }
   .graph-filter-trigger { flex: 1 1 105px; justify-content: center; }
@@ -1231,12 +1470,14 @@ onBeforeUnmount(() => {
   .graph-layout-details { flex: 0 0 auto; }
   .graph-layout-details > div { position: fixed; left: 16px; right: 16px; top: auto; min-width: 0; }
   .graph-filter-result-count { width: 100%; margin-left: 0; }
-  .knowledge-graph { aspect-ratio: 1 / 1; }
+  .knowledge-graph { height: min(62vh, 620px); min-height: 420px; }
   .graph-focus-hint { top: 10px; max-width: calc(100% - 145px); font-size: 10px; }
   .graph-zoom-controls { right: 10px; top: 10px; }
   .graph-zoom-controls button { min-width: 38px; min-height: 32px; }
-  .graph-node-label { font-size: 9.5px; stroke-width: 5px; }
-  .graph-inspector { border-radius: 16px; }
+  .graph-inspector--drawer {
+    top: auto; left: 0; right: 0; bottom: 0; width: 100%; max-height: 72vh;
+    border-radius: 20px 20px 0 0;
+  }
   .graph-color-legend > div { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 3px; }
 }
 </style>

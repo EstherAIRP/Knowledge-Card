@@ -1,4 +1,8 @@
 <script setup>
+import { ref } from 'vue';
+
+const panelRef = ref(null);
+
 const props = defineProps({
   facets: { type: Object, required: true },
   relationTypes: { type: Array, required: true },
@@ -7,7 +11,6 @@ const props = defineProps({
   resultCount: { type: Number, required: true },
   totalCount: { type: Number, required: true },
   tagSearch: { type: String, default: '' },
-  colorBy: { type: String, default: 'category' },
   selectedCard: { type: Boolean, default: false },
   mobile: { type: Boolean, default: false }
 });
@@ -16,7 +19,6 @@ const emit = defineEmits([
   'toggle-filter',
   'update-filter',
   'update:tagSearch',
-  'update:colorBy',
   'reset',
   'fit-results',
   'close'
@@ -45,33 +47,34 @@ const sourceLabels = {
 };
 
 const resourceLabels = {
-  project: 'Project',
-  skill: 'Skill'
+  project: '專案',
+  skill: '技能'
 };
+
+function focusPanel() {
+  panelRef.value?.focus({ preventScroll: true });
+}
+
+defineExpose({ focusPanel });
 </script>
 
 <template>
-  <section :class="['graph-filter-panel', mobile ? 'graph-filter-panel--mobile' : '']">
+  <section
+    ref="panelRef"
+    tabindex="-1"
+    :class="['graph-filter-panel', mobile ? 'graph-filter-panel--mobile' : '']"
+  >
     <header class="graph-filter-panel__header">
       <div>
         <div class="graph-filter-panel__eyebrow">FILTERS</div>
         <h2>篩選</h2>
-        <p>{{ resultCount }} / {{ totalCount }} Cards <span v-if="activeCount">· {{ activeCount }} 組條件</span></p>
+        <p>符合條件 {{ resultCount }} / {{ totalCount }} 張 <span v-if="activeCount">· {{ activeCount }} 組條件</span></p>
       </div>
       <button v-if="mobile" type="button" class="graph-filter-panel__close" aria-label="關閉篩選" @click="emit('close')">×</button>
     </header>
 
     <div class="graph-filter-section">
-      <label class="graph-filter-select">
-        <span>顏色依據</span>
-        <select :value="colorBy" @change="emit('update:colorBy', $event.target.value)">
-          <option value="none">無</option>
-          <option value="category">Category</option>
-          <option value="action">Action</option>
-          <option value="relevance">Relevance</option>
-        </select>
-      </label>
-
+      <div class="graph-filter-subtitle graph-filter-subtitle--first">不符合條件的節點</div>
       <div class="graph-filter-segment" aria-label="篩選結果顯示方式">
         <button
           type="button"
@@ -91,7 +94,7 @@ const resourceLabels = {
     </div>
 
     <details class="graph-filter-group" open>
-      <summary>Category <span>{{ filters.categories.length || '' }}</span></summary>
+      <summary>分類 <span>{{ filters.categories.length || '' }}</span></summary>
       <div class="graph-filter-options">
         <label v-for="item in facets.categories" :key="item">
           <input
@@ -105,7 +108,7 @@ const resourceLabels = {
     </details>
 
     <details class="graph-filter-group">
-      <summary>Action <span>{{ filters.actions.length || '' }}</span></summary>
+      <summary>建議動作 <span>{{ filters.actions.length || '' }}</span></summary>
       <div class="graph-filter-options graph-filter-options--compact">
         <label v-for="item in facets.actions" :key="item">
           <input
@@ -119,9 +122,9 @@ const resourceLabels = {
     </details>
 
     <details class="graph-filter-group">
-      <summary>Relevance <span v-if="filters.minimumRelevance > 1">≥ {{ filters.minimumRelevance }}</span></summary>
+      <summary>關聯度 <span v-if="filters.minimumRelevance > 1">≥ {{ filters.minimumRelevance }}</span></summary>
       <label class="graph-range">
-        <div><span>最低 Overall</span><strong>{{ filters.minimumRelevance }}</strong></div>
+        <div><span>最低整體分數</span><strong>{{ filters.minimumRelevance }}</strong></div>
         <input
           type="range"
           min="1"
@@ -136,7 +139,7 @@ const resourceLabels = {
 
     <details class="graph-filter-group">
       <summary>來源 <span>{{ filters.sourceTypes.length + filters.resourceKinds.length || '' }}</span></summary>
-      <div class="graph-filter-subtitle">Source Type</div>
+      <div class="graph-filter-subtitle">來源類型</div>
       <div class="graph-filter-options graph-filter-options--compact">
         <label v-for="item in facets.sourceTypes" :key="item">
           <input
@@ -148,7 +151,7 @@ const resourceLabels = {
         </label>
       </div>
       <template v-if="facets.resourceKinds.length">
-        <div class="graph-filter-subtitle">GitHub Resource</div>
+        <div class="graph-filter-subtitle">GitHub 資源</div>
         <div class="graph-filter-options graph-filter-options--compact">
           <label v-for="item in facets.resourceKinds" :key="item">
             <input
@@ -163,12 +166,12 @@ const resourceLabels = {
     </details>
 
     <details class="graph-filter-group">
-      <summary>Tag <span>{{ filters.tags.length || '' }}</span></summary>
+      <summary>標籤 <span>{{ filters.tags.length || '' }}</span></summary>
       <input
         class="graph-tag-search"
         type="search"
         :value="tagSearch"
-        placeholder="搜尋 Tag"
+        placeholder="搜尋標籤"
         @input="emit('update:tagSearch', $event.target.value)"
       />
       <div class="graph-filter-tags">
@@ -185,7 +188,7 @@ const resourceLabels = {
     </details>
 
     <details class="graph-filter-group">
-      <summary>Relation <span>{{ filters.relationTypes.length || '' }}</span></summary>
+      <summary>關係 <span>{{ filters.relationTypes.length || '' }}</span></summary>
       <div class="graph-filter-options graph-filter-options--compact">
         <label v-for="item in relationTypes" :key="item">
           <input
@@ -206,7 +209,7 @@ const resourceLabels = {
           :checked="filters.semanticEnabled"
           @change="emit('update-filter', 'semanticEnabled', $event.target.checked)"
         />
-        <span>限制選取 Card 的語意鄰域</span>
+        <span>限制選取知識卡的語意鄰域</span>
       </label>
 
       <div :class="['graph-semantic-filter', filters.semanticEnabled ? '' : 'is-disabled']">
@@ -228,7 +231,7 @@ const resourceLabels = {
         </div>
 
         <label v-if="filters.semanticMode === 'top'" class="graph-range">
-          <div><span>最近鄰居</span><strong>{{ filters.semanticTopN }}</strong></div>
+          <div><span>最近鄰居數</span><strong>{{ filters.semanticTopN }}</strong></div>
           <input
             type="range"
             min="1"
@@ -254,9 +257,9 @@ const resourceLabels = {
     </details>
 
     <footer class="graph-filter-panel__footer">
-      <button type="button" class="graph-filter-reset" @click="emit('reset')">重設</button>
+      <button type="button" class="graph-filter-reset" @click="emit('reset')">重設篩選</button>
       <button type="button" class="graph-filter-fit" :disabled="resultCount === 0" @click="emit('fit-results')">
-        Fit Results
+        顯示結果
       </button>
     </footer>
   </section>
@@ -289,6 +292,8 @@ const resourceLabels = {
 }
 .graph-filter-panel h2 {
   margin: 2px 0 0;
+  padding: 0;
+  border: 0;
   font-size: 18px;
 }
 .graph-filter-panel__header p {
@@ -354,6 +359,8 @@ const resourceLabels = {
   padding: 11px 0;
 }
 .graph-filter-group summary {
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   gap: 8px;
@@ -393,9 +400,9 @@ const resourceLabels = {
   font-size: 9px;
   font-weight: 900;
   letter-spacing: .06em;
-  text-transform: uppercase;
   opacity: .5;
 }
+.graph-filter-subtitle--first { margin-top: 0; }
 .graph-range {
   display: grid;
   gap: 6px;
@@ -490,6 +497,7 @@ const resourceLabels = {
   opacity: .4;
   cursor: default;
 }
+.graph-filter-panel:focus { outline: none; }
 .graph-filter-panel--mobile {
   position: fixed;
   z-index: 101;
