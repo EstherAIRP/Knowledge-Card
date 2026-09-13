@@ -16,8 +16,6 @@
 }
 
 .radar-shell {
-  width: min(1180px, calc(100% - 32px));
-  margin: 0 auto;
   padding-top: 28px;
 }
 
@@ -470,7 +468,7 @@
 }
 
 @media (max-width: 640px) {
-  .radar-shell { width: min(100% - 20px, 1180px); padding-top: 12px; }
+  .radar-shell { padding-top: 12px; }
   .radar-hero { padding: 28px 20px; border-radius: 20px; }
   .radar-hero > p { font-size: 14px; }
   .radar-stats { gap: 8px; margin-top: 24px; }
