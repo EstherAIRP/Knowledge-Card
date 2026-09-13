@@ -1,0 +1,15 @@
+/*
+ * Cross-component primitives belong here only when the same visual meaning is
+ * reused by multiple components. Keep component-specific layout in scoped CSS.
+ */
+
+.kc-surface {
+  border: 1px solid var(--kc-border);
+  border-radius: var(--kc-radius-lg);
+  background: var(--kc-panel);
+}
+
+.kc-focus-ring:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
+}

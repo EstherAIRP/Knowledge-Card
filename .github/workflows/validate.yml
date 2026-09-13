@@ -84,6 +84,9 @@ jobs:
       - name: Verify Knowledge Graph UI
         run: npm run graph-ui:verify
 
+      - name: Verify Site Layout UI
+        run: npm run layout-ui:verify
+
       - name: Upload Knowledge Graph UI screenshots
         if: always()
         uses: actions/upload-artifact@v4

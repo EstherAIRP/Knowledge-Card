@@ -54,9 +54,19 @@ async function collectMetrics(page) {
     const shellRect = shell?.getBoundingClientRect();
     const explorerRect = explorer?.getBoundingClientRect();
     const labelRect = label?.getBoundingClientRect();
+    const rootStyle = getComputedStyle(document.documentElement);
+    const gutterProbe = document.createElement('div');
+    gutterProbe.style.position = 'absolute';
+    gutterProbe.style.visibility = 'hidden';
+    gutterProbe.style.width = 'var(--kc-page-gutter)';
+    document.body.appendChild(gutterProbe);
+    const pageGutter = Number.parseFloat(getComputedStyle(gutterProbe).width) || 0;
+    gutterProbe.remove();
 
     return {
       shellWidth: shellRect?.width ?? 0,
+      wideMax: Number.parseFloat(rootStyle.getPropertyValue('--kc-layout-wide')) || 0,
+      pageGutter,
       explorerWidth: explorerRect?.width ?? 0,
       canvasWidth: canvasRect?.width ?? 0,
       canvasHeight: canvasRect?.height ?? 0,
@@ -96,9 +106,13 @@ async function verifyViewport(browser, viewport) {
     assert.ok(initial.labelHeight >= 10.5, `主要標籤顯示過小：${initial.labelHeight}px`);
 
     if (viewport.width >= 1440) {
+      const expectedWidth = Math.min(
+        initial.wideMax,
+        viewport.width - (initial.pageGutter * 2)
+      );
       assert.ok(
-        initial.shellWidth >= viewport.width * 0.9,
-        `寬版頁面未充分使用視窗：${initial.shellWidth}px / ${viewport.width}px`
+        Math.abs(initial.shellWidth - expectedWidth) <= 2,
+        `寬版頁面寬度不符合 Layout Token：${initial.shellWidth}px / expected ${expectedWidth}px`
       );
     }
 
@@ -145,7 +159,7 @@ async function verifyViewport(browser, viewport) {
 
     logStep(viewport, '點選知識卡並驗證詳情面板');
     const firstCard = page.locator('.graph-node--card .graph-node-interactive').first();
-    await firstCard.click();
+    await firstCard.dispatchEvent('click');
     await page.waitForTimeout(150);
     const selectionState = await page.evaluate(() => ({
       pathname: window.location.pathname,

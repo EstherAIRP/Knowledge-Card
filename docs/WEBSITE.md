@@ -176,6 +176,54 @@ base: '/Knowledge-Card/'
 
 自訂連結使用 `withBase()`，確保路由在儲存庫子路徑下正常工作。`cleanUrls` 維持啟用。
 
+## CSS 與 Layout 架構
+
+網站樣式分成三層：
+
+```text
+Design Tokens
+    ↓
+Layout System
+    ↓
+Component-scoped CSS
+```
+
+全站共用樣式位於：
+
+```text
+docs/.vitepress/theme/styles/
+├── tokens.css
+├── layout.css
+└── shared.css
+```
+
+責任分工：
+
+- `tokens.css`：全站頁寬、留白、間距、圓角與 Surface 語意 Token。
+- `layout.css`：Standard / Wide / Reading layout，以及限定於特定 `pageClass` 的 VitePress DefaultTheme 寬度調整。
+- `shared.css`：真正跨元件重用的 UI primitive。
+- Vue 元件的特殊排版與互動樣式留在各自的 `<style scoped>`，避免形成另一個大型全域 stylesheet。
+
+目前三種主要版型：
+
+| Layout | 用途 | 最大寬度 |
+| --- | --- | ---: |
+| Standard | Radar、Knowledge Card 外層、Concept | 1200px |
+| Reading | Knowledge Card Markdown 正文 | 820px |
+| Wide | Knowledge Graph | 1600px |
+
+左右留白統一由 `--kc-page-gutter` 控制。Knowledge Card 與 Concept 透過 VitePress frontmatter `pageClass` 限定 DefaultTheme override，不會影響其他文件頁。
+
+舊的 `custom.css` 與 `relations.css` 已拆回元件或共用樣式層，不再作為第二套全域樣式來源。
+
+PR 驗證除了既有 `graph-ui:verify` 外，另使用：
+
+```bash
+npm run layout-ui:verify
+```
+
+以 Playwright 在桌面與手機 viewport 檢查 Radar、Knowledge Card、Concept 與 Graph 的最大寬度、正文閱讀寬度與水平 overflow。
+
 ## Theme 元件
 
 自訂呈現程式碼位於：

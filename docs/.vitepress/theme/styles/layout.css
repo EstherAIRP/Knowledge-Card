@@ -1,0 +1,95 @@
+/*
+ * Knowledge Card layout system.
+ *
+ * Page components own their internal layout. This file owns only page width,
+ * gutters, reading width, and scoped VitePress DefaultTheme overrides.
+ */
+
+.VPHome {
+  padding-bottom: 64px !important;
+}
+
+.VPHome .VPHomeContent {
+  padding-top: 0;
+}
+
+/*
+ * VPHomeContent defaults to max-width: 1280px with large inner padding,
+ * which leaves only 1152px for custom homepage content on desktop.
+ * The Radar owns its width through kc-shell, so remove that parent constraint.
+ */
+.VPHome > .vp-doc.container {
+  max-width: none;
+  padding-inline: 0;
+}
+
+.kc-shell {
+  margin-inline: max(
+    var(--kc-page-gutter),
+    calc((100% - var(--kc-layout-standard)) / 2)
+  );
+}
+
+.kc-shell--wide {
+  margin-inline: max(
+    var(--kc-page-gutter),
+    calc((100% - var(--kc-layout-wide)) / 2)
+  );
+}
+
+.kc-reading {
+  width: min(100%, var(--kc-reading-max));
+  margin-inline: auto;
+}
+
+/*
+ * Knowledge and Concept pages use VPDoc, whose default content width is
+ * intentionally narrow. Scope overrides through pageClass so other VitePress
+ * documentation pages keep the DefaultTheme layout.
+ */
+.kc-page-knowledge .VPDoc,
+.kc-page-concept .VPDoc {
+  padding-inline: max(
+    var(--kc-page-gutter),
+    calc((100% - var(--kc-layout-standard)) / 2)
+  );
+}
+
+.kc-page-knowledge .VPDoc:not(.has-sidebar) .container,
+.kc-page-concept .VPDoc:not(.has-sidebar) .container {
+  /*
+   * VPDoc.vue uses scoped desktop rules (992px / 1104px). The scoped
+   * attributes make those selectors more specific than ordinary theme CSS,
+   * so these page-scoped framework overrides intentionally use !important.
+   */
+  max-width: var(--kc-layout-standard) !important;
+}
+
+.kc-page-knowledge .VPDoc:not(.has-sidebar) .content,
+.kc-page-concept .VPDoc:not(.has-sidebar) .content {
+  min-width: 0;
+  max-width: none !important;
+  padding-inline: 0 !important;
+}
+
+.kc-page-knowledge .VPDoc:not(.has-sidebar) .content-container,
+.kc-page-concept .VPDoc:not(.has-sidebar) .content-container {
+  max-width: none !important;
+}
+
+/*
+ * Keep the article body readable while allowing metadata, concepts, and
+ * relations to use the wider page shell.
+ */
+.kc-page-knowledge .vp-doc > :not(.knowledge-detail-head):not(.knowledge-concepts):not(.knowledge-relations) {
+  max-width: var(--kc-reading-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 959px) {
+  .kc-page-knowledge .VPDoc,
+  .kc-page-concept .VPDoc {
+    padding-inline: var(--kc-page-gutter);
+  }
+}

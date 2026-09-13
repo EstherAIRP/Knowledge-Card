@@ -273,10 +273,10 @@ defineExpose({ focusPanel });
 
 <style scoped>
 .graph-filter-panel {
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--kc-border);
   border-radius: 18px;
   padding: 16px;
-  background: var(--vp-c-bg-soft);
+  background: var(--kc-panel);
   max-height: calc(100vh - 120px);
   overflow: auto;
   position: sticky;
@@ -288,7 +288,7 @@ defineExpose({ focusPanel });
   justify-content: space-between;
   gap: 12px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--vp-c-divider);
+  border-bottom: 1px solid var(--kc-border);
 }
 .graph-filter-panel__eyebrow {
   font-size: 9px;
@@ -318,7 +318,7 @@ defineExpose({ focusPanel });
   display: grid;
   gap: 10px;
   padding: 12px 0;
-  border-bottom: 1px solid var(--vp-c-divider);
+  border-bottom: 1px solid var(--kc-border);
 }
 .graph-filter-select {
   display: grid;
@@ -330,7 +330,7 @@ defineExpose({ focusPanel });
 .graph-tag-search {
   min-height: 36px;
   width: 100%;
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--kc-border);
   border-radius: 9px;
   padding: 0 9px;
   background: var(--vp-c-bg);
@@ -340,7 +340,7 @@ defineExpose({ focusPanel });
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3px;
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--kc-border);
   border-radius: 9px;
   padding: 3px;
   background: var(--vp-c-bg);
@@ -361,7 +361,7 @@ defineExpose({ focusPanel });
   color: var(--vp-c-brand-1);
 }
 .graph-filter-group {
-  border-bottom: 1px solid var(--vp-c-divider);
+  border-bottom: 1px solid var(--kc-border);
   padding: 11px 0;
 }
 .graph-filter-group summary {
@@ -445,7 +445,7 @@ defineExpose({ focusPanel });
   overflow: auto;
 }
 .graph-filter-tags button {
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--kc-border);
   border-radius: 999px;
   padding: 4px 7px;
   background: var(--vp-c-bg);
@@ -479,7 +479,7 @@ defineExpose({ focusPanel });
   gap: 8px;
   padding: 12px 0 16px;
   margin-top: 8px;
-  background: var(--vp-c-bg-soft);
+  background: var(--kc-panel);
 }
 .graph-filter-panel__footer button {
   min-height: 38px;
@@ -490,7 +490,7 @@ defineExpose({ focusPanel });
   cursor: pointer;
 }
 .graph-filter-reset {
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--kc-border);
   background: var(--vp-c-bg);
   color: var(--vp-c-text-2);
 }

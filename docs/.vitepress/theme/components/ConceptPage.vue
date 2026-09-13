@@ -74,12 +74,12 @@ function evidenceLabel(item) {
 </template>
 
 <style scoped>
-.concept-detail-head { margin: 18px 0 34px; padding: 18px 20px; border: 1px solid var(--vp-c-divider); border-radius: 16px; background: var(--vp-c-bg-soft); }
+.concept-detail-head { margin: 18px 0 34px; padding: 18px 20px; border: 1px solid var(--kc-border); border-radius: 16px; background: var(--kc-panel); }
 .concept-meta-row { display: flex; justify-content: space-between; gap: 16px; align-items: center; }
 .concept-meta-row > div { display: flex; gap: 8px; flex-wrap: wrap; }
 .concept-type, .concept-origin { display: inline-flex; align-items: center; min-height: 26px; padding: 0 9px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .concept-type { background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); }
-.concept-origin { border: 1px solid var(--vp-c-divider); }
+.concept-origin { border: 1px solid var(--kc-border); }
 .concept-count { margin-top: 14px; font-size: 13px; opacity: .72; }
 .concept-count strong { margin-right: 5px; font-size: 22px; color: var(--vp-c-text-1); }
 .concept-section { margin-top: 38px; }
@@ -88,7 +88,7 @@ function evidenceLabel(item) {
 .concept-section-title h2 { margin: 3px 0 0; border: 0; padding: 0; }
 .concept-section-title > strong { font-size: 28px; opacity: .25; }
 .concept-card-grid, .concept-related-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.concept-card, .concept-related { display: block; border: 1px solid var(--vp-c-divider); border-radius: 14px; padding: 16px; color: inherit; text-decoration: none; background: var(--vp-c-bg); transition: border-color .18s ease, transform .18s ease; }
+.concept-card, .concept-related { display: block; border: 1px solid var(--kc-border); border-radius: 14px; padding: 16px; color: inherit; text-decoration: none; background: var(--vp-c-bg); transition: border-color .18s ease, transform .18s ease; }
 .concept-card:hover, .concept-related:hover { border-color: var(--vp-c-brand-1); transform: translateY(-2px); }
 .concept-card-top { display: flex; justify-content: space-between; gap: 14px; align-items: start; }
 .concept-card h3, .concept-related h3 { margin: 0; font-size: 17px; }
@@ -98,5 +98,5 @@ function evidenceLabel(item) {
 .concept-evidence span { padding: 4px 7px; border-radius: 7px; background: var(--vp-c-bg-soft); font-size: 10px; opacity: .78; }
 .concept-related > div > span { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; opacity: .55; }
 .concept-related > strong { display: block; margin-top: 8px; font-size: 11px; color: var(--vp-c-brand-1); }
-.concept-footer { display: flex; justify-content: space-between; gap: 20px; margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--vp-c-divider); font-size: 13px; }
+.concept-footer { display: flex; justify-content: space-between; gap: 20px; margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--kc-border); font-size: 13px; }
 </style>
