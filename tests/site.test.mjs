@@ -13,7 +13,8 @@ test('website data loader projects real Knowledge Cards', () => {
   assert.ok(personalModel);
   assert.equal(personalModel.route, '/knowledge/github-intuition-lab-personal-model');
   assert.equal(personalModel.relevance.overall, 5);
-  assert.ok(personalModel.categories.includes('Agent'));
+  assert.ok(personalModel.categories.includes('Memory / RAG / Knowledge'));
+  assert.ok(personalModel.semanticCategories.includes('Agent'));
   assert.ok(personalModel.actions.includes('TRY'));
   assert.ok(personalModel.tags.includes('mcp'));
 });
@@ -109,7 +110,8 @@ test('graph data loader unifies Card, Concept, and relation edge families', () =
 
   const personalModelNode = graph.nodes.find((node) => node.id === 'card:github-intuition-lab-personal-model');
   assert.ok(personalModelNode);
-  assert.ok(personalModelNode.categories.includes('Agent'));
+  assert.ok(personalModelNode.categories.includes('Memory / RAG / Knowledge'));
+  assert.ok(personalModelNode.semanticCategories.includes('Agent'));
   assert.ok(personalModelNode.actions.includes('TRY'));
   assert.ok(personalModelNode.tags.includes('mcp'));
   assert.equal(personalModelNode.sourceType, 'github');
