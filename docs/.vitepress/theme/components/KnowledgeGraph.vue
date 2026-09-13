@@ -179,7 +179,6 @@ const importantConceptIds = computed(() => new Set(
 ));
 
 function nodeMatchesResult(node) {
-  if (!filterActive.value) return true;
   if (node.kind === 'card') return matchingCardIdSet.value.has(node.entityId);
   if (node.kind === 'concept') return matchingConceptNodeIds.value.has(node.id);
   return true;
