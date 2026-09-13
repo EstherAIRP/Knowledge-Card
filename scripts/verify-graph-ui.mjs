@@ -71,6 +71,9 @@ async function collectMetrics(page) {
 async function verifyViewport(browser, viewport) {
   const context = await browser.newContext({ viewport });
   const page = await context.newPage();
+  page.on('pageerror', (error) => {
+    process.stderr.write(`[graph-ui ${viewport.width}x${viewport.height}] pageerror: ${error.stack ?? error.message}\n`);
+  });
 
   try {
     logStep(viewport, '開啟 Knowledge Graph');
@@ -140,7 +143,28 @@ async function verifyViewport(browser, viewport) {
     logStep(viewport, '點選知識卡並驗證詳情面板');
     const firstCard = page.locator('.graph-node--card a').first();
     await firstCard.click();
-    await page.locator('.graph-inspector').waitFor({ state: 'visible' });
+    await page.waitForTimeout(150);
+    const selectionState = await page.evaluate(() => ({
+      pathname: window.location.pathname,
+      selectedNodes: document.querySelectorAll('.graph-node--selected').length,
+      inspectors: document.querySelectorAll('.graph-inspector').length,
+      filterPanels: document.querySelectorAll('.graph-filter-panel').length,
+      explorerClass: document.querySelector('.graph-explorer')?.className ?? ''
+    }));
+    assert.ok(
+      selectionState.pathname.endsWith('/graph') || selectionState.pathname.endsWith('/graph/'),
+      `節點點擊不應離開圖譜頁：${JSON.stringify(selectionState)}`
+    );
+    assert.equal(
+      selectionState.selectedNodes,
+      1,
+      `節點點擊後應有一個選取節點：${JSON.stringify(selectionState)}`
+    );
+    assert.equal(
+      selectionState.inspectors,
+      1,
+      `節點點擊後應顯示詳情面板：${JSON.stringify(selectionState)}`
+    );
     const selectedMetrics = await collectMetrics(page);
     if (await page.locator('.graph-explorer--inspecting').count()) {
       assert.ok(
@@ -162,6 +186,13 @@ async function verifyViewport(browser, viewport) {
     );
     await page.screenshot({ path: screenshotPath, fullPage: true });
     logStep(viewport, `截圖：${screenshotPath}`);
+  } catch (error) {
+    const failurePath = path.join(
+      outputDir,
+      `failure-${viewport.width}x${viewport.height}.png`
+    );
+    await page.screenshot({ path: failurePath, fullPage: true }).catch(() => {});
+    throw error;
   } finally {
     await context.close();
   }
