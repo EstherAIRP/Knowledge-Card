@@ -65,7 +65,8 @@ async function collectMetrics(page) {
 
     return {
       shellWidth: shellRect?.width ?? 0,
-      wideMax: Number.parseFloat(rootStyle.getPropertyValue('--kc-layout-wide')) || 0,
+      pageMax: Number.parseFloat(rootStyle.getPropertyValue('--kc-page-max')) || 0,
+      canvasMax: Number.parseFloat(rootStyle.getPropertyValue('--kc-canvas-max')) || 0,
       pageGutter,
       explorerWidth: explorerRect?.width ?? 0,
       canvasWidth: canvasRect?.width ?? 0,
@@ -106,13 +107,21 @@ async function verifyViewport(browser, viewport) {
     assert.ok(initial.labelHeight >= 10.5, `主要標籤顯示過小：${initial.labelHeight}px`);
 
     if (viewport.width >= 1440) {
-      const expectedWidth = Math.min(
-        initial.wideMax,
+      const expectedPageWidth = Math.min(
+        initial.pageMax,
+        viewport.width - (initial.pageGutter * 2)
+      );
+      const expectedWorkspaceWidth = Math.min(
+        initial.canvasMax,
         viewport.width - (initial.pageGutter * 2)
       );
       assert.ok(
-        Math.abs(initial.shellWidth - expectedWidth) <= 2,
-        `寬版頁面寬度不符合 Layout Token：${initial.shellWidth}px / expected ${expectedWidth}px`
+        Math.abs(initial.shellWidth - expectedPageWidth) <= 2,
+        `頁面框架寬度不符合 Token：${initial.shellWidth}px / expected ${expectedPageWidth}px`
+      );
+      assert.ok(
+        Math.abs(initial.explorerWidth - expectedWorkspaceWidth) <= 2,
+        `圖譜工作區寬度不符合 Token：${initial.explorerWidth}px / expected ${expectedWorkspaceWidth}px`
       );
     }
 
