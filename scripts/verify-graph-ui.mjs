@@ -71,8 +71,11 @@ async function collectMetrics(page) {
 async function verifyViewport(browser, viewport) {
   const context = await browser.newContext({ viewport });
   const page = await context.newPage();
+  const pageErrors = [];
   page.on('pageerror', (error) => {
-    process.stderr.write(`[graph-ui ${viewport.width}x${viewport.height}] pageerror: ${error.stack ?? error.message}\n`);
+    const message = error.stack ?? error.message;
+    pageErrors.push(message);
+    process.stderr.write(`[graph-ui ${viewport.width}x${viewport.height}] pageerror: ${message}\n`);
   });
 
   try {
@@ -141,7 +144,7 @@ async function verifyViewport(browser, viewport) {
     await page.locator('.graph-empty-state').waitFor({ state: 'detached' });
 
     logStep(viewport, '點選知識卡並驗證詳情面板');
-    const firstCard = page.locator('.graph-node--card a').first();
+    const firstCard = page.locator('.graph-node--card .graph-node-interactive').first();
     await firstCard.click();
     await page.waitForTimeout(150);
     const selectionState = await page.evaluate(() => ({
@@ -184,6 +187,7 @@ async function verifyViewport(browser, viewport) {
       outputDir,
       `${viewport.width}x${viewport.height}.png`
     );
+    assert.deepEqual(pageErrors, [], `頁面不應出現 runtime 例外：${pageErrors.join('\n')}`);
     await page.screenshot({ path: screenshotPath, fullPage: true });
     logStep(viewport, `截圖：${screenshotPath}`);
   } catch (error) {
