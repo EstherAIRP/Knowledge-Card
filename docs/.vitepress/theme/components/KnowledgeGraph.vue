@@ -1,6 +1,6 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
-import { withBase } from 'vitepress';
+import { useRouter, withBase } from 'vitepress';
 import { data as graph } from '../../../graph.data.js';
 import GraphFilterPanel from './GraphFilterPanel.vue';
 import {
@@ -20,6 +20,7 @@ import {
   zoomAroundPoint
 } from '../lib/graph-viewport.mjs';
 
+const router = useRouter();
 const query = ref('');
 const showCardRelations = ref(false);
 const selectedKind = ref('ALL');
@@ -539,10 +540,15 @@ async function setFocusMode(value) {
   else resetView();
 }
 
-function handleNodeClick(event, node) {
-  if (node.kind !== 'card') return;
-  event.preventDefault();
-  selectCard(node.entityId);
+async function activateNode(node) {
+  if (node.kind === 'card') {
+    await selectCard(node.entityId);
+    return;
+  }
+
+  if (node.route) {
+    await router.go(withBase(node.route));
+  }
 }
 
 function toggleFilter(key, value) {
@@ -580,7 +586,7 @@ async function closeInspector() {
   await nextTick();
   const node = [...(graphSvg.value?.querySelectorAll?.('[data-node-id]') ?? [])]
     .find((element) => element.dataset.nodeId === `card:${cardId}`);
-  node?.querySelector?.('a')?.focus?.();
+  node?.querySelector?.('.graph-node-interactive')?.focus?.();
 }
 
 function resetFilters() {
@@ -1004,9 +1010,14 @@ onBeforeUnmount(() => {
               @mouseenter="hoveredNodeId = node.id"
               @mouseleave="hoveredNodeId = null"
             >
-              <a
-                :href="withBase(node.route)"
-                @click.stop="handleNodeClick($event, node)"
+              <g
+                class="graph-node-interactive"
+                role="link"
+                tabindex="0"
+                :aria-label="node.label"
+                @click.stop="activateNode(node)"
+                @keydown.enter.prevent.stop="activateNode(node)"
+                @keydown.space.prevent.stop="activateNode(node)"
                 @focus="hoveredNodeId = node.id"
                 @blur="hoveredNodeId = null"
               >
@@ -1031,7 +1042,7 @@ onBeforeUnmount(() => {
                   {{ shortLabel(node.label) }}
                 </text>
                 <title>{{ node.label }} — {{ node.description }}</title>
-              </a>
+              </g>
             </g>
           </g>
         </svg>
@@ -1329,9 +1340,9 @@ onBeforeUnmount(() => {
 .graph-node { transition: opacity .18s ease; }
 .graph-node circle { vector-effect: non-scaling-stroke; transition: opacity .18s ease, stroke-width .18s ease; }
 .graph-node-core { stroke-width: 2; }
-.graph-node a:hover .graph-node-core,
-.graph-node a:focus .graph-node-core { stroke-width: 3.5; }
-.graph-node a:focus { outline: none; }
+.graph-node-interactive:hover .graph-node-core,
+.graph-node-interactive:focus .graph-node-core { stroke-width: 3.5; }
+.graph-node-interactive:focus { outline: none; }
 .graph-node-label {
   font-size: 12px; font-weight: 800; fill: var(--vp-c-text-1); pointer-events: none;
   paint-order: stroke; stroke: var(--vp-c-bg); stroke-linejoin: round;
