@@ -83,13 +83,20 @@ async function collectMetrics(page, spec) {
       ? document.querySelector('.vp-doc > h1, .vp-doc > h2, .vp-doc > p')
       : null;
     const readingRect = readingNode?.getBoundingClientRect();
+    const gutterProbe = document.createElement('div');
+    gutterProbe.style.position = 'absolute';
+    gutterProbe.style.visibility = 'hidden';
+    gutterProbe.style.width = 'var(--kc-page-gutter)';
+    document.body.appendChild(gutterProbe);
+    const pageGutter = Number.parseFloat(getComputedStyle(gutterProbe).width) || 0;
+    gutterProbe.remove();
 
     return {
       shellWidth: shellRect?.width ?? 0,
       shellLeft: shellRect?.left ?? 0,
       shellRight: shellRect?.right ?? 0,
       maxWidth: Number.parseFloat(rootStyle.getPropertyValue(maxToken)) || 0,
-      pageGutter: Number.parseFloat(rootStyle.getPropertyValue('--kc-page-gutter')) || 0,
+      pageGutter,
       readingWidth: readingRect?.width ?? 0,
       readingMax: Number.parseFloat(rootStyle.getPropertyValue('--kc-reading-max')) || 0,
       horizontalOverflow:
