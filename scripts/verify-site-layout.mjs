@@ -80,7 +80,7 @@ async function collectMetrics(page, spec) {
     const shell = document.querySelector(shellSelector);
     const shellRect = shell?.getBoundingClientRect();
     const readingNode = reading
-      ? document.querySelector('.vp-doc > h1, .vp-doc > h2, .vp-doc > p')
+      ? document.querySelector('.vp-doc h1, .vp-doc h2, .vp-doc p')
       : null;
     const readingRect = readingNode?.getBoundingClientRect();
     const gutterProbe = document.createElement('div');
