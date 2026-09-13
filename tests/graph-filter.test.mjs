@@ -6,6 +6,8 @@ import {
   cardMatchesFilters,
   collectGraphFacets,
   matchingCardIds,
+  matchingGraphResults,
+  nodeMatchesGraphSearch,
   semanticAllowedCardIds
 } from '../docs/.vitepress/theme/lib/graph-filter.mjs';
 
@@ -140,4 +142,66 @@ test('activeFilterCount counts active filter groups instead of selected values',
     minimumRelevance: 4,
     semanticEnabled: true
   }), 5);
+});
+
+
+test('graph search and metadata filters share one card result set', () => {
+  const results = matchingGraphResults({
+    nodes: [
+      ...nodes,
+      { id: 'concept:memory', kind: 'concept', label: 'Memory', description: 'Agent memory' }
+    ],
+    edges: [
+      ...edges,
+      { kind: 'card-concept', source: 'card:a', target: 'concept:memory' },
+      { kind: 'card-concept', source: 'card:b', target: 'concept:memory' }
+    ],
+    semantic,
+    selectedCardId: null,
+    query: 'memory',
+    filters: {
+      categories: ['Agent'],
+      actions: [],
+      tags: [],
+      sourceTypes: [],
+      resourceKinds: [],
+      relationTypes: [],
+      minimumRelevance: 1,
+      semanticEnabled: false
+    }
+  });
+
+  assert.deepEqual([...results.cardIds].sort(), ['a', 'b']);
+  assert.equal(results.directNodeIds.has('concept:memory'), true);
+  assert.equal(results.contextConceptNodeIds.has('concept:memory'), true);
+});
+
+test('concept search keeps directly connected cards but still respects active filters', () => {
+  const results = matchingGraphResults({
+    nodes: [
+      ...nodes,
+      { id: 'concept:vision', kind: 'concept', label: 'Computer Vision', description: 'vision' }
+    ],
+    edges: [
+      ...edges,
+      { kind: 'card-concept', source: 'card:a', target: 'concept:vision' },
+      { kind: 'card-concept', source: 'card:c', target: 'concept:vision' }
+    ],
+    semantic,
+    selectedCardId: null,
+    query: 'Computer Vision',
+    filters: {
+      categories: ['Agent'],
+      actions: [],
+      tags: [],
+      sourceTypes: [],
+      resourceKinds: [],
+      relationTypes: [],
+      minimumRelevance: 1,
+      semanticEnabled: false
+    }
+  });
+
+  assert.deepEqual([...results.cardIds], ['a']);
+  assert.equal(nodeMatchesGraphSearch({ label: 'Computer Vision', kind: 'concept' }, 'vision'), true);
 });

@@ -14,6 +14,54 @@ function scalarMatches(value, selected) {
   return selected.includes(value);
 }
 
+function normalizeSearchQuery(query) {
+  return String(query ?? '').trim().toLocaleLowerCase('zh-TW');
+}
+
+function edgeCardId(edge) {
+  if (edge?.source?.startsWith('card:')) return edge.source.slice(5);
+  if (edge?.target?.startsWith('card:')) return edge.target.slice(5);
+  return null;
+}
+
+function edgeConceptId(edge) {
+  if (edge?.source?.startsWith('concept:')) return edge.source;
+  if (edge?.target?.startsWith('concept:')) return edge.target;
+  return null;
+}
+
+function connectedConceptIdsForCards(edges, cardIds) {
+  const conceptIds = new Set();
+  for (const edge of edges ?? []) {
+    if (edge.kind !== 'card-concept') continue;
+    const cardId = edgeCardId(edge);
+    const conceptId = edgeConceptId(edge);
+    if (cardId && conceptId && cardIds.has(cardId)) conceptIds.add(conceptId);
+  }
+  return conceptIds;
+}
+
+export function nodeMatchesGraphSearch(node, query) {
+  const needle = normalizeSearchQuery(query);
+  if (!needle) return false;
+
+  const searchable = [
+    node?.label,
+    node?.description,
+    node?.conceptType,
+    ...(node?.tags ?? []),
+    ...(node?.categories ?? []),
+    ...(node?.actions ?? []),
+    node?.sourceType,
+    node?.resourceKind
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLocaleLowerCase('zh-TW');
+
+  return searchable.includes(needle);
+}
+
 export function collectGraphFacets(nodes) {
   const cards = (nodes ?? []).filter((node) => node.kind === 'card');
   const collectMany = (key) => [...new Set(cards.flatMap((node) => node[key] ?? []))]
@@ -137,6 +185,66 @@ export function matchingCardIds({ nodes, edges, semantic, selectedCardId, filter
       }))
       .map((node) => node.entityId)
   );
+}
+
+export function matchingGraphResults({
+  nodes,
+  edges,
+  semantic,
+  selectedCardId,
+  filters,
+  query
+}) {
+  const filteredCardIds = matchingCardIds({
+    nodes,
+    edges,
+    semantic,
+    selectedCardId,
+    filters
+  });
+  const needle = normalizeSearchQuery(query);
+
+  if (!needle) {
+    return {
+      needle,
+      cardIds: filteredCardIds,
+      directNodeIds: new Set(),
+      contextConceptNodeIds: connectedConceptIdsForCards(edges, filteredCardIds)
+    };
+  }
+
+  const directNodeIds = new Set();
+  const searchCardIds = new Set();
+  const directConceptNodeIds = new Set();
+
+  for (const node of nodes ?? []) {
+    if (!nodeMatchesGraphSearch(node, needle)) continue;
+    directNodeIds.add(node.id);
+    if (node.kind === 'card') searchCardIds.add(node.entityId);
+    if (node.kind === 'concept') directConceptNodeIds.add(node.id);
+  }
+
+  for (const edge of edges ?? []) {
+    if (edge.kind !== 'card-concept') continue;
+    const conceptId = edgeConceptId(edge);
+    const cardId = edgeCardId(edge);
+    if (conceptId && cardId && directConceptNodeIds.has(conceptId)) {
+      searchCardIds.add(cardId);
+    }
+  }
+
+  const cardIds = new Set(
+    [...filteredCardIds].filter((cardId) => searchCardIds.has(cardId))
+  );
+  const contextConceptNodeIds = connectedConceptIdsForCards(edges, cardIds);
+  for (const conceptId of directConceptNodeIds) contextConceptNodeIds.add(conceptId);
+
+  return {
+    needle,
+    cardIds,
+    directNodeIds,
+    contextConceptNodeIds
+  };
 }
 
 export function activeFilterCount(filters) {

@@ -117,8 +117,9 @@ export function fitViewportToNodes(
     maximumScale = 2.8
   } = {}
 ) {
-  const bounds = calculateNodeBounds(nodes);
-  if (!nodes?.length || (bounds.width === 0 && bounds.height === 0)) {
+  const validNodes = (nodes ?? []).filter(finitePoint);
+  const bounds = calculateNodeBounds(validNodes);
+  if (!validNodes.length) {
     return { x: 0, y: 0, scale: 1 };
   }
 

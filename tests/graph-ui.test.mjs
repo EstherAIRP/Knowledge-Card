@@ -28,6 +28,9 @@ test('Knowledge Graph exposes global and focus exploration modes', () => {
   assert.match(text, /聚焦模式/);
   assert.match(text, /focusNodeIds/);
   assert.match(text, /focusMode\.value = isMobile\.value/);
+  assert.match(text, /ResizeObserver/);
+  assert.match(text, /filtersDocked/);
+  assert.match(text, /inspectorDocked/);
 });
 
 test('Knowledge Graph supports pan, wheel zoom, pinch zoom, and Fit controls', () => {
@@ -50,11 +53,13 @@ test('Knowledge Graph keeps technical layout diagnostics behind an information d
   assert.match(text, /graph-neighbor__bar/);
 });
 
-test('Knowledge Graph mobile layout no longer forces the old 720px-wide horizontal canvas', () => {
+test('Knowledge Graph uses an adaptive-height canvas instead of a fixed aspect-ratio canvas', () => {
   const text = source();
 
   assert.doesNotMatch(text, /min-width:\s*720px/);
-  assert.match(text, /\.knowledge-graph \{ aspect-ratio: 1 \/ 1; \}/);
+  assert.match(text, /height:\s*clamp\(480px/);
+  assert.doesNotMatch(text, /aspect-ratio:\s*1000\s*\/\s*720/);
+  assert.doesNotMatch(text, /@media \(max-width: 980px\)/);
 });
 
 
@@ -86,4 +91,34 @@ test('Knowledge Graph provides a mobile filter drawer and stable color legend', 
   assert.match(text, /mobile/);
   assert.match(text, /graphColorLegend/);
   assert.match(text, /graph-relation-legend/);
+});
+
+
+test('Knowledge Graph keeps search, filter count, and result fitting on one result model', () => {
+  const text = source();
+
+  assert.match(text, /matchingGraphResults/);
+  assert.match(text, /resultFitNodes/);
+  assert.match(text, /符合條件/);
+  assert.match(text, /沒有符合條件的結果/);
+  assert.match(text, /清除搜尋/);
+  assert.match(text, /重設篩選/);
+});
+
+test('Knowledge Graph compensates label size and hides colliding lower-priority labels', () => {
+  const text = source();
+
+  assert.match(text, /labelFontSize/);
+  assert.match(text, /labelNodeIds/);
+  assert.match(text, /occupied\.some/);
+  assert.match(text, /@focus="hoveredNodeId = node\.id"/);
+});
+
+test('Knowledge Graph page uses the page layout and leaves the filter panel collapsed initially', () => {
+  const page = fs.readFileSync(path.join(process.cwd(), 'docs/graph.md'), 'utf8');
+  const text = source();
+
+  assert.match(page, /layout:\s*page/);
+  assert.match(text, /filterPanelOpen\.value = false/);
+  assert.match(text, /graph-inspector--drawer/);
 });

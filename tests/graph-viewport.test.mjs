@@ -92,3 +92,15 @@ test('pinch helpers calculate distance and midpoint', () => {
   assert.equal(pointDistance(left, right), Math.hypot(200, 200));
   assert.deepEqual(midpoint(left, right), { x: 200, y: 300 });
 });
+
+
+test('fitViewportToNodes centers and zooms a single result instead of resetting the camera', () => {
+  const viewport = fitViewportToNodes(
+    [{ x: 320, y: 280 }],
+    { width: 1000, height: 720, padding: 120, maximumScale: 3.2 }
+  );
+
+  assert.equal(viewport.scale, 3.2);
+  assert.equal(viewport.x, 500 - 320 * 3.2);
+  assert.equal(viewport.y, 360 - 280 * 3.2);
+});
