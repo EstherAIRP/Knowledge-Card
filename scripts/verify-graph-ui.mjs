@@ -11,7 +11,7 @@ const siteBase = '/Knowledge-Card/';
 const origin = `http://${host}:${port}`;
 const graphUrl = `${origin}${siteBase}graph`;
 const outputDir = path.resolve('artifacts/graph-ui');
-const npmCommand = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+const vitepressCli = path.resolve('node_modules/vitepress/bin/vitepress.js');
 
 const viewports = [
   { width: 1920, height: 1080 },
@@ -205,8 +205,8 @@ async function verifyViewport(browser, viewport) {
 await mkdir(outputDir, { recursive: true });
 
 const preview = spawn(
-  npmCommand,
-  ['run', 'docs:preview', '--', '--host', host, '--port', String(port)],
+  process.execPath,
+  [vitepressCli, 'preview', 'docs', '--host', host, '--port', String(port)],
   {
     cwd: process.cwd(),
     env: process.env,
