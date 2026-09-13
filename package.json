@@ -32,7 +32,8 @@
     "docs:preview": "vitepress preview docs",
     "verify:site": "node scripts/verify-site-output.mjs",
     "graph-ui:verify": "node scripts/verify-graph-ui.mjs",
-    "graph-layout:validate": "node scripts/validate-graph-layout.mjs"
+    "graph-layout:validate": "node scripts/validate-graph-layout.mjs",
+    "layout-ui:verify": "node scripts/verify-site-layout.mjs"
   },
   "dependencies": {
     "@huggingface/transformers": "3.8.1",
