@@ -55,11 +55,18 @@ async function collectMetrics(page) {
     const explorerRect = explorer?.getBoundingClientRect();
     const labelRect = label?.getBoundingClientRect();
     const rootStyle = getComputedStyle(document.documentElement);
+    const gutterProbe = document.createElement('div');
+    gutterProbe.style.position = 'absolute';
+    gutterProbe.style.visibility = 'hidden';
+    gutterProbe.style.width = 'var(--kc-page-gutter)';
+    document.body.appendChild(gutterProbe);
+    const pageGutter = Number.parseFloat(getComputedStyle(gutterProbe).width) || 0;
+    gutterProbe.remove();
 
     return {
       shellWidth: shellRect?.width ?? 0,
       wideMax: Number.parseFloat(rootStyle.getPropertyValue('--kc-layout-wide')) || 0,
-      pageGutter: Number.parseFloat(rootStyle.getPropertyValue('--kc-page-gutter')) || 0,
+      pageGutter,
       explorerWidth: explorerRect?.width ?? 0,
       canvasWidth: canvasRect?.width ?? 0,
       canvasHeight: canvasRect?.height ?? 0,
