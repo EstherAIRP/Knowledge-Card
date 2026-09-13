@@ -652,14 +652,15 @@ function handlePointerDown(event) {
   if (!svg) return;
 
   const point = clientToViewBox(event.clientX, event.clientY);
+  const nodeTarget = event.target?.closest?.('.graph-node') ?? null;
   pointers.set(event.pointerId, point);
-  try {
-    svg.setPointerCapture(event.pointerId);
-  } catch {
-    // Some browsers do not expose pointer capture for every input source.
-  }
 
-  if (pointers.size === 1 && !event.target?.closest?.('.graph-node')) {
+  if (pointers.size === 1 && !nodeTarget) {
+    try {
+      svg.setPointerCapture(event.pointerId);
+    } catch {
+      // Some browsers do not expose pointer capture for every input source.
+    }
     dragState = {
       pointerId: event.pointerId,
       lastPoint: point
@@ -667,6 +668,14 @@ function handlePointerDown(event) {
   }
 
   if (pointers.size >= 2) {
+    for (const pointerId of pointers.keys()) {
+      try {
+        svg.setPointerCapture(pointerId);
+      } catch {
+        // Keep pinch zoom usable even if one pointer cannot be captured.
+      }
+    }
+
     const [left, right] = pointerPair();
     pinchState = {
       distance: Math.max(pointDistance(left, right), 1),
