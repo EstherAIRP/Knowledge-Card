@@ -111,7 +111,7 @@ test('Knowledge Graph compensates label size and hides colliding lower-priority 
   assert.match(text, /labelFontSize/);
   assert.match(text, /labelNodeIds/);
   assert.match(text, /occupied\.some/);
-  assert.match(text, /@focus="hoveredNodeId = node\.id"/);
+  assert.match(text, /class="graph-node-interactive"/);
 });
 
 test('Knowledge Graph page uses the page layout and leaves the filter panel collapsed initially', () => {
@@ -121,4 +121,14 @@ test('Knowledge Graph page uses the page layout and leaves the filter panel coll
   assert.match(page, /layout:\s*page/);
   assert.match(text, /filterPanelOpen\.value = false/);
   assert.match(text, /graph-inspector--drawer/);
+});
+
+
+test('Knowledge Graph avoids SVG anchors that break VitePress prefetch', () => {
+  const text = source();
+
+  assert.match(text, /class="graph-node-interactive"/);
+  assert.match(text, /useRouter/);
+  assert.match(text, /router\.go\(withBase\(node\.route\)\)/);
+  assert.doesNotMatch(text, /:href="withBase\(node\.route\)"/);
 });
