@@ -136,7 +136,7 @@ function resetFilters() {
 </script>
 
 <template>
-  <main class="radar-shell">
+  <main class="radar-shell kc-shell">
     <section class="radar-hero">
       <div class="radar-kicker">PERSONAL TECHNOLOGY RADAR</div>
       <h1>Knowledge Radar</h1>
