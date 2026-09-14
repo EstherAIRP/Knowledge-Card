@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-12T12:32:52.357Z",
-  "input_hash": "102590f744148337b2c48ccd9868a7fef093878f90282806dd7f7209c7aab150",
+  "generated_at": "2026-09-14T10:51:12.811Z",
+  "input_hash": "2d53aba93b17d3b8f699a1f0b7033700b950541a1920dc409658d7103ee765ad",
   "concepts": [
     {
       "id": "category-agent",
@@ -44,6 +44,7 @@
         "github-santifer-career-ops",
         "github-stablyai-orca",
         "github-titanwings-distilly",
+        "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
@@ -54,7 +55,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 42
+      "card_count": 43
     },
     {
       "id": "coding-agent-tooling",
@@ -88,6 +89,7 @@
         "github-santifer-career-ops",
         "github-stablyai-orca",
         "github-titanwings-distilly",
+        "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
         "threads-db-fphwgfos-7d09e0",
@@ -95,7 +97,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 30
+      "card_count": 31
     },
     {
       "id": "category-ai-coding-devtools",
@@ -126,6 +128,7 @@
         "github-nutlope-hallmark",
         "github-santifer-career-ops",
         "github-stablyai-orca",
+        "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
         "threads-db-fphwgfos-7d09e0",
@@ -133,7 +136,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 27
+      "card_count": 28
     },
     {
       "id": "category-general-tools",
@@ -189,13 +192,14 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
         "github-nanako0129-sepia",
+        "github-totec448-spec-chat-on-steroids",
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-dchbjcxenzb-725dd0",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 18
+      "card_count": 19
     },
     {
       "id": "local-ai-integration",
@@ -217,10 +221,11 @@
         "github-promptfairy-prompt-fairy",
         "github-santifer-career-ops",
         "github-titanwings-distilly",
+        "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ],
-      "card_count": 14
+      "card_count": 15
     },
     {
       "id": "agent-memory",
@@ -295,6 +300,29 @@
       "card_count": 13
     },
     {
+      "id": "agent-api-bridge",
+      "label": "Agent API Bridge",
+      "type": "integration",
+      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-drumih-turbo-fieldfare",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-totec448-spec-chat-on-steroids",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 12
+    },
+    {
       "id": "tag-agent-skill",
       "label": "agent-skill",
       "type": "topic",
@@ -341,28 +369,6 @@
       "card_count": 12
     },
     {
-      "id": "agent-api-bridge",
-      "label": "Agent API Bridge",
-      "type": "integration",
-      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-drumih-turbo-fieldfare",
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 11
-    },
-    {
       "id": "tag-codex",
       "label": "Codex",
       "type": "topic",
@@ -381,6 +387,28 @@
         "github-stablyai-orca",
         "github-titanwings-distilly",
         "github-tsun-u-tsunu-superpowers"
+      ],
+      "card_count": 11
+    },
+    {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-g36maid-deepseek-harness",
+        "github-herdrdev-herdr",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-stablyai-orca",
+        "github-totec448-spec-chat-on-steroids",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-db-fphwgfos-7d09e0",
+        "threads-dcglstsogz3-fa0168"
       ],
       "card_count": 11
     },
@@ -406,27 +434,6 @@
       "card_count": 10
     },
     {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-dstack-tee-dstack",
-        "github-g36maid-deepseek-harness",
-        "github-herdrdev-herdr",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-stablyai-orca",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-db-fphwgfos-7d09e0",
-        "threads-dcglstsogz3-fa0168"
-      ],
-      "card_count": 10
-    },
-    {
       "id": "category-sillytavern-ai-rpg",
       "label": "SillyTavern / AI RPG",
       "type": "category",
@@ -445,6 +452,25 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 9
+    },
+    {
+      "id": "tag-mcp",
+      "label": "MCP",
+      "type": "topic",
+      "description": "至少出現在 8 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 8
     },
     {
       "id": "category-image-generation",
@@ -483,20 +509,20 @@
       "card_count": 7
     },
     {
-      "id": "tag-mcp",
-      "label": "MCP",
+      "id": "tag-local-first",
+      "label": "local-first",
       "type": "topic",
       "description": "至少出現在 7 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
+        "github-mayocream-koharu",
+        "github-notoriouslab-vault-curate",
+        "github-promptfairy-prompt-fairy",
+        "github-santifer-career-ops",
+        "github-totec448-spec-chat-on-steroids"
       ],
       "card_count": 7
     },
@@ -518,27 +544,10 @@
       "card_count": 6
     },
     {
-      "id": "tag-local-first",
-      "label": "local-first",
-      "type": "topic",
-      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-notoriouslab-vault-curate",
-        "github-promptfairy-prompt-fairy",
-        "github-santifer-career-ops"
-      ],
-      "card_count": 6
-    },
-    {
       "id": "tag-coding-agent",
       "label": "coding-agent",
       "type": "topic",
-      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -546,9 +555,10 @@
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids"
       ],
-      "card_count": 5
+      "card_count": 6
     },
     {
       "id": "tag-long-term-memory",
@@ -563,6 +573,22 @@
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
+      ],
+      "card_count": 5
+    },
+    {
+      "id": "tag-typescript",
+      "label": "TypeScript",
+      "type": "topic",
+      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness",
+        "github-stablyai-orca",
+        "github-totec448-spec-chat-on-steroids",
+        "github-twinklestars1029-sillytavern-regex"
       ],
       "card_count": 5
     },
@@ -597,6 +623,21 @@
       "card_count": 4
     },
     {
+      "id": "tag-electron",
+      "label": "electron",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-stablyai-orca",
+        "github-totec448-spec-chat-on-steroids"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "tag-prompt-engineering",
       "label": "prompt-engineering",
       "type": "topic",
@@ -608,21 +649,6 @@
         "github-nanako0129-sepia",
         "github-s1dashu-ip-as-logo-skill",
         "github-salsensei-suno-v6-songcraft"
-      ],
-      "card_count": 4
-    },
-    {
-      "id": "tag-typescript",
-      "label": "TypeScript",
-      "type": "topic",
-      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "earendil-works-pi",
-        "github-g36maid-deepseek-harness",
-        "github-stablyai-orca",
-        "github-twinklestars1029-sillytavern-regex"
       ],
       "card_count": 4
     },
@@ -684,20 +710,6 @@
       "card_count": 3
     },
     {
-      "id": "tag-electron",
-      "label": "electron",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-stablyai-orca"
-      ],
-      "card_count": 3
-    },
-    {
       "id": "tag-knowledge-graph",
       "label": "knowledge-graph",
       "type": "topic",
@@ -726,6 +738,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-multi-agent",
+      "label": "multi-agent",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-totec448-spec-chat-on-steroids",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-openai-compatible-api",
       "label": "OpenAI-compatible API",
       "type": "topic",
@@ -750,6 +776,20 @@
         "github-addyosmani-agent-skills",
         "github-mensfeld-code-on-incus",
         "github-stablyai-orca"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-plugin-system",
+      "label": "plugin-system",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-herdrdev-herdr",
+        "github-santifer-career-ops",
+        "github-totec448-spec-chat-on-steroids"
       ],
       "card_count": 3
     },
@@ -850,6 +890,19 @@
         "threads-dcrihmdd46t-183b20"
       ],
       "card_count": 3
+    },
+    {
+      "id": "tag-agent-harness",
+      "label": "agent-harness",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "github-totec448-spec-chat-on-steroids"
+      ],
+      "card_count": 2
     },
     {
       "id": "tag-agent-loop",
@@ -1125,19 +1178,6 @@
       "card_count": 2
     },
     {
-      "id": "tag-multi-agent",
-      "label": "multi-agent",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 2
-    },
-    {
       "id": "tag-on-device-inference",
       "label": "on-device inference",
       "type": "topic",
@@ -1164,6 +1204,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-persistent-session",
+      "label": "persistent-session",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-herdrdev-herdr",
+        "github-totec448-spec-chat-on-steroids"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-playwright",
       "label": "Playwright",
       "type": "topic",
@@ -1186,19 +1239,6 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-plugin-system",
-      "label": "plugin-system",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-herdrdev-herdr",
-        "github-santifer-career-ops"
       ],
       "card_count": 2
     },
@@ -2940,6 +2980,18 @@
     },
     {
       "card_id": "github-g36maid-deepseek-harness",
+      "concept_id": "tag-agent-harness",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-harness"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-g36maid-deepseek-harness",
       "concept_id": "tag-agent-loop",
       "strength": 0.9,
       "evidence": [
@@ -3370,6 +3422,18 @@
         {
           "kind": "tag",
           "value": "agent-orchestration"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-herdrdev-herdr",
+      "concept_id": "tag-persistent-session",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "persistent-session"
         }
       ],
       "origin": "shared-tag"
@@ -5931,6 +5995,206 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "local-ai-integration",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        },
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "tag-agent-harness",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-harness"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "tag-coding-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "tag-electron",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Electron"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "tag-local-first",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "tag-multi-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "multi-agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "tag-persistent-session",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "persistent-session"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "tag-plugin-system",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "plugin-system"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-totec448-spec-chat-on-steroids",
+      "concept_id": "tag-typescript",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "TypeScript"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-tsun-u-agent-game-table",
       "concept_id": "agent-api-bridge",
       "strength": 0.78,
@@ -7136,8 +7400,8 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 10,
-      "weight": 0.9091,
+      "support": 11,
+      "weight": 0.9167,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
@@ -7147,6 +7411,7 @@
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
+        "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ]
@@ -7175,21 +7440,9 @@
     },
     {
       "source": "agent-api-bridge",
-      "target": "tag-long-term-memory",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.6,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -7197,6 +7450,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ]
@@ -7210,6 +7464,17 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-multi-agent",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-totec448-spec-chat-on-steroids",
+        "threads-dclcucpas-z-66b25b"
       ]
     },
     {
@@ -7370,7 +7635,7 @@
       "target": "tag-electron",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
@@ -7482,14 +7747,15 @@
       "source": "category-agent",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -7510,7 +7776,7 @@
       "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -7518,6 +7784,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ]
@@ -7526,7 +7793,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 27,
+      "support": 28,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -7550,6 +7817,7 @@
         "github-nutlope-hallmark",
         "github-santifer-career-ops",
         "github-stablyai-orca",
+        "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
         "threads-db-fphwgfos-7d09e0",
@@ -7599,14 +7867,15 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -7635,14 +7904,14 @@
     },
     {
       "source": "category-ai-coding-devtools",
-      "target": "tag-responsive-design",
+      "target": "tag-plugin-system",
       "type": "co_occurs_with",
       "support": 3,
       "weight": 1,
       "card_ids": [
-        "github-max0821-web-design-skill",
-        "github-nutlope-hallmark",
-        "threads-dcdjlucgrwf-66e463"
+        "github-herdrdev-herdr",
+        "github-santifer-career-ops",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -7669,17 +7938,6 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "tag-electron",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
       "target": "tag-ffmpeg",
       "type": "co_occurs_with",
       "support": 2,
@@ -7687,6 +7945,17 @@
       "card_ids": [
         "github-appfromapexxx-taiwan-subtitle",
         "github-harry0703-moneyprinterturbo"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-local-llm",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu"
       ]
     },
     {
@@ -7867,10 +8136,21 @@
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.3333,
+      "weight": 0.2857,
       "card_ids": [
         "github-mayocream-koharu",
         "github-promptfairy-prompt-fairy"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
+      "target": "tag-agent-harness",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -7908,6 +8188,17 @@
     },
     {
       "source": "category-infrastructure-deployment",
+      "target": "tag-persistent-session",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-herdrdev-herdr",
+        "github-totec448-spec-chat-on-steroids"
+      ]
+    },
+    {
+      "source": "category-infrastructure-deployment",
       "target": "tag-plugin-architecture",
       "type": "co_occurs_with",
       "support": 2,
@@ -7940,25 +8231,14 @@
       ]
     },
     {
-      "source": "category-infrastructure-deployment",
-      "target": "tag-tool-registry",
+      "source": "category-llm",
+      "target": "tag-agent-harness",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
         "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "category-infrastructure-deployment",
-      "target": "tag-web-ui",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -8019,22 +8299,12 @@
     },
     {
       "source": "category-llm",
-      "target": "tag-metal",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mayocream-koharu"
-      ]
-    },
-    {
-      "source": "category-llm",
       "target": "tag-multi-agent",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
+        "github-totec448-spec-chat-on-steroids",
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-dclcucpas-z-66b25b"
       ]
@@ -8177,7 +8447,7 @@
       "target": "tag-electron",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
@@ -8299,14 +8569,15 @@
       "source": "coding-agent-tooling",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -8348,7 +8619,7 @@
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.3333,
+      "weight": 0.2857,
       "card_ids": [
         "github-mayocream-koharu",
         "github-promptfairy-prompt-fairy"
@@ -8391,7 +8662,7 @@
       "source": "local-ai-integration",
       "target": "tag-local-first",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "github-graphify-labs-graphify",
@@ -8399,14 +8670,15 @@
         "github-mayocream-koharu",
         "github-notoriouslab-vault-curate",
         "github-promptfairy-prompt-fairy",
-        "github-santifer-career-ops"
+        "github-santifer-career-ops",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
       "source": "local-ai-integration",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -8414,19 +8686,20 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ]
     },
     {
       "source": "local-ai-integration",
-      "target": "tag-openai-compatible-api",
+      "target": "tag-multi-agent",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 0.6667,
       "card_ids": [
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge"
+        "github-totec448-spec-chat-on-steroids",
+        "threads-dclcucpas-z-66b25b"
       ]
     },
     {
@@ -8438,6 +8711,17 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-titanwings-distilly"
+      ]
+    },
+    {
+      "source": "tag-agent-harness",
+      "target": "tag-typescript",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-g36maid-deepseek-harness",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -8633,7 +8917,7 @@
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.3333,
+      "weight": 0.2857,
       "card_ids": [
         "github-graphify-labs-graphify",
         "github-santifer-career-ops"
@@ -8890,13 +9174,25 @@
     },
     {
       "source": "tag-coding-agent",
-      "target": "tag-mcp",
+      "target": "tag-long-term-memory",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 0.4,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model"
+      ]
+    },
+    {
+      "source": "tag-coding-agent",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 0.5,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -8908,6 +9204,17 @@
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw"
+      ]
+    },
+    {
+      "source": "tag-coding-agent",
+      "target": "tag-typescript",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.4,
+      "card_ids": [
+        "earendil-works-pi",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -8988,6 +9295,17 @@
       ]
     },
     {
+      "source": "tag-electron",
+      "target": "tag-typescript",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.5,
+      "card_ids": [
+        "github-stablyai-orca",
+        "github-totec448-spec-chat-on-steroids"
+      ]
+    },
+    {
       "source": "tag-embeddings",
       "target": "tag-sqlite",
       "type": "co_occurs_with",
@@ -9044,13 +9362,13 @@
     },
     {
       "source": "tag-local-first",
-      "target": "tag-mcp",
+      "target": "tag-plugin-system",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.3333,
+      "weight": 0.6667,
       "card_ids": [
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model"
+        "github-santifer-career-ops",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -9121,6 +9439,17 @@
       ]
     },
     {
+      "source": "tag-mcp",
+      "target": "tag-multi-agent",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-totec448-spec-chat-on-steroids",
+        "threads-dclcucpas-z-66b25b"
+      ]
+    },
+    {
       "source": "tag-memory-consolidation",
       "target": "tag-sqlite",
       "type": "co_occurs_with",
@@ -9140,6 +9469,17 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
+      ]
+    },
+    {
+      "source": "tag-persistent-session",
+      "target": "tag-plugin-system",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-herdrdev-herdr",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -9276,9 +9616,9 @@
     }
   ],
   "stats": {
-    "card_count": 56,
-    "concept_count": 85,
-    "card_concept_edge_count": 458,
-    "concept_relation_edge_count": 178
+    "card_count": 57,
+    "concept_count": 87,
+    "card_concept_edge_count": 476,
+    "concept_relation_edge_count": 184
   }
 }
