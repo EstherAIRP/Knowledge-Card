@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-14T11:11:38.239Z",
-  "input_hash": "ba0cbae9f7ebe618c41d36eef241737beb058f570ebac8708ce9172814e88291",
+  "generated_at": "2026-09-14T22:46:59.400Z",
+  "input_hash": "2119823c32461456eaf71b6e4f34b3ac54ed0b5e62f712e83135eab33baa3c26",
   "concepts": [
     {
       "id": "category-agent",
@@ -29,6 +29,7 @@
         "github-intuition-lab-personal-model",
         "github-k-dense-ai-scientific-agent-skills",
         "github-kevintsai1202-humanizer-zh-tw",
+        "github-mars-tw-open-seo-advisor-skill",
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
@@ -56,7 +57,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 44
+      "card_count": 45
     },
     {
       "id": "coding-agent-tooling",
@@ -156,6 +157,7 @@
         "github-danyuchn-iso-24495-skill",
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
+        "github-mars-tw-open-seo-advisor-skill",
         "github-mattpocock-skills",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-notoriouslab-vault-curate",
@@ -171,7 +173,7 @@
         "threads-dcrihmdd46t-183b20",
         "threads-dcu8czjelom-f2217d"
       ],
-      "card_count": 22
+      "card_count": 23
     },
     {
       "id": "category-llm",
@@ -190,6 +192,7 @@
         "github-g36maid-deepseek-harness",
         "github-hkuds-lightrag",
         "github-kevintsai1202-humanizer-zh-tw",
+        "github-mars-tw-open-seo-advisor-skill",
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-moeru-ai-airi",
@@ -202,7 +205,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 20
+      "card_count": 21
     },
     {
       "id": "local-ai-integration",
@@ -256,6 +259,31 @@
       "card_count": 14
     },
     {
+      "id": "tag-agent-skill",
+      "label": "agent-skill",
+      "type": "topic",
+      "description": "至少出現在 14 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-cathrynlavery-diagram-design",
+        "github-danyuchn-iso-24495-skill",
+        "github-graphify-labs-graphify",
+        "github-hugohe3-ppt-master",
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-mars-tw-open-seo-advisor-skill",
+        "github-max0821-web-design-skill",
+        "github-nanako0129-sepia",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill",
+        "github-salsensei-suno-v6-songcraft",
+        "github-santifer-career-ops",
+        "github-titanwings-distilly",
+        "github-virgiliojr94-book-to-skill"
+      ],
+      "card_count": 14
+    },
+    {
       "id": "tag-claude-code",
       "label": "Claude Code",
       "type": "topic",
@@ -279,30 +307,6 @@
         "github-virgiliojr94-book-to-skill"
       ],
       "card_count": 14
-    },
-    {
-      "id": "tag-agent-skill",
-      "label": "agent-skill",
-      "type": "topic",
-      "description": "至少出現在 13 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-cathrynlavery-diagram-design",
-        "github-danyuchn-iso-24495-skill",
-        "github-graphify-labs-graphify",
-        "github-hugohe3-ppt-master",
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-max0821-web-design-skill",
-        "github-nanako0129-sepia",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill",
-        "github-salsensei-suno-v6-songcraft",
-        "github-santifer-career-ops",
-        "github-titanwings-distilly",
-        "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 13
     },
     {
       "id": "category-ai-ml",
@@ -748,6 +752,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-human-in-the-loop",
+      "label": "Human-in-the-loop",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-mars-tw-open-seo-advisor-skill",
+        "github-santifer-career-ops",
+        "threads-db-wlkkgtu-18d1ea"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-knowledge-graph",
       "label": "knowledge-graph",
       "type": "topic",
@@ -1146,19 +1164,6 @@
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-graphify-labs-graphify"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-human-in-the-loop",
-      "label": "human-in-the-loop",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-santifer-career-ops",
-        "threads-db-wlkkgtu-18d1ea"
       ],
       "card_count": 2
     },
@@ -4007,6 +4012,66 @@
         {
           "kind": "tag",
           "value": "zh-TW"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mars-tw-open-seo-advisor-skill",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mars-tw-open-seo-advisor-skill",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mars-tw-open-seo-advisor-skill",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mars-tw-open-seo-advisor-skill",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Agent Skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mars-tw-open-seo-advisor-skill",
+      "concept_id": "tag-human-in-the-loop",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Human-in-the-loop"
         }
       ],
       "origin": "shared-tag"
@@ -7892,7 +7957,7 @@
       "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 13,
+      "support": 14,
       "weight": 1,
       "card_ids": [
         "github-cathrynlavery-diagram-design",
@@ -7900,6 +7965,7 @@
         "github-graphify-labs-graphify",
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
+        "github-mars-tw-open-seo-advisor-skill",
         "github-max0821-web-design-skill",
         "github-nanako0129-sepia",
         "github-rimagination-h3lite",
@@ -9145,12 +9211,12 @@
     },
     {
       "source": "tag-agent-skill",
-      "target": "tag-local-first",
+      "target": "tag-human-in-the-loop",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.2857,
+      "weight": 0.6667,
       "card_ids": [
-        "github-graphify-labs-graphify",
+        "github-mars-tw-open-seo-advisor-skill",
         "github-santifer-career-ops"
       ]
     },
@@ -9860,9 +9926,9 @@
     }
   ],
   "stats": {
-    "card_count": 58,
+    "card_count": 59,
     "concept_count": 89,
-    "card_concept_edge_count": 491,
+    "card_concept_edge_count": 496,
     "concept_relation_edge_count": 185
   }
 }
