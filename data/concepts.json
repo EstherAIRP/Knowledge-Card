@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-14T22:46:59.400Z",
-  "input_hash": "2119823c32461456eaf71b6e4f34b3ac54ed0b5e62f712e83135eab33baa3c26",
+  "generated_at": "2026-09-15T07:34:58.980Z",
+  "input_hash": "294c69035e02d2dda45170729377254d130c3b724699de997897ea1b7166fdf8",
   "concepts": [
     {
       "id": "category-agent",
@@ -21,6 +21,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-cynthianani-a-simple-nest",
         "github-danyuchn-iso-24495-skill",
+        "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
         "github-harry0703-moneyprinterturbo",
@@ -57,7 +58,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 45
+      "card_count": 46
     },
     {
       "id": "coding-agent-tooling",
@@ -75,6 +76,7 @@
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
+        "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
         "github-herdrdev-herdr",
@@ -100,7 +102,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 32
+      "card_count": 33
     },
     {
       "id": "category-ai-coding-devtools",
@@ -189,6 +191,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-cynthianani-a-simple-nest",
         "github-drumih-turbo-fieldfare",
+        "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
         "github-hkuds-lightrag",
         "github-kevintsai1202-humanizer-zh-tw",
@@ -205,7 +208,59 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 21
+      "card_count": 22
+    },
+    {
+      "id": "tag-agent-skill",
+      "label": "agent-skill",
+      "type": "topic",
+      "description": "至少出現在 15 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-cathrynlavery-diagram-design",
+        "github-danyuchn-iso-24495-skill",
+        "github-eternityspring-shuohao-skills",
+        "github-graphify-labs-graphify",
+        "github-hugohe3-ppt-master",
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-mars-tw-open-seo-advisor-skill",
+        "github-max0821-web-design-skill",
+        "github-nanako0129-sepia",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill",
+        "github-salsensei-suno-v6-songcraft",
+        "github-santifer-career-ops",
+        "github-titanwings-distilly",
+        "github-virgiliojr94-book-to-skill"
+      ],
+      "card_count": 15
+    },
+    {
+      "id": "tag-claude-code",
+      "label": "Claude Code",
+      "type": "topic",
+      "description": "至少出現在 15 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-cathrynlavery-diagram-design",
+        "github-charliie-dev-claude-code-hidden-settings",
+        "github-danyuchn-iso-24495-skill",
+        "github-eternityspring-shuohao-skills",
+        "github-mattpocock-skills",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-nanako0129-sepia",
+        "github-nutlope-hallmark",
+        "github-stablyai-orca",
+        "github-titanwings-distilly",
+        "github-tsun-u-memory-toolkit",
+        "github-tsun-u-tsunu-superpowers",
+        "github-virgiliojr94-book-to-skill"
+      ],
+      "card_count": 15
     },
     {
       "id": "local-ai-integration",
@@ -259,56 +314,6 @@
       "card_count": 14
     },
     {
-      "id": "tag-agent-skill",
-      "label": "agent-skill",
-      "type": "topic",
-      "description": "至少出現在 14 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-cathrynlavery-diagram-design",
-        "github-danyuchn-iso-24495-skill",
-        "github-graphify-labs-graphify",
-        "github-hugohe3-ppt-master",
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-mars-tw-open-seo-advisor-skill",
-        "github-max0821-web-design-skill",
-        "github-nanako0129-sepia",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill",
-        "github-salsensei-suno-v6-songcraft",
-        "github-santifer-career-ops",
-        "github-titanwings-distilly",
-        "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 14
-    },
-    {
-      "id": "tag-claude-code",
-      "label": "Claude Code",
-      "type": "topic",
-      "description": "至少出現在 14 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-cathrynlavery-diagram-design",
-        "github-charliie-dev-claude-code-hidden-settings",
-        "github-danyuchn-iso-24495-skill",
-        "github-mattpocock-skills",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-nanako0129-sepia",
-        "github-nutlope-hallmark",
-        "github-stablyai-orca",
-        "github-titanwings-distilly",
-        "github-tsun-u-memory-toolkit",
-        "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 14
-    },
-    {
       "id": "category-ai-ml",
       "label": "AI / ML",
       "type": "category",
@@ -329,6 +334,30 @@
         "github-rimagination-h3lite",
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 13
+    },
+    {
+      "id": "tag-codex",
+      "label": "Codex",
+      "type": "topic",
+      "description": "至少出現在 13 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-cathrynlavery-diagram-design",
+        "github-eternityspring-shuohao-skills",
+        "github-mattpocock-skills",
+        "github-nanako0129-sepia",
+        "github-nutlope-hallmark",
+        "github-salsensei-suno-v6-songcraft",
+        "github-stablyai-orca",
+        "github-titanwings-distilly",
+        "github-tsun-u-tsunu-superpowers",
+        "github-virgiliojr94-book-to-skill"
       ],
       "card_count": 13
     },
@@ -376,29 +405,6 @@
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 12
-    },
-    {
-      "id": "tag-codex",
-      "label": "Codex",
-      "type": "topic",
-      "description": "至少出現在 12 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-cathrynlavery-diagram-design",
-        "github-mattpocock-skills",
-        "github-nanako0129-sepia",
-        "github-nutlope-hallmark",
-        "github-salsensei-suno-v6-songcraft",
-        "github-stablyai-orca",
-        "github-titanwings-distilly",
-        "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
       ],
       "card_count": 12
     },
@@ -466,6 +472,44 @@
       "card_count": 9
     },
     {
+      "id": "category-image-generation",
+      "label": "Image Generation",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Image Generation",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nevertoday-xxd-panel-102",
+        "github-promptfairy-prompt-fairy",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 8
+    },
+    {
+      "id": "image-generation-workflow",
+      "label": "Image Generation Workflow",
+      "type": "workflow",
+      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nevertoday-xxd-panel-102",
+        "github-promptfairy-prompt-fairy",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 8
+    },
+    {
       "id": "tag-mcp",
       "label": "MCP",
       "type": "topic",
@@ -499,42 +543,6 @@
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 7
-    },
-    {
-      "id": "category-image-generation",
-      "label": "Image Generation",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Image Generation",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nevertoday-xxd-panel-102",
-        "github-promptfairy-prompt-fairy",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill"
-      ],
-      "card_count": 7
-    },
-    {
-      "id": "image-generation-workflow",
-      "label": "Image Generation Workflow",
-      "type": "workflow",
-      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nevertoday-xxd-panel-102",
-        "github-promptfairy-prompt-fairy",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill"
       ],
       "card_count": 7
     },
@@ -1207,6 +1215,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-minimax-h3",
+      "label": "MiniMax H3",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-rimagination-h3lite"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-on-device-inference",
       "label": "on-device inference",
       "type": "topic",
@@ -1294,6 +1315,19 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-quality-gates",
+      "label": "quality gates",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-eternityspring-shuohao-skills"
       ],
       "card_count": 2
     },
@@ -1724,6 +1758,18 @@
         {
           "kind": "tag",
           "value": "OpenCode"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-addyosmani-agent-skills",
+      "concept_id": "tag-quality-gates",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "quality gates"
         }
       ],
       "origin": "shared-tag"
@@ -2971,6 +3017,130 @@
         }
       ],
       "origin": "category"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "category-image-generation",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        },
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "image-generation-workflow",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "tag-codex",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "tag-minimax-h3",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MiniMax H3"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "tag-quality-gates",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "quality gates"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "github-g36maid-deepseek-harness",
@@ -5593,6 +5763,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-rimagination-h3lite",
+      "concept_id": "tag-minimax-h3",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MiniMax H3"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-s1dashu-ip-as-logo-skill",
       "concept_id": "category-agent",
       "strength": 1,
@@ -7957,11 +8139,12 @@
       "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 14,
+      "support": 15,
       "weight": 1,
       "card_ids": [
         "github-cathrynlavery-diagram-design",
         "github-danyuchn-iso-24495-skill",
+        "github-eternityspring-shuohao-skills",
         "github-graphify-labs-graphify",
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
@@ -7996,13 +8179,14 @@
       "source": "category-agent",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 14,
+      "support": 15,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
+        "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
@@ -8019,13 +8203,14 @@
       "source": "category-agent",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 12,
+      "support": 13,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
+        "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
@@ -8390,9 +8575,10 @@
       "source": "category-image-generation",
       "target": "image-generation-workflow",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
+        "github-eternityspring-shuohao-skills",
         "github-harry0703-moneyprinterturbo",
         "github-mayocream-koharu",
         "github-mirabarukaso-character-select-stand-alone-app",
@@ -8406,9 +8592,10 @@
       "source": "category-image-generation",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.2857,
+      "support": 3,
+      "weight": 0.375,
       "card_ids": [
+        "github-eternityspring-shuohao-skills",
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill"
       ]
@@ -8433,6 +8620,17 @@
       "card_ids": [
         "github-mayocream-koharu",
         "github-promptfairy-prompt-fairy"
+      ]
+    },
+    {
+      "source": "category-image-generation",
+      "target": "tag-minimax-h3",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-rimagination-h3lite"
       ]
     },
     {
@@ -8810,13 +9008,14 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 14,
+      "support": 15,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
+        "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
@@ -8845,13 +9044,14 @@
       "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 12,
+      "support": 13,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
+        "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
@@ -8891,17 +9091,6 @@
     },
     {
       "source": "image-generation-workflow",
-      "target": "tag-agent-skill",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.2857,
-      "card_ids": [
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill"
-      ]
-    },
-    {
-      "source": "image-generation-workflow",
       "target": "tag-comfyui",
       "type": "co_occurs_with",
       "support": 2,
@@ -8920,6 +9109,17 @@
       "card_ids": [
         "github-mayocream-koharu",
         "github-promptfairy-prompt-fairy"
+      ]
+    },
+    {
+      "source": "image-generation-workflow",
+      "target": "tag-minimax-h3",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-rimagination-h3lite"
       ]
     },
     {
@@ -9222,6 +9422,17 @@
     },
     {
       "source": "tag-agent-skill",
+      "target": "tag-minimax-h3",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-rimagination-h3lite"
+      ]
+    },
+    {
+      "source": "tag-agent-skill",
       "target": "tag-playwright",
       "type": "co_occurs_with",
       "support": 2,
@@ -9339,17 +9550,6 @@
     },
     {
       "source": "tag-claude-code",
-      "target": "tag-code-review",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-mattpocock-skills"
-      ]
-    },
-    {
-      "source": "tag-claude-code",
       "target": "tag-cursor",
       "type": "co_occurs_with",
       "support": 2,
@@ -9380,6 +9580,17 @@
         "github-addyosmani-agent-skills",
         "github-mensfeld-code-on-incus",
         "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "tag-claude-code",
+      "target": "tag-quality-gates",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-eternityspring-shuohao-skills"
       ]
     },
     {
@@ -9450,13 +9661,13 @@
     },
     {
       "source": "tag-codex",
-      "target": "tag-spec-driven-development",
+      "target": "tag-quality-gates",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
-        "github-ai72dope-codex-engineering-system-zh-tw"
+        "github-eternityspring-shuohao-skills"
       ]
     },
     {
@@ -9926,9 +10137,9 @@
     }
   ],
   "stats": {
-    "card_count": 59,
-    "concept_count": 89,
-    "card_concept_edge_count": 496,
-    "concept_relation_edge_count": 185
+    "card_count": 60,
+    "concept_count": 91,
+    "card_concept_edge_count": 508,
+    "concept_relation_edge_count": 187
   }
 }
