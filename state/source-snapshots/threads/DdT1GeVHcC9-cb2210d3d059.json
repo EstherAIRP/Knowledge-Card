@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "provider": "threads",
+  "source_identity": "threads:DdT1GeVHcC9",
+  "canonical_url": "https://threads.com/@faifai_li_/post/DdT1GeVHcC9",
+  "root_post_id": "3986763636501495997_66586298538",
+  "root_shortcode": "DdT1GeVHcC9",
+  "author": "faifai_li_",
+  "thread_total": 1,
+  "captured_at": "2026-09-15T13:42:31.603Z",
+  "source_hash": "c43f91da8daf33de66c97e76ffcd5a5464e963673e858cca09bc4939c9d8308a",
+  "parts": [
+    {
+      "index": 1,
+      "key": "id:3986763636501495997_66586298538",
+      "id": "3986763636501495997_66586298538",
+      "shortcode": "DdT1GeVHcC9",
+      "canonical_url": "https://threads.com/@faifai_li_/post/DdT1GeVHcC9",
+      "timestamp": "2026-09-15T13:34:42.000Z",
+      "reply_to": null,
+      "root_post": null,
+      "text_hash": "3db3548ca746cd077a3a32d2eab860d09c6083fbb15f1a6b51d39df27b69c6b6",
+      "media_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "references_hash": "6f19703542c95f260e6d00f17c7323922211afee219d4b4892352701d4fae2f0",
+      "structure_hash": "94ae475f1dfc9a7159e375e3c4ebecb1441e3afd5b6fae58d4af428d02c05001",
+      "content_hash": "b0265a5c8e85d6dc6a7d75fea4ae9f2019da1596d981526727787e99586d703e"
+    }
+  ]
+}
