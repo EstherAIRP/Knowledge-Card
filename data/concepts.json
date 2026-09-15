@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-15T10:00:05.624Z",
-  "input_hash": "da113712b20c6c0fdf3e145ee3321a706ff598c5d0ce39467feec6fe6396838d",
+  "generated_at": "2026-09-15T13:50:44.329Z",
+  "input_hash": "b3738a39e3b02ee0322242581590fbf4d860df50748e13c3d569885f04fd351f",
   "concepts": [
     {
       "id": "category-agent",
@@ -57,9 +57,10 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dclcucpas-z-66b25b",
         "threads-dcu8czjelom-f2217d",
-        "threads-dcuhxije1zf-9b4063"
+        "threads-dcuhxije1zf-9b4063",
+        "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 47
+      "card_count": 48
     },
     {
       "id": "coding-agent-tooling",
@@ -176,9 +177,10 @@
         "threads-dcglstsogz3-fa0168",
         "threads-dchbjcxenzb-725dd0",
         "threads-dcrihmdd46t-183b20",
-        "threads-dcu8czjelom-f2217d"
+        "threads-dcu8czjelom-f2217d",
+        "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 23
+      "card_count": 24
     },
     {
       "id": "category-llm",
@@ -209,9 +211,10 @@
         "threads-dchbjcxenzb-725dd0",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
+        "threads-ddt1gevhcc9-cb2210",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 22
+      "card_count": 23
     },
     {
       "id": "tag-agent-skill",
@@ -986,6 +989,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-agent-workflow",
+      "label": "agent-workflow",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "threads-ddt1gevhcc9-cb2210"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-ai-coding",
       "label": "AI coding",
       "type": "topic",
@@ -1073,6 +1089,19 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-rimagination-h3lite"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-context-management",
+      "label": "context-management",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "threads-ddt1gevhcc9-cb2210",
+        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 2
     },
@@ -2003,6 +2032,18 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
+      "concept_id": "tag-agent-workflow",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-workflow"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "github-ai72dope-codex-engineering-system-zh-tw",
@@ -7905,6 +7946,66 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "threads-ddt1gevhcc9-cb2210",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-ddt1gevhcc9-cb2210",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-ddt1gevhcc9-cb2210",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-ddt1gevhcc9-cb2210",
+      "concept_id": "tag-agent-workflow",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-workflow"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-ddt1gevhcc9-cb2210",
+      "concept_id": "tag-context-management",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "context-management"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "threads-dfyr62jb6wr-b921df",
       "concept_id": "agent-memory",
       "strength": 0.78,
@@ -7963,6 +8064,18 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "threads-dfyr62jb6wr-b921df",
+      "concept_id": "tag-context-management",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "context-management"
+        }
+      ],
+      "origin": "shared-tag"
     }
   ],
   "concept_relations": [
@@ -8585,6 +8698,17 @@
     },
     {
       "source": "category-general-tools",
+      "target": "tag-agent-workflow",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "threads-ddt1gevhcc9-cb2210"
+      ]
+    },
+    {
+      "source": "category-general-tools",
       "target": "tag-cloudflare",
       "type": "co_occurs_with",
       "support": 2,
@@ -8636,17 +8760,6 @@
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw"
-      ]
-    },
-    {
-      "source": "category-general-tools",
-      "target": "tag-speech-to-text",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-appfromapexxx-taiwan-subtitle",
-        "threads-dcrihmdd46t-183b20"
       ]
     },
     {
@@ -8859,6 +8972,17 @@
     },
     {
       "source": "category-llm",
+      "target": "tag-context-management",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "threads-ddt1gevhcc9-cb2210",
+        "threads-dfyr62jb6wr-b921df"
+      ]
+    },
+    {
+      "source": "category-llm",
       "target": "tag-docling",
       "type": "co_occurs_with",
       "support": 2,
@@ -8866,17 +8990,6 @@
       "card_ids": [
         "github-hkuds-lightrag",
         "github-virgiliojr94-book-to-skill"
-      ]
-    },
-    {
-      "source": "category-llm",
-      "target": "tag-hybrid-retrieval",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-hkuds-lightrag"
       ]
     },
     {
@@ -10238,9 +10351,9 @@
     }
   ],
   "stats": {
-    "card_count": 61,
-    "concept_count": 92,
-    "card_concept_edge_count": 515,
+    "card_count": 62,
+    "concept_count": 94,
+    "card_concept_edge_count": 522,
     "concept_relation_edge_count": 187
   }
 }
