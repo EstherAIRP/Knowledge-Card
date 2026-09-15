@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-15T07:34:58.980Z",
-  "input_hash": "294c69035e02d2dda45170729377254d130c3b724699de997897ea1b7166fdf8",
+  "generated_at": "2026-09-15T10:00:05.624Z",
+  "input_hash": "da113712b20c6c0fdf3e145ee3321a706ff598c5d0ce39467feec6fe6396838d",
   "concepts": [
     {
       "id": "category-agent",
@@ -24,6 +24,7 @@
         "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
+        "github-hankhuang0516-simulator-manager",
         "github-harry0703-moneyprinterturbo",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
@@ -58,7 +59,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 46
+      "card_count": 47
     },
     {
       "id": "coding-agent-tooling",
@@ -79,6 +80,7 @@
         "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
+        "github-hankhuang0516-simulator-manager",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
@@ -102,7 +104,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 33
+      "card_count": 34
     },
     {
       "id": "category-ai-coding-devtools",
@@ -122,6 +124,7 @@
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
+        "github-hankhuang0516-simulator-manager",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
@@ -141,7 +144,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 28
+      "card_count": 29
     },
     {
       "id": "category-general-tools",
@@ -419,6 +422,7 @@
         "github-drumih-turbo-fieldfare",
         "github-dstack-tee-dstack",
         "github-g36maid-deepseek-harness",
+        "github-hankhuang0516-simulator-manager",
         "github-herdrdev-herdr",
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
@@ -428,7 +432,7 @@
         "threads-db-fphwgfos-7d09e0",
         "threads-dcglstsogz3-fa0168"
       ],
-      "card_count": 11
+      "card_count": 12
     },
     {
       "id": "character-runtime",
@@ -689,6 +693,21 @@
       "card_count": 4
     },
     {
+      "id": "tag-sqlite",
+      "label": "SQLite",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-hankhuang0516-simulator-manager",
+        "github-notoriouslab-vault-curate"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "tag-zh-tw",
       "label": "zh-TW",
       "type": "topic",
@@ -900,20 +919,6 @@
       "card_count": 3
     },
     {
-      "id": "tag-sqlite",
-      "label": "SQLite",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-notoriouslab-vault-curate"
-      ],
-      "card_count": 3
-    },
-    {
       "id": "tag-tdd",
       "label": "TDD",
       "type": "topic",
@@ -1042,6 +1047,19 @@
       "card_ids": [
         "threads-dcglstsogz3-fa0168",
         "threads-dcu8czjelom-f2217d"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-codex-skill",
+      "label": "Codex Skill",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-hankhuang0516-simulator-manager",
+        "github-nevertoday-xxd-panel-102"
       ],
       "card_count": 2
     },
@@ -3483,6 +3501,78 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-hankhuang0516-simulator-manager",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hankhuang0516-simulator-manager",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hankhuang0516-simulator-manager",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hankhuang0516-simulator-manager",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-hankhuang0516-simulator-manager",
+      "concept_id": "tag-codex-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Codex Skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-hankhuang0516-simulator-manager",
+      "concept_id": "tag-sqlite",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SQLite"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-harry0703-moneyprinterturbo",
       "concept_id": "category-agent",
       "strength": 1,
@@ -5361,6 +5451,18 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "github-nevertoday-xxd-panel-102",
+      "concept_id": "tag-codex-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "codex-skill"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "github-notoriouslab-vault-curate",
@@ -8039,6 +8141,17 @@
     },
     {
       "source": "agent-memory",
+      "target": "tag-embeddings",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "agent-memory",
       "target": "tag-knowledge-graph",
       "type": "co_occurs_with",
       "support": 3,
@@ -8061,18 +8174,6 @@
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
-      ]
-    },
-    {
-      "source": "agent-memory",
-      "target": "tag-sqlite",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -8271,7 +8372,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 28,
+      "support": 29,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -8284,6 +8385,7 @@
         "github-danyuchn-iso-24495-skill",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
+        "github-hankhuang0516-simulator-manager",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
@@ -8873,6 +8975,17 @@
     },
     {
       "source": "category-rag-memory-knowledge",
+      "target": "tag-graph-retrieval",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-graphify-labs-graphify"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
       "target": "tag-knowledge-graph",
       "type": "co_occurs_with",
       "support": 3,
@@ -8880,18 +8993,6 @@
       "card_ids": [
         "github-graphify-labs-graphify",
         "github-hkuds-lightrag",
-        "github-notoriouslab-vault-curate"
-      ]
-    },
-    {
-      "source": "category-rag-memory-knowledge",
-      "target": "tag-sqlite",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
         "github-notoriouslab-vault-curate"
       ]
     },
@@ -9953,7 +10054,7 @@
       "target": "tag-sqlite",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest"
@@ -10137,9 +10238,9 @@
     }
   ],
   "stats": {
-    "card_count": 60,
-    "concept_count": 91,
-    "card_concept_edge_count": 508,
+    "card_count": 61,
+    "concept_count": 92,
+    "card_concept_edge_count": 515,
     "concept_relation_edge_count": 187
   }
 }
