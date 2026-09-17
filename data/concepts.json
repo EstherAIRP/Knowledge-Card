@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-17T14:06:47.807Z",
-  "input_hash": "d5373a35cdca08e2ffd87f7cb537498801525a65bae211682eff285d70e61a73",
+  "generated_at": "2026-09-17T22:40:07.900Z",
+  "input_hash": "ccd28fb3ebb3a51b1ce6cd595b78de05304f713677cf92120108731df7594ea3",
   "concepts": [
     {
       "id": "category-agent",
@@ -19,6 +19,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
+        "github-cloudflare-security-audit-skill",
         "github-cynthianani-a-simple-nest",
         "github-danyuchn-iso-24495-skill",
         "github-dreambigou-eli5",
@@ -61,7 +62,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 49
+      "card_count": 50
     },
     {
       "id": "coding-agent-tooling",
@@ -78,6 +79,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
+        "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
         "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
@@ -107,7 +109,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 35
+      "card_count": 36
     },
     {
       "id": "category-ai-coding-devtools",
@@ -124,6 +126,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
+        "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
         "github-dreambigou-eli5",
         "github-g36maid-deepseek-harness",
@@ -148,7 +151,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 30
+      "card_count": 31
     },
     {
       "id": "category-general-tools",
@@ -163,6 +166,7 @@
         "github-appfromapexxx-taiwan-subtitle",
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
+        "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
         "github-dreambigou-eli5",
         "github-hugohe3-ppt-master",
@@ -184,7 +188,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 25
+      "card_count": 26
     },
     {
       "id": "category-llm",
@@ -224,11 +228,12 @@
       "id": "tag-agent-skill",
       "label": "agent-skill",
       "type": "topic",
-      "description": "至少出現在 16 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 17 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
         "github-cathrynlavery-diagram-design",
+        "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
         "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
@@ -245,7 +250,7 @@
         "github-titanwings-distilly",
         "github-virgiliojr94-book-to-skill"
       ],
-      "card_count": 16
+      "card_count": 17
     },
     {
       "id": "tag-claude-code",
@@ -560,6 +565,24 @@
       "card_count": 7
     },
     {
+      "id": "tag-coding-agent",
+      "label": "coding-agent",
+      "type": "topic",
+      "description": "至少出現在 7 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-addyosmani-agent-skills",
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-akitaonrails-ai-memory",
+        "github-cloudflare-security-audit-skill",
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids"
+      ],
+      "card_count": 7
+    },
+    {
       "id": "tag-local-first",
       "label": "local-first",
       "type": "topic",
@@ -576,23 +599,6 @@
         "github-totec448-spec-chat-on-steroids"
       ],
       "card_count": 7
-    },
-    {
-      "id": "tag-coding-agent",
-      "label": "coding-agent",
-      "type": "topic",
-      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "earendil-works-pi",
-        "github-addyosmani-agent-skills",
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "github-totec448-spec-chat-on-steroids"
-      ],
-      "card_count": 6
     },
     {
       "id": "tag-long-term-memory",
@@ -684,6 +690,21 @@
         "github-moeru-ai-airi",
         "github-stablyai-orca",
         "github-totec448-spec-chat-on-steroids"
+      ],
+      "card_count": 4
+    },
+    {
+      "id": "tag-multi-agent",
+      "label": "Multi-Agent",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-cloudflare-security-audit-skill",
+        "github-totec448-spec-chat-on-steroids",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 4
     },
@@ -827,20 +848,6 @@
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu",
         "threads-dchbjcxenzb-725dd0"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "tag-multi-agent",
-      "label": "multi-agent",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-totec448-spec-chat-on-steroids",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 3
     },
@@ -2700,6 +2707,94 @@
         {
           "kind": "tag",
           "value": "claude-code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-cloudflare-security-audit-skill",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-cloudflare-security-audit-skill",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-cloudflare-security-audit-skill",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-cloudflare-security-audit-skill",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-cloudflare-security-audit-skill",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Agent Skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-cloudflare-security-audit-skill",
+      "concept_id": "tag-coding-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Coding Agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-cloudflare-security-audit-skill",
+      "concept_id": "tag-multi-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Multi-Agent"
         }
       ],
       "origin": "shared-tag"
@@ -8218,6 +8313,18 @@
     },
     {
       "source": "agent-api-bridge",
+      "target": "tag-long-term-memory",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 0.6,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "threads-dclcucpas-z-66b25b"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 8,
@@ -8242,17 +8349,6 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
-      "target": "tag-multi-agent",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-totec448-spec-chat-on-steroids",
-        "threads-dclcucpas-z-66b25b"
       ]
     },
     {
@@ -8435,10 +8531,11 @@
       "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 16,
+      "support": 17,
       "weight": 1,
       "card_ids": [
         "github-cathrynlavery-diagram-design",
+        "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
         "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
@@ -8523,13 +8620,14 @@
       "source": "category-agent",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-cloudflare-security-audit-skill",
         "github-intuition-lab-personal-model",
         "github-totec448-spec-chat-on-steroids"
       ]
@@ -8583,7 +8681,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 30,
+      "support": 31,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -8593,6 +8691,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
+        "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
         "github-dreambigou-eli5",
         "github-g36maid-deepseek-harness",
@@ -8659,13 +8758,14 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-cloudflare-security-audit-skill",
         "github-intuition-lab-personal-model",
         "github-totec448-spec-chat-on-steroids"
       ]
@@ -9093,6 +9193,17 @@
     },
     {
       "source": "category-llm",
+      "target": "tag-hybrid-retrieval",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cynthianani-a-simple-nest",
+        "github-hkuds-lightrag"
+      ]
+    },
+    {
+      "source": "category-llm",
       "target": "tag-local-llm",
       "type": "co_occurs_with",
       "support": 3,
@@ -9101,18 +9212,6 @@
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu",
         "threads-dchbjcxenzb-725dd0"
-      ]
-    },
-    {
-      "source": "category-llm",
-      "target": "tag-multi-agent",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "github-totec448-spec-chat-on-steroids",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-dclcucpas-z-66b25b"
       ]
     },
     {
@@ -9380,13 +9479,14 @@
       "source": "coding-agent-tooling",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 6,
+      "support": 7,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-cloudflare-security-audit-skill",
         "github-intuition-lab-personal-model",
         "github-totec448-spec-chat-on-steroids"
       ]
@@ -9504,13 +9604,13 @@
     },
     {
       "source": "local-ai-integration",
-      "target": "tag-multi-agent",
+      "target": "tag-openai-compatible-api",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 0.6667,
       "card_ids": [
-        "github-totec448-spec-chat-on-steroids",
-        "threads-dclcucpas-z-66b25b"
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge"
       ]
     },
     {
@@ -9999,24 +10099,24 @@
     },
     {
       "source": "tag-coding-agent",
-      "target": "tag-long-term-memory",
+      "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.4,
+      "support": 3,
+      "weight": 0.4286,
       "card_ids": [
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
       "source": "tag-coding-agent",
-      "target": "tag-mcp",
+      "target": "tag-multi-agent",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 2,
       "weight": 0.5,
       "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
+        "github-cloudflare-security-audit-skill",
         "github-totec448-spec-chat-on-steroids"
       ]
     },
@@ -10279,7 +10379,7 @@
       "target": "tag-multi-agent",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-totec448-spec-chat-on-steroids",
         "threads-dclcucpas-z-66b25b"
@@ -10452,9 +10552,9 @@
     }
   ],
   "stats": {
-    "card_count": 63,
+    "card_count": 64,
     "concept_count": 94,
-    "card_concept_edge_count": 529,
+    "card_concept_edge_count": 536,
     "concept_relation_edge_count": 187
   }
 }
