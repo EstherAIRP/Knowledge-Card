@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-15T13:50:44.329Z",
-  "input_hash": "b3738a39e3b02ee0322242581590fbf4d860df50748e13c3d569885f04fd351f",
+  "generated_at": "2026-09-17T14:06:47.807Z",
+  "input_hash": "d5373a35cdca08e2ffd87f7cb537498801525a65bae211682eff285d70e61a73",
   "concepts": [
     {
       "id": "category-agent",
@@ -21,6 +21,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-cynthianani-a-simple-nest",
         "github-danyuchn-iso-24495-skill",
+        "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
@@ -60,7 +61,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 48
+      "card_count": 49
     },
     {
       "id": "coding-agent-tooling",
@@ -78,6 +79,7 @@
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
+        "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
@@ -105,7 +107,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 34
+      "card_count": 35
     },
     {
       "id": "category-ai-coding-devtools",
@@ -123,6 +125,7 @@
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
+        "github-dreambigou-eli5",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
         "github-hankhuang0516-simulator-manager",
@@ -145,7 +148,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 29
+      "card_count": 30
     },
     {
       "id": "category-general-tools",
@@ -161,6 +164,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-danyuchn-iso-24495-skill",
+        "github-dreambigou-eli5",
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
         "github-mars-tw-open-seo-advisor-skill",
@@ -180,7 +184,7 @@
         "threads-dcu8czjelom-f2217d",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 24
+      "card_count": 25
     },
     {
       "id": "category-llm",
@@ -220,12 +224,13 @@
       "id": "tag-agent-skill",
       "label": "agent-skill",
       "type": "topic",
-      "description": "至少出現在 15 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 16 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
         "github-cathrynlavery-diagram-design",
         "github-danyuchn-iso-24495-skill",
+        "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
         "github-graphify-labs-graphify",
         "github-hugohe3-ppt-master",
@@ -240,13 +245,13 @@
         "github-titanwings-distilly",
         "github-virgiliojr94-book-to-skill"
       ],
-      "card_count": 15
+      "card_count": 16
     },
     {
       "id": "tag-claude-code",
       "label": "Claude Code",
       "type": "topic",
-      "description": "至少出現在 15 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 16 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -254,6 +259,7 @@
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
+        "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
@@ -266,7 +272,7 @@
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill"
       ],
-      "card_count": 15
+      "card_count": 16
     },
     {
       "id": "local-ai-integration",
@@ -605,6 +611,22 @@
       "card_count": 5
     },
     {
+      "id": "tag-prompt-engineering",
+      "label": "prompt engineering",
+      "type": "topic",
+      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-dreambigou-eli5",
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-nanako0129-sepia",
+        "github-s1dashu-ip-as-logo-skill",
+        "github-salsensei-suno-v6-songcraft"
+      ],
+      "card_count": 5
+    },
+    {
       "id": "tag-typescript",
       "label": "TypeScript",
       "type": "topic",
@@ -662,21 +684,6 @@
         "github-moeru-ai-airi",
         "github-stablyai-orca",
         "github-totec448-spec-chat-on-steroids"
-      ],
-      "card_count": 4
-    },
-    {
-      "id": "tag-prompt-engineering",
-      "label": "prompt-engineering",
-      "type": "topic",
-      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-nanako0129-sepia",
-        "github-s1dashu-ip-as-logo-skill",
-        "github-salsensei-suno-v6-songcraft"
       ],
       "card_count": 4
     },
@@ -2941,6 +2948,94 @@
         {
           "kind": "tag",
           "value": "Traditional Chinese"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-dreambigou-eli5",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-dreambigou-eli5",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-dreambigou-eli5",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-dreambigou-eli5",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-dreambigou-eli5",
+      "concept_id": "tag-agent-skill",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent skill"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-dreambigou-eli5",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-dreambigou-eli5",
+      "concept_id": "tag-prompt-engineering",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "prompt engineering"
         }
       ],
       "origin": "shared-tag"
@@ -8338,26 +8433,14 @@
     },
     {
       "source": "category-agent",
-      "target": "tag-agent-memory",
-      "type": "co_occurs_with",
-      "support": 4,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "github-tsun-u-memory-toolkit",
-        "threads-dcuhxije1zf-9b4063"
-      ]
-    },
-    {
-      "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
-      "support": 15,
+      "support": 16,
       "weight": 1,
       "card_ids": [
         "github-cathrynlavery-diagram-design",
         "github-danyuchn-iso-24495-skill",
+        "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
         "github-graphify-labs-graphify",
         "github-hugohe3-ppt-master",
@@ -8393,13 +8476,14 @@
       "source": "category-agent",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 15,
+      "support": 16,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
+        "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
@@ -8482,10 +8566,24 @@
       ]
     },
     {
+      "source": "category-agent",
+      "target": "tag-prompt-engineering",
+      "type": "co_occurs_with",
+      "support": 5,
+      "weight": 1,
+      "card_ids": [
+        "github-dreambigou-eli5",
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-nanako0129-sepia",
+        "github-s1dashu-ip-as-logo-skill",
+        "github-salsensei-suno-v6-songcraft"
+      ]
+    },
+    {
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 29,
+      "support": 30,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -8496,6 +8594,7 @@
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
+        "github-dreambigou-eli5",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
         "github-hankhuang0516-simulator-manager",
@@ -9222,13 +9321,14 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 15,
+      "support": 16,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-danyuchn-iso-24495-skill",
+        "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
@@ -9660,9 +9760,10 @@
       "source": "tag-agent-skill",
       "target": "tag-prompt-engineering",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
+        "github-dreambigou-eli5",
         "github-kevintsai1202-humanizer-zh-tw",
         "github-nanako0129-sepia",
         "github-s1dashu-ip-as-logo-skill",
@@ -10351,9 +10452,9 @@
     }
   ],
   "stats": {
-    "card_count": 62,
+    "card_count": 63,
     "concept_count": 94,
-    "card_concept_edge_count": 522,
+    "card_concept_edge_count": 529,
     "concept_relation_edge_count": 187
   }
 }
