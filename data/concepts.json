@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-17T22:40:07.900Z",
-  "input_hash": "ccd28fb3ebb3a51b1ce6cd595b78de05304f713677cf92120108731df7594ea3",
+  "generated_at": "2026-09-18T00:23:20.241Z",
+  "input_hash": "0aa0d7e8db0c5d3c3b2a553cd6d29f3214f88c37d04120288f555d3cd26849a3",
   "concepts": [
     {
       "id": "category-agent",
@@ -54,6 +54,7 @@
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill",
+        "github-yanjiye-hareno-kairo",
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
@@ -62,7 +63,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 50
+      "card_count": 51
     },
     {
       "id": "coding-agent-tooling",
@@ -104,12 +105,13 @@
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill",
+        "github-yanjiye-hareno-kairo",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 36
+      "card_count": 37
     },
     {
       "id": "category-ai-coding-devtools",
@@ -146,12 +148,13 @@
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
+        "github-yanjiye-hareno-kairo",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 31
+      "card_count": 32
     },
     {
       "id": "category-general-tools",
@@ -215,6 +218,7 @@
         "github-nanako0129-sepia",
         "github-totec448-spec-chat-on-steroids",
         "github-virgiliojr94-book-to-skill",
+        "github-yanjiye-hareno-kairo",
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-dchbjcxenzb-725dd0",
         "threads-dclcucpas-z-66b25b",
@@ -222,7 +226,7 @@
         "threads-ddt1gevhcc9-cb2210",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 23
+      "card_count": 24
     },
     {
       "id": "tag-agent-skill",
@@ -256,7 +260,7 @@
       "id": "tag-claude-code",
       "label": "Claude Code",
       "type": "topic",
-      "description": "至少出現在 16 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 17 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -275,9 +279,36 @@
         "github-titanwings-distilly",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
+        "github-virgiliojr94-book-to-skill",
+        "github-yanjiye-hareno-kairo"
       ],
-      "card_count": 16
+      "card_count": 17
+    },
+    {
+      "id": "agent-memory",
+      "label": "Agent Memory",
+      "type": "architecture",
+      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-graphify-labs-graphify",
+        "github-hkuds-lightrag",
+        "github-intuition-lab-personal-model",
+        "github-moeru-ai-airi",
+        "github-notoriouslab-vault-curate",
+        "github-titanwings-distilly",
+        "github-tsun-u-memory-toolkit",
+        "github-virgiliojr94-book-to-skill",
+        "github-yanjiye-hareno-kairo",
+        "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063",
+        "threads-dfyr62jb6wr-b921df"
+      ],
+      "card_count": 15
     },
     {
       "id": "local-ai-integration",
@@ -306,11 +337,11 @@
       "card_count": 15
     },
     {
-      "id": "agent-memory",
-      "label": "Agent Memory",
-      "type": "architecture",
-      "description": "Agent 的跨工作階段記憶、可追溯 context 與長期 knowledge layer。",
-      "origin": "promoted",
+      "id": "category-rag-memory-knowledge",
+      "label": "RAG / Memory / Knowledge",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
+      "origin": "category",
       "aliases": [],
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -324,7 +355,7 @@
         "github-titanwings-distilly",
         "github-tsun-u-memory-toolkit",
         "github-virgiliojr94-book-to-skill",
-        "threads-dclcucpas-z-66b25b",
+        "github-yanjiye-hareno-kairo",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ],
@@ -375,30 +406,6 @@
         "github-titanwings-distilly",
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 13
-    },
-    {
-      "id": "category-rag-memory-knowledge",
-      "label": "RAG / Memory / Knowledge",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：RAG / Memory / Knowledge",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-graphify-labs-graphify",
-        "github-hkuds-lightrag",
-        "github-intuition-lab-personal-model",
-        "github-moeru-ai-airi",
-        "github-notoriouslab-vault-curate",
-        "github-titanwings-distilly",
-        "github-tsun-u-memory-toolkit",
-        "github-virgiliojr94-book-to-skill",
-        "threads-dcuhxije1zf-9b4063",
-        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 13
     },
@@ -601,6 +608,22 @@
       "card_count": 7
     },
     {
+      "id": "tag-agent-memory",
+      "label": "agent-memory",
+      "type": "topic",
+      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo",
+        "threads-dcuhxije1zf-9b4063"
+      ],
+      "card_count": 5
+    },
+    {
       "id": "tag-long-term-memory",
       "label": "long-term-memory",
       "type": "topic",
@@ -647,21 +670,6 @@
         "github-twinklestars1029-sillytavern-regex"
       ],
       "card_count": 5
-    },
-    {
-      "id": "tag-agent-memory",
-      "label": "agent-memory",
-      "type": "topic",
-      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "github-tsun-u-memory-toolkit",
-        "threads-dcuhxije1zf-9b4063"
-      ],
-      "card_count": 4
     },
     {
       "id": "ai-character-interface",
@@ -1107,6 +1115,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-context-compaction",
+      "label": "context-compaction",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-context-management",
       "label": "context-management",
       "type": "topic",
@@ -1250,6 +1271,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-lifecycle-hooks",
+      "label": "lifecycle-hooks",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-yanjiye-hareno-kairo"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-memory-consolidation",
       "label": "memory-consolidation",
       "type": "topic",
@@ -1285,6 +1319,19 @@
       "card_ids": [
         "github-eternityspring-shuohao-skills",
         "github-rimagination-h3lite"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-node-js",
+      "label": "Node.js",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-yanjiye-hareno-kairo"
       ],
       "card_count": 2
     },
@@ -1389,6 +1436,19 @@
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-eternityspring-shuohao-skills"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-rolling-summary",
+      "label": "rolling-summary",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-yanjiye-hareno-kairo",
+        "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 2
     },
@@ -2283,6 +2343,18 @@
         {
           "kind": "tag",
           "value": "graph-retrieval"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-akitaonrails-ai-memory",
+      "concept_id": "tag-lifecycle-hooks",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "lifecycle-hooks"
         }
       ],
       "origin": "shared-tag"
@@ -3375,6 +3447,18 @@
         {
           "kind": "tag",
           "value": "MiniMax H3"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-eternityspring-shuohao-skills",
+      "concept_id": "tag-node-js",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Node.js"
         }
       ],
       "origin": "shared-tag"
@@ -7024,6 +7108,18 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-tsun-u-memory-toolkit",
+      "concept_id": "tag-context-compaction",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "context-compaction"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-tsun-u-tsunu-superpowers",
       "concept_id": "category-agent",
       "strength": 1,
@@ -7391,6 +7487,158 @@
         {
           "kind": "tag",
           "value": "Python"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "agent-memory",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        },
+        {
+          "kind": "tag",
+          "value": "agent-memory"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "category-rag-memory-knowledge",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "RAG / Memory / Knowledge"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "tag-agent-memory",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-memory"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "claude-code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "tag-context-compaction",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "context-compaction"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "tag-lifecycle-hooks",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "lifecycle-hooks"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "tag-node-js",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Node.js"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-yanjiye-hareno-kairo",
+      "concept_id": "tag-rolling-summary",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "rolling-summary"
         }
       ],
       "origin": "shared-tag"
@@ -8266,6 +8514,18 @@
         }
       ],
       "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-dfyr62jb6wr-b921df",
+      "concept_id": "tag-rolling-summary",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "rolling-summary"
+        }
+      ],
+      "origin": "shared-tag"
     }
   ],
   "concept_relations": [
@@ -8378,7 +8638,7 @@
       "source": "agent-memory",
       "target": "category-rag-memory-knowledge",
       "type": "co_occurs_with",
-      "support": 13,
+      "support": 14,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -8392,6 +8652,7 @@
         "github-titanwings-distilly",
         "github-tsun-u-memory-toolkit",
         "github-virgiliojr94-book-to-skill",
+        "github-yanjiye-hareno-kairo",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
       ]
@@ -8400,12 +8661,13 @@
       "source": "agent-memory",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo",
         "threads-dcuhxije1zf-9b4063"
       ]
     },
@@ -8418,6 +8680,17 @@
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "agent-memory",
+      "target": "tag-context-compaction",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo"
       ]
     },
     {
@@ -8441,17 +8714,6 @@
       "card_ids": [
         "github-hkuds-lightrag",
         "github-virgiliojr94-book-to-skill"
-      ]
-    },
-    {
-      "source": "agent-memory",
-      "target": "tag-embeddings",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-cynthianani-a-simple-nest",
-        "github-notoriouslab-vault-curate"
       ]
     },
     {
@@ -8529,6 +8791,20 @@
     },
     {
       "source": "category-agent",
+      "target": "tag-agent-memory",
+      "type": "co_occurs_with",
+      "support": 5,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-intuition-lab-personal-model",
+        "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo",
+        "threads-dcuhxije1zf-9b4063"
+      ]
+    },
+    {
+      "source": "category-agent",
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 17,
@@ -8573,7 +8849,7 @@
       "source": "category-agent",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 16,
+      "support": 17,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -8591,7 +8867,8 @@
         "github-titanwings-distilly",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
+        "github-virgiliojr94-book-to-skill",
+        "github-yanjiye-hareno-kairo"
       ]
     },
     {
@@ -8664,24 +8941,10 @@
       ]
     },
     {
-      "source": "category-agent",
-      "target": "tag-prompt-engineering",
-      "type": "co_occurs_with",
-      "support": 5,
-      "weight": 1,
-      "card_ids": [
-        "github-dreambigou-eli5",
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-nanako0129-sepia",
-        "github-s1dashu-ip-as-logo-skill",
-        "github-salsensei-suno-v6-songcraft"
-      ]
-    },
-    {
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 31,
+      "support": 32,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -8711,6 +8974,7 @@
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
+        "github-yanjiye-hareno-kairo",
         "threads-db-fphwgfos-7d09e0",
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463",
@@ -8721,12 +8985,13 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo",
         "threads-dcuhxije1zf-9b4063"
       ]
     },
@@ -9230,12 +9495,13 @@
       "source": "category-rag-memory-knowledge",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo",
         "threads-dcuhxije1zf-9b4063"
       ]
     },
@@ -9248,6 +9514,17 @@
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "category-rag-memory-knowledge",
+      "target": "tag-context-compaction",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo"
       ]
     },
     {
@@ -9282,17 +9559,6 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-notoriouslab-vault-curate"
-      ]
-    },
-    {
-      "source": "category-rag-memory-knowledge",
-      "target": "tag-graph-retrieval",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-graphify-labs-graphify"
       ]
     },
     {
@@ -9395,12 +9661,13 @@
       "source": "coding-agent-tooling",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo",
         "threads-dcuhxije1zf-9b4063"
       ]
     },
@@ -9420,7 +9687,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 16,
+      "support": 17,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -9438,7 +9705,8 @@
         "github-titanwings-distilly",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
+        "github-virgiliojr94-book-to-skill",
+        "github-yanjiye-hareno-kairo"
       ]
     },
     {
@@ -9714,13 +9982,24 @@
     },
     {
       "source": "tag-agent-memory",
-      "target": "tag-coding-agent",
+      "target": "tag-context-compaction",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.5,
+      "weight": 1,
+      "card_ids": [
+        "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo"
+      ]
+    },
+    {
+      "source": "tag-agent-memory",
+      "target": "tag-lifecycle-hooks",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
       "card_ids": [
         "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
+        "github-yanjiye-hareno-kairo"
       ]
     },
     {
@@ -9728,22 +10007,11 @@
       "target": "tag-long-term-memory",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.75,
+      "weight": 0.6,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-intuition-lab-personal-model",
         "threads-dcuhxije1zf-9b4063"
-      ]
-    },
-    {
-      "source": "tag-agent-memory",
-      "target": "tag-mcp",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.5,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model"
       ]
     },
     {
@@ -9872,20 +10140,6 @@
     },
     {
       "source": "tag-agent-skills",
-      "target": "tag-claude-code",
-      "type": "co_occurs_with",
-      "support": 5,
-      "weight": 0.7143,
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-mattpocock-skills",
-        "github-tsun-u-memory-toolkit",
-        "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
-      ]
-    },
-    {
-      "source": "tag-agent-skills",
       "target": "tag-code-review",
       "type": "co_occurs_with",
       "support": 2,
@@ -9965,6 +10219,17 @@
     },
     {
       "source": "tag-claude-code",
+      "target": "tag-context-compaction",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-tsun-u-memory-toolkit",
+        "github-yanjiye-hareno-kairo"
+      ]
+    },
+    {
+      "source": "tag-claude-code",
       "target": "tag-cursor",
       "type": "co_occurs_with",
       "support": 2,
@@ -9983,6 +10248,17 @@
       "card_ids": [
         "github-stablyai-orca",
         "github-tsun-u-tsunu-superpowers"
+      ]
+    },
+    {
+      "source": "tag-claude-code",
+      "target": "tag-node-js",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-yanjiye-hareno-kairo"
       ]
     },
     {
@@ -10006,17 +10282,6 @@
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-eternityspring-shuohao-skills"
-      ]
-    },
-    {
-      "source": "tag-claude-code",
-      "target": "tag-workflow-orchestration",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-tsun-u-tsunu-superpowers"
       ]
     },
     {
@@ -10095,6 +10360,17 @@
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
         "github-tsun-u-tsunu-superpowers"
+      ]
+    },
+    {
+      "source": "tag-coding-agent",
+      "target": "tag-local-first",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.2857,
+      "card_ids": [
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -10294,6 +10570,18 @@
       "card_ids": [
         "github-graphify-labs-graphify",
         "github-notoriouslab-vault-curate"
+      ]
+    },
+    {
+      "source": "tag-local-first",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 0.4286,
+      "card_ids": [
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -10552,9 +10840,9 @@
     }
   ],
   "stats": {
-    "card_count": 64,
-    "concept_count": 94,
-    "card_concept_edge_count": 536,
-    "concept_relation_edge_count": 187
+    "card_count": 65,
+    "concept_count": 98,
+    "card_concept_edge_count": 552,
+    "concept_relation_edge_count": 189
   }
 }
