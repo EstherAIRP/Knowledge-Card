@@ -18,7 +18,7 @@ navigation:
     user: null
 created_at: 2026-09-15
 updated_at: 2026-09-15
-last_checked_at: 2026-09-15
+last_checked_at: 2026-09-18
 summary: Open SEO Advisor 是一套可供 AI coding agent 載入、也能獨立以 Python CLI 執行的開源 SEO／行銷營運技能。它以 Connector、Analyzer/Fixer/Writer 與 Report/CLI 分層，把網站健檢、技術修復、內容、廣告、產圖、成長行銷與電商檢查串成可執行流程，並以唯讀、dry-run、人工確認與權限限制控制高風險動作。
 classification:
   categories:
