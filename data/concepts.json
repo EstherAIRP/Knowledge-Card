@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-18T02:56:55.194Z",
-  "input_hash": "e2e4e9674a6aa0c92c51808efa121d7c90c06a624c7d501f2f538538a1014a88",
+  "generated_at": "2026-09-18T08:19:16.484Z",
+  "input_hash": "c396846448af47b302f036ca79a4edefc7eccf36386e5f7fb3b52ba3f107f109",
   "concepts": [
     {
       "id": "category-agent",
@@ -41,6 +41,7 @@
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
+        "github-modelcontextprotocol-ext-skills",
         "github-moeru-ai-airi",
         "github-nanako0129-sepia",
         "github-nevertoday-xxd-panel-102",
@@ -65,7 +66,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 53
+      "card_count": 54
     },
     {
       "id": "coding-agent-tooling",
@@ -224,6 +225,7 @@
         "github-mars-tw-open-seo-advisor-skill",
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
+        "github-modelcontextprotocol-ext-skills",
         "github-moeru-ai-airi",
         "github-nanako0129-sepia",
         "github-totec448-spec-chat-on-steroids",
@@ -236,7 +238,7 @@
         "threads-ddt1gevhcc9-cb2210",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 25
+      "card_count": 26
     },
     {
       "id": "local-ai-integration",
@@ -256,6 +258,7 @@
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
+        "github-modelcontextprotocol-ext-skills",
         "github-notoriouslab-vault-curate",
         "github-promptfairy-prompt-fairy",
         "github-santifer-career-ops",
@@ -265,7 +268,7 @@
         "threads-dclcucpas-z-66b25b",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 18
+      "card_count": 19
     },
     {
       "id": "tag-agent-skill",
@@ -377,6 +380,31 @@
       "card_count": 15
     },
     {
+      "id": "agent-api-bridge",
+      "label": "Agent API Bridge",
+      "type": "integration",
+      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-drumih-turbo-fieldfare",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-modelcontextprotocol-ext-skills",
+        "github-totec448-spec-chat-on-steroids",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 14
+    },
+    {
       "id": "category-ai-ml",
       "label": "AI / ML",
       "type": "category",
@@ -400,30 +428,6 @@
         "threads-ddtlxtnjspv-c8d3ed"
       ],
       "card_count": 14
-    },
-    {
-      "id": "agent-api-bridge",
-      "label": "Agent API Bridge",
-      "type": "integration",
-      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-alibaba-open-code-review",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-drumih-turbo-fieldfare",
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-totec448-spec-chat-on-steroids",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 13
     },
     {
       "id": "tag-codex",
@@ -495,6 +499,27 @@
       "card_count": 10
     },
     {
+      "id": "tag-mcp",
+      "label": "MCP",
+      "type": "topic",
+      "description": "至少出現在 10 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-modelcontextprotocol-ext-skills",
+        "github-totec448-spec-chat-on-steroids",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 10
+    },
+    {
       "id": "tag-local-first",
       "label": "local-first",
       "type": "topic",
@@ -511,26 +536,6 @@
         "github-santifer-career-ops",
         "github-totec448-spec-chat-on-steroids",
         "threads-ddtlxtnjspv-c8d3ed"
-      ],
-      "card_count": 9
-    },
-    {
-      "id": "tag-mcp",
-      "label": "MCP",
-      "type": "topic",
-      "description": "至少出現在 9 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-alibaba-open-code-review",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model",
-        "github-totec448-spec-chat-on-steroids",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 9
     },
@@ -553,6 +558,25 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 9
+    },
+    {
+      "id": "tag-agent-skills",
+      "label": "agent-skills",
+      "type": "topic",
+      "description": "至少出現在 8 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-k-dense-ai-scientific-agent-skills",
+        "github-mattpocock-skills",
+        "github-modelcontextprotocol-ext-skills",
+        "github-tsun-u-memory-toolkit",
+        "github-tsun-u-tsunu-superpowers",
+        "github-virgiliojr94-book-to-skill"
+      ],
+      "card_count": 8
     },
     {
       "id": "tag-coding-agent",
@@ -610,24 +634,6 @@
         "github-s1dashu-ip-as-logo-skill"
       ],
       "card_count": 8
-    },
-    {
-      "id": "tag-agent-skills",
-      "label": "agent-skills",
-      "type": "topic",
-      "description": "至少出現在 7 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-harry0703-moneyprinterturbo",
-        "github-k-dense-ai-scientific-agent-skills",
-        "github-mattpocock-skills",
-        "github-tsun-u-memory-toolkit",
-        "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 7
     },
     {
       "id": "tag-typescript",
@@ -937,6 +943,20 @@
         "github-herdrdev-herdr",
         "github-santifer-career-ops",
         "github-totec448-spec-chat-on-steroids"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-progressive-disclosure",
+      "label": "progressive-disclosure",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-modelcontextprotocol-ext-skills",
+        "github-virgiliojr94-book-to-skill"
       ],
       "card_count": 3
     },
@@ -1423,19 +1443,6 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-progressive-disclosure",
-      "label": "progressive-disclosure",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-virgiliojr94-book-to-skill"
       ],
       "card_count": 2
     },
@@ -5767,6 +5774,90 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-modelcontextprotocol-ext-skills",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-modelcontextprotocol-ext-skills",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-modelcontextprotocol-ext-skills",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-modelcontextprotocol-ext-skills",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-modelcontextprotocol-ext-skills",
+      "concept_id": "tag-agent-skills",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Agent Skills"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-modelcontextprotocol-ext-skills",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-modelcontextprotocol-ext-skills",
+      "concept_id": "tag-progressive-disclosure",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "progressive-disclosure"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-moeru-ai-airi",
       "concept_id": "agent-memory",
       "strength": 0.78,
@@ -8912,8 +9003,8 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 12,
-      "weight": 0.9231,
+      "support": 13,
+      "weight": 0.9286,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
@@ -8924,6 +9015,7 @@
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
+        "github-modelcontextprotocol-ext-skills",
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
@@ -8967,7 +9059,7 @@
       "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -8976,6 +9068,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
+        "github-modelcontextprotocol-ext-skills",
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
@@ -9215,13 +9308,14 @@
       "source": "category-agent",
       "target": "tag-agent-skills",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-harry0703-moneyprinterturbo",
         "github-k-dense-ai-scientific-agent-skills",
         "github-mattpocock-skills",
+        "github-modelcontextprotocol-ext-skills",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill"
@@ -9310,7 +9404,7 @@
       "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -9319,6 +9413,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
+        "github-modelcontextprotocol-ext-skills",
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
@@ -10248,7 +10343,7 @@
       "source": "local-ai-integration",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -10257,6 +10352,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
+        "github-modelcontextprotocol-ext-skills",
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
@@ -10565,6 +10661,17 @@
     },
     {
       "source": "tag-agent-skills",
+      "target": "tag-progressive-disclosure",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-modelcontextprotocol-ext-skills",
+        "github-virgiliojr94-book-to-skill"
+      ]
+    },
+    {
+      "source": "tag-agent-skills",
       "target": "tag-python",
       "type": "co_occurs_with",
       "support": 3,
@@ -10744,17 +10851,6 @@
     },
     {
       "source": "tag-codex",
-      "target": "tag-progressive-disclosure",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-virgiliojr94-book-to-skill"
-      ]
-    },
-    {
-      "source": "tag-codex",
       "target": "tag-quality-gates",
       "type": "co_occurs_with",
       "support": 2,
@@ -10762,6 +10858,17 @@
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-eternityspring-shuohao-skills"
+      ]
+    },
+    {
+      "source": "tag-codex",
+      "target": "tag-spec-driven-development",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-ai72dope-codex-engineering-system-zh-tw"
       ]
     },
     {
@@ -11289,9 +11396,9 @@
     }
   ],
   "stats": {
-    "card_count": 68,
+    "card_count": 69,
     "concept_count": 99,
-    "card_concept_edge_count": 580,
-    "concept_relation_edge_count": 194
+    "card_concept_edge_count": 587,
+    "concept_relation_edge_count": 195
   }
 }
