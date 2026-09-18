@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "provider": "threads",
+  "source_identity": "threads:DdTlXtNjSpv",
+  "canonical_url": "https://threads.com/@prompt_case/post/DdTlXtNjSpv",
+  "root_post_id": "3986694451967634031_70374463050",
+  "root_shortcode": "DdTlXtNjSpv",
+  "author": "prompt_case",
+  "thread_total": 2,
+  "captured_at": "2026-09-18T00:33:59.906Z",
+  "source_hash": "d45895697f5da9dcb2b8e78ae461d205728e68d7ba066d734e91d4275a07a7ee",
+  "parts": [
+    {
+      "index": 1,
+      "key": "id:3986694451967634031_70374463050",
+      "id": "3986694451967634031_70374463050",
+      "shortcode": "DdTlXtNjSpv",
+      "canonical_url": "https://threads.com/@prompt_case/post/DdTlXtNjSpv",
+      "timestamp": "2026-09-15T11:17:58.000Z",
+      "reply_to": null,
+      "root_post": null,
+      "text_hash": "12f4e0b6e5aa34f25e6e37a6c6db4e337bbdf734ad94a99b74e1a82e6f2c131b",
+      "media_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "references_hash": "6f19703542c95f260e6d00f17c7323922211afee219d4b4892352701d4fae2f0",
+      "structure_hash": "2c2b1aab7dfd03fb04dcbc55f3e170571c3eaf9da1b1f9f70014bf2d2bd2ecfc",
+      "content_hash": "f776b7dcf1043c0b73a8fb4b1c8eed9d501eeb7f508f391da6240e9f220396e8"
+    },
+    {
+      "index": 2,
+      "key": "id:3986695199888565382_70374463050",
+      "id": "3986695199888565382_70374463050",
+      "shortcode": "DdTlilxHOSG",
+      "canonical_url": "https://threads.com/@prompt_case/post/DdTlilxHOSG",
+      "timestamp": "2026-09-15T11:18:44.000Z",
+      "reply_to": null,
+      "root_post": null,
+      "text_hash": "c4f72f62f0ddcec1ef4e22ed414d06c6604f1d6891c5d56a2dd164e2a95afe3e",
+      "media_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "references_hash": "6f19703542c95f260e6d00f17c7323922211afee219d4b4892352701d4fae2f0",
+      "structure_hash": "ff415f46d30af115e8d0d07743f73e67f17ac2258ee6ce9b30046d4354151c2b",
+      "content_hash": "59932a8d550f6e4eb41bb0e5e629f56aa43bc01b73f0480f1983e79aef84b8d1"
+    }
+  ]
+}
