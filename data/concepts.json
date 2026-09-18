@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-18T00:23:20.241Z",
-  "input_hash": "0aa0d7e8db0c5d3c3b2a553cd6d29f3214f88c37d04120288f555d3cd26849a3",
+  "generated_at": "2026-09-18T00:38:46.525Z",
+  "input_hash": "459036def4f73ea93f01c29b7b19d8fb08c622b56ebb420fd98c13f6547b38ea",
   "concepts": [
     {
       "id": "category-agent",
@@ -16,6 +16,7 @@
         "github-ai21002102-riverbend",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
@@ -63,7 +64,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 51
+      "card_count": 52
     },
     {
       "id": "coding-agent-tooling",
@@ -77,6 +78,7 @@
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
@@ -111,7 +113,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 37
+      "card_count": 38
     },
     {
       "id": "category-ai-coding-devtools",
@@ -125,6 +127,7 @@
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
@@ -154,7 +157,7 @@
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063"
       ],
-      "card_count": 32
+      "card_count": 33
     },
     {
       "id": "category-general-tools",
@@ -204,6 +207,7 @@
         "earendil-works-pi",
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-charliie-dev-claude-code-hidden-settings",
         "github-cynthianani-a-simple-nest",
         "github-drumih-turbo-fieldfare",
@@ -226,7 +230,7 @@
         "threads-ddt1gevhcc9-cb2210",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 24
+      "card_count": 25
     },
     {
       "id": "tag-agent-skill",
@@ -285,6 +289,33 @@
       "card_count": 17
     },
     {
+      "id": "local-ai-integration",
+      "label": "Local AI Integration",
+      "type": "integration",
+      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-notoriouslab-vault-curate",
+        "github-promptfairy-prompt-fairy",
+        "github-santifer-career-ops",
+        "github-titanwings-distilly",
+        "github-totec448-spec-chat-on-steroids",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 16
+    },
+    {
       "id": "agent-memory",
       "label": "Agent Memory",
       "type": "architecture",
@@ -307,32 +338,6 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 15
-    },
-    {
-      "id": "local-ai-integration",
-      "label": "Local AI Integration",
-      "type": "integration",
-      "description": "將本機 runtime、Agent、桌面程式或既有應用與 AI 模型／服務串接的整合模式。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-notoriouslab-vault-curate",
-        "github-promptfairy-prompt-fairy",
-        "github-santifer-career-ops",
-        "github-titanwings-distilly",
-        "github-totec448-spec-chat-on-steroids",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 15
     },
@@ -360,6 +365,30 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 14
+    },
+    {
+      "id": "agent-api-bridge",
+      "label": "Agent API Bridge",
+      "type": "integration",
+      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-drumih-turbo-fieldfare",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-totec448-spec-chat-on-steroids",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 13
     },
     {
       "id": "category-ai-ml",
@@ -410,29 +439,6 @@
       "card_count": 13
     },
     {
-      "id": "agent-api-bridge",
-      "label": "Agent API Bridge",
-      "type": "integration",
-      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-drumih-turbo-fieldfare",
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-totec448-spec-chat-on-steroids",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 12
-    },
-    {
       "id": "category-infrastructure-deployment",
       "label": "Infrastructure / Deployment",
       "type": "category",
@@ -477,6 +483,26 @@
       "card_count": 10
     },
     {
+      "id": "tag-mcp",
+      "label": "MCP",
+      "type": "topic",
+      "description": "至少出現在 9 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 9
+    },
+    {
       "id": "category-sillytavern-ai-rpg",
       "label": "SillyTavern / AI RPG",
       "type": "category",
@@ -495,6 +521,25 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 9
+    },
+    {
+      "id": "tag-coding-agent",
+      "label": "coding-agent",
+      "type": "topic",
+      "description": "至少出現在 8 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-addyosmani-agent-skills",
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
+        "github-cloudflare-security-audit-skill",
+        "github-intuition-lab-personal-model",
+        "github-totec448-spec-chat-on-steroids"
+      ],
+      "card_count": 8
     },
     {
       "id": "category-image-generation",
@@ -535,25 +580,6 @@
       "card_count": 8
     },
     {
-      "id": "tag-mcp",
-      "label": "MCP",
-      "type": "topic",
-      "description": "至少出現在 8 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model",
-        "github-totec448-spec-chat-on-steroids",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 8
-    },
-    {
       "id": "tag-agent-skills",
       "label": "agent-skills",
       "type": "topic",
@@ -568,24 +594,6 @@
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 7
-    },
-    {
-      "id": "tag-coding-agent",
-      "label": "coding-agent",
-      "type": "topic",
-      "description": "至少出現在 7 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "earendil-works-pi",
-        "github-addyosmani-agent-skills",
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-akitaonrails-ai-memory",
-        "github-cloudflare-security-audit-skill",
-        "github-intuition-lab-personal-model",
-        "github-totec448-spec-chat-on-steroids"
       ],
       "card_count": 7
     },
@@ -2427,6 +2435,106 @@
         {
           "kind": "tag",
           "value": "vector-retrieval"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-alibaba-open-code-review",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-alibaba-open-code-review",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-alibaba-open-code-review",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-alibaba-open-code-review",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-alibaba-open-code-review",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-alibaba-open-code-review",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-alibaba-open-code-review",
+      "concept_id": "tag-coding-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Coding Agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-alibaba-open-code-review",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
         }
       ],
       "origin": "shared-tag"
@@ -8533,11 +8641,12 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 11,
-      "weight": 0.9167,
+      "support": 12,
+      "weight": 0.9231,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
@@ -8587,11 +8696,12 @@
       "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 8,
+      "support": 9,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
@@ -8897,13 +9007,14 @@
       "source": "category-agent",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-cloudflare-security-audit-skill",
         "github-intuition-lab-personal-model",
         "github-totec448-spec-chat-on-steroids"
@@ -8927,11 +9038,12 @@
       "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 8,
+      "support": 9,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
@@ -8944,13 +9056,14 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 32,
+      "support": 33,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-charliie-dev-claude-code-hidden-settings",
@@ -9023,13 +9136,14 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-cloudflare-security-audit-skill",
         "github-intuition-lab-personal-model",
         "github-totec448-spec-chat-on-steroids"
@@ -9747,13 +9861,14 @@
       "source": "coding-agent-tooling",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 7,
+      "support": 8,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-cloudflare-security-audit-skill",
         "github-intuition-lab-personal-model",
         "github-totec448-spec-chat-on-steroids"
@@ -9857,11 +9972,12 @@
       "source": "local-ai-integration",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 8,
+      "support": 9,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
@@ -10377,10 +10493,11 @@
       "source": "tag-coding-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.4286,
+      "support": 4,
+      "weight": 0.5,
       "card_ids": [
         "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
         "github-intuition-lab-personal-model",
         "github-totec448-spec-chat-on-steroids"
       ]
@@ -10840,9 +10957,9 @@
     }
   ],
   "stats": {
-    "card_count": 65,
+    "card_count": 66,
     "concept_count": 98,
-    "card_concept_edge_count": 552,
+    "card_concept_edge_count": 560,
     "concept_relation_edge_count": 189
   }
 }
