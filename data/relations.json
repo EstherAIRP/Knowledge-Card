@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-09-24T19:29:20.198Z",
+  "generated_at": "2026-09-24T19:41:18.580Z",
   "card_count": 70,
-  "input_hash": "79845d9978423cf4e4054d4b62d4455fc01fa3928502f2d6690fc7ac52b0da49",
+  "input_hash": "f5e226f4150e0376203d85c9e23f456e00941f0fd704be0d80e42e0fbe36a040",
   "pipeline": {
     "semantic": true,
     "semantic_provider": "local-transformers",
@@ -149,7 +149,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-ai72dope-codex-engineering-system-zh-tw": {
-      "candidate_hash": "7c3af7d4b1e5619060e686f23ba7a82d58b240d54483685a45c5aebde5acdcd4",
+      "candidate_hash": "d94cc98ffb43b5124cdbfa01a257f6d44f88a4cb8255e2ab9c8a495e735557c4",
       "related": true,
       "type": "similar_to",
       "direction": "undirected",
@@ -158,7 +158,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-cathrynlavery-diagram-design": {
-      "candidate_hash": "87b3fc6542f1bb630e9701b7d7cebe86d17a976e59197da170b0aef7992a54bd",
+      "candidate_hash": "ba237fa340ae4ac0b86e2cb8fc0c925e09b8d83360d7bf50608f33bdeda8eac0",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -167,7 +167,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-cloudflare-security-audit-skill": {
-      "candidate_hash": "dd2077f618450fcf0ca56b9f58453fd568d94cc5dfc331fd53c43b8a13ba6203",
+      "candidate_hash": "ddfa73c868bede0bad2723b089b6931a13e1df16c272a193b86f62e3752b31b6",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -176,7 +176,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-danyuchn-iso-24495-skill": {
-      "candidate_hash": "97f6822f98064785040d2df11b52b875c34cfb462be0a14e89b88454cc6b8ca6",
+      "candidate_hash": "1ebe379c7dba7b270b873a783dfc517b60c85d80ec4aacc0d2863400d8157d25",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -185,7 +185,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-dreambigou-eli5": {
-      "candidate_hash": "8fd559f9691f1745e2f09da72e53a7d19f3fb6cc7558a1f239849dd01a29bac9",
+      "candidate_hash": "51cfff02edc11e5cbfb2e20816ffed0d487ddb1fd1b1cdc1f4da8b5782e37ed0",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -194,7 +194,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-hugohe3-ppt-master": {
-      "candidate_hash": "5194a6dd59959576d9b7960b0dbb4612bc9dd52b2be0268375e80ee0941cd120",
+      "candidate_hash": "89ffd450bd0cc24ba307ed2f2e3b0f48d4a6e2eda51562c126bc7a705edd4bd1",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -203,7 +203,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-k-dense-ai-scientific-agent-skills": {
-      "candidate_hash": "f27f3fda0b3a40da047efd798efb34876bee343503964f1ec0494f0f153c6611",
+      "candidate_hash": "d2badf274c28c63f1677c36241dd54f5f73f84cdc8ce8098b33c3b808704683c",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -212,7 +212,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-mattpocock-skills": {
-      "candidate_hash": "449930a8a9e5ad2a7c8784a459810d09dca0afcf8017eb5658c176be4619dab7",
+      "candidate_hash": "13ff0e3c726a94b9a5ec77935fc508ff13a1730360ebfb7f6881aaeefb41770b",
       "related": true,
       "type": "similar_to",
       "direction": "undirected",
@@ -221,7 +221,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-nutlope-hallmark": {
-      "candidate_hash": "0919c404cfcc8288f7ffba22b9bf1576095459c69d0270d62a758e4fa305b82a",
+      "candidate_hash": "08b0003ae42a6def68bee1aa1265eab34e5727ae3e00ebe4f185206863ebd4bf",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -230,7 +230,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-santifer-career-ops": {
-      "candidate_hash": "4eeed8736e1a26531faccf88162c91590ba6635b12a02ba58103db21ba24cf8f",
+      "candidate_hash": "6ac63c20162c64cc40aea4ffc12d189fc45599dde988747f58ac16e58f13b4ab",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -239,7 +239,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::github-tsun-u-tsunu-superpowers": {
-      "candidate_hash": "9efa25a96da30528cb28969b4888630dedb26157b850a03409a05c41c26aa23a",
+      "candidate_hash": "18c084c68f690a83f664b1e686d0cdab6abfe508e9a03d98aac1d4f5ae6f2c5a",
       "related": true,
       "type": "similar_to",
       "direction": "undirected",
@@ -248,7 +248,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-addyosmani-agent-skills::threads-db-wlkkgtu-18d1ea": {
-      "candidate_hash": "0ed1bb482ffb488cf00477489ff19b62a5345537903f381675cb707cff786e64",
+      "candidate_hash": "775f20346dd52553f5a6587e1c04cacdc62fba8f4aa642b4300c3ddaa87d06d9",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -3861,13 +3861,13 @@
       "target": "github-ai72dope-codex-engineering-system-zh-tw",
       "type": "similar_to",
       "direction": "undirected",
-      "score": 0.843,
+      "score": 0.8426,
       "scores": {
-        "taxonomy": 0.6922,
+        "taxonomy": 0.6907,
         "semantic": 1,
-        "semantic_raw": 0.9516,
+        "semantic_raw": 0.9517,
         "llm": null,
-        "combined": 0.8769
+        "combined": 0.8763
       },
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
       "confidence": 0.78,
@@ -3883,20 +3883,20 @@
         "action:LEARN",
         "action:REFERENCE"
       ],
-      "candidate_hash": "7c3af7d4b1e5619060e686f23ba7a82d58b240d54483685a45c5aebde5acdcd4"
+      "candidate_hash": "d94cc98ffb43b5124cdbfa01a257f6d44f88a4cb8255e2ab9c8a495e735557c4"
     },
     {
       "source": "github-addyosmani-agent-skills",
       "target": "github-mattpocock-skills",
       "type": "similar_to",
       "direction": "undirected",
-      "score": 0.8613,
+      "score": 0.86,
       "scores": {
-        "taxonomy": 0.7625,
+        "taxonomy": 0.7577,
         "semantic": 1,
-        "semantic_raw": 0.9593,
+        "semantic_raw": 0.956,
         "llm": null,
-        "combined": 0.905
+        "combined": 0.9031
       },
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
       "confidence": 0.78,
@@ -3917,20 +3917,20 @@
         "action:REFERENCE",
         "action:TRY"
       ],
-      "candidate_hash": "449930a8a9e5ad2a7c8784a459810d09dca0afcf8017eb5658c176be4619dab7"
+      "candidate_hash": "13ff0e3c726a94b9a5ec77935fc508ff13a1730360ebfb7f6881aaeefb41770b"
     },
     {
       "source": "github-addyosmani-agent-skills",
       "target": "github-tsun-u-tsunu-superpowers",
       "type": "similar_to",
       "direction": "undirected",
-      "score": 0.8428,
+      "score": 0.8372,
       "scores": {
-        "taxonomy": 0.725,
-        "semantic": 0.9776,
-        "semantic_raw": 0.9444,
+        "taxonomy": 0.7221,
+        "semantic": 0.9652,
+        "semantic_raw": 0.9413,
         "llm": null,
-        "combined": 0.8766
+        "combined": 0.868
       },
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
       "confidence": 0.78,
@@ -3948,7 +3948,7 @@
         "action:LEARN",
         "action:REFERENCE"
       ],
-      "candidate_hash": "9efa25a96da30528cb28969b4888630dedb26157b850a03409a05c41c26aa23a"
+      "candidate_hash": "18c084c68f690a83f664b1e686d0cdab6abfe508e9a03d98aac1d4f5ae6f2c5a"
     },
     {
       "source": "github-ai21002102-riverbend",
