@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-24T21:27:29.198Z",
-  "input_hash": "095b4441ad6d44352e9fe8782083a7aff2165a3a3f38622003ec71442235da9d",
+  "generated_at": "2026-09-24T22:03:45.039Z",
+  "input_hash": "7c2307d1d17eb2eeb8d3b3af911fef5aed5695710cb46f00b7bef30c0f1fcf81",
   "concepts": [
     {
       "id": "category-agent",
@@ -23,6 +23,7 @@
         "github-cloudflare-security-audit-skill",
         "github-cynthianani-a-simple-nest",
         "github-danyuchn-iso-24495-skill",
+        "github-desktop-commander-remote-desktop-commander",
         "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
@@ -68,7 +69,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 56
+      "card_count": 57
     },
     {
       "id": "coding-agent-tooling",
@@ -88,6 +89,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
+        "github-desktop-commander-remote-desktop-commander",
         "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
@@ -120,7 +122,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 41
+      "card_count": 42
     },
     {
       "id": "category-ai-coding-devtools",
@@ -140,6 +142,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
+        "github-desktop-commander-remote-desktop-commander",
         "github-dreambigou-eli5",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
@@ -167,7 +170,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 36
+      "card_count": 37
     },
     {
       "id": "category-general-tools",
@@ -184,6 +187,7 @@
         "github-cathrynlavery-diagram-design",
         "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
+        "github-desktop-commander-remote-desktop-commander",
         "github-dreambigou-eli5",
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
@@ -206,7 +210,7 @@
         "threads-ddt1gevhcc9-cb2210",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 28
+      "card_count": 29
     },
     {
       "id": "category-llm",
@@ -258,6 +262,7 @@
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-mars-tw-ai-console",
@@ -274,7 +279,7 @@
         "threads-dclcucpas-z-66b25b",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 19
+      "card_count": 20
     },
     {
       "id": "tag-claude-code",
@@ -334,6 +339,33 @@
       "card_count": 17
     },
     {
+      "id": "agent-api-bridge",
+      "label": "Agent API Bridge",
+      "type": "integration",
+      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander",
+        "github-drumih-turbo-fieldfare",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-modelcontextprotocol-ext-skills",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+        "github-totec448-spec-chat-on-steroids",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 16
+    },
+    {
       "id": "agent-memory",
       "label": "Agent Memory",
       "type": "architecture",
@@ -359,32 +391,6 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 16
-    },
-    {
-      "id": "agent-api-bridge",
-      "label": "Agent API Bridge",
-      "type": "integration",
-      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-alibaba-open-code-review",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-drumih-turbo-fieldfare",
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-modelcontextprotocol-ext-skills",
-        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
-        "github-totec448-spec-chat-on-steroids",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 15
     },
     {
       "id": "category-ai-ml",
@@ -471,6 +477,7 @@
       "origin": "category",
       "aliases": [],
       "card_ids": [
+        "github-desktop-commander-remote-desktop-commander",
         "github-drumih-turbo-fieldfare",
         "github-dstack-tee-dstack",
         "github-g36maid-deepseek-harness",
@@ -485,7 +492,29 @@
         "threads-db-fphwgfos-7d09e0",
         "threads-dcglstsogz3-fa0168"
       ],
-      "card_count": 13
+      "card_count": 14
+    },
+    {
+      "id": "tag-mcp",
+      "label": "MCP",
+      "type": "topic",
+      "description": "至少出現在 11 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-modelcontextprotocol-ext-skills",
+        "github-totec448-spec-chat-on-steroids",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 11
     },
     {
       "id": "character-runtime",
@@ -505,27 +534,6 @@
         "github-twinklestars1029-sillytavern-regex",
         "threads-dchbjcxenzb-725dd0",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 10
-    },
-    {
-      "id": "tag-mcp",
-      "label": "MCP",
-      "type": "topic",
-      "description": "至少出現在 10 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-alibaba-open-code-review",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model",
-        "github-modelcontextprotocol-ext-skills",
-        "github-totec448-spec-chat-on-steroids",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 10
     },
@@ -1271,6 +1279,19 @@
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-nutlope-hallmark"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-desktop-automation",
+      "label": "desktop-automation",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander"
       ],
       "card_count": 2
     },
@@ -2812,6 +2833,18 @@
     },
     {
       "card_id": "github-bensonmaxai-line-desktop-mcp",
+      "concept_id": "tag-desktop-automation",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "desktop-automation"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-bensonmaxai-line-desktop-mcp",
       "concept_id": "tag-mcp",
       "strength": 0.9,
       "evidence": [
@@ -3334,6 +3367,114 @@
         {
           "kind": "tag",
           "value": "Traditional Chinese"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-desktop-commander-remote-desktop-commander",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-desktop-commander-remote-desktop-commander",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-desktop-commander-remote-desktop-commander",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-desktop-commander-remote-desktop-commander",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-desktop-commander-remote-desktop-commander",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-desktop-commander-remote-desktop-commander",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-desktop-commander-remote-desktop-commander",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-desktop-commander-remote-desktop-commander",
+      "concept_id": "tag-desktop-automation",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "desktop-automation"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-desktop-commander-remote-desktop-commander",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
         }
       ],
       "origin": "shared-tag"
@@ -9392,13 +9533,14 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 13,
-      "weight": 0.8667,
+      "support": 14,
+      "weight": 0.875,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-mayocream-koharu",
@@ -9419,6 +9561,17 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-pottokao-dotcom-comfyui-qwenimage-photostyles"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-desktop-automation",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander"
       ]
     },
     {
@@ -9447,13 +9600,14 @@
       "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 10,
+      "support": 11,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-modelcontextprotocol-ext-skills",
@@ -9484,17 +9638,6 @@
         "github-mayocream-koharu",
         "github-minijinai75-tavern-claude-bridge",
         "github-pottokao-dotcom-comfyui-qwenimage-photostyles"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
-      "target": "tag-rust",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-mayocream-koharu"
       ]
     },
     {
@@ -9797,13 +9940,14 @@
       "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 10,
+      "support": 11,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-modelcontextprotocol-ext-skills",
@@ -9816,7 +9960,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 36,
+      "support": 37,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -9829,6 +9973,7 @@
         "github-charliie-dev-claude-code-hidden-settings",
         "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
+        "github-desktop-commander-remote-desktop-commander",
         "github-dreambigou-eli5",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
@@ -10074,6 +10219,17 @@
     },
     {
       "source": "category-general-tools",
+      "target": "tag-desktop-automation",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander"
+      ]
+    },
+    {
+      "source": "category-general-tools",
       "target": "tag-engineering-discipline",
       "type": "co_occurs_with",
       "support": 3,
@@ -10082,17 +10238,6 @@
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
         "github-obra-superpowers"
-      ]
-    },
-    {
-      "source": "category-general-tools",
-      "target": "tag-playwright",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-cathrynlavery-diagram-design",
-        "github-santifer-career-ops"
       ]
     },
     {
@@ -10489,17 +10634,6 @@
     },
     {
       "source": "category-sillytavern-ai-rpg",
-      "target": "tag-mcp",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.2222,
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-tsun-u-agent-game-table"
-      ]
-    },
-    {
-      "source": "category-sillytavern-ai-rpg",
       "target": "tag-prompt-caching",
       "type": "co_occurs_with",
       "support": 2,
@@ -10742,6 +10876,17 @@
     },
     {
       "source": "local-ai-integration",
+      "target": "tag-desktop-automation",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
       "target": "tag-graph-retrieval",
       "type": "co_occurs_with",
       "support": 2,
@@ -10784,13 +10929,14 @@
       "source": "local-ai-integration",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 10,
+      "support": 11,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-modelcontextprotocol-ext-skills",
@@ -10808,17 +10954,6 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-titanwings-distilly"
-      ]
-    },
-    {
-      "source": "local-ai-integration",
-      "target": "tag-plugin-system",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-santifer-career-ops",
-        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -11521,6 +11656,17 @@
       ]
     },
     {
+      "source": "tag-desktop-automation",
+      "target": "tag-mcp",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-desktop-commander-remote-desktop-commander"
+      ]
+    },
+    {
       "source": "tag-docling",
       "target": "tag-python",
       "type": "co_occurs_with",
@@ -11976,9 +12122,9 @@
     }
   ],
   "stats": {
-    "card_count": 72,
-    "concept_count": 101,
-    "card_concept_edge_count": 614,
+    "card_count": 73,
+    "concept_count": 102,
+    "card_concept_edge_count": 624,
     "concept_relation_edge_count": 210
   }
 }
