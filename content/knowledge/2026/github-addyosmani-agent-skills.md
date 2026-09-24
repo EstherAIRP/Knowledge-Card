@@ -13,12 +13,13 @@ resource_kind:
 navigation:
   categories:
     ai:
+      - Agent / Harness
       - AI Coding / DevTools
     user: null
 created_at: 2026-09-03
-updated_at: 2026-09-13
-last_checked_at: 2026-09-03
-summary: Agent Skills 是 Addy Osmani 維護的軟體工程 Agent Skill 套件，把規格、規劃、增量實作、TDD、除錯、審查、安全、效能、CI/CD、文件與發布等資深工程流程封裝成可重用工作流，並提供 Claude Code、Codex、Cursor、Gemini CLI、OpenCode 等多種 Coding Agent 的整合方式。
+updated_at: 2026-09-25
+last_checked_at: 2026-09-25
+summary: Agent Skills 是 Addy Osmani 維護的軟體工程 Agent Skill 套件，以 25 個技能、9 個生命週期指令與多平台適配層，把規格、規劃、增量實作、TDD、除錯、審查、安全、效能、CI/CD、文件與發布等工程流程封裝成可重用、具驗證關卡的 Coding Agent 工作流。
 classification:
   categories:
     ai:
@@ -31,6 +32,7 @@ classification:
       - agent-skills
       - coding-agent
       - SKILL.md
+      - agent-harness
       - Claude Code
       - Codex
       - Cursor
@@ -43,6 +45,7 @@ classification:
       - engineering workflow
       - workflow orchestration
       - quality gates
+      - evals
     user: null
 relevance:
   ai:
@@ -69,7 +72,7 @@ status:
 
 ## 一句話介紹
 
-Agent Skills 是 Addy Osmani 維護的一套 **AI Coding Agent 工程工作流技能庫**，把從需求定義、規格、規劃、實作、測試、除錯、審查到發布的軟體工程方法，整理成 Agent 可發現、載入與遵循的 `SKILL.md` 工作流程。
+Agent Skills 是 Addy Osmani 維護的一套 **AI Coding Agent 工程工作流技能庫**，把需求定義、規格、規劃、實作、測試、除錯、審查到發布的軟體工程方法，整理成 Agent 可發現、載入與遵循的 `SKILL.md` 工作流程。
 
 它不是另一個 Coding Agent、模型或執行框架，而是疊加在 Claude Code、Codex、Cursor、Gemini CLI、OpenCode 等 Agent Host 上方的 **工程行為與品質治理層**。
 
@@ -77,55 +80,55 @@ Agent Skills 是 Addy Osmani 維護的一套 **AI Coding Agent 工程工作流�
 
 Coding Agent 的主要風險通常不是「完全不會寫程式」，而是會在缺少規格、驗證與品質關卡時快速產生大量看似合理、實際難以維護或沒有被證明正確的變更。Agent Skills 的切入點，是把資深工程師常用的工作節奏與檢查點寫成可重複執行的能力，降低每次都靠臨時提示詞提醒模型的成本。
 
-Repository 將完整開發生命週期整理成 `DEFINE → PLAN → BUILD → VERIFY → REVIEW → SHIP`，並提供 `/spec`、`/plan`、`/build`、`/test`、`/constraints`、`/review`、`/webperf`、`/code-simplify`、`/ship` 等入口。背後不是單一巨大 prompt，而是依任務切換到對應 Skill。
+Repository 將完整開發生命週期整理成 `DEFINE → PLAN → BUILD → VERIFY → REVIEW → SHIP`，並提供 `/spec`、`/plan`、`/build`、`/test`、`/constraints`、`/review`、`/webperf`、`/code-simplify`、`/ship` 等 9 個入口。背後不是單一巨大 prompt，而是依任務切換到對應 Skill。
 
-因此它實際解決的是 **Agent 工程流程不一致** 的問題：需求沒有先釐清、任務拆得太大、沒有測試證據、錯誤處理靠猜、review 缺乏固定軸線、效能未量測就最佳化，或發布前沒有明確回滾與觀測條件。
+因此它實際解決的是 **Agent 工程流程不一致** 的問題：需求沒有先釐清、任務拆得太大、沒有測試證據、錯誤處理靠猜、審查缺乏固定軸線、效能未量測就最佳化，或發布前沒有明確回滾與觀測條件。
 
 ## 核心概念
 
-第一個核心是 **把軟體工程生命週期拆成獨立 Skill**。目前 README 將內容整理成 24 個生命週期 Skill，再加上 `using-agent-skills` 這個負責 discovery 的 meta-skill，共 25 個 Skill。每個能力都有自己的適用條件、流程與驗證關卡，而不是把整套方法塞進一份全域系統提示詞。
+第一個核心是 **把軟體工程生命週期拆成獨立 Skill**。目前 README 將內容整理成 24 個生命週期 Skill，再加上 `using-agent-skills` 這個負責 discovery 的 meta-skill，共 25 個 Skill。每個能力都有自己的適用條件、流程、常見合理化反例與驗證關卡，而不是把整套方法塞進一份全域系統提示詞。
 
 第二個核心是 **Skill discovery 與意圖路由**。`using-agent-skills` 會先判斷任務落在哪個開發階段，再導向 `spec-driven-development`、`planning-and-task-breakdown`、`incremental-implementation`、`test-driven-development`、`debugging-and-error-recovery`、`code-review-and-quality` 等對應流程。多個 Skill 也能依任務串接成完整生命週期。
 
-第三個核心是 **驗證優先於「感覺完成」**。Meta-skill 明確要求每個 Skill 都必須有 verification，並把 tests、build、runtime evidence 與 Definition of Done 視為完成條件。這使 Skill 不只告訴 Agent「怎麼產生答案」，也規定「如何證明這次工作成立」。
+第三個核心是 **驗證優先於「感覺完成」**。Skill 會把 tests、build、runtime evidence 與 Definition of Done 視為退出條件，讓 Agent 不只知道「怎麼產生答案」，也必須說明「如何證明工作成立」。
 
-第四個核心是 **反合理化（anti-rationalization）**。Repository 會直接列出 Agent 常見的逃避模式，例如「這個改動太小不用流程」、「看起來沒問題所以不用測」、「順手把附近程式碼一起整理」。這些規則本質上是在對抗 LLM 為了快速完成任務而自行降低工程標準的傾向。
+第四個核心是 **反合理化（anti-rationalization）**。Repository 直接列出 Agent 常見的逃避模式，例如「這個改動太小不用流程」、「看起來沒問題所以不用測」、「順手把附近程式碼一起整理」，藉此對抗 LLM 為了快速完成任務而自行降低工程標準的傾向。
 
-第五個核心是 **把角色、流程與入口分層**。Repository 自己明確區分：`skills/` 定義「怎麼做」、`agents/` 定義「以什麼角色／觀點做」、slash commands 定義「什麼時候啟動」。這種分層避免把 persona、workflow 與 orchestration 混成單一巨型 Agent。
+第五個核心是 **把角色、流程與入口分層**。Repository 明確區分：`skills/` 定義「怎麼做」、`agents/` 定義「以什麼角色／觀點做」、slash commands 定義「何時啟動」。這種分層避免把 persona、workflow 與 orchestration 混成單一巨型 Agent。
 
 ## 架構與技術
 
-這個 Repository 的主要交付物是文字化 Skill，而不是大型 Runtime，因此 `resource_kind` 判定為 `skill`。主要結構包括：
+這個 Repository 的主要交付物是文字化 Skill，而不是大型 Runtime，因此 `resource_kind` 判定為 `skill`。目前主要結構包括：
 
-- `skills/<name>/SKILL.md`：每個 Skill 的主要入口，以 Markdown 與 YAML frontmatter 描述名稱、觸發條件與完整工作流程。
+- `skills/`：25 個共享 `SKILL.md` 工作流，作為跨平台核心。
 - `skills/using-agent-skills/SKILL.md`：meta-skill，負責依任務意圖選擇適用 Skill，並定義跨 Skill 的共同操作原則。
-- `agents/`：可被支援平台使用的工程角色，例如 code reviewer、security auditor、test engineer；角色可以使用 Skill，但不負責任意路由其他 persona。
-- `commands/` 與平台專用 command 設定：提供 `/spec`、`/plan`、`/build` 等較短的使用者入口。
-- `references/`：放置跨 Skill 共用的 Definition of Done、檢查表與 orchestration 參考資料。
-- Skill 內可選的 `scripts/`：只有需要可執行輔助工具時才加入；專案本身強調多數 Skill 為 Markdown-first。
-- `.codex-plugin/`、`.claude-plugin/`、`.gemini/`、`.opencode/` 等平台整合資料：把相同核心 Skill 接到不同 Agent Host。
+- `agents/`：4 個專家 persona，包括 code reviewer、test engineer、security auditor 與 web performance auditor。
+- `references/`：7 份跨 Skill 共用的 Definition of Done、測試、安全、效能、可及性、觀測與 orchestration 檢查表。
+- `.claude/commands/`、`.gemini/commands/`、`commands/`：為不同 Host 提供生命週期 command wrapper。
+- `.claude-plugin/`、`.codex-plugin/`、`.agents/plugins/`、`.opencode/` 等：平台專用適配層；核心方法仍保留在共享 `skills/`。
+- `scripts/`、`evals/`、`.github/workflows/`：維護者使用的驗證、路由評估與 CI 工具。README 目前列出 13 個 scripts 與 25 個 eval case files。
 
-Codex plugin manifest 目前標示版本 `0.6.8`、MIT 授權，並直接指定 `./skills/` 為技能來源。通用安裝可使用開放的 skills CLI：
+Codex 與 Claude plugin manifest 目前皆標示版本 `0.6.10`，MIT 授權。通用安裝可使用開放的 skills CLI：
 
 ```bash
 npx skills add addyosmani/agent-skills
 ```
 
-README 表示這條路線可安裝到 70+ 種 Agent；Claude Code、Codex、Gemini CLI、OpenCode、Cursor 等則另有各自的原生或半原生整合方式。
+README 表示此方式可安裝到 70+ 種 Agent；Repository 另外提供 Claude Code、Codex、Cursor、Antigravity CLI、Gemini CLI、Windsurf、OpenCode、GitHub Copilot、Kiro、Command Code 等宿主的原生或半原生整合說明。
 
 ## 主要功能
 
 - **需求與規格**：`interview-me`、`idea-refine`、`spec-driven-development` 用於釐清需求、探索方案與先建立規格。
-- **品質約束**：`constraint-driven-development` 把測試、覆蓋率、安全、效能、可及性等品質門檻變成明確約束，而不是開發完成後才補救。
+- **品質約束**：`constraint-driven-development` 把測試、安全、效能、可及性等品質門檻變成明確約束，而不是開發完成後才補救。
 - **任務規劃**：`planning-and-task-breakdown` 將規格拆成小型、可驗證、具有依賴順序的實作單位。
 - **增量實作與 TDD**：`incremental-implementation` 與 `test-driven-development` 強調垂直切片、red-green-refactor 與每一步都要可驗證。
+- **自動建置流程**：`/build auto` 可在規格完成後自動產生計畫並依序實作各任務；它省略任務間的人工作業，但仍保留逐任務測試、提交與失敗／高風險時停止的驗證關卡。
 - **上下文與來源工程**：`context-engineering` 管理 Agent 需要的專案資訊；`source-driven-development` 要求框架／套件決策回到官方文件驗證。
 - **懷疑式驗證**：`doubt-driven-development` 針對高風險或不熟悉的決策做對抗式重新檢查，避免單一路徑推理過度自信。
 - **前端、API、安全與效能**：分別提供 UI、介面契約、安全強化與量測優先的效能工作流。
 - **除錯與瀏覽器驗證**：將 reproduce、localize、reduce、fix、guard 等步驟固定化，並可搭配 DevTools 做實際 runtime evidence。
 - **審查與簡化**：在 merge 前進行多軸 code review，再用 code simplification 降低不必要複雜度。
 - **Git、CI/CD、文件、觀測與發布**：涵蓋 atomic commit、持續整合、自動品質關卡、ADR、telemetry、deprecation／migration 與 production launch。
-- **跨平台安裝**：同一組 Skill 可透過不同 adapter 被多種 Coding Agent 使用，降低方法論綁定單一供應商的程度。
 
 ## 技術亮點
 
@@ -137,7 +140,7 @@ README 表示這條路線可安裝到 70+ 種 Agent；Claude Code、Codex、Gemi
 
 第四個亮點是 **平台適配層與核心方法分離**。核心 Skill 主要仍是 Markdown；不同 Agent Host 的 plugin、rules、commands 或 skill discovery 機制則放在平台專用目錄。這讓同一套工程方法可以跨宿主遷移，而不必為每個 Coding Agent 重寫完整內容。
 
-第五個亮點是 **明確區分 Skill、Persona 與 Command**。這個分層非常適合拿來設計較大型 Agent Harness：Persona 不應同時承擔工作流路由、工具規則與輸出格式；把「誰做」、「怎麼做」、「何時做」拆開，可以減少 Agent configuration 隨功能成長而失控。
+第五個亮點是 **Repository 本身也把 Skill 視為可測試產品**。目前不只有 Skill 文件，還有 routing evals、validator、CI 與跨平台檢查；近期更新持續加強 command frontmatter 的 YAML 驗證、Skill reference link 驗證，以及 validator 在 macOS／Windows 的執行檢查。這使「Skill 品質」不完全依賴人工閱讀。
 
 ## 限制與風險
 
@@ -145,11 +148,13 @@ README 表示這條路線可安裝到 70+ 種 Agent；Claude Code、Codex、Gemi
 
 第二個限制是 **方法論相當有立場，而且偏嚴格**。Spec-first、TDD、原子化任務、固定 review gate、反對未授權重構等原則很適合需要品質控制的工程，但對小型實驗、一次性 prototype 或高度探索性的工作可能帶來額外流程成本。導入時應先決定哪些規則是強制、哪些只在特定風險等級啟動。
 
-第三個限制是 **不同 Host 的能力並不完全等價**。例如 slash command、subagent、plugin、skill auto-discovery、rules file 與權限模型在各平台實作不同；Repository 雖提供多種整合指南，但「同一個 Skill」不代表在每個 Agent 上都具有完全相同的執行語意。
+第三個限制是 **不同 Host 的能力並不完全等價**。Slash command、subagent、plugin、Skill auto-discovery、rules file 與權限模型在各平台實作不同；Repository 雖提供多種整合指南，但「同一個 Skill」不代表在每個 Agent 上都具有完全相同的執行語意。
 
 第四個限制是 **單獨安裝某一 Skill 有共享參考資料的可攜性缺口**。README 明確提醒，使用 skills CLI 只安裝單一 Skill 時，可能只複製 `skills/<name>/`，不會帶入 Repository 根層的 `references/`；Skill 本身仍可運作，但部分補充檢查表路徑會失效，專案目前以 issue #361 追蹤此問題。
 
 第五個風險是 **Skill 本身就是 Agent 的行為供應鏈**。安裝第三方 Skill 等於允許外部維護者影響 Agent 的讀寫、命令執行與工程決策方式，因此即使 Repository 採 MIT 授權，也仍應像審查 CI action、IDE plugin 或 automation script 一樣，先閱讀重要 Skill 與權限需求，再決定是否在具有寫入／執行權限的環境啟用。
+
+第六個限制是 **`/build auto` 提高自動化程度，也提高前置規格品質的重要性**。它仍保留驗證與失敗停止機制，但若規格本身錯誤或任務切分不佳，Agent 可能更快地沿錯誤方向完成多個原子任務，因此不應把「自動完成多步驟」誤解為「不再需要人工決策」。
 
 ## 與你的相關性
 
@@ -183,6 +188,13 @@ README 表示這條路線可安裝到 70+ 種 Agent；Claude Code、Codex、Gemi
 ## 使用者備註
 
 ## 更新紀錄
+
+### 2026-09-25
+
+- 重新檢查最新 Repository 與 README；維持 25 個 Skill、9 個生命週期指令的核心定位。
+- 更新 Codex／Claude plugin 版本資訊至 `0.6.10`，補充目前更完整的跨 Host adapter、13 個 scripts、25 個 eval case files 與 `/build auto` 工作流。
+- 補充近期 validator／CI 強化，包括 command YAML frontmatter、Skill reference link 與 macOS／Windows 驗證。
+- `navigation.categories.ai` 補上 `Agent / Harness`，更準確反映其作為 Coding Agent 行為治理層的用途。
 
 ### 2026-09-03
 
