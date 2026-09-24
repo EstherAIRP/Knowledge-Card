@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-18T08:19:16.484Z",
-  "input_hash": "c396846448af47b302f036ca79a4edefc7eccf36386e5f7fb3b52ba3f107f109",
+  "generated_at": "2026-09-24T11:12:36.826Z",
+  "input_hash": "d2e5362439fb19d9df52891bda198e1780de4e7e838cf73eb1f5e49db2bd8a3d",
   "concepts": [
     {
       "id": "category-agent",
@@ -43,6 +43,7 @@
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-modelcontextprotocol-ext-skills",
         "github-moeru-ai-airi",
+        "github-multimodal-art-projection-yue",
         "github-nanako0129-sepia",
         "github-nevertoday-xxd-panel-102",
         "github-nutlope-hallmark",
@@ -66,7 +67,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 54
+      "card_count": 55
     },
     {
       "id": "coding-agent-tooling",
@@ -354,6 +355,32 @@
       "card_count": 16
     },
     {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-harry0703-moneyprinterturbo",
+        "github-hkuds-lightrag",
+        "github-k-dense-ai-scientific-agent-skills",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-multimodal-art-projection-yue",
+        "github-openbmb-voxcpm",
+        "github-rimagination-h3lite",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-dcrihmdd46t-183b20",
+        "threads-ddtlxtnjspv-c8d3ed"
+      ],
+      "card_count": 15
+    },
+    {
       "id": "category-rag-memory-knowledge",
       "label": "RAG / Memory / Knowledge",
       "type": "category",
@@ -401,31 +428,6 @@
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 14
-    },
-    {
-      "id": "category-ai-ml",
-      "label": "AI / ML",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI / ML",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-appfromapexxx-taiwan-subtitle",
-        "github-drumih-turbo-fieldfare",
-        "github-dstack-tee-dstack",
-        "github-harry0703-moneyprinterturbo",
-        "github-hkuds-lightrag",
-        "github-k-dense-ai-scientific-agent-skills",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-openbmb-voxcpm",
-        "github-rimagination-h3lite",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-dcrihmdd46t-183b20",
-        "threads-ddtlxtnjspv-c8d3ed"
       ],
       "card_count": 14
     },
@@ -1365,6 +1367,19 @@
       "card_ids": [
         "github-eternityspring-shuohao-skills",
         "github-rimagination-h3lite"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-music-generation",
+      "label": "music-generation",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-multimodal-art-projection-yue",
+        "github-salsensei-suno-v6-songcraft"
       ],
       "card_count": 2
     },
@@ -6002,6 +6017,42 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-multimodal-art-projection-yue",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-multimodal-art-projection-yue",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-multimodal-art-projection-yue",
+      "concept_id": "tag-music-generation",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "music-generation"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-nanako0129-sepia",
       "concept_id": "category-agent",
       "strength": 1,
@@ -6693,6 +6744,18 @@
         {
           "kind": "tag",
           "value": "Codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-salsensei-suno-v6-songcraft",
+      "concept_id": "tag-music-generation",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "music-generation"
         }
       ],
       "origin": "shared-tag"
@@ -11396,9 +11459,9 @@
     }
   ],
   "stats": {
-    "card_count": 69,
-    "concept_count": 99,
-    "card_concept_edge_count": 587,
+    "card_count": 70,
+    "concept_count": 100,
+    "card_concept_edge_count": 591,
     "concept_relation_edge_count": 195
   }
 }
