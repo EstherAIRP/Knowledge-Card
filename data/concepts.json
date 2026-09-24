@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-24T20:58:17.012Z",
-  "input_hash": "775f03996b90d4694d5f03aa54ba742cc7ea6ef657b93ea2b0c7f7bd86d184d8",
+  "generated_at": "2026-09-24T21:27:29.198Z",
+  "input_hash": "095b4441ad6d44352e9fe8782083a7aff2165a3a3f38622003ec71442235da9d",
   "concepts": [
     {
       "id": "category-agent",
@@ -233,6 +233,7 @@
         "github-modelcontextprotocol-ext-skills",
         "github-moeru-ai-airi",
         "github-nanako0129-sepia",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
         "github-totec448-spec-chat-on-steroids",
         "github-virgiliojr94-book-to-skill",
         "github-yanjiye-hareno-kairo",
@@ -243,7 +244,7 @@
         "threads-ddt1gevhcc9-cb2210",
         "threads-dfyr62jb6wr-b921df"
       ],
-      "card_count": 26
+      "card_count": 27
     },
     {
       "id": "local-ai-integration",
@@ -360,6 +361,32 @@
       "card_count": 16
     },
     {
+      "id": "agent-api-bridge",
+      "label": "Agent API Bridge",
+      "type": "integration",
+      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-ai21002102-riverbend",
+        "github-akitaonrails-ai-memory",
+        "github-alibaba-open-code-review",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-drumih-turbo-fieldfare",
+        "github-graphify-labs-graphify",
+        "github-intuition-lab-personal-model",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-modelcontextprotocol-ext-skills",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+        "github-totec448-spec-chat-on-steroids",
+        "github-tsun-u-agent-game-table",
+        "threads-dclcucpas-z-66b25b"
+      ],
+      "card_count": 15
+    },
+    {
       "id": "category-ai-ml",
       "label": "AI / ML",
       "type": "category",
@@ -410,31 +437,6 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 15
-    },
-    {
-      "id": "agent-api-bridge",
-      "label": "Agent API Bridge",
-      "type": "integration",
-      "description": "透過 OpenAI-compatible API、WebSocket、MCP 或 bridge service 把 Agent/runtime 暴露給其他應用。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-ai21002102-riverbend",
-        "github-akitaonrails-ai-memory",
-        "github-alibaba-open-code-review",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-drumih-turbo-fieldfare",
-        "github-graphify-labs-graphify",
-        "github-intuition-lab-personal-model",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-modelcontextprotocol-ext-skills",
-        "github-totec448-spec-chat-on-steroids",
-        "github-tsun-u-agent-game-table",
-        "threads-dclcucpas-z-66b25b"
-      ],
-      "card_count": 14
     },
     {
       "id": "tag-codex",
@@ -568,6 +570,46 @@
       "card_count": 9
     },
     {
+      "id": "category-image-generation",
+      "label": "Image Generation",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Image Generation",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nevertoday-xxd-panel-102",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+        "github-promptfairy-prompt-fairy",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 9
+    },
+    {
+      "id": "image-generation-workflow",
+      "label": "Image Generation Workflow",
+      "type": "workflow",
+      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nevertoday-xxd-panel-102",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+        "github-promptfairy-prompt-fairy",
+        "github-rimagination-h3lite",
+        "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 9
+    },
+    {
       "id": "tag-local-first",
       "label": "local-first",
       "type": "topic",
@@ -606,44 +648,6 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 9
-    },
-    {
-      "id": "category-image-generation",
-      "label": "Image Generation",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Image Generation",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-eternityspring-shuohao-skills",
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nevertoday-xxd-panel-102",
-        "github-promptfairy-prompt-fairy",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill"
-      ],
-      "card_count": 8
-    },
-    {
-      "id": "image-generation-workflow",
-      "label": "Image Generation Workflow",
-      "type": "workflow",
-      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-eternityspring-shuohao-skills",
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nevertoday-xxd-panel-102",
-        "github-promptfairy-prompt-fairy",
-        "github-rimagination-h3lite",
-        "github-s1dashu-ip-as-logo-skill"
-      ],
-      "card_count": 8
     },
     {
       "id": "tag-typescript",
@@ -788,6 +792,21 @@
       "card_count": 4
     },
     {
+      "id": "tag-openai-compatible-api",
+      "label": "OpenAI-compatible API",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-drumih-turbo-fieldfare",
+        "github-mayocream-koharu",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "tag-opencode",
       "label": "OpenCode",
       "type": "topic",
@@ -890,6 +909,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-comfyui",
+      "label": "comfyui",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+        "github-rimagination-h3lite"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-context-engineering",
       "label": "context-engineering",
       "type": "topic",
@@ -984,20 +1017,6 @@
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu",
         "threads-dchbjcxenzb-725dd0"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "tag-openai-compatible-api",
-      "label": "OpenAI-compatible API",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge"
       ],
       "card_count": 3
     },
@@ -1200,19 +1219,6 @@
       "card_ids": [
         "github-hankhuang0516-simulator-manager",
         "github-nevertoday-xxd-panel-102"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-comfyui",
-      "label": "comfyui",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-rimagination-h3lite"
       ],
       "card_count": 2
     },
@@ -6725,6 +6731,82 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "OpenAI-compatible-API"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+      "concept_id": "category-image-generation",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+      "concept_id": "category-llm",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "LLM"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+      "concept_id": "image-generation-workflow",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        },
+        {
+          "kind": "tag",
+          "value": "comfyui"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+      "concept_id": "tag-comfyui",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "ComfyUI"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+      "concept_id": "tag-openai-compatible-api",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "OpenAI-compatible-API"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-promptfairy-prompt-fairy",
       "concept_id": "category-general-tools",
       "strength": 1,
@@ -9311,7 +9393,7 @@
       "target": "local-ai-integration",
       "type": "co_occurs_with",
       "support": 13,
-      "weight": 0.9286,
+      "weight": 0.8667,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
@@ -9326,6 +9408,17 @@
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
+      ]
+    },
+    {
+      "source": "agent-api-bridge",
+      "target": "tag-comfyui",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles"
       ]
     },
     {
@@ -9348,18 +9441,6 @@
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu"
-      ]
-    },
-    {
-      "source": "agent-api-bridge",
-      "target": "tag-long-term-memory",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 0.6,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b"
       ]
     },
     {
@@ -9396,12 +9477,13 @@
       "source": "agent-api-bridge",
       "target": "tag-openai-compatible-api",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge"
+        "github-minijinai75-tavern-claude-bridge",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles"
       ]
     },
     {
@@ -9885,7 +9967,7 @@
       "target": "tag-comfyui",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-rimagination-h3lite"
@@ -9926,17 +10008,6 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "tag-openai-compatible-api",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mayocream-koharu"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
       "target": "tag-speech-to-text",
       "type": "co_occurs_with",
       "support": 2,
@@ -9955,6 +10026,17 @@
       "card_ids": [
         "github-harry0703-moneyprinterturbo",
         "github-openbmb-voxcpm"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-traditional-chinese",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "threads-dcrihmdd46t-183b20"
       ]
     },
     {
@@ -10053,7 +10135,7 @@
       "source": "category-image-generation",
       "target": "image-generation-workflow",
       "type": "co_occurs_with",
-      "support": 8,
+      "support": 9,
       "weight": 1,
       "card_ids": [
         "github-eternityspring-shuohao-skills",
@@ -10061,6 +10143,7 @@
         "github-mayocream-koharu",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-nevertoday-xxd-panel-102",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
         "github-promptfairy-prompt-fairy",
         "github-rimagination-h3lite",
         "github-s1dashu-ip-as-logo-skill"
@@ -10071,7 +10154,7 @@
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.375,
+      "weight": 0.3333,
       "card_ids": [
         "github-eternityspring-shuohao-skills",
         "github-rimagination-h3lite",
@@ -10082,10 +10165,11 @@
       "source": "category-image-generation",
       "target": "tag-comfyui",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
         "github-rimagination-h3lite"
       ]
     },
@@ -10094,7 +10178,7 @@
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.25,
+      "weight": 0.2222,
       "card_ids": [
         "github-mayocream-koharu",
         "github-promptfairy-prompt-fairy"
@@ -10109,6 +10193,17 @@
       "card_ids": [
         "github-eternityspring-shuohao-skills",
         "github-rimagination-h3lite"
+      ]
+    },
+    {
+      "source": "category-image-generation",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.5,
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles"
       ]
     },
     {
@@ -10283,12 +10378,13 @@
       "source": "category-llm",
       "target": "tag-openai-compatible-api",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge"
+        "github-minijinai75-tavern-claude-bridge",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles"
       ]
     },
     {
@@ -10592,10 +10688,11 @@
       "source": "image-generation-workflow",
       "target": "tag-comfyui",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
         "github-rimagination-h3lite"
       ]
     },
@@ -10604,7 +10701,7 @@
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.25,
+      "weight": 0.2222,
       "card_ids": [
         "github-mayocream-koharu",
         "github-promptfairy-prompt-fairy"
@@ -10619,6 +10716,17 @@
       "card_ids": [
         "github-eternityspring-shuohao-skills",
         "github-rimagination-h3lite"
+      ]
+    },
+    {
+      "source": "image-generation-workflow",
+      "target": "tag-openai-compatible-api",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.5,
+      "card_ids": [
+        "github-mayocream-koharu",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles"
       ]
     },
     {
@@ -10693,17 +10801,6 @@
     },
     {
       "source": "local-ai-integration",
-      "target": "tag-openai-compatible-api",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-mayocream-koharu",
-        "github-minijinai75-tavern-claude-bridge"
-      ]
-    },
-    {
-      "source": "local-ai-integration",
       "target": "tag-openclaw",
       "type": "co_occurs_with",
       "support": 2,
@@ -10711,6 +10808,17 @@
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-titanwings-distilly"
+      ]
+    },
+    {
+      "source": "local-ai-integration",
+      "target": "tag-plugin-system",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-santifer-career-ops",
+        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -11868,9 +11976,9 @@
     }
   ],
   "stats": {
-    "card_count": 71,
+    "card_count": 72,
     "concept_count": 101,
-    "card_concept_edge_count": 608,
-    "concept_relation_edge_count": 208
+    "card_concept_edge_count": 614,
+    "concept_relation_edge_count": 210
   }
 }
