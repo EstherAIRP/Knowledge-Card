@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-25T00:33:33.415Z",
-  "input_hash": "a22a024a544ad7a8160e3cb6b5ab3d4b58bef14fbf59e96e3d11df9919d21834",
+  "generated_at": "2026-09-25T23:11:08.319Z",
+  "input_hash": "ddedacc0b7e5ac8a560a925eadbcab4758b53789d7c9bebba348731233fd5a76",
   "concepts": [
     {
       "id": "category-agent",
@@ -46,6 +46,7 @@
         "github-moeru-ai-airi",
         "github-multimodal-art-projection-yue",
         "github-nanako0129-sepia",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-nevertoday-xxd-panel-102",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
@@ -69,7 +70,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 57
+      "card_count": 58
     },
     {
       "id": "coding-agent-tooling",
@@ -105,6 +106,7 @@
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
         "github-nanako0129-sepia",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
         "github-salsensei-suno-v6-songcraft",
@@ -122,7 +124,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 42
+      "card_count": 43
     },
     {
       "id": "category-ai-coding-devtools",
@@ -156,6 +158,7 @@
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
         "github-nanako0129-sepia",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
         "github-santifer-career-ops",
@@ -170,7 +173,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 37
+      "card_count": 38
     },
     {
       "id": "category-general-tools",
@@ -194,6 +197,7 @@
         "github-mars-tw-open-seo-advisor-skill",
         "github-mattpocock-skills",
         "github-mirabarukaso-character-select-stand-alone-app",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-notoriouslab-vault-curate",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
@@ -211,7 +215,7 @@
         "threads-ddt1gevhcc9-cb2210",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 30
+      "card_count": 31
     },
     {
       "id": "category-llm",
@@ -421,6 +425,32 @@
       "card_count": 16
     },
     {
+      "id": "tag-codex",
+      "label": "Codex",
+      "type": "topic",
+      "description": "至少出現在 15 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-cathrynlavery-diagram-design",
+        "github-eternityspring-shuohao-skills",
+        "github-mattpocock-skills",
+        "github-nanako0129-sepia",
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-nutlope-hallmark",
+        "github-obra-superpowers",
+        "github-salsensei-suno-v6-songcraft",
+        "github-stablyai-orca",
+        "github-titanwings-distilly",
+        "github-tsun-u-tsunu-superpowers",
+        "github-virgiliojr94-book-to-skill"
+      ],
+      "card_count": 15
+    },
+    {
       "id": "category-rag-memory-knowledge",
       "label": "RAG / Memory / Knowledge",
       "type": "category",
@@ -445,31 +475,6 @@
         "threads-dfyr62jb6wr-b921df"
       ],
       "card_count": 15
-    },
-    {
-      "id": "tag-codex",
-      "label": "Codex",
-      "type": "topic",
-      "description": "至少出現在 14 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-cathrynlavery-diagram-design",
-        "github-eternityspring-shuohao-skills",
-        "github-mattpocock-skills",
-        "github-nanako0129-sepia",
-        "github-nutlope-hallmark",
-        "github-obra-superpowers",
-        "github-salsensei-suno-v6-songcraft",
-        "github-stablyai-orca",
-        "github-titanwings-distilly",
-        "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 14
     },
     {
       "id": "category-infrastructure-deployment",
@@ -519,6 +524,27 @@
       "card_count": 11
     },
     {
+      "id": "tag-agent-skills",
+      "label": "agent-skills",
+      "type": "topic",
+      "description": "至少出現在 10 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-k-dense-ai-scientific-agent-skills",
+        "github-mattpocock-skills",
+        "github-modelcontextprotocol-ext-skills",
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers",
+        "github-tsun-u-memory-toolkit",
+        "github-tsun-u-tsunu-superpowers",
+        "github-virgiliojr94-book-to-skill"
+      ],
+      "card_count": 10
+    },
+    {
       "id": "character-runtime",
       "label": "Character Runtime",
       "type": "architecture",
@@ -540,30 +566,10 @@
       "card_count": 10
     },
     {
-      "id": "tag-agent-skills",
-      "label": "agent-skills",
-      "type": "topic",
-      "description": "至少出現在 9 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-harry0703-moneyprinterturbo",
-        "github-k-dense-ai-scientific-agent-skills",
-        "github-mattpocock-skills",
-        "github-modelcontextprotocol-ext-skills",
-        "github-obra-superpowers",
-        "github-tsun-u-memory-toolkit",
-        "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 9
-    },
-    {
       "id": "tag-coding-agent",
       "label": "coding-agent",
       "type": "topic",
-      "description": "至少出現在 9 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 10 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -574,10 +580,11 @@
         "github-alibaba-open-code-review",
         "github-cloudflare-security-audit-skill",
         "github-intuition-lab-personal-model",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers",
         "github-totec448-spec-chat-on-steroids"
       ],
-      "card_count": 9
+      "card_count": 10
     },
     {
       "id": "category-image-generation",
@@ -758,6 +765,22 @@
       "card_count": 5
     },
     {
+      "id": "tag-skill-md",
+      "label": "SKILL.md",
+      "type": "topic",
+      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers"
+      ],
+      "card_count": 5
+    },
+    {
       "id": "ai-character-interface",
       "label": "AI Character Interface",
       "type": "experience",
@@ -784,6 +807,21 @@
         "github-mattpocock-skills",
         "github-obra-superpowers",
         "threads-db-wlkkgtu-18d1ea"
+      ],
+      "card_count": 4
+    },
+    {
+      "id": "tag-engineering-discipline",
+      "label": "engineering-discipline",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers"
       ],
       "card_count": 4
     },
@@ -829,21 +867,6 @@
         "github-mensfeld-code-on-incus",
         "github-obra-superpowers",
         "github-stablyai-orca"
-      ],
-      "card_count": 4
-    },
-    {
-      "id": "tag-skill-md",
-      "label": "SKILL.md",
-      "type": "topic",
-      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-harry0703-moneyprinterturbo",
-        "github-mattpocock-skills",
-        "github-obra-superpowers"
       ],
       "card_count": 4
     },
@@ -958,20 +981,6 @@
         "github-cathrynlavery-diagram-design",
         "github-max0821-web-design-skill",
         "github-nutlope-hallmark"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "tag-engineering-discipline",
-      "label": "engineering-discipline",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-mattpocock-skills",
-        "github-obra-superpowers"
       ],
       "card_count": 3
     },
@@ -1712,6 +1721,19 @@
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-hkuds-lightrag"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-verification",
+      "label": "verification",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers"
       ],
       "card_count": 2
     },
@@ -6372,6 +6394,134 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-ncusspm25-opus-mode-for-codex",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-ncusspm25-opus-mode-for-codex",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-ncusspm25-opus-mode-for-codex",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-ncusspm25-opus-mode-for-codex",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Codex"
+        },
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-ncusspm25-opus-mode-for-codex",
+      "concept_id": "tag-agent-skills",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-skills"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-ncusspm25-opus-mode-for-codex",
+      "concept_id": "tag-codex",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-ncusspm25-opus-mode-for-codex",
+      "concept_id": "tag-coding-agent",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "coding-agent"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-ncusspm25-opus-mode-for-codex",
+      "concept_id": "tag-engineering-discipline",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "engineering-discipline"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-ncusspm25-opus-mode-for-codex",
+      "concept_id": "tag-skill-md",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SKILL.md"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-ncusspm25-opus-mode-for-codex",
+      "concept_id": "tag-verification",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "verification"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-nevertoday-xxd-panel-102",
       "concept_id": "category-agent",
       "strength": 1,
@@ -6835,6 +6985,18 @@
         {
           "kind": "tag",
           "value": "test-driven-development"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-obra-superpowers",
+      "concept_id": "tag-verification",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "verification"
         }
       ],
       "origin": "shared-tag"
@@ -9892,7 +10054,7 @@
       "source": "category-agent",
       "target": "tag-agent-skills",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -9900,6 +10062,7 @@
         "github-k-dense-ai-scientific-agent-skills",
         "github-mattpocock-skills",
         "github-modelcontextprotocol-ext-skills",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
@@ -9937,7 +10100,7 @@
       "source": "category-agent",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 14,
+      "support": 15,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -9947,6 +10110,7 @@
         "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-nanako0129-sepia",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
         "github-salsensei-suno-v6-songcraft",
@@ -9960,7 +10124,7 @@
       "source": "category-agent",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -9970,6 +10134,7 @@
         "github-alibaba-open-code-review",
         "github-cloudflare-security-audit-skill",
         "github-intuition-lab-personal-model",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers",
         "github-totec448-spec-chat-on-steroids"
       ]
@@ -10012,7 +10177,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 37,
+      "support": 38,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -10039,6 +10204,7 @@
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
         "github-nanako0129-sepia",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
         "github-santifer-career-ops",
@@ -10094,18 +10260,6 @@
     },
     {
       "source": "category-ai-coding-devtools",
-      "target": "tag-agent-runtime",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "earendil-works-pi",
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "category-ai-coding-devtools",
       "target": "tag-code-review",
       "type": "co_occurs_with",
       "support": 4,
@@ -10121,7 +10275,7 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -10131,8 +10285,22 @@
         "github-alibaba-open-code-review",
         "github-cloudflare-security-audit-skill",
         "github-intuition-lab-personal-model",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers",
         "github-totec448-spec-chat-on-steroids"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "tag-engineering-discipline",
+      "type": "co_occurs_with",
+      "support": 4,
+      "weight": 1,
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers"
       ]
     },
     {
@@ -10284,11 +10452,12 @@
       "source": "category-general-tools",
       "target": "tag-engineering-discipline",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
       ]
     },
@@ -10752,18 +10921,6 @@
     },
     {
       "source": "coding-agent-tooling",
-      "target": "tag-agent-harness",
-      "type": "co_occurs_with",
-      "support": 3,
-      "weight": 1,
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-g36maid-deepseek-harness",
-        "github-totec448-spec-chat-on-steroids"
-      ]
-    },
-    {
-      "source": "coding-agent-tooling",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
       "support": 5,
@@ -10820,7 +10977,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 14,
+      "support": 15,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -10830,6 +10987,7 @@
         "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-nanako0129-sepia",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
         "github-salsensei-suno-v6-songcraft",
@@ -10843,7 +11001,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-coding-agent",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -10853,8 +11011,22 @@
         "github-alibaba-open-code-review",
         "github-cloudflare-security-audit-skill",
         "github-intuition-lab-personal-model",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers",
         "github-totec448-spec-chat-on-steroids"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
+      "target": "tag-engineering-discipline",
+      "type": "co_occurs_with",
+      "support": 4,
+      "weight": 1,
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers"
       ]
     },
     {
@@ -11220,6 +11392,17 @@
     },
     {
       "source": "tag-agent-runtime",
+      "target": "tag-typescript",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness"
+      ]
+    },
+    {
+      "source": "tag-agent-runtime",
       "target": "tag-web-ui",
       "type": "co_occurs_with",
       "support": 2,
@@ -11314,10 +11497,11 @@
       "source": "tag-agent-skills",
       "target": "tag-engineering-discipline",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
         "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
       ]
     },
@@ -11334,25 +11518,15 @@
     },
     {
       "source": "tag-agent-skills",
-      "target": "tag-progressive-disclosure",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-modelcontextprotocol-ext-skills",
-        "github-virgiliojr94-book-to-skill"
-      ]
-    },
-    {
-      "source": "tag-agent-skills",
       "target": "tag-skill-md",
       "type": "co_occurs_with",
-      "support": 4,
+      "support": 5,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-harry0703-moneyprinterturbo",
         "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
       ]
     },
@@ -11364,6 +11538,17 @@
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
+        "github-obra-superpowers"
+      ]
+    },
+    {
+      "source": "tag-agent-skills",
+      "target": "tag-verification",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
       ]
     },
@@ -11473,12 +11658,12 @@
     },
     {
       "source": "tag-code-review",
-      "target": "tag-engineering-discipline",
+      "target": "tag-opencode",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
-        "github-mattpocock-skills",
+        "github-addyosmani-agent-skills",
         "github-obra-superpowers"
       ]
     },
@@ -11531,11 +11716,12 @@
       "source": "tag-codex",
       "target": "tag-engineering-discipline",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
       ]
     },
@@ -11590,10 +11776,11 @@
       "source": "tag-coding-agent",
       "target": "tag-engineering-discipline",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
         "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
       ]
     },
@@ -11621,12 +11808,12 @@
     },
     {
       "source": "tag-coding-agent",
-      "target": "tag-workflow-orchestration",
+      "target": "tag-verification",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-addyosmani-agent-skills",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
       ]
     },
@@ -11767,22 +11954,23 @@
       "source": "tag-engineering-discipline",
       "target": "tag-skill-md",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
         "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
       ]
     },
     {
       "source": "tag-engineering-discipline",
-      "target": "tag-tdd",
+      "target": "tag-verification",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-mattpocock-skills"
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers"
       ]
     },
     {
@@ -12008,6 +12196,17 @@
       ]
     },
     {
+      "source": "tag-opencode",
+      "target": "tag-workflow-orchestration",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-obra-superpowers"
+      ]
+    },
+    {
       "source": "tag-persistent-session",
       "target": "tag-plugin-system",
       "type": "co_occurs_with",
@@ -12140,6 +12339,17 @@
       ]
     },
     {
+      "source": "tag-skill-md",
+      "target": "tag-verification",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers"
+      ]
+    },
+    {
       "source": "tag-speech-to-text",
       "target": "tag-traditional-chinese",
       "type": "co_occurs_with",
@@ -12185,9 +12395,9 @@
     }
   ],
   "stats": {
-    "card_count": 74,
-    "concept_count": 102,
-    "card_concept_edge_count": 628,
-    "concept_relation_edge_count": 211
+    "card_count": 75,
+    "concept_count": 103,
+    "card_concept_edge_count": 639,
+    "concept_relation_edge_count": 214
   }
 }
