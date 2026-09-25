@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-24T22:03:45.039Z",
-  "input_hash": "7c2307d1d17eb2eeb8d3b3af911fef5aed5695710cb46f00b7bef30c0f1fcf81",
+  "generated_at": "2026-09-25T00:33:33.415Z",
+  "input_hash": "a22a024a544ad7a8160e3cb6b5ab3d4b58bef14fbf59e96e3d11df9919d21834",
   "concepts": [
     {
       "id": "category-agent",
@@ -207,10 +207,11 @@
         "threads-dchbjcxenzb-725dd0",
         "threads-dcrihmdd46t-183b20",
         "threads-dcu8czjelom-f2217d",
+        "threads-ddsd8tge8tf-f0ae71",
         "threads-ddt1gevhcc9-cb2210",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 29
+      "card_count": 30
     },
     {
       "id": "category-llm",
@@ -414,9 +415,10 @@
         "github-rimagination-h3lite",
         "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
         "threads-dcrihmdd46t-183b20",
+        "threads-ddsd8tge8tf-f0ae71",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 15
+      "card_count": 16
     },
     {
       "id": "category-rag-memory-knowledge",
@@ -658,6 +660,23 @@
       "card_count": 9
     },
     {
+      "id": "tag-prompt-engineering",
+      "label": "prompt engineering",
+      "type": "topic",
+      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-dreambigou-eli5",
+        "github-kevintsai1202-humanizer-zh-tw",
+        "github-nanako0129-sepia",
+        "github-s1dashu-ip-as-logo-skill",
+        "github-salsensei-suno-v6-songcraft",
+        "threads-ddsd8tge8tf-f0ae71"
+      ],
+      "card_count": 6
+    },
+    {
       "id": "tag-typescript",
       "label": "TypeScript",
       "type": "topic",
@@ -719,22 +738,6 @@
         "github-intuition-lab-personal-model",
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063"
-      ],
-      "card_count": 5
-    },
-    {
-      "id": "tag-prompt-engineering",
-      "label": "prompt engineering",
-      "type": "topic",
-      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-dreambigou-eli5",
-        "github-kevintsai1202-humanizer-zh-tw",
-        "github-nanako0129-sepia",
-        "github-s1dashu-ip-as-logo-skill",
-        "github-salsensei-suno-v6-songcraft"
       ],
       "card_count": 5
     },
@@ -1025,6 +1028,20 @@
         "github-drumih-turbo-fieldfare",
         "github-mayocream-koharu",
         "threads-dchbjcxenzb-725dd0"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-music-generation",
+      "label": "music-generation",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-multimodal-art-projection-yue",
+        "github-salsensei-suno-v6-songcraft",
+        "threads-ddsd8tge8tf-f0ae71"
       ],
       "card_count": 3
     },
@@ -1422,19 +1439,6 @@
       "card_ids": [
         "github-eternityspring-shuohao-skills",
         "github-rimagination-h3lite"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-music-generation",
-      "label": "music-generation",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-multimodal-art-projection-yue",
-        "github-salsensei-suno-v6-songcraft"
       ],
       "card_count": 2
     },
@@ -9312,6 +9316,54 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "threads-ddsd8tge8tf-f0ae71",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-ddsd8tge8tf-f0ae71",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-ddsd8tge8tf-f0ae71",
+      "concept_id": "tag-music-generation",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "music-generation"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "threads-ddsd8tge8tf-f0ae71",
+      "concept_id": "tag-prompt-engineering",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "prompt-engineering"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "threads-ddt1gevhcc9-cb2210",
       "concept_id": "category-agent",
       "strength": 1,
@@ -10153,6 +10205,17 @@
     },
     {
       "source": "category-ai-ml",
+      "target": "tag-music-generation",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-multimodal-art-projection-yue",
+        "threads-ddsd8tge8tf-f0ae71"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
       "target": "tag-speech-to-text",
       "type": "co_occurs_with",
       "support": 2,
@@ -10171,17 +10234,6 @@
       "card_ids": [
         "github-harry0703-moneyprinterturbo",
         "github-openbmb-voxcpm"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
-      "target": "tag-traditional-chinese",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-appfromapexxx-taiwan-subtitle",
-        "threads-dcrihmdd46t-183b20"
       ]
     },
     {
@@ -11237,7 +11289,7 @@
       "target": "tag-prompt-engineering",
       "type": "co_occurs_with",
       "support": 5,
-      "weight": 1,
+      "weight": 0.8333,
       "card_ids": [
         "github-dreambigou-eli5",
         "github-kevintsai1202-humanizer-zh-tw",
@@ -11923,6 +11975,17 @@
       ]
     },
     {
+      "source": "tag-music-generation",
+      "target": "tag-prompt-engineering",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-salsensei-suno-v6-songcraft",
+        "threads-ddsd8tge8tf-f0ae71"
+      ]
+    },
+    {
       "source": "tag-opencode",
       "target": "tag-skill-md",
       "type": "co_occurs_with",
@@ -12122,9 +12185,9 @@
     }
   ],
   "stats": {
-    "card_count": 73,
+    "card_count": 74,
     "concept_count": 102,
-    "card_concept_edge_count": 624,
-    "concept_relation_edge_count": 210
+    "card_concept_edge_count": 628,
+    "concept_relation_edge_count": 211
   }
 }
