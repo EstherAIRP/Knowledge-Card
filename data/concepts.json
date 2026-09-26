@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-25T23:11:08.319Z",
-  "input_hash": "ddedacc0b7e5ac8a560a925eadbcab4758b53789d7c9bebba348731233fd5a76",
+  "generated_at": "2026-09-26T09:38:03.477Z",
+  "input_hash": "4223b4764af4e4f7ad058b6b3f08c66b7094acbafa079f933ddad263123e6ab9",
   "concepts": [
     {
       "id": "category-agent",
@@ -781,6 +781,21 @@
       "card_count": 5
     },
     {
+      "id": "tag-agent-harness",
+      "label": "agent-harness",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-addyosmani-agent-skills",
+        "github-g36maid-deepseek-harness",
+        "github-totec448-spec-chat-on-steroids"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "ai-character-interface",
       "label": "AI Character Interface",
       "type": "experience",
@@ -899,20 +914,6 @@
         "github-tsun-u-tsunu-superpowers"
       ],
       "card_count": 4
-    },
-    {
-      "id": "tag-agent-harness",
-      "label": "agent-harness",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-g36maid-deepseek-harness",
-        "github-totec448-spec-chat-on-steroids"
-      ],
-      "card_count": 3
     },
     {
       "id": "tag-agent-orchestration",
@@ -1828,6 +1829,18 @@
         }
       ],
       "origin": "promoted"
+    },
+    {
+      "card_id": "earendil-works-pi",
+      "concept_id": "tag-agent-harness",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-harness"
+        }
+      ],
+      "origin": "shared-tag"
     },
     {
       "card_id": "earendil-works-pi",
@@ -10224,9 +10237,10 @@
       "source": "category-ai-coding-devtools",
       "target": "tag-agent-harness",
       "type": "co_occurs_with",
-      "support": 3,
+      "support": 4,
       "weight": 1,
       "card_ids": [
+        "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-g36maid-deepseek-harness",
         "github-totec448-spec-chat-on-steroids"
@@ -10921,6 +10935,19 @@
     },
     {
       "source": "coding-agent-tooling",
+      "target": "tag-agent-harness",
+      "type": "co_occurs_with",
+      "support": 4,
+      "weight": 1,
+      "card_ids": [
+        "earendil-works-pi",
+        "github-addyosmani-agent-skills",
+        "github-g36maid-deepseek-harness",
+        "github-totec448-spec-chat-on-steroids"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
       "target": "tag-agent-memory",
       "type": "co_occurs_with",
       "support": 5,
@@ -11027,19 +11054,6 @@
         "github-mattpocock-skills",
         "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
-      ]
-    },
-    {
-      "source": "coding-agent-tooling",
-      "target": "tag-opencode",
-      "type": "co_occurs_with",
-      "support": 4,
-      "weight": 1,
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-mensfeld-code-on-incus",
-        "github-obra-superpowers",
-        "github-stablyai-orca"
       ]
     },
     {
@@ -11182,11 +11196,23 @@
     },
     {
       "source": "tag-agent-harness",
-      "target": "tag-coding-agent",
+      "target": "tag-agent-runtime",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 0.6667,
       "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness"
+      ]
+    },
+    {
+      "source": "tag-agent-harness",
+      "target": "tag-coding-agent",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 0.75,
+      "card_ids": [
+        "earendil-works-pi",
         "github-addyosmani-agent-skills",
         "github-totec448-spec-chat-on-steroids"
       ]
@@ -11195,9 +11221,10 @@
       "source": "tag-agent-harness",
       "target": "tag-typescript",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
+      "support": 3,
+      "weight": 0.75,
       "card_ids": [
+        "earendil-works-pi",
         "github-g36maid-deepseek-harness",
         "github-totec448-spec-chat-on-steroids"
       ]
@@ -11388,17 +11415,6 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "tag-agent-runtime",
-      "target": "tag-typescript",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "earendil-works-pi",
-        "github-g36maid-deepseek-harness"
       ]
     },
     {
@@ -12397,7 +12413,7 @@
   "stats": {
     "card_count": 75,
     "concept_count": 103,
-    "card_concept_edge_count": 639,
+    "card_concept_edge_count": 640,
     "concept_relation_edge_count": 214
   }
 }

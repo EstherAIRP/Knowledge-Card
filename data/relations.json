@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-09-25T23:11:07.987Z",
+  "generated_at": "2026-09-26T09:38:03.110Z",
   "card_count": 75,
-  "input_hash": "284101ff1212deec4b987006e50e500ffa1863f7225dc45b2b6bf7f5ce448a6e",
+  "input_hash": "e54d7df95a7c9a2192147a7dcecdc8f3120ecd636d2dac7001574626c7c5f251",
   "pipeline": {
     "semantic": true,
     "semantic_provider": "local-transformers",
@@ -41,16 +41,16 @@
   },
   "classifications": {
     "earendil-works-pi::github-akitaonrails-ai-memory": {
-      "candidate_hash": "95c15236dd9e6466416fd9dd36ec9520e97a0c222c7201aec972624ddf02c3bb",
+      "candidate_hash": "2efe08d28231885f24ffbbe4605e57b7c26742fbb627e1c77157e725de467dd3",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7672,
+      "confidence": 0.7687,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::github-alibaba-open-code-review": {
-      "candidate_hash": "f2aaca968a70e6389ae34e1312d883b1ca79fa937823c62a94de44b8b78dfa15",
+      "candidate_hash": "95181a9f25646fc1a4c3a4396b1d8216b56cd396bd6f956a7278fb9cae83cb29",
       "related": true,
       "type": "similar_to",
       "direction": "undirected",
@@ -59,16 +59,16 @@
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::github-charliie-dev-claude-code-hidden-settings": {
-      "candidate_hash": "66ed2247f3aa415f78e7916633be7fbd81cfe93be777372459d2cf7655108e61",
+      "candidate_hash": "52b49cce77327c95eaf5c3c74ce6cecbcb08d620b3b394192114f8be8e08827e",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7769,
+      "confidence": 0.7677,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::github-g36maid-deepseek-harness": {
-      "candidate_hash": "5dda2d4514b50588e9680d2d6be8dec293066b8a753d9bf4dfee4ce1a2cf0b0b",
+      "candidate_hash": "d5ae8a4a3880e9cbb1c128f4e24cbe246be5cb07d3a79577ad56b4a625c7cf3e",
       "related": true,
       "type": "similar_to",
       "direction": "undirected",
@@ -77,34 +77,43 @@
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::github-herdrdev-herdr": {
-      "candidate_hash": "82cc55cb418ac6a6d2c1fb6ee79146d7475e41570209383e7732271e18a70319",
+      "candidate_hash": "c478eb517de06f98b5bfb0e777bce6b505cb88ae70aedbe710eca54c167dbb22",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7631,
+      "confidence": 0.7707,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "earendil-works-pi::github-mensfeld-code-on-incus": {
+      "candidate_hash": "28031eee31674a76420fcae30e6ba888796a21af10382b4a955196bc28ec626c",
+      "related": false,
+      "type": "similar_to",
+      "direction": "undirected",
+      "confidence": 0.7475,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::github-nanako0129-sepia": {
-      "candidate_hash": "34e4fc2beae2cccee8cf03cb09592da44d46d7a8cd875972cc94f3eb310fa114",
+      "candidate_hash": "ad90c4254ef70f1e6daee866cfb5f8fd4dbb65dacdebe4e7800d0fff7b5bafdc",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7579,
+      "confidence": 0.7524,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::github-stablyai-orca": {
-      "candidate_hash": "3c93134665306dd16a9518e62fb5a3679285ee4c49662ff8ac71e950c6c25812",
+      "candidate_hash": "0b276e298149762c5c7a78cb07853ac47745e578e8dfed135457948c732b1faf",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7572,
+      "confidence": 0.7647,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::github-totec448-spec-chat-on-steroids": {
-      "candidate_hash": "3792824c87db20fceef4baaa39759a4183e2898fc22ed9ee944caa06eb6d11b8",
+      "candidate_hash": "3c4ae99c9f973e81306610fc1938463f54498586c262758ea5c2dee903c6fd3a",
       "related": true,
       "type": "similar_to",
       "direction": "undirected",
@@ -113,38 +122,29 @@
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::github-yanjiye-hareno-kairo": {
-      "candidate_hash": "51937cc420be30ce40dc16d00d16ee46f21eb055cadcb36a4778e0aec7f06029",
+      "candidate_hash": "1776db55dcdee5fb94c09c5d9796f53e3799450d1a53fea85b62f0ebe1d3ae16",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7557,
+      "confidence": 0.7478,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::threads-db-fphwgfos-7d09e0": {
-      "candidate_hash": "93ff9a10831969bf2fd60926643576f4a4d831014fec7fd2187934539bd1344a",
+      "candidate_hash": "305d05cd7ce536d7efd0e96da44aed0013f14c803b4627184c5ce6bb5f99bbce",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7784,
+      "confidence": 0.78,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::threads-db-wlkkgtu-18d1ea": {
-      "candidate_hash": "eda08b893aebcfd7ab0c59491eef837f622907eb482f3f5758ea55e29de75afc",
+      "candidate_hash": "80f6f8d12ecfdafb917e504f3856aab491477bc780bcbe60a04cfa6077aa21a5",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7661,
-      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
-      "classifier": "heuristic-fallback"
-    },
-    "earendil-works-pi::threads-dcuhxije1zf-9b4063": {
-      "candidate_hash": "2596d900636f75ea8fab39e13badbc092ced43c91ccdbfd19887b8865e572ed2",
-      "related": false,
-      "type": "similar_to",
-      "direction": "undirected",
-      "confidence": 0.7535,
+      "confidence": 0.763,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
@@ -949,15 +949,6 @@
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
-    "github-charliie-dev-claude-code-hidden-settings::github-mensfeld-code-on-incus": {
-      "candidate_hash": "6ca4cadb32f5d43a54d794cf5a80662ca77a4497049467c3d7fb2354f850e26a",
-      "related": false,
-      "type": "similar_to",
-      "direction": "undirected",
-      "confidence": 0.7131,
-      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
-      "classifier": "heuristic-fallback"
-    },
     "github-charliie-dev-claude-code-hidden-settings::github-minijinai75-tavern-claude-bridge": {
       "candidate_hash": "b7352d92eea20e1c76965012b552f1f1574a54f8f521b7f565851fd9cb16e301",
       "related": false,
@@ -1018,6 +1009,15 @@
       "type": "similar_to",
       "direction": "undirected",
       "confidence": 0.7012,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-charliie-dev-claude-code-hidden-settings::threads-dcuhxije1zf-9b4063": {
+      "candidate_hash": "4bec89c34fa96a66b1dae25937b80a7edadd34aa19790bac7d86abd0aba9fc43",
+      "related": false,
+      "type": "similar_to",
+      "direction": "undirected",
+      "confidence": 0.7283,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
@@ -4043,13 +4043,13 @@
       "target": "github-alibaba-open-code-review",
       "type": "similar_to",
       "direction": "undirected",
-      "score": 0.8127,
+      "score": 0.8118,
       "scores": {
         "taxonomy": 0.6875,
-        "semantic": 0.9255,
-        "semantic_raw": 0.9314,
+        "semantic": 0.9231,
+        "semantic_raw": 0.9308,
         "llm": null,
-        "combined": 0.8303
+        "combined": 0.8289
       },
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
       "confidence": 0.78,
@@ -4064,20 +4064,20 @@
         "action:REFERENCE",
         "action:TRY"
       ],
-      "candidate_hash": "f2aaca968a70e6389ae34e1312d883b1ca79fa937823c62a94de44b8b78dfa15"
+      "candidate_hash": "95181a9f25646fc1a4c3a4396b1d8216b56cd396bd6f956a7278fb9cae83cb29"
     },
     {
       "source": "earendil-works-pi",
       "target": "github-g36maid-deepseek-harness",
       "type": "similar_to",
       "direction": "undirected",
-      "score": 0.7903,
+      "score": 0.7963,
       "scores": {
-        "taxonomy": 0.5369,
-        "semantic": 0.9684,
-        "semantic_raw": 0.9421,
+        "taxonomy": 0.5475,
+        "semantic": 0.9767,
+        "semantic_raw": 0.9442,
         "llm": null,
-        "combined": 0.7958
+        "combined": 0.805
       },
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
       "confidence": 0.78,
@@ -4086,6 +4086,7 @@
         "category:Agent",
         "category:AI Coding / DevTools",
         "category:LLM",
+        "tag:agent-harness",
         "tag:agent-runtime",
         "tag:TypeScript",
         "relevance:ai_rd",
@@ -4094,20 +4095,20 @@
         "action:REFERENCE",
         "action:TRY"
       ],
-      "candidate_hash": "5dda2d4514b50588e9680d2d6be8dec293066b8a753d9bf4dfee4ce1a2cf0b0b"
+      "candidate_hash": "d5ae8a4a3880e9cbb1c128f4e24cbe246be5cb07d3a79577ad56b4a625c7cf3e"
     },
     {
       "source": "earendil-works-pi",
       "target": "github-totec448-spec-chat-on-steroids",
       "type": "similar_to",
       "direction": "undirected",
-      "score": 0.7984,
+      "score": 0.8016,
       "scores": {
-        "taxonomy": 0.6011,
-        "semantic": 0.9464,
-        "semantic_raw": 0.9366,
+        "taxonomy": 0.611,
+        "semantic": 0.9482,
+        "semantic_raw": 0.937,
         "llm": null,
-        "combined": 0.8083
+        "combined": 0.8133
       },
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
       "confidence": 0.78,
@@ -4116,6 +4117,7 @@
         "category:Agent",
         "category:AI Coding / DevTools",
         "category:LLM",
+        "tag:agent-harness",
         "tag:coding-agent",
         "tag:TypeScript",
         "relevance:ai_rd",
@@ -4124,7 +4126,7 @@
         "action:REFERENCE",
         "action:TRY"
       ],
-      "candidate_hash": "3792824c87db20fceef4baaa39759a4183e2898fc22ed9ee944caa06eb6d11b8"
+      "candidate_hash": "3c4ae99c9f973e81306610fc1938463f54498586c262758ea5c2dee903c6fd3a"
     },
     {
       "source": "github-addyosmani-agent-skills",
