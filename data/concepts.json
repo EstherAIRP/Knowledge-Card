@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-26T09:38:03.477Z",
-  "input_hash": "4223b4764af4e4f7ad058b6b3f08c66b7094acbafa079f933ddad263123e6ab9",
+  "generated_at": "2026-09-26T16:37:39.039Z",
+  "input_hash": "c7aa6492bffd2bda916e8aba2d2943c5b834ed204296131c14eba8ba98fae75e",
   "concepts": [
     {
       "id": "category-agent",
@@ -51,6 +51,7 @@
         "github-nutlope-hallmark",
         "github-obra-superpowers",
         "github-rimagination-h3lite",
+        "github-roble3-cc-blender-skill",
         "github-s1dashu-ip-as-logo-skill",
         "github-salsensei-suno-v6-songcraft",
         "github-santifer-career-ops",
@@ -70,7 +71,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 58
+      "card_count": 59
     },
     {
       "id": "coding-agent-tooling",
@@ -109,6 +110,7 @@
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
+        "github-roble3-cc-blender-skill",
         "github-salsensei-suno-v6-songcraft",
         "github-santifer-career-ops",
         "github-stablyai-orca",
@@ -124,7 +126,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 43
+      "card_count": 44
     },
     {
       "id": "category-ai-coding-devtools",
@@ -161,6 +163,7 @@
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
+        "github-roble3-cc-blender-skill",
         "github-santifer-career-ops",
         "github-stablyai-orca",
         "github-totec448-spec-chat-on-steroids",
@@ -173,7 +176,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 38
+      "card_count": 39
     },
     {
       "id": "category-general-tools",
@@ -290,7 +293,7 @@
       "id": "tag-claude-code",
       "label": "Claude Code",
       "type": "topic",
-      "description": "至少出現在 18 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 19 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -306,6 +309,7 @@
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
+        "github-roble3-cc-blender-skill",
         "github-stablyai-orca",
         "github-titanwings-distilly",
         "github-tsun-u-memory-toolkit",
@@ -313,7 +317,7 @@
         "github-virgiliojr94-book-to-skill",
         "github-yanjiye-hareno-kairo"
       ],
-      "card_count": 18
+      "card_count": 19
     },
     {
       "id": "tag-agent-skill",
@@ -502,6 +506,28 @@
       "card_count": 14
     },
     {
+      "id": "tag-agent-skills",
+      "label": "agent-skills",
+      "type": "topic",
+      "description": "至少出現在 11 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-k-dense-ai-scientific-agent-skills",
+        "github-mattpocock-skills",
+        "github-modelcontextprotocol-ext-skills",
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers",
+        "github-roble3-cc-blender-skill",
+        "github-tsun-u-memory-toolkit",
+        "github-tsun-u-tsunu-superpowers",
+        "github-virgiliojr94-book-to-skill"
+      ],
+      "card_count": 11
+    },
+    {
       "id": "tag-mcp",
       "label": "MCP",
       "type": "topic",
@@ -522,27 +548,6 @@
         "threads-dclcucpas-z-66b25b"
       ],
       "card_count": 11
-    },
-    {
-      "id": "tag-agent-skills",
-      "label": "agent-skills",
-      "type": "topic",
-      "description": "至少出現在 10 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-harry0703-moneyprinterturbo",
-        "github-k-dense-ai-scientific-agent-skills",
-        "github-mattpocock-skills",
-        "github-modelcontextprotocol-ext-skills",
-        "github-ncusspm25-opus-mode-for-codex",
-        "github-obra-superpowers",
-        "github-tsun-u-memory-toolkit",
-        "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 10
     },
     {
       "id": "character-runtime",
@@ -602,9 +607,10 @@
         "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
         "github-promptfairy-prompt-fairy",
         "github-rimagination-h3lite",
+        "github-roble3-cc-blender-skill",
         "github-s1dashu-ip-as-logo-skill"
       ],
-      "card_count": 9
+      "card_count": 10
     },
     {
       "id": "image-generation-workflow",
@@ -622,9 +628,10 @@
         "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
         "github-promptfairy-prompt-fairy",
         "github-rimagination-h3lite",
+        "github-roble3-cc-blender-skill",
         "github-s1dashu-ip-as-logo-skill"
       ],
-      "card_count": 9
+      "card_count": 10
     },
     {
       "id": "tag-local-first",
@@ -1735,6 +1742,19 @@
       "card_ids": [
         "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-visual-validation",
+      "label": "visual-validation",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-cathrynlavery-diagram-design",
+        "github-roble3-cc-blender-skill"
       ],
       "card_count": 2
     },
@@ -3006,6 +3026,18 @@
         {
           "kind": "tag",
           "value": "Playwright"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-cathrynlavery-diagram-design",
+      "concept_id": "tag-visual-validation",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "visual-validation"
         }
       ],
       "origin": "shared-tag"
@@ -7275,6 +7307,106 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-roble3-cc-blender-skill",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-roble3-cc-blender-skill",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-roble3-cc-blender-skill",
+      "concept_id": "category-image-generation",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-roble3-cc-blender-skill",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-roble3-cc-blender-skill",
+      "concept_id": "image-generation-workflow",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-roble3-cc-blender-skill",
+      "concept_id": "tag-agent-skills",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Agent Skills"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-roble3-cc-blender-skill",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-roble3-cc-blender-skill",
+      "concept_id": "tag-visual-validation",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Visual Validation"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-s1dashu-ip-as-logo-skill",
       "concept_id": "category-agent",
       "strength": 1,
@@ -10067,7 +10199,7 @@
       "source": "category-agent",
       "target": "tag-agent-skills",
       "type": "co_occurs_with",
-      "support": 10,
+      "support": 11,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -10077,6 +10209,7 @@
         "github-modelcontextprotocol-ext-skills",
         "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers",
+        "github-roble3-cc-blender-skill",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill"
@@ -10086,7 +10219,7 @@
       "source": "category-agent",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 18,
+      "support": 19,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -10101,6 +10234,7 @@
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
+        "github-roble3-cc-blender-skill",
         "github-stablyai-orca",
         "github-titanwings-distilly",
         "github-tsun-u-memory-toolkit",
@@ -10190,7 +10324,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 38,
+      "support": 39,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -10220,6 +10354,7 @@
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
+        "github-roble3-cc-blender-skill",
         "github-santifer-career-ops",
         "github-stablyai-orca",
         "github-totec448-spec-chat-on-steroids",
@@ -10515,7 +10650,7 @@
       "source": "category-image-generation",
       "target": "image-generation-workflow",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
         "github-eternityspring-shuohao-skills",
@@ -10526,6 +10661,7 @@
         "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
         "github-promptfairy-prompt-fairy",
         "github-rimagination-h3lite",
+        "github-roble3-cc-blender-skill",
         "github-s1dashu-ip-as-logo-skill"
       ]
     },
@@ -10534,7 +10670,7 @@
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.3333,
+      "weight": 0.3,
       "card_ids": [
         "github-eternityspring-shuohao-skills",
         "github-rimagination-h3lite",
@@ -10964,7 +11100,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 18,
+      "support": 19,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -10979,6 +11115,7 @@
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
+        "github-roble3-cc-blender-skill",
         "github-stablyai-orca",
         "github-titanwings-distilly",
         "github-tsun-u-memory-toolkit",
@@ -12411,9 +12548,9 @@
     }
   ],
   "stats": {
-    "card_count": 75,
-    "concept_count": 103,
-    "card_concept_edge_count": 640,
+    "card_count": 76,
+    "concept_count": 104,
+    "card_concept_edge_count": 649,
     "concept_relation_edge_count": 214
   }
 }
