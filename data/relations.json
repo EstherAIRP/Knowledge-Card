@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-09-27T02:07:35.625Z",
+  "generated_at": "2026-09-27T02:27:26.878Z",
   "card_count": 77,
-  "input_hash": "9cea40090aada8cebe1571ce81ea85c6707ac798e1cf57e57b7097ac1b204510",
+  "input_hash": "dd125c55b6c6b716af7bc60de77633eab02368054af54353dba2c1fff8616103",
   "pipeline": {
     "semantic": true,
     "semantic_provider": "local-transformers",
@@ -95,7 +95,7 @@
       "classifier": "heuristic-fallback"
     },
     "earendil-works-pi::github-paperclipai-paperclip": {
-      "candidate_hash": "f68694da0d9af4ce7522a7d5456699260f185e2c787deb0946f01c4ceb4f35ce",
+      "candidate_hash": "17180a10d8eca6470da6ced7aabeac53e0cdd3600137a0ac035e27015758376d",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -590,11 +590,11 @@
       "classifier": "heuristic-fallback"
     },
     "github-alibaba-open-code-review::github-paperclipai-paperclip": {
-      "candidate_hash": "73d2f3b11ebdc77cf5a82a9f0ab3a059a677049162ee7d264e7939d8890b02c0",
+      "candidate_hash": "9e29f850242100730aacd04cee251d22cc5240014d821fdad161ebee06ada06a",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7734,
+      "confidence": 0.7689,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
@@ -1346,11 +1346,11 @@
       "classifier": "heuristic-fallback"
     },
     "github-desktop-commander-remote-desktop-commander::github-paperclipai-paperclip": {
-      "candidate_hash": "09fba75ce870ca02cddb84b29e91c98e8671084cda2ad96b8e3db8b72aebedf3",
+      "candidate_hash": "5ae9666a4f8c36efdbf839752c6a78b3b13d9798d44a39ba60e9a8c68380ff59",
       "related": true,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7678,
+      "confidence": 0.7627,
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
       "classifier": "heuristic-fallback"
     },
@@ -1769,11 +1769,11 @@
       "classifier": "heuristic-fallback"
     },
     "github-g36maid-deepseek-harness::github-paperclipai-paperclip": {
-      "candidate_hash": "dacf463b236d78a4cd350ed7a8d21e2766e797836f3f6bc55eaa9bc1f876f9cd",
+      "candidate_hash": "7b2a1d3bbc1fe82caa5d2aa0281c1e04fe4fa7354425e77d01e683cdcb9d7c2f",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7751,
+      "confidence": 0.7691,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
@@ -2084,7 +2084,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-herdrdev-herdr::github-paperclipai-paperclip": {
-      "candidate_hash": "5f09a2e3d375457a8abc3de17d21a4a3c2585ce8e2c452dc84b59c885d1dd378",
+      "candidate_hash": "05aa9c412a10eed299fd6ee972f9861b6e682ad1f80de1c0db15a8960e852b96",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -2498,11 +2498,11 @@
       "classifier": "heuristic-fallback"
     },
     "github-mars-tw-ai-console::github-paperclipai-paperclip": {
-      "candidate_hash": "f13f375bd847262a8c925ade1c237c20019c4c6c2d3dfe15d1e36d25bd56ed2d",
+      "candidate_hash": "32f885827ade6b5574d9e348b13604b6ea71bb78e56e7acf7b265e88e78449f3",
       "related": true,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7702,
+      "confidence": 0.7621,
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
       "classifier": "heuristic-fallback"
     },
@@ -2813,11 +2813,11 @@
       "classifier": "heuristic-fallback"
     },
     "github-mensfeld-code-on-incus::github-paperclipai-paperclip": {
-      "candidate_hash": "9a56dc351f1ceaeeebba0e83b594e28b6cfbe3dc9806140384b487abc16769f0",
+      "candidate_hash": "408461771a88ae8ccfce6939f5fc91f2399cd4d7e6b0142d67b0038f7dad286b",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.76,
+      "confidence": 0.7544,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
@@ -3029,11 +3029,11 @@
       "classifier": "heuristic-fallback"
     },
     "github-modelcontextprotocol-ext-skills::github-paperclipai-paperclip": {
-      "candidate_hash": "5a633416bac1c4aa12feeeb23725d8609156b997352e963c612274a54d223d62",
+      "candidate_hash": "41f4d6c8f73585447bac9794ee7957aac093718fa9184ba527aed32ae8dab56f",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7485,
+      "confidence": 0.7449,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
@@ -3488,7 +3488,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-paperclipai-paperclip::github-stablyai-orca": {
-      "candidate_hash": "b38a390232a6e322fb3b5439553170fa1306d4530a5a39b1ae9a3ec6404b6834",
+      "candidate_hash": "005cd8fb1cf8c8b6831e6435267c85ad15ab47eecf2a69bca09d7afabcd54e3f",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
@@ -3497,7 +3497,7 @@
       "classifier": "heuristic-fallback"
     },
     "github-paperclipai-paperclip::github-totec448-spec-chat-on-steroids": {
-      "candidate_hash": "5e66d0266d7dcdccc48f0cc557b4d3ffdc6a94048237c7c4bcce84dc7eb5ffe0",
+      "candidate_hash": "68bc881a1c588e06de5b5ddd32b1f10be553305723abb3e5a9b5b4bfa2dd5f39",
       "related": true,
       "type": "similar_to",
       "direction": "undirected",
@@ -3506,20 +3506,20 @@
       "classifier": "heuristic-fallback"
     },
     "github-paperclipai-paperclip::github-virgiliojr94-book-to-skill": {
-      "candidate_hash": "b5ec4fd86d4837cf009bdf4253122d2d18be0c4a726acf3f655c546549fe3347",
+      "candidate_hash": "93c964b18c99b360fe18555d4dcb5e9c1520b44d684504831c8f05773f639514",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.7398,
+      "confidence": 0.7302,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "github-paperclipai-paperclip::threads-db-fphwgfos-7d09e0": {
-      "candidate_hash": "4f5779af3643574f1ac58043c8eba953bdbf4604f2594afb3b776f5607b075b3",
+      "candidate_hash": "d1f6a99b6b764746561a109c4f5d71386c0da2b8e465191cdcb17145b1a4fa11",
       "related": false,
       "type": "similar_to",
       "direction": "undirected",
-      "confidence": 0.761,
+      "confidence": 0.7538,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
@@ -5120,16 +5120,16 @@
       "target": "github-paperclipai-paperclip",
       "type": "similar_to",
       "direction": "undirected",
-      "score": 0.7678,
+      "score": 0.7627,
       "scores": {
         "taxonomy": 0.533,
-        "semantic": 0.9244,
-        "semantic_raw": 0.9311,
+        "semantic": 0.9158,
+        "semantic_raw": 0.929,
         "llm": null,
-        "combined": 0.7678
+        "combined": 0.7627
       },
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
-      "confidence": 0.7678,
+      "confidence": 0.7627,
       "classifier": "heuristic-fallback",
       "signals": [
         "category:Agent",
@@ -5142,7 +5142,7 @@
         "action:REFERENCE",
         "action:TRY"
       ],
-      "candidate_hash": "09fba75ce870ca02cddb84b29e91c98e8671084cda2ad96b8e3db8b72aebedf3"
+      "candidate_hash": "5ae9666a4f8c36efdbf839752c6a78b3b13d9798d44a39ba60e9a8c68380ff59"
     },
     {
       "source": "github-dreambigou-eli5",
@@ -6083,16 +6083,16 @@
       "target": "github-paperclipai-paperclip",
       "type": "similar_to",
       "direction": "undirected",
-      "score": 0.7702,
+      "score": 0.7621,
       "scores": {
         "taxonomy": 0.5181,
-        "semantic": 0.9383,
-        "semantic_raw": 0.9346,
+        "semantic": 0.9248,
+        "semantic_raw": 0.9312,
         "llm": null,
-        "combined": 0.7702
+        "combined": 0.7621
       },
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
-      "confidence": 0.7702,
+      "confidence": 0.7621,
       "classifier": "heuristic-fallback",
       "signals": [
         "category:Agent",
@@ -6105,7 +6105,7 @@
         "action:LEARN",
         "action:TRY"
       ],
-      "candidate_hash": "f13f375bd847262a8c925ade1c237c20019c4c6c2d3dfe15d1e36d25bd56ed2d"
+      "candidate_hash": "32f885827ade6b5574d9e348b13604b6ea71bb78e56e7acf7b265e88e78449f3"
     },
     {
       "source": "github-mars-tw-ai-console",
@@ -6842,13 +6842,13 @@
       "target": "github-totec448-spec-chat-on-steroids",
       "type": "similar_to",
       "direction": "undirected",
-      "score": 0.8099,
+      "score": 0.806,
       "scores": {
         "taxonomy": 0.7196,
-        "semantic": 0.897,
-        "semantic_raw": 0.9243,
+        "semantic": 0.8869,
+        "semantic_raw": 0.9217,
         "llm": null,
-        "combined": 0.826
+        "combined": 0.82
       },
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
       "confidence": 0.78,
@@ -6867,7 +6867,7 @@
         "action:REFERENCE",
         "action:TRY"
       ],
-      "candidate_hash": "5e66d0266d7dcdccc48f0cc557b4d3ffdc6a94048237c7c4bcce84dc7eb5ffe0"
+      "candidate_hash": "68bc881a1c588e06de5b5ddd32b1f10be553305723abb3e5a9b5b4bfa2dd5f39"
     },
     {
       "source": "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
