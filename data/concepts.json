@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-27T02:27:27.131Z",
-  "input_hash": "f6bbb9f1071369cfa5a575e1606aa611b7a3121889f2b68e1a79cb53c89e94e1",
+  "generated_at": "2026-09-28T00:35:38.717Z",
+  "input_hash": "e2e3a9285eb2cb9185b45d2359a5b35f586f0690398e1d8e3c7be462a7431fc9",
   "concepts": [
     {
       "id": "category-agent",
@@ -106,6 +106,7 @@
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
+        "github-mexicat-pdoom-video",
         "github-minijinai75-tavern-claude-bridge",
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
@@ -128,7 +129,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 45
+      "card_count": 46
     },
     {
       "id": "category-ai-coding-devtools",
@@ -202,6 +203,7 @@
         "github-kevintsai1202-humanizer-zh-tw",
         "github-mars-tw-open-seo-advisor-skill",
         "github-mattpocock-skills",
+        "github-mexicat-pdoom-video",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-ncusspm25-opus-mode-for-codex",
         "github-notoriouslab-vault-curate",
@@ -221,7 +223,7 @@
         "threads-ddt1gevhcc9-cb2210",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 31
+      "card_count": 32
     },
     {
       "id": "category-llm",
@@ -298,7 +300,7 @@
       "id": "tag-claude-code",
       "label": "Claude Code",
       "type": "topic",
-      "description": "至少出現在 19 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 20 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -310,6 +312,7 @@
         "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
+        "github-mexicat-pdoom-video",
         "github-minijinai75-tavern-claude-bridge",
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
@@ -322,7 +325,7 @@
         "github-virgiliojr94-book-to-skill",
         "github-yanjiye-hareno-kairo"
       ],
-      "card_count": 19
+      "card_count": 20
     },
     {
       "id": "agent-api-bridge",
@@ -685,19 +688,20 @@
       "id": "tag-typescript",
       "label": "TypeScript",
       "type": "topic",
-      "description": "至少出現在 7 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 8 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
         "earendil-works-pi",
         "github-g36maid-deepseek-harness",
         "github-mars-tw-ai-console",
+        "github-mexicat-pdoom-video",
         "github-paperclipai-paperclip",
         "github-stablyai-orca",
         "github-totec448-spec-chat-on-steroids",
         "github-twinklestars1029-sillytavern-regex"
       ],
-      "card_count": 7
+      "card_count": 8
     },
     {
       "id": "tag-prompt-engineering",
@@ -1017,6 +1021,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-ffmpeg",
+      "label": "ffmpeg",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-harry0703-moneyprinterturbo",
+        "github-mexicat-pdoom-video"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-git-worktree",
       "label": "git-worktree",
       "type": "topic",
@@ -1083,6 +1101,20 @@
         "github-multimodal-art-projection-yue",
         "github-salsensei-suno-v6-songcraft",
         "threads-ddsd8tge8tf-f0ae71"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-playwright",
+      "label": "Playwright",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-cathrynlavery-diagram-design",
+        "github-mexicat-pdoom-video",
+        "github-santifer-career-ops"
       ],
       "card_count": 3
     },
@@ -1380,19 +1412,6 @@
       "card_count": 2
     },
     {
-      "id": "tag-ffmpeg",
-      "label": "ffmpeg",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-appfromapexxx-taiwan-subtitle",
-        "github-harry0703-moneyprinterturbo"
-      ],
-      "card_count": 2
-    },
-    {
       "id": "tag-frontend",
       "label": "frontend",
       "type": "topic",
@@ -1532,19 +1551,6 @@
       "card_ids": [
         "github-herdrdev-herdr",
         "github-totec448-spec-chat-on-steroids"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-playwright",
-      "label": "Playwright",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-cathrynlavery-diagram-design",
-        "github-santifer-career-ops"
       ],
       "card_count": 2
     },
@@ -5713,6 +5719,78 @@
         {
           "kind": "tag",
           "value": "OpenCode"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mexicat-pdoom-video",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mexicat-pdoom-video",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mexicat-pdoom-video",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mexicat-pdoom-video",
+      "concept_id": "tag-ffmpeg",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "FFmpeg"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mexicat-pdoom-video",
+      "concept_id": "tag-playwright",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Playwright"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mexicat-pdoom-video",
+      "concept_id": "tag-typescript",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "TypeScript"
         }
       ],
       "origin": "shared-tag"
@@ -10362,34 +10440,6 @@
     },
     {
       "source": "category-agent",
-      "target": "tag-claude-code",
-      "type": "co_occurs_with",
-      "support": 19,
-      "weight": 1,
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-cathrynlavery-diagram-design",
-        "github-charliie-dev-claude-code-hidden-settings",
-        "github-danyuchn-iso-24495-skill",
-        "github-dreambigou-eli5",
-        "github-eternityspring-shuohao-skills",
-        "github-mattpocock-skills",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-nanako0129-sepia",
-        "github-nutlope-hallmark",
-        "github-obra-superpowers",
-        "github-roble3-cc-blender-skill",
-        "github-stablyai-orca",
-        "github-titanwings-distilly",
-        "github-tsun-u-memory-toolkit",
-        "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill",
-        "github-yanjiye-hareno-kairo"
-      ]
-    },
-    {
-      "source": "category-agent",
       "target": "tag-codex",
       "type": "co_occurs_with",
       "support": 15,
@@ -10443,6 +10493,20 @@
         "github-moeru-ai-airi",
         "github-stablyai-orca",
         "github-totec448-spec-chat-on-steroids"
+      ]
+    },
+    {
+      "source": "category-agent",
+      "target": "tag-long-term-memory",
+      "type": "co_occurs_with",
+      "support": 5,
+      "weight": 1,
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-intuition-lab-personal-model",
+        "threads-dclcucpas-z-66b25b",
+        "threads-dcuhxije1zf-9b4063"
       ]
     },
     {
@@ -10640,7 +10704,7 @@
       "target": "tag-ffmpeg",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-appfromapexxx-taiwan-subtitle",
         "github-harry0703-moneyprinterturbo"
@@ -10736,17 +10800,6 @@
     },
     {
       "source": "category-general-tools",
-      "target": "tag-desktop-automation",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-desktop-commander-remote-desktop-commander"
-      ]
-    },
-    {
-      "source": "category-general-tools",
       "target": "tag-engineering-discipline",
       "type": "co_occurs_with",
       "support": 4,
@@ -10756,6 +10809,18 @@
         "github-mattpocock-skills",
         "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
+      ]
+    },
+    {
+      "source": "category-general-tools",
+      "target": "tag-playwright",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-cathrynlavery-diagram-design",
+        "github-mexicat-pdoom-video",
+        "github-santifer-career-ops"
       ]
     },
     {
@@ -11248,7 +11313,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 19,
+      "support": 20,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -11259,6 +11324,7 @@
         "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
+        "github-mexicat-pdoom-video",
         "github-minijinai75-tavern-claude-bridge",
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
@@ -11764,7 +11830,7 @@
       "target": "tag-playwright",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-cathrynlavery-diagram-design",
         "github-santifer-career-ops"
@@ -11945,6 +12011,17 @@
         "github-mensfeld-code-on-incus",
         "github-obra-superpowers",
         "github-stablyai-orca"
+      ]
+    },
+    {
+      "source": "tag-claude-code",
+      "target": "tag-quality-gates",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-eternityspring-shuohao-skills"
       ]
     },
     {
@@ -12347,7 +12424,7 @@
       "target": "tag-typescript",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.2857,
+      "weight": 0.25,
       "card_ids": [
         "github-mars-tw-ai-console",
         "github-totec448-spec-chat-on-steroids"
@@ -12709,9 +12786,9 @@
     }
   ],
   "stats": {
-    "card_count": 77,
+    "card_count": 78,
     "concept_count": 104,
-    "card_concept_edge_count": 660,
-    "concept_relation_edge_count": 215
+    "card_concept_edge_count": 666,
+    "concept_relation_edge_count": 216
   }
 }

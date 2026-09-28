@@ -1,15 +1,15 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-09-27T09:20:45.023Z",
-  "card_count": 77,
-  "input_hash": "e5bf45d32532dd678e858420479d95a3268af87f05d4052f04bca90d5605f91b",
+  "generated_at": "2026-09-28T00:35:38.447Z",
+  "card_count": 78,
+  "input_hash": "296751c8348cdd41033d423fa4b32dfb813385695f05e40ad81948a272037ac8",
   "pipeline": {
     "semantic": true,
     "semantic_provider": "local-transformers",
     "semantic_model": "Xenova/multilingual-e5-small",
     "classifier_mode": "semantic-fallback",
     "classifier_model": null,
-    "candidate_count": 456
+    "candidate_count": 462
   },
   "config": {
     "candidate": {
@@ -670,6 +670,15 @@
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
+    "github-appfromapexxx-taiwan-subtitle::github-mexicat-pdoom-video": {
+      "candidate_hash": "3668e21cd18c76bf5495eb4de249510f8b82eb1f748f13a40c0ef3185f8a0d26",
+      "related": false,
+      "type": "complements",
+      "direction": "undirected",
+      "confidence": 0.5974,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
     "github-appfromapexxx-taiwan-subtitle::github-multimodal-art-projection-yue": {
       "candidate_hash": "6dd4f2101bbd3189e2fb6fc8878b2b5399a5c506c56dc309541309a1a7ff3050",
       "related": false,
@@ -695,15 +704,6 @@
       "direction": "undirected",
       "confidence": 0.6445,
       "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
-      "classifier": "heuristic-fallback"
-    },
-    "github-appfromapexxx-taiwan-subtitle::github-pottokao-dotcom-comfyui-qwenimage-photostyles": {
-      "candidate_hash": "6ce5c514e8d3c88db7edbc5395dd9e0db7bf350731598c97a74eeb375a857eb5",
-      "related": false,
-      "type": "complements",
-      "direction": "undirected",
-      "confidence": 0.5476,
-      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "github-appfromapexxx-taiwan-subtitle::github-twinklestars1029-sillytavern-regex": {
@@ -2767,12 +2767,12 @@
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
-    "github-mayocream-koharu::threads-dcdjlucgrwf-66e463": {
-      "candidate_hash": "f77727b881ad8c8b5ee42a00cab0a118469a3e77ef2dcc44316b61ad76d4cfdc",
+    "github-mayocream-koharu::threads-dchbjcxenzb-725dd0": {
+      "candidate_hash": "5e836ec563a6461ba6dab58a10217b3293650b290bdce16d931ad08e92c31a21",
       "related": false,
       "type": "complements",
       "direction": "undirected",
-      "confidence": 0.5119,
+      "confidence": 0.5616,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
@@ -2846,6 +2846,105 @@
       "direction": "undirected",
       "confidence": 0.7521,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::github-nevertoday-xxd-panel-102": {
+      "candidate_hash": "bdb23bc91664f0433a4ad029fa090f939045552360ca311f8ab26e716a680841",
+      "related": false,
+      "type": "complements",
+      "direction": "undirected",
+      "confidence": 0.5945,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::github-notoriouslab-vault-curate": {
+      "candidate_hash": "3cf5e7d8c1e2abe2c9e5079c34f214a89e69b96d23f7afa6010c179caf3b1fd5",
+      "related": false,
+      "type": "complements",
+      "direction": "undirected",
+      "confidence": 0.5749,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::github-pottokao-dotcom-comfyui-qwenimage-photostyles": {
+      "candidate_hash": "2820a0f47b2ac720418c70279509cb26679bcb7539d6fed99d73a3cf7183b295",
+      "related": false,
+      "type": "complements",
+      "direction": "undirected",
+      "confidence": 0.5583,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::github-promptfairy-prompt-fairy": {
+      "candidate_hash": "e3ca1eba1e634c057b1dd5e21ac15ba22f931f8977d14374fdd4adef78cc53a1",
+      "related": true,
+      "type": "similar_to",
+      "direction": "undirected",
+      "confidence": 0.6993,
+      "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::github-roble3-cc-blender-skill": {
+      "candidate_hash": "d7f9b4f72084feb0b9e8ca071cb6079cf96f4c392f504ef0c86669f0241d53f1",
+      "related": false,
+      "type": "complements",
+      "direction": "undirected",
+      "confidence": 0.5777,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::github-twinklestars1029-sillytavern-regex": {
+      "candidate_hash": "29eb7e317f10603ba368a6340154b3eb91285d07e46bc5785ee68f04dda85ad2",
+      "related": true,
+      "type": "complements",
+      "direction": "undirected",
+      "confidence": 0.6109,
+      "reason": "兩張 Card 具有足夠的 metadata／語意相近度，但無法僅靠 deterministic signals 判斷更細的方向性關係；目前以 complements 作為保守 fallback。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::threads-dcdjlucgrwf-66e463": {
+      "candidate_hash": "db1665663a62921803f96f353c60f6a56e103cc48a05c2c42001333bddb7360f",
+      "related": false,
+      "type": "complements",
+      "direction": "undirected",
+      "confidence": 0.5266,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::threads-dcglstsogz3-fa0168": {
+      "candidate_hash": "bbde345415a2f1f5e3acd377f4aca90411dfc73da56335f094d5caf4db1c7f94",
+      "related": false,
+      "type": "complements",
+      "direction": "undirected",
+      "confidence": 0.569,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::threads-dcrihmdd46t-183b20": {
+      "candidate_hash": "5621f08459ec046bf30151d2cb10474c122c09766e0d707c2e9631fa8939f3e5",
+      "related": false,
+      "type": "complements",
+      "direction": "undirected",
+      "confidence": 0.5991,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::threads-ddsd8tge8tf-f0ae71": {
+      "candidate_hash": "075d3650f20b57f70082d3d9aa2f7834027eb213700d6af3c84137a73f8ae2cc",
+      "related": false,
+      "type": "complements",
+      "direction": "undirected",
+      "confidence": 0.6124,
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
+      "classifier": "heuristic-fallback"
+    },
+    "github-mexicat-pdoom-video::threads-ddtlxtnjspv-c8d3ed": {
+      "candidate_hash": "fa3205eff531ad88a814e8d1bae9baf12df6617f7af604c344d9751843f088bd",
+      "related": true,
+      "type": "similar_to",
+      "direction": "undirected",
+      "confidence": 0.6762,
+      "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
       "classifier": "heuristic-fallback"
     },
     "github-minijinai75-tavern-claude-bridge::github-moeru-ai-airi": {
@@ -3316,15 +3415,6 @@
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
-    "github-nevertoday-xxd-panel-102::threads-ddtlxtnjspv-c8d3ed": {
-      "candidate_hash": "6913d36adb47054542d7ee7f42d22a01e77f58f00df7f083fb0633f41e979f64",
-      "related": false,
-      "type": "complements",
-      "direction": "undirected",
-      "confidence": 0.5921,
-      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
-      "classifier": "heuristic-fallback"
-    },
     "github-notoriouslab-vault-curate::github-promptfairy-prompt-fairy": {
       "candidate_hash": "2dd158fce67c756f5c4150663d0d13fe2663882e88e5aa6d48ffbd2e381cfd28",
       "related": false,
@@ -3359,15 +3449,6 @@
       "direction": "undirected",
       "confidence": 0.6052,
       "reason": "兩張 Card 具有足夠的 metadata／語意相近度，但無法僅靠 deterministic signals 判斷更細的方向性關係；目前以 complements 作為保守 fallback。",
-      "classifier": "heuristic-fallback"
-    },
-    "github-notoriouslab-vault-curate::threads-dcrihmdd46t-183b20": {
-      "candidate_hash": "300881f8d9a7d6bb125e0a191f794476b4c0a05aefa7855cac44489ab6960022",
-      "related": false,
-      "type": "complements",
-      "direction": "undirected",
-      "confidence": 0.5239,
-      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "github-notoriouslab-vault-curate::threads-dcu8czjelom-f2217d": {
@@ -3586,15 +3667,6 @@
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
-    "github-promptfairy-prompt-fairy::threads-dchbjcxenzb-725dd0": {
-      "candidate_hash": "232598c0471109c63f62e6c558088776450021c7bfd734271ba89b7903cd34e6",
-      "related": false,
-      "type": "complements",
-      "direction": "undirected",
-      "confidence": 0.5783,
-      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
-      "classifier": "heuristic-fallback"
-    },
     "github-promptfairy-prompt-fairy::threads-ddsd8tge8tf-f0ae71": {
       "candidate_hash": "f88f09c82a42fafef14c5039d57d3424ecdebbbf361da067b4de9231dc3a4f4a",
       "related": false,
@@ -3605,12 +3677,12 @@
       "classifier": "heuristic-fallback"
     },
     "github-promptfairy-prompt-fairy::threads-ddtlxtnjspv-c8d3ed": {
-      "candidate_hash": "ad076d2614347d5c56d2b3dd673742a2ff7dd713830db81984e22f0d911d2498",
-      "related": true,
+      "candidate_hash": "b2667ed5554ad33ff417fc6060366f80a0858d0810fd278ae5281937e09a5e51",
+      "related": false,
       "type": "similar_to",
       "direction": "undirected",
       "confidence": 0.6645,
-      "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "github-rimagination-h3lite::github-roble3-cc-blender-skill": {
@@ -3646,15 +3718,6 @@
       "type": "similar_to",
       "direction": "undirected",
       "confidence": 0.7465,
-      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
-      "classifier": "heuristic-fallback"
-    },
-    "github-roble3-cc-blender-skill::threads-dcdjlucgrwf-66e463": {
-      "candidate_hash": "646355ecc28e7aa702fe9dfdc913738642343804c89701585975d46b20910a86",
-      "related": false,
-      "type": "complements",
-      "direction": "undirected",
-      "confidence": 0.5711,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
@@ -3902,12 +3965,12 @@
       "classifier": "heuristic-fallback"
     },
     "github-twinklestars1029-sillytavern-regex::threads-dcglstsogz3-fa0168": {
-      "candidate_hash": "a0f88169f5ffbedfd0745329596516932e15208acc5bc3d13b505574d5d3cd01",
-      "related": true,
+      "candidate_hash": "0c128a47c9bbd61b823d41c318494b0b24bf10f45e7414c9f5db6149213d3ede",
+      "related": false,
       "type": "complements",
       "direction": "undirected",
       "confidence": 0.5694,
-      "reason": "兩張 Card 具有足夠的 metadata／語意相近度，但無法僅靠 deterministic signals 判斷更細的方向性關係；目前以 complements 作為保守 fallback。",
+      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
     "github-twinklestars1029-sillytavern-regex::threads-dchbjcxenzb-725dd0": {
@@ -4033,15 +4096,6 @@
       "type": "similar_to",
       "direction": "undirected",
       "confidence": 0.7125,
-      "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
-      "classifier": "heuristic-fallback"
-    },
-    "threads-dcglstsogz3-fa0168::threads-ddsd8tge8tf-f0ae71": {
-      "candidate_hash": "928e3aab3ea98ec9ec13bb14532c36fd28fa601b744972b0446a7e7d83bb29f1",
-      "related": false,
-      "type": "complements",
-      "direction": "undirected",
-      "confidence": 0.5576,
       "reason": "此 pair 達到 LLM candidate 門檻，但未達無模型 fallback 的公開門檻；保留為候選而不建立自動關聯。",
       "classifier": "heuristic-fallback"
     },
@@ -6385,6 +6439,77 @@
       "candidate_hash": "f83f70e36cafe85586837de72ee791dd4061e7fb3c228df833696144eb333c53"
     },
     {
+      "source": "github-mexicat-pdoom-video",
+      "target": "github-promptfairy-prompt-fairy",
+      "type": "similar_to",
+      "direction": "undirected",
+      "score": 0.6993,
+      "scores": {
+        "taxonomy": 0.4417,
+        "semantic": 0.871,
+        "semantic_raw": 0.9178,
+        "llm": null,
+        "combined": 0.6993
+      },
+      "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
+      "confidence": 0.6993,
+      "classifier": "heuristic-fallback",
+      "signals": [
+        "category:General Tools",
+        "relevance:image_gen",
+        "action:REFERENCE"
+      ],
+      "candidate_hash": "e3ca1eba1e634c057b1dd5e21ac15ba22f931f8977d14374fdd4adef78cc53a1"
+    },
+    {
+      "source": "github-mexicat-pdoom-video",
+      "target": "github-twinklestars1029-sillytavern-regex",
+      "type": "complements",
+      "direction": "undirected",
+      "score": 0.6109,
+      "scores": {
+        "taxonomy": 0.2694,
+        "semantic": 0.8385,
+        "semantic_raw": 0.9096,
+        "llm": null,
+        "combined": 0.6109
+      },
+      "reason": "兩張 Card 具有足夠的 metadata／語意相近度，但無法僅靠 deterministic signals 判斷更細的方向性關係；目前以 complements 作為保守 fallback。",
+      "confidence": 0.6109,
+      "classifier": "heuristic-fallback",
+      "signals": [
+        "category:General Tools",
+        "tag:TypeScript",
+        "action:LEARN",
+        "action:REFERENCE"
+      ],
+      "candidate_hash": "29eb7e317f10603ba368a6340154b3eb91285d07e46bc5785ee68f04dda85ad2"
+    },
+    {
+      "source": "github-mexicat-pdoom-video",
+      "target": "threads-ddtlxtnjspv-c8d3ed",
+      "type": "similar_to",
+      "direction": "undirected",
+      "score": 0.6762,
+      "scores": {
+        "taxonomy": 0.3833,
+        "semantic": 0.8714,
+        "semantic_raw": 0.9179,
+        "llm": null,
+        "combined": 0.6762
+      },
+      "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
+      "confidence": 0.6762,
+      "classifier": "heuristic-fallback",
+      "signals": [
+        "category:General Tools",
+        "relevance:image_gen",
+        "action:LEARN",
+        "action:REFERENCE"
+      ],
+      "candidate_hash": "fa3205eff531ad88a814e8d1bae9baf12df6617f7af604c344d9751843f088bd"
+    },
+    {
       "source": "github-minijinai75-tavern-claude-bridge",
       "target": "github-moeru-ai-airi",
       "type": "similar_to",
@@ -6845,31 +6970,6 @@
       "candidate_hash": "52d5b9baea0ce09f4d42202ec6fe1e83c4336570352b57a61126f8af52dae508"
     },
     {
-      "source": "github-promptfairy-prompt-fairy",
-      "target": "threads-ddtlxtnjspv-c8d3ed",
-      "type": "similar_to",
-      "direction": "undirected",
-      "score": 0.6645,
-      "scores": {
-        "taxonomy": 0.3625,
-        "semantic": 0.8659,
-        "semantic_raw": 0.9165,
-        "llm": null,
-        "combined": 0.6645
-      },
-      "reason": "Metadata 與語意向量都顯示兩張 Card 聚焦高度相近的技術主題；目前未經 LLM 語義分類，先以 similar_to 作為保守 fallback。",
-      "confidence": 0.6645,
-      "classifier": "heuristic-fallback",
-      "signals": [
-        "category:General Tools",
-        "tag:local-first",
-        "relevance:image_gen",
-        "action:REFERENCE",
-        "action:TRY"
-      ],
-      "candidate_hash": "ad076d2614347d5c56d2b3dd673742a2ff7dd713830db81984e22f0d911d2498"
-    },
-    {
       "source": "github-salsensei-suno-v6-songcraft",
       "target": "threads-dcu8czjelom-f2217d",
       "type": "similar_to",
@@ -7029,29 +7129,6 @@
         "action:TRY"
       ],
       "candidate_hash": "67fa8dfa5dcb6ec0421c2c2ce8778b1196c4daaa551df476b832b612e7c561c9"
-    },
-    {
-      "source": "github-twinklestars1029-sillytavern-regex",
-      "target": "threads-dcglstsogz3-fa0168",
-      "type": "complements",
-      "direction": "undirected",
-      "score": 0.5694,
-      "scores": {
-        "taxonomy": 0.175,
-        "semantic": 0.8324,
-        "semantic_raw": 0.9081,
-        "llm": null,
-        "combined": 0.5694
-      },
-      "reason": "兩張 Card 具有足夠的 metadata／語意相近度，但無法僅靠 deterministic signals 判斷更細的方向性關係；目前以 complements 作為保守 fallback。",
-      "confidence": 0.5694,
-      "classifier": "heuristic-fallback",
-      "signals": [
-        "category:General Tools",
-        "action:LEARN",
-        "action:REFERENCE"
-      ],
-      "candidate_hash": "a0f88169f5ffbedfd0745329596516932e15208acc5bc3d13b505574d5d3cd01"
     },
     {
       "source": "github-twinklestars1029-sillytavern-regex",
