@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-29T14:26:36.409Z",
-  "input_hash": "ef17ee8d832de9ad978206d27e0f60694883ea7400eec253c230f372078f692d",
+  "generated_at": "2026-09-29T23:19:25.454Z",
+  "input_hash": "6a0e832886dd7d0c0215f60372092090b8fc35e0e1c8c61c2d159144daf3374a",
   "concepts": [
     {
       "id": "category-agent",
@@ -31,6 +31,7 @@
         "github-graphify-labs-graphify",
         "github-hankhuang0516-simulator-manager",
         "github-harry0703-moneyprinterturbo",
+        "github-hazelnutparadise-syralit",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
@@ -74,7 +75,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 62
+      "card_count": 63
     },
     {
       "id": "coding-agent-tooling",
@@ -100,6 +101,7 @@
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
         "github-hankhuang0516-simulator-manager",
+        "github-hazelnutparadise-syralit",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
@@ -132,7 +134,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 47
+      "card_count": 48
     },
     {
       "id": "category-ai-coding-devtools",
@@ -157,6 +159,7 @@
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
         "github-hankhuang0516-simulator-manager",
+        "github-hazelnutparadise-syralit",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
@@ -184,7 +187,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 41
+      "card_count": 42
     },
     {
       "id": "category-general-tools",
@@ -204,6 +207,7 @@
         "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-dreambigou-eli5",
+        "github-hazelnutparadise-syralit",
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
         "github-mars-tw-open-seo-advisor-skill",
@@ -228,7 +232,7 @@
         "threads-ddt1gevhcc9-cb2210",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 33
+      "card_count": 34
     },
     {
       "id": "category-llm",
@@ -422,6 +426,34 @@
       "card_count": 17
     },
     {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-desktop-commander-remote-desktop-commander",
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-g36maid-deepseek-harness",
+        "github-hankhuang0516-simulator-manager",
+        "github-hazelnutparadise-syralit",
+        "github-herdrdev-herdr",
+        "github-mars-tw-ai-console",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mvschwarz-openrig",
+        "github-paperclipai-paperclip",
+        "github-stablyai-orca",
+        "github-totec448-spec-chat-on-steroids",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-db-fphwgfos-7d09e0",
+        "threads-dcglstsogz3-fa0168"
+      ],
+      "card_count": 17
+    },
+    {
       "id": "agent-memory",
       "label": "Agent Memory",
       "type": "architecture",
@@ -472,33 +504,6 @@
         "github-titanwings-distilly",
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 16
-    },
-    {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-desktop-commander-remote-desktop-commander",
-        "github-drumih-turbo-fieldfare",
-        "github-dstack-tee-dstack",
-        "github-g36maid-deepseek-harness",
-        "github-hankhuang0516-simulator-manager",
-        "github-herdrdev-herdr",
-        "github-mars-tw-ai-console",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mvschwarz-openrig",
-        "github-paperclipai-paperclip",
-        "github-stablyai-orca",
-        "github-totec448-spec-chat-on-steroids",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-db-fphwgfos-7d09e0",
-        "threads-dcglstsogz3-fa0168"
       ],
       "card_count": 16
     },
@@ -1714,6 +1719,19 @@
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-ai72dope-codex-engineering-system-zh-tw"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-streamlit",
+      "label": "Streamlit",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-harry0703-moneyprinterturbo",
+        "github-hazelnutparadise-syralit"
       ],
       "card_count": 2
     },
@@ -4664,12 +4682,96 @@
     },
     {
       "card_id": "github-harry0703-moneyprinterturbo",
+      "concept_id": "tag-streamlit",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Streamlit"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-harry0703-moneyprinterturbo",
       "concept_id": "tag-text-to-speech",
       "strength": 0.9,
       "evidence": [
         {
           "kind": "tag",
           "value": "text-to-speech"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-hazelnutparadise-syralit",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hazelnutparadise-syralit",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hazelnutparadise-syralit",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hazelnutparadise-syralit",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-hazelnutparadise-syralit",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-hazelnutparadise-syralit",
+      "concept_id": "tag-streamlit",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Streamlit"
         }
       ],
       "origin": "shared-tag"
@@ -10925,7 +11027,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 41,
+      "support": 42,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -10943,6 +11045,7 @@
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
         "github-hankhuang0516-simulator-manager",
+        "github-hazelnutparadise-syralit",
         "github-herdrdev-herdr",
         "github-hugohe3-ppt-master",
         "github-intuition-lab-personal-model",
@@ -13231,9 +13334,9 @@
     }
   ],
   "stats": {
-    "card_count": 80,
-    "concept_count": 107,
-    "card_concept_edge_count": 692,
+    "card_count": 81,
+    "concept_count": 108,
+    "card_concept_edge_count": 699,
     "concept_relation_edge_count": 220
   }
 }
