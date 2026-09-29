@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-29T13:34:55.047Z",
-  "input_hash": "891863607f5f51a98a6ca248101b1c6bd085543656f60216f25f8cc734c9161a",
+  "generated_at": "2026-09-29T14:26:36.409Z",
+  "input_hash": "ef17ee8d832de9ad978206d27e0f60694883ea7400eec253c230f372078f692d",
   "concepts": [
     {
       "id": "category-agent",
@@ -46,6 +46,7 @@
         "github-modelcontextprotocol-ext-skills",
         "github-moeru-ai-airi",
         "github-multimodal-art-projection-yue",
+        "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
         "github-nevertoday-xxd-panel-102",
@@ -73,7 +74,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 61
+      "card_count": 62
     },
     {
       "id": "coding-agent-tooling",
@@ -109,6 +110,7 @@
         "github-mensfeld-code-on-incus",
         "github-mexicat-pdoom-video",
         "github-minijinai75-tavern-claude-bridge",
+        "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
@@ -130,7 +132,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 46
+      "card_count": 47
     },
     {
       "id": "category-ai-coding-devtools",
@@ -163,6 +165,7 @@
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
+        "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
@@ -181,7 +184,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 40
+      "card_count": 41
     },
     {
       "id": "category-general-tools",
@@ -287,6 +290,7 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-modelcontextprotocol-ext-skills",
+        "github-mvschwarz-openrig",
         "github-notoriouslab-vault-curate",
         "github-paperclipai-paperclip",
         "github-promptfairy-prompt-fairy",
@@ -297,13 +301,13 @@
         "threads-dclcucpas-z-66b25b",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 22
+      "card_count": 23
     },
     {
       "id": "tag-claude-code",
       "label": "Claude Code",
       "type": "topic",
-      "description": "至少出現在 20 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 21 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -317,6 +321,7 @@
         "github-mensfeld-code-on-incus",
         "github-mexicat-pdoom-video",
         "github-minijinai75-tavern-claude-bridge",
+        "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
@@ -328,7 +333,7 @@
         "github-virgiliojr94-book-to-skill",
         "github-yanjiye-hareno-kairo"
       ],
-      "card_count": 20
+      "card_count": 21
     },
     {
       "id": "agent-api-bridge",
@@ -351,13 +356,14 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-modelcontextprotocol-ext-skills",
+        "github-mvschwarz-openrig",
         "github-paperclipai-paperclip",
         "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ],
-      "card_count": 18
+      "card_count": 19
     },
     {
       "id": "tag-agent-skill",
@@ -446,7 +452,7 @@
       "id": "tag-codex",
       "label": "Codex",
       "type": "topic",
-      "description": "至少出現在 15 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 16 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -456,6 +462,7 @@
         "github-cathrynlavery-diagram-design",
         "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
+        "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
@@ -466,7 +473,7 @@
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill"
       ],
-      "card_count": 15
+      "card_count": 16
     },
     {
       "id": "category-infrastructure-deployment",
@@ -485,6 +492,7 @@
         "github-mars-tw-ai-console",
         "github-mensfeld-code-on-incus",
         "github-minijinai75-tavern-claude-bridge",
+        "github-mvschwarz-openrig",
         "github-paperclipai-paperclip",
         "github-stablyai-orca",
         "github-totec448-spec-chat-on-steroids",
@@ -492,7 +500,7 @@
         "threads-db-fphwgfos-7d09e0",
         "threads-dcglstsogz3-fa0168"
       ],
-      "card_count": 15
+      "card_count": 16
     },
     {
       "id": "category-rag-memory-knowledge",
@@ -524,7 +532,7 @@
       "id": "tag-mcp",
       "label": "MCP",
       "type": "topic",
-      "description": "至少出現在 13 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 14 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -537,12 +545,13 @@
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-modelcontextprotocol-ext-skills",
+        "github-mvschwarz-openrig",
         "github-paperclipai-paperclip",
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ],
-      "card_count": 13
+      "card_count": 14
     },
     {
       "id": "tag-agent-skills",
@@ -809,6 +818,22 @@
       "card_count": 5
     },
     {
+      "id": "tag-sqlite",
+      "label": "SQLite",
+      "type": "topic",
+      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-akitaonrails-ai-memory",
+        "github-cynthianani-a-simple-nest",
+        "github-hankhuang0516-simulator-manager",
+        "github-mvschwarz-openrig",
+        "github-notoriouslab-vault-curate"
+      ],
+      "card_count": 5
+    },
+    {
       "id": "tag-agent-harness",
       "label": "agent-harness",
       "type": "topic",
@@ -925,21 +950,6 @@
         "github-paperclipai-paperclip",
         "github-santifer-career-ops",
         "github-totec448-spec-chat-on-steroids"
-      ],
-      "card_count": 4
-    },
-    {
-      "id": "tag-sqlite",
-      "label": "SQLite",
-      "type": "topic",
-      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-hankhuang0516-simulator-manager",
-        "github-notoriouslab-vault-curate"
       ],
       "card_count": 4
     },
@@ -6633,6 +6643,134 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-mvschwarz-openrig",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mvschwarz-openrig",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mvschwarz-openrig",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mvschwarz-openrig",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-mvschwarz-openrig",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        },
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mvschwarz-openrig",
+      "concept_id": "local-ai-integration",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-mvschwarz-openrig",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mvschwarz-openrig",
+      "concept_id": "tag-codex",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mvschwarz-openrig",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-mvschwarz-openrig",
+      "concept_id": "tag-sqlite",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SQLite"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-nanako0129-sepia",
       "concept_id": "category-agent",
       "strength": 1,
@@ -10358,8 +10496,8 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 16,
-      "weight": 0.8889,
+      "support": 17,
+      "weight": 0.8947,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
@@ -10373,6 +10511,7 @@
         "github-minijinai75-tavern-claude-bridge",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-modelcontextprotocol-ext-skills",
+        "github-mvschwarz-openrig",
         "github-paperclipai-paperclip",
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
@@ -10427,7 +10566,7 @@
       "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 13,
+      "support": 14,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -10439,6 +10578,7 @@
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-modelcontextprotocol-ext-skills",
+        "github-mvschwarz-openrig",
         "github-paperclipai-paperclip",
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
@@ -10689,7 +10829,7 @@
       "source": "category-agent",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 15,
+      "support": 16,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -10698,6 +10838,7 @@
         "github-cathrynlavery-diagram-design",
         "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
+        "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
@@ -10761,7 +10902,7 @@
       "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 13,
+      "support": 14,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -10773,6 +10914,7 @@
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-modelcontextprotocol-ext-skills",
+        "github-mvschwarz-openrig",
         "github-paperclipai-paperclip",
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
@@ -10783,7 +10925,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 40,
+      "support": 41,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -10809,6 +10951,7 @@
         "github-mattpocock-skills",
         "github-max0821-web-design-skill",
         "github-mensfeld-code-on-incus",
+        "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
@@ -11565,7 +11708,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 20,
+      "support": 21,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -11578,6 +11721,7 @@
         "github-mensfeld-code-on-incus",
         "github-mexicat-pdoom-video",
         "github-minijinai75-tavern-claude-bridge",
+        "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
         "github-nutlope-hallmark",
         "github-obra-superpowers",
@@ -11607,7 +11751,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 15,
+      "support": 16,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -11616,6 +11760,7 @@
         "github-cathrynlavery-diagram-design",
         "github-eternityspring-shuohao-skills",
         "github-mattpocock-skills",
+        "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
@@ -11760,7 +11905,7 @@
       "source": "local-ai-integration",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 13,
+      "support": 14,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
@@ -11772,6 +11917,7 @@
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-modelcontextprotocol-ext-skills",
+        "github-mvschwarz-openrig",
         "github-paperclipai-paperclip",
         "github-totec448-spec-chat-on-steroids",
         "github-tsun-u-agent-game-table",
@@ -12757,7 +12903,7 @@
       "target": "tag-sqlite",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.5,
+      "weight": 0.4,
       "card_ids": [
         "github-akitaonrails-ai-memory",
         "github-cynthianani-a-simple-nest"
@@ -13085,9 +13231,9 @@
     }
   ],
   "stats": {
-    "card_count": 79,
+    "card_count": 80,
     "concept_count": 107,
-    "card_concept_edge_count": 682,
+    "card_concept_edge_count": 692,
     "concept_relation_edge_count": 220
   }
 }
