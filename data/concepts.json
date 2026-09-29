@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-28T00:35:38.717Z",
-  "input_hash": "e2e3a9285eb2cb9185b45d2359a5b35f586f0690398e1d8e3c7be462a7431fc9",
+  "generated_at": "2026-09-29T13:34:55.047Z",
+  "input_hash": "891863607f5f51a98a6ca248101b1c6bd085543656f60216f25f8cc734c9161a",
   "concepts": [
     {
       "id": "category-agent",
@@ -23,6 +23,7 @@
         "github-cloudflare-security-audit-skill",
         "github-cynthianani-a-simple-nest",
         "github-danyuchn-iso-24495-skill",
+        "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
@@ -72,7 +73,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 60
+      "card_count": 61
     },
     {
       "id": "coding-agent-tooling",
@@ -197,6 +198,7 @@
         "github-cathrynlavery-diagram-design",
         "github-cloudflare-security-audit-skill",
         "github-danyuchn-iso-24495-skill",
+        "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-dreambigou-eli5",
         "github-hugohe3-ppt-master",
@@ -223,7 +225,7 @@
         "threads-ddt1gevhcc9-cb2210",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 32
+      "card_count": 33
     },
     {
       "id": "category-llm",
@@ -276,6 +278,7 @@
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
@@ -294,7 +297,7 @@
         "threads-dclcucpas-z-66b25b",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 21
+      "card_count": 22
     },
     {
       "id": "tag-claude-code",
@@ -339,6 +342,7 @@
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-drumih-turbo-fieldfare",
         "github-graphify-labs-graphify",
@@ -353,7 +357,7 @@
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ],
-      "card_count": 17
+      "card_count": 18
     },
     {
       "id": "tag-agent-skill",
@@ -384,6 +388,34 @@
       "card_count": 17
     },
     {
+      "id": "category-ai-ml",
+      "label": "AI / ML",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：AI / ML",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-debpalash-voicestudio",
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-harry0703-moneyprinterturbo",
+        "github-hkuds-lightrag",
+        "github-k-dense-ai-scientific-agent-skills",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-multimodal-art-projection-yue",
+        "github-openbmb-voxcpm",
+        "github-rimagination-h3lite",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-dcrihmdd46t-183b20",
+        "threads-ddsd8tge8tf-f0ae71",
+        "threads-ddtlxtnjspv-c8d3ed"
+      ],
+      "card_count": 17
+    },
+    {
       "id": "agent-memory",
       "label": "Agent Memory",
       "type": "architecture",
@@ -407,33 +439,6 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 16
-    },
-    {
-      "id": "category-ai-ml",
-      "label": "AI / ML",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：AI / ML",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-appfromapexxx-taiwan-subtitle",
-        "github-drumih-turbo-fieldfare",
-        "github-dstack-tee-dstack",
-        "github-harry0703-moneyprinterturbo",
-        "github-hkuds-lightrag",
-        "github-k-dense-ai-scientific-agent-skills",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-multimodal-art-projection-yue",
-        "github-openbmb-voxcpm",
-        "github-rimagination-h3lite",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-dcrihmdd46t-183b20",
-        "threads-ddsd8tge8tf-f0ae71",
-        "threads-ddtlxtnjspv-c8d3ed"
       ],
       "card_count": 16
     },
@@ -519,7 +524,7 @@
       "id": "tag-mcp",
       "label": "MCP",
       "type": "topic",
-      "description": "至少出現在 12 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 13 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -527,6 +532,7 @@
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
@@ -536,7 +542,7 @@
         "github-tsun-u-agent-game-table",
         "threads-dclcucpas-z-66b25b"
       ],
-      "card_count": 12
+      "card_count": 13
     },
     {
       "id": "tag-agent-skills",
@@ -648,10 +654,11 @@
       "id": "tag-local-first",
       "label": "local-first",
       "type": "topic",
-      "description": "至少出現在 9 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 10 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
+        "github-debpalash-voicestudio",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-mars-tw-ai-console",
@@ -662,7 +669,7 @@
         "github-totec448-spec-chat-on-steroids",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 9
+      "card_count": 10
     },
     {
       "id": "category-sillytavern-ai-rpg",
@@ -704,6 +711,23 @@
       "card_count": 8
     },
     {
+      "id": "tag-electron",
+      "label": "Electron",
+      "type": "topic",
+      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-debpalash-voicestudio",
+        "github-mars-tw-ai-console",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-moeru-ai-airi",
+        "github-stablyai-orca",
+        "github-totec448-spec-chat-on-steroids"
+      ],
+      "card_count": 6
+    },
+    {
       "id": "tag-prompt-engineering",
       "label": "prompt engineering",
       "type": "topic",
@@ -733,22 +757,6 @@
         "github-tsun-u-memory-toolkit",
         "github-yanjiye-hareno-kairo",
         "threads-dcuhxije1zf-9b4063"
-      ],
-      "card_count": 5
-    },
-    {
-      "id": "tag-electron",
-      "label": "Electron",
-      "type": "topic",
-      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-mars-tw-ai-console",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-moeru-ai-airi",
-        "github-stablyai-orca",
-        "github-totec448-spec-chat-on-steroids"
       ],
       "card_count": 5
     },
@@ -1175,6 +1183,20 @@
       "card_count": 3
     },
     {
+      "id": "tag-speech-to-text",
+      "label": "speech-to-text",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-debpalash-voicestudio",
+        "threads-dcrihmdd46t-183b20"
+      ],
+      "card_count": 3
+    },
+    {
       "id": "tag-tdd",
       "label": "TDD",
       "type": "topic",
@@ -1185,6 +1207,20 @@
         "github-ai72dope-codex-engineering-system-zh-tw",
         "github-mattpocock-skills",
         "github-tsun-u-tsunu-superpowers"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-text-to-speech",
+      "label": "text-to-speech",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-debpalash-voicestudio",
+        "github-harry0703-moneyprinterturbo",
+        "github-openbmb-voxcpm"
       ],
       "card_count": 3
     },
@@ -1408,6 +1444,19 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-notoriouslab-vault-curate"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-fastapi",
+      "label": "FastAPI",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-debpalash-voicestudio",
+        "github-harry0703-moneyprinterturbo"
       ],
       "card_count": 2
     },
@@ -1659,19 +1708,6 @@
       "card_count": 2
     },
     {
-      "id": "tag-speech-to-text",
-      "label": "speech-to-text",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-appfromapexxx-taiwan-subtitle",
-        "threads-dcrihmdd46t-183b20"
-      ],
-      "card_count": 2
-    },
-    {
       "id": "tag-tauri",
       "label": "tauri",
       "type": "topic",
@@ -1707,19 +1743,6 @@
       "card_ids": [
         "github-addyosmani-agent-skills",
         "github-obra-superpowers"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-text-to-speech",
-      "label": "text-to-speech",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-harry0703-moneyprinterturbo",
-        "github-openbmb-voxcpm"
       ],
       "card_count": 2
     },
@@ -1772,6 +1795,32 @@
       "card_ids": [
         "github-cathrynlavery-diagram-design",
         "github-roble3-cc-blender-skill"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-voice-cloning",
+      "label": "voice-cloning",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-debpalash-voicestudio",
+        "github-openbmb-voxcpm"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-voice-design",
+      "label": "voice-design",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-debpalash-voicestudio",
+        "github-openbmb-voxcpm"
       ],
       "card_count": 2
     },
@@ -3460,6 +3509,166 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "agent-api-bridge",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "category-ai-ml",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI / ML"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "local-ai-integration",
+      "strength": 0.84,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        },
+        {
+          "kind": "tag",
+          "value": "mcp"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "tag-electron",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Electron"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "tag-fastapi",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "FastAPI"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "tag-local-first",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "local-first"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "tag-mcp",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "MCP"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "tag-speech-to-text",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "speech-to-text"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "tag-text-to-speech",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "text-to-speech"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "tag-voice-cloning",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "voice-cloning"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-debpalash-voicestudio",
+      "concept_id": "tag-voice-design",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "voice-design"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-desktop-commander-remote-desktop-commander",
       "concept_id": "agent-api-bridge",
       "strength": 0.78,
@@ -4391,6 +4600,18 @@
         {
           "kind": "tag",
           "value": "Agent Skills"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-harry0703-moneyprinterturbo",
+      "concept_id": "tag-fastapi",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "FastAPI"
         }
       ],
       "origin": "shared-tag"
@@ -7167,6 +7388,30 @@
         {
           "kind": "tag",
           "value": "text-to-speech"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-openbmb-voxcpm",
+      "concept_id": "tag-voice-cloning",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "voice-cloning"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-openbmb-voxcpm",
+      "concept_id": "tag-voice-design",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "voice-design"
         }
       ],
       "origin": "shared-tag"
@@ -10113,13 +10358,14 @@
       "source": "agent-api-bridge",
       "target": "local-ai-integration",
       "type": "co_occurs_with",
-      "support": 15,
-      "weight": 0.8824,
+      "support": 16,
+      "weight": 0.8889,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
@@ -10181,13 +10427,14 @@
       "source": "agent-api-bridge",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 12,
+      "support": 13,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
@@ -10485,9 +10732,10 @@
       "source": "category-agent",
       "target": "tag-electron",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
+        "github-debpalash-voicestudio",
         "github-mars-tw-ai-console",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi",
@@ -10513,13 +10761,14 @@
       "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 12,
+      "support": 13,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
@@ -10701,24 +10950,13 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "tag-ffmpeg",
+      "target": "tag-fastapi",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 1,
       "card_ids": [
-        "github-appfromapexxx-taiwan-subtitle",
+        "github-debpalash-voicestudio",
         "github-harry0703-moneyprinterturbo"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
-      "target": "tag-local-llm",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-drumih-turbo-fieldfare",
-        "github-mayocream-koharu"
       ]
     },
     {
@@ -10734,23 +10972,13 @@
     },
     {
       "source": "category-ai-ml",
-      "target": "tag-music-generation",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-multimodal-art-projection-yue",
-        "threads-ddsd8tge8tf-f0ae71"
-      ]
-    },
-    {
-      "source": "category-ai-ml",
       "target": "tag-speech-to-text",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-appfromapexxx-taiwan-subtitle",
+        "github-debpalash-voicestudio",
         "threads-dcrihmdd46t-183b20"
       ]
     },
@@ -10758,10 +10986,33 @@
       "source": "category-ai-ml",
       "target": "tag-text-to-speech",
       "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-debpalash-voicestudio",
+        "github-harry0703-moneyprinterturbo",
+        "github-openbmb-voxcpm"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-voice-cloning",
+      "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-harry0703-moneyprinterturbo",
+        "github-debpalash-voicestudio",
+        "github-openbmb-voxcpm"
+      ]
+    },
+    {
+      "source": "category-ai-ml",
+      "target": "tag-voice-design",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-debpalash-voicestudio",
         "github-openbmb-voxcpm"
       ]
     },
@@ -10789,17 +11040,6 @@
     },
     {
       "source": "category-general-tools",
-      "target": "tag-cursor",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-nutlope-hallmark"
-      ]
-    },
-    {
-      "source": "category-general-tools",
       "target": "tag-engineering-discipline",
       "type": "co_occurs_with",
       "support": 4,
@@ -10821,6 +11061,18 @@
         "github-cathrynlavery-diagram-design",
         "github-mexicat-pdoom-video",
         "github-santifer-career-ops"
+      ]
+    },
+    {
+      "source": "category-general-tools",
+      "target": "tag-speech-to-text",
+      "type": "co_occurs_with",
+      "support": 3,
+      "weight": 1,
+      "card_ids": [
+        "github-appfromapexxx-taiwan-subtitle",
+        "github-debpalash-voicestudio",
+        "threads-dcrihmdd46t-183b20"
       ]
     },
     {
@@ -10907,7 +11159,7 @@
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.2222,
+      "weight": 0.2,
       "card_ids": [
         "github-mayocream-koharu",
         "github-promptfairy-prompt-fairy"
@@ -11243,7 +11495,7 @@
       "target": "tag-electron",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.4,
+      "weight": 0.3333,
       "card_ids": [
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-moeru-ai-airi"
@@ -11424,7 +11676,7 @@
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.2222,
+      "weight": 0.2,
       "card_ids": [
         "github-mayocream-koharu",
         "github-promptfairy-prompt-fairy"
@@ -11489,9 +11741,10 @@
       "source": "local-ai-integration",
       "target": "tag-local-first",
       "type": "co_occurs_with",
-      "support": 9,
+      "support": 10,
       "weight": 1,
       "card_ids": [
+        "github-debpalash-voicestudio",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
         "github-mars-tw-ai-console",
@@ -11507,13 +11760,14 @@
       "source": "local-ai-integration",
       "target": "tag-mcp",
       "type": "co_occurs_with",
-      "support": 12,
+      "support": 13,
       "weight": 1,
       "card_ids": [
         "github-ai21002102-riverbend",
         "github-akitaonrails-ai-memory",
         "github-alibaba-open-code-review",
         "github-bensonmaxai-line-desktop-mcp",
+        "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-graphify-labs-graphify",
         "github-intuition-lab-personal-model",
@@ -12300,9 +12554,10 @@
       "source": "tag-electron",
       "target": "tag-local-first",
       "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.4,
+      "support": 3,
+      "weight": 0.5,
       "card_ids": [
+        "github-debpalash-voicestudio",
         "github-mars-tw-ai-console",
         "github-totec448-spec-chat-on-steroids"
       ]
@@ -12312,7 +12567,7 @@
       "target": "tag-typescript",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.6,
+      "weight": 0.5,
       "card_ids": [
         "github-mars-tw-ai-console",
         "github-stablyai-orca",
@@ -12351,6 +12606,17 @@
       "card_ids": [
         "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers"
+      ]
+    },
+    {
+      "source": "tag-fastapi",
+      "target": "tag-text-to-speech",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-debpalash-voicestudio",
+        "github-harry0703-moneyprinterturbo"
       ]
     },
     {
@@ -12745,7 +13011,7 @@
       "target": "tag-traditional-chinese",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 1,
+      "weight": 0.6667,
       "card_ids": [
         "github-appfromapexxx-taiwan-subtitle",
         "threads-dcrihmdd46t-183b20"
@@ -12774,6 +13040,28 @@
       ]
     },
     {
+      "source": "tag-text-to-speech",
+      "target": "tag-voice-cloning",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-debpalash-voicestudio",
+        "github-openbmb-voxcpm"
+      ]
+    },
+    {
+      "source": "tag-text-to-speech",
+      "target": "tag-voice-design",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-debpalash-voicestudio",
+        "github-openbmb-voxcpm"
+      ]
+    },
+    {
       "source": "tag-tool-registry",
       "target": "tag-web-ui",
       "type": "co_occurs_with",
@@ -12783,12 +13071,23 @@
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
       ]
+    },
+    {
+      "source": "tag-voice-cloning",
+      "target": "tag-voice-design",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-debpalash-voicestudio",
+        "github-openbmb-voxcpm"
+      ]
     }
   ],
   "stats": {
-    "card_count": 78,
-    "concept_count": 104,
-    "card_concept_edge_count": 666,
-    "concept_relation_edge_count": 216
+    "card_count": 79,
+    "concept_count": 107,
+    "card_concept_edge_count": 682,
+    "concept_relation_edge_count": 220
   }
 }
