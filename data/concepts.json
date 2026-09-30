@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-30T05:58:18.560Z",
-  "input_hash": "ae2f51dbee0854912dac99e9b7e387723ed3c8e2a719787b1158ed031a43350a",
+  "generated_at": "2026-09-30T14:27:48.170Z",
+  "input_hash": "0a65b13491ec5bbcf8765e4be25633def321223d3062372a0f151251621e3a20",
   "concepts": [
     {
       "id": "category-agent",
@@ -29,6 +29,7 @@
         "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
+        "github-greensock-gsap-skills",
         "github-hankhuang0516-simulator-manager",
         "github-harry0703-moneyprinterturbo",
         "github-hazelnutparadise-syralit",
@@ -76,7 +77,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 64
+      "card_count": 65
     },
     {
       "id": "coding-agent-tooling",
@@ -101,6 +102,7 @@
         "github-eternityspring-shuohao-skills",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
+        "github-greensock-gsap-skills",
         "github-hankhuang0516-simulator-manager",
         "github-hazelnutparadise-syralit",
         "github-herdrdev-herdr",
@@ -136,7 +138,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 49
+      "card_count": 50
     },
     {
       "id": "category-ai-coding-devtools",
@@ -160,6 +162,7 @@
         "github-dreambigou-eli5",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
+        "github-greensock-gsap-skills",
         "github-hankhuang0516-simulator-manager",
         "github-hazelnutparadise-syralit",
         "github-herdrdev-herdr",
@@ -190,7 +193,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 43
+      "card_count": 44
     },
     {
       "id": "category-general-tools",
@@ -210,6 +213,7 @@
         "github-debpalash-voicestudio",
         "github-desktop-commander-remote-desktop-commander",
         "github-dreambigou-eli5",
+        "github-greensock-gsap-skills",
         "github-hazelnutparadise-syralit",
         "github-hugohe3-ppt-master",
         "github-kevintsai1202-humanizer-zh-tw",
@@ -235,7 +239,7 @@
         "threads-ddt1gevhcc9-cb2210",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 34
+      "card_count": 35
     },
     {
       "id": "category-llm",
@@ -314,7 +318,7 @@
       "id": "tag-claude-code",
       "label": "Claude Code",
       "type": "topic",
-      "description": "至少出現在 21 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 22 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -324,6 +328,7 @@
         "github-danyuchn-iso-24495-skill",
         "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
+        "github-greensock-gsap-skills",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
         "github-mexicat-pdoom-video",
@@ -340,7 +345,7 @@
         "github-virgiliojr94-book-to-skill",
         "github-yanjiye-hareno-kairo"
       ],
-      "card_count": 21
+      "card_count": 22
     },
     {
       "id": "agent-api-bridge",
@@ -458,6 +463,34 @@
       "card_count": 17
     },
     {
+      "id": "tag-codex",
+      "label": "Codex",
+      "type": "topic",
+      "description": "至少出現在 17 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-bensonmaxai-line-desktop-mcp",
+        "github-cathrynlavery-diagram-design",
+        "github-eternityspring-shuohao-skills",
+        "github-greensock-gsap-skills",
+        "github-mattpocock-skills",
+        "github-mvschwarz-openrig",
+        "github-nanako0129-sepia",
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-nutlope-hallmark",
+        "github-obra-superpowers",
+        "github-salsensei-suno-v6-songcraft",
+        "github-stablyai-orca",
+        "github-titanwings-distilly",
+        "github-tsun-u-tsunu-superpowers",
+        "github-virgiliojr94-book-to-skill"
+      ],
+      "card_count": 17
+    },
+    {
       "id": "agent-memory",
       "label": "Agent Memory",
       "type": "architecture",
@@ -481,33 +514,6 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcuhxije1zf-9b4063",
         "threads-dfyr62jb6wr-b921df"
-      ],
-      "card_count": 16
-    },
-    {
-      "id": "tag-codex",
-      "label": "Codex",
-      "type": "topic",
-      "description": "至少出現在 16 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-bensonmaxai-line-desktop-mcp",
-        "github-cathrynlavery-diagram-design",
-        "github-eternityspring-shuohao-skills",
-        "github-mattpocock-skills",
-        "github-mvschwarz-openrig",
-        "github-nanako0129-sepia",
-        "github-ncusspm25-opus-mode-for-codex",
-        "github-nutlope-hallmark",
-        "github-obra-superpowers",
-        "github-salsensei-suno-v6-songcraft",
-        "github-stablyai-orca",
-        "github-titanwings-distilly",
-        "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
       ],
       "card_count": 16
     },
@@ -566,11 +572,12 @@
       "id": "tag-agent-skills",
       "label": "agent-skills",
       "type": "topic",
-      "description": "至少出現在 11 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 12 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
         "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills",
         "github-harry0703-moneyprinterturbo",
         "github-k-dense-ai-scientific-agent-skills",
         "github-mattpocock-skills",
@@ -582,7 +589,7 @@
         "github-tsun-u-tsunu-superpowers",
         "github-virgiliojr94-book-to-skill"
       ],
-      "card_count": 11
+      "card_count": 12
     },
     {
       "id": "character-runtime",
@@ -763,6 +770,23 @@
       "card_count": 6
     },
     {
+      "id": "tag-skill-md",
+      "label": "SKILL.md",
+      "type": "topic",
+      "description": "至少出現在 6 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers"
+      ],
+      "card_count": 6
+    },
+    {
       "id": "tag-agent-memory",
       "label": "agent-memory",
       "type": "topic",
@@ -807,22 +831,6 @@
         "github-k-dense-ai-scientific-agent-skills",
         "github-mars-tw-ai-console",
         "github-virgiliojr94-book-to-skill"
-      ],
-      "card_count": 5
-    },
-    {
-      "id": "tag-skill-md",
-      "label": "SKILL.md",
-      "type": "topic",
-      "description": "至少出現在 5 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-harry0703-moneyprinterturbo",
-        "github-mattpocock-skills",
-        "github-ncusspm25-opus-mode-for-codex",
-        "github-obra-superpowers"
       ],
       "card_count": 5
     },
@@ -978,6 +986,21 @@
       "card_count": 4
     },
     {
+      "id": "tag-react",
+      "label": "React",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-greensock-gsap-skills",
+        "github-mars-tw-ai-console",
+        "github-paperclipai-paperclip",
+        "github-twinklestars1029-sillytavern-regex"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "tag-zh-tw",
       "label": "zh-TW",
       "type": "topic",
@@ -1031,6 +1054,20 @@
         "github-cynthianani-a-simple-nest",
         "github-virgiliojr94-book-to-skill",
         "threads-dcuhxije1zf-9b4063"
+      ],
+      "card_count": 3
+    },
+    {
+      "id": "tag-cursor",
+      "label": "Cursor",
+      "type": "topic",
+      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills",
+        "github-nutlope-hallmark"
       ],
       "card_count": 3
     },
@@ -1161,20 +1198,6 @@
       "card_count": 3
     },
     {
-      "id": "tag-react",
-      "label": "React",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-mars-tw-ai-console",
-        "github-paperclipai-paperclip",
-        "github-twinklestars1029-sillytavern-regex"
-      ],
-      "card_count": 3
-    },
-    {
       "id": "tag-responsive-design",
       "label": "responsive-design",
       "type": "topic",
@@ -1271,6 +1294,19 @@
         "github-tsun-u-tsunu-superpowers"
       ],
       "card_count": 3
+    },
+    {
+      "id": "tag-accessibility",
+      "label": "accessibility",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-cathrynlavery-diagram-design",
+        "github-greensock-gsap-skills"
+      ],
+      "card_count": 2
     },
     {
       "id": "tag-agent-loop",
@@ -1412,19 +1448,6 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
-      ],
-      "card_count": 2
-    },
-    {
-      "id": "tag-cursor",
-      "label": "Cursor",
-      "type": "topic",
-      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-nutlope-hallmark"
       ],
       "card_count": 2
     },
@@ -3084,6 +3107,18 @@
     },
     {
       "card_id": "github-cathrynlavery-diagram-design",
+      "concept_id": "tag-accessibility",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "accessibility"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-cathrynlavery-diagram-design",
       "concept_id": "tag-agent-skill",
       "strength": 0.9,
       "evidence": [
@@ -4514,6 +4549,150 @@
         {
           "kind": "tag",
           "value": "MCP"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "category-general-tools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "General Tools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.96,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        },
+        {
+          "kind": "tag",
+          "value": "Claude-Code"
+        },
+        {
+          "kind": "tag",
+          "value": "Codex"
+        },
+        {
+          "kind": "tag",
+          "value": "Cursor"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "tag-accessibility",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Accessibility"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "tag-agent-skills",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Agent Skills"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "tag-claude-code",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Claude Code"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "tag-codex",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Codex"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "tag-cursor",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Cursor"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "tag-react",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "React"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-greensock-gsap-skills",
+      "concept_id": "tag-skill-md",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "SKILL.md"
         }
       ],
       "origin": "shared-tag"
@@ -11013,10 +11192,11 @@
       "source": "category-agent",
       "target": "tag-agent-skills",
       "type": "co_occurs_with",
-      "support": 11,
+      "support": 12,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills",
         "github-harry0703-moneyprinterturbo",
         "github-k-dense-ai-scientific-agent-skills",
         "github-mattpocock-skills",
@@ -11033,7 +11213,7 @@
       "source": "category-agent",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 16,
+      "support": 17,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -11041,6 +11221,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-eternityspring-shuohao-skills",
+        "github-greensock-gsap-skills",
         "github-mattpocock-skills",
         "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
@@ -11090,20 +11271,6 @@
     },
     {
       "source": "category-agent",
-      "target": "tag-long-term-memory",
-      "type": "co_occurs_with",
-      "support": 5,
-      "weight": 1,
-      "card_ids": [
-        "github-akitaonrails-ai-memory",
-        "github-cynthianani-a-simple-nest",
-        "github-intuition-lab-personal-model",
-        "threads-dclcucpas-z-66b25b",
-        "threads-dcuhxije1zf-9b4063"
-      ]
-    },
-    {
-      "source": "category-agent",
       "target": "tag-mcp",
       "type": "co_occurs_with",
       "support": 14,
@@ -11126,10 +11293,25 @@
       ]
     },
     {
+      "source": "category-agent",
+      "target": "tag-skill-md",
+      "type": "co_occurs_with",
+      "support": 6,
+      "weight": 1,
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-mattpocock-skills",
+        "github-ncusspm25-opus-mode-for-codex",
+        "github-obra-superpowers"
+      ]
+    },
+    {
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 43,
+      "support": 44,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -11146,6 +11328,7 @@
         "github-dreambigou-eli5",
         "github-g36maid-deepseek-harness",
         "github-graphify-labs-graphify",
+        "github-greensock-gsap-skills",
         "github-hankhuang0516-simulator-manager",
         "github-hazelnutparadise-syralit",
         "github-herdrdev-herdr",
@@ -11367,24 +11550,25 @@
     },
     {
       "source": "category-general-tools",
-      "target": "tag-agent-workflow",
+      "target": "tag-accessibility",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
       "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "threads-ddt1gevhcc9-cb2210"
+        "github-cathrynlavery-diagram-design",
+        "github-greensock-gsap-skills"
       ]
     },
     {
       "source": "category-general-tools",
-      "target": "tag-cloudflare",
+      "target": "tag-cursor",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
-        "threads-dcglstsogz3-fa0168",
-        "threads-dcu8czjelom-f2217d"
+        "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills",
+        "github-nutlope-hallmark"
       ]
     },
     {
@@ -11927,7 +12111,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
-      "support": 21,
+      "support": 22,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -11936,6 +12120,7 @@
         "github-danyuchn-iso-24495-skill",
         "github-dreambigou-eli5",
         "github-eternityspring-shuohao-skills",
+        "github-greensock-gsap-skills",
         "github-mattpocock-skills",
         "github-mensfeld-code-on-incus",
         "github-mexicat-pdoom-video",
@@ -11970,7 +12155,7 @@
       "source": "coding-agent-tooling",
       "target": "tag-codex",
       "type": "co_occurs_with",
-      "support": 16,
+      "support": 17,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -11978,6 +12163,7 @@
         "github-bensonmaxai-line-desktop-mcp",
         "github-cathrynlavery-diagram-design",
         "github-eternityspring-shuohao-skills",
+        "github-greensock-gsap-skills",
         "github-mattpocock-skills",
         "github-mvschwarz-openrig",
         "github-nanako0129-sepia",
@@ -12151,6 +12337,28 @@
         "github-paperclipai-paperclip",
         "github-santifer-career-ops",
         "github-totec448-spec-chat-on-steroids"
+      ]
+    },
+    {
+      "source": "tag-accessibility",
+      "target": "tag-claude-code",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cathrynlavery-diagram-design",
+        "github-greensock-gsap-skills"
+      ]
+    },
+    {
+      "source": "tag-accessibility",
+      "target": "tag-codex",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-cathrynlavery-diagram-design",
+        "github-greensock-gsap-skills"
       ]
     },
     {
@@ -12448,6 +12656,17 @@
     },
     {
       "source": "tag-agent-skills",
+      "target": "tag-cursor",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills"
+      ]
+    },
+    {
+      "source": "tag-agent-skills",
       "target": "tag-engineering-discipline",
       "type": "co_occurs_with",
       "support": 3,
@@ -12460,23 +12679,13 @@
     },
     {
       "source": "tag-agent-skills",
-      "target": "tag-git-worktree",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "github-obra-superpowers",
-        "github-tsun-u-tsunu-superpowers"
-      ]
-    },
-    {
-      "source": "tag-agent-skills",
       "target": "tag-skill-md",
       "type": "co_occurs_with",
-      "support": 5,
+      "support": 6,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills",
         "github-harry0703-moneyprinterturbo",
         "github-mattpocock-skills",
         "github-ncusspm25-opus-mode-for-codex",
@@ -12554,10 +12763,11 @@
       "source": "tag-claude-code",
       "target": "tag-cursor",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills",
         "github-nutlope-hallmark"
       ]
     },
@@ -12595,17 +12805,6 @@
         "github-mensfeld-code-on-incus",
         "github-obra-superpowers",
         "github-stablyai-orca"
-      ]
-    },
-    {
-      "source": "tag-claude-code",
-      "target": "tag-quality-gates",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-eternityspring-shuohao-skills"
       ]
     },
     {
@@ -12669,10 +12868,11 @@
       "source": "tag-codex",
       "target": "tag-cursor",
       "type": "co_occurs_with",
-      "support": 2,
+      "support": 3,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills",
         "github-nutlope-hallmark"
       ]
     },
@@ -12699,17 +12899,6 @@
         "github-obra-superpowers",
         "github-stablyai-orca",
         "github-tsun-u-tsunu-superpowers"
-      ]
-    },
-    {
-      "source": "tag-codex",
-      "target": "tag-quality-gates",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-addyosmani-agent-skills",
-        "github-eternityspring-shuohao-skills"
       ]
     },
     {
@@ -12845,6 +13034,17 @@
       "card_ids": [
         "github-g36maid-deepseek-harness",
         "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "tag-cursor",
+      "target": "tag-skill-md",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-addyosmani-agent-skills",
+        "github-greensock-gsap-skills"
       ]
     },
     {
@@ -13263,7 +13463,7 @@
       "target": "tag-typescript",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 1,
+      "weight": 0.75,
       "card_ids": [
         "github-mars-tw-ai-console",
         "github-paperclipai-paperclip",
@@ -13426,9 +13626,9 @@
     }
   ],
   "stats": {
-    "card_count": 82,
-    "concept_count": 109,
-    "card_concept_edge_count": 706,
-    "concept_relation_edge_count": 219
+    "card_count": 83,
+    "concept_count": 110,
+    "card_concept_edge_count": 718,
+    "concept_relation_edge_count": 220
   }
 }
