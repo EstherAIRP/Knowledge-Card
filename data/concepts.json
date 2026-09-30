@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-30T14:27:48.170Z",
-  "input_hash": "0a65b13491ec5bbcf8765e4be25633def321223d3062372a0f151251621e3a20",
+  "generated_at": "2026-09-30T14:52:15.692Z",
+  "input_hash": "a52c647006a2631f9d876c95dc8e110ff49f85fd7afc48931fa3a5153aecdc75",
   "concepts": [
     {
       "id": "category-agent",
@@ -38,6 +38,7 @@
         "github-intuition-lab-personal-model",
         "github-k-dense-ai-scientific-agent-skills",
         "github-kevintsai1202-humanizer-zh-tw",
+        "github-liccabobo-prompt-universe",
         "github-mars-tw-ai-console",
         "github-mars-tw-open-seo-advisor-skill",
         "github-mattpocock-skills",
@@ -77,7 +78,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 65
+      "card_count": 66
     },
     {
       "id": "coding-agent-tooling",
@@ -592,6 +593,50 @@
       "card_count": 12
     },
     {
+      "id": "category-image-generation",
+      "label": "Image Generation",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Image Generation",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-liccabobo-prompt-universe",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nevertoday-xxd-panel-102",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+        "github-promptfairy-prompt-fairy",
+        "github-rimagination-h3lite",
+        "github-roble3-cc-blender-skill",
+        "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 11
+    },
+    {
+      "id": "image-generation-workflow",
+      "label": "Image Generation Workflow",
+      "type": "workflow",
+      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
+      "origin": "promoted",
+      "aliases": [],
+      "card_ids": [
+        "github-eternityspring-shuohao-skills",
+        "github-harry0703-moneyprinterturbo",
+        "github-liccabobo-prompt-universe",
+        "github-mayocream-koharu",
+        "github-mirabarukaso-character-select-stand-alone-app",
+        "github-nevertoday-xxd-panel-102",
+        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
+        "github-promptfairy-prompt-fairy",
+        "github-rimagination-h3lite",
+        "github-roble3-cc-blender-skill",
+        "github-s1dashu-ip-as-logo-skill"
+      ],
+      "card_count": 11
+    },
+    {
       "id": "character-runtime",
       "label": "Character Runtime",
       "type": "architecture",
@@ -630,48 +675,6 @@
         "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers",
         "github-totec448-spec-chat-on-steroids"
-      ],
-      "card_count": 10
-    },
-    {
-      "id": "category-image-generation",
-      "label": "Image Generation",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Image Generation",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-eternityspring-shuohao-skills",
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nevertoday-xxd-panel-102",
-        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
-        "github-promptfairy-prompt-fairy",
-        "github-rimagination-h3lite",
-        "github-roble3-cc-blender-skill",
-        "github-s1dashu-ip-as-logo-skill"
-      ],
-      "card_count": 10
-    },
-    {
-      "id": "image-generation-workflow",
-      "label": "Image Generation Workflow",
-      "type": "workflow",
-      "description": "從 prompt、控制條件到 diffusion backend 的圖像生成工作流與工具鏈。",
-      "origin": "promoted",
-      "aliases": [],
-      "card_ids": [
-        "github-eternityspring-shuohao-skills",
-        "github-harry0703-moneyprinterturbo",
-        "github-mayocream-koharu",
-        "github-mirabarukaso-character-select-stand-alone-app",
-        "github-nevertoday-xxd-panel-102",
-        "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
-        "github-promptfairy-prompt-fairy",
-        "github-rimagination-h3lite",
-        "github-roble3-cc-blender-skill",
-        "github-s1dashu-ip-as-logo-skill"
       ],
       "card_count": 10
     },
@@ -926,6 +929,21 @@
       "card_count": 4
     },
     {
+      "id": "tag-human-in-the-loop",
+      "label": "human-in-the-loop",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-liccabobo-prompt-universe",
+        "github-mars-tw-open-seo-advisor-skill",
+        "github-santifer-career-ops",
+        "threads-db-wlkkgtu-18d1ea"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "tag-multi-agent",
       "label": "Multi-Agent",
       "type": "topic",
@@ -1110,20 +1128,6 @@
         "github-obra-superpowers",
         "github-stablyai-orca",
         "github-tsun-u-tsunu-superpowers"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "tag-human-in-the-loop",
-      "label": "Human-in-the-loop",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "github-mars-tw-open-seo-advisor-skill",
-        "github-santifer-career-ops",
-        "threads-db-wlkkgtu-18d1ea"
       ],
       "card_count": 3
     },
@@ -1556,6 +1560,19 @@
       "card_count": 2
     },
     {
+      "id": "tag-image-prompt",
+      "label": "image-prompt",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-liccabobo-prompt-universe",
+        "github-promptfairy-prompt-fairy"
+      ],
+      "card_count": 2
+    },
+    {
       "id": "tag-lifecycle-hooks",
       "label": "lifecycle-hooks",
       "type": "topic",
@@ -1682,6 +1699,19 @@
       "card_ids": [
         "github-cynthianani-a-simple-nest",
         "github-minijinai75-tavern-claude-bridge"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-prompt-versioning",
+      "label": "prompt-versioning",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-liccabobo-prompt-universe",
+        "github-promptfairy-prompt-fairy"
       ],
       "card_count": 2
     },
@@ -5582,6 +5612,78 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "github-liccabobo-prompt-universe",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-liccabobo-prompt-universe",
+      "concept_id": "category-image-generation",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-liccabobo-prompt-universe",
+      "concept_id": "image-generation-workflow",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Image Generation"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-liccabobo-prompt-universe",
+      "concept_id": "tag-human-in-the-loop",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "human-in-the-loop"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-liccabobo-prompt-universe",
+      "concept_id": "tag-image-prompt",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "image-prompt"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-liccabobo-prompt-universe",
+      "concept_id": "tag-prompt-versioning",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "prompt-versioning"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "github-mars-tw-ai-console",
       "concept_id": "agent-memory",
       "strength": 0.78,
@@ -8195,12 +8297,36 @@
     },
     {
       "card_id": "github-promptfairy-prompt-fairy",
+      "concept_id": "tag-image-prompt",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "image-prompt"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-promptfairy-prompt-fairy",
       "concept_id": "tag-local-first",
       "strength": 0.9,
       "evidence": [
         {
           "kind": "tag",
           "value": "local-first"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-promptfairy-prompt-fairy",
+      "concept_id": "tag-prompt-versioning",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "prompt-versioning"
         }
       ],
       "origin": "shared-tag"
@@ -11648,11 +11774,12 @@
       "source": "category-image-generation",
       "target": "image-generation-workflow",
       "type": "co_occurs_with",
-      "support": 10,
+      "support": 11,
       "weight": 1,
       "card_ids": [
         "github-eternityspring-shuohao-skills",
         "github-harry0703-moneyprinterturbo",
+        "github-liccabobo-prompt-universe",
         "github-mayocream-koharu",
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-nevertoday-xxd-panel-102",
@@ -11668,7 +11795,7 @@
       "target": "tag-agent-skill",
       "type": "co_occurs_with",
       "support": 3,
-      "weight": 0.3,
+      "weight": 0.2727,
       "card_ids": [
         "github-eternityspring-shuohao-skills",
         "github-rimagination-h3lite",
@@ -11685,6 +11812,17 @@
         "github-mirabarukaso-character-select-stand-alone-app",
         "github-pottokao-dotcom-comfyui-qwenimage-photostyles",
         "github-rimagination-h3lite"
+      ]
+    },
+    {
+      "source": "category-image-generation",
+      "target": "tag-image-prompt",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-liccabobo-prompt-universe",
+        "github-promptfairy-prompt-fairy"
       ]
     },
     {
@@ -11718,6 +11856,17 @@
       "card_ids": [
         "github-mayocream-koharu",
         "github-pottokao-dotcom-comfyui-qwenimage-photostyles"
+      ]
+    },
+    {
+      "source": "category-image-generation",
+      "target": "tag-prompt-versioning",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-liccabobo-prompt-universe",
+        "github-promptfairy-prompt-fairy"
       ]
     },
     {
@@ -12210,6 +12359,17 @@
     },
     {
       "source": "image-generation-workflow",
+      "target": "tag-image-prompt",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-liccabobo-prompt-universe",
+        "github-promptfairy-prompt-fairy"
+      ]
+    },
+    {
+      "source": "image-generation-workflow",
       "target": "tag-local-first",
       "type": "co_occurs_with",
       "support": 2,
@@ -12239,6 +12399,17 @@
       "card_ids": [
         "github-mayocream-koharu",
         "github-pottokao-dotcom-comfyui-qwenimage-photostyles"
+      ]
+    },
+    {
+      "source": "image-generation-workflow",
+      "target": "tag-prompt-versioning",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-liccabobo-prompt-universe",
+        "github-promptfairy-prompt-fairy"
       ]
     },
     {
@@ -12600,7 +12771,7 @@
       "target": "tag-human-in-the-loop",
       "type": "co_occurs_with",
       "support": 2,
-      "weight": 0.6667,
+      "weight": 0.5,
       "card_ids": [
         "github-mars-tw-open-seo-advisor-skill",
         "github-santifer-career-ops"
@@ -13205,6 +13376,17 @@
       ]
     },
     {
+      "source": "tag-image-prompt",
+      "target": "tag-prompt-versioning",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 1,
+      "card_ids": [
+        "github-liccabobo-prompt-universe",
+        "github-promptfairy-prompt-fairy"
+      ]
+    },
+    {
       "source": "tag-knowledge-graph",
       "target": "tag-local-first",
       "type": "co_occurs_with",
@@ -13626,9 +13808,9 @@
     }
   ],
   "stats": {
-    "card_count": 83,
-    "concept_count": 110,
-    "card_concept_edge_count": 718,
-    "concept_relation_edge_count": 220
+    "card_count": 84,
+    "concept_count": 112,
+    "card_concept_edge_count": 726,
+    "concept_relation_edge_count": 225
   }
 }
