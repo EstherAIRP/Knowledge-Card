@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-29T23:19:25.454Z",
-  "input_hash": "6a0e832886dd7d0c0215f60372092090b8fc35e0e1c8c61c2d159144daf3374a",
+  "generated_at": "2026-09-30T05:58:18.560Z",
+  "input_hash": "ae2f51dbee0854912dac99e9b7e387723ed3c8e2a719787b1158ed031a43350a",
   "concepts": [
     {
       "id": "category-agent",
@@ -52,6 +52,7 @@
         "github-ncusspm25-opus-mode-for-codex",
         "github-nevertoday-xxd-panel-102",
         "github-nutlope-hallmark",
+        "github-nvidia-openshell",
         "github-obra-superpowers",
         "github-paperclipai-paperclip",
         "github-rimagination-h3lite",
@@ -75,7 +76,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddt1gevhcc9-cb2210"
       ],
-      "card_count": 63
+      "card_count": 64
     },
     {
       "id": "coding-agent-tooling",
@@ -116,6 +117,7 @@
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
+        "github-nvidia-openshell",
         "github-obra-superpowers",
         "github-paperclipai-paperclip",
         "github-roble3-cc-blender-skill",
@@ -134,7 +136,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 48
+      "card_count": 49
     },
     {
       "id": "category-ai-coding-devtools",
@@ -172,6 +174,7 @@
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
+        "github-nvidia-openshell",
         "github-obra-superpowers",
         "github-paperclipai-paperclip",
         "github-roble3-cc-blender-skill",
@@ -187,7 +190,7 @@
         "threads-dcuhxije1zf-9b4063",
         "threads-ddtlxtnjspv-c8d3ed"
       ],
-      "card_count": 42
+      "card_count": 43
     },
     {
       "id": "category-general-tools",
@@ -370,6 +373,35 @@
       "card_count": 19
     },
     {
+      "id": "category-infrastructure-deployment",
+      "label": "Infrastructure / Deployment",
+      "type": "category",
+      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
+      "origin": "category",
+      "aliases": [],
+      "card_ids": [
+        "github-desktop-commander-remote-desktop-commander",
+        "github-drumih-turbo-fieldfare",
+        "github-dstack-tee-dstack",
+        "github-g36maid-deepseek-harness",
+        "github-hankhuang0516-simulator-manager",
+        "github-hazelnutparadise-syralit",
+        "github-herdrdev-herdr",
+        "github-mars-tw-ai-console",
+        "github-mensfeld-code-on-incus",
+        "github-minijinai75-tavern-claude-bridge",
+        "github-mvschwarz-openrig",
+        "github-nvidia-openshell",
+        "github-paperclipai-paperclip",
+        "github-stablyai-orca",
+        "github-totec448-spec-chat-on-steroids",
+        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
+        "threads-db-fphwgfos-7d09e0",
+        "threads-dcglstsogz3-fa0168"
+      ],
+      "card_count": 18
+    },
+    {
       "id": "tag-agent-skill",
       "label": "agent-skill",
       "type": "topic",
@@ -422,34 +454,6 @@
         "threads-dcrihmdd46t-183b20",
         "threads-ddsd8tge8tf-f0ae71",
         "threads-ddtlxtnjspv-c8d3ed"
-      ],
-      "card_count": 17
-    },
-    {
-      "id": "category-infrastructure-deployment",
-      "label": "Infrastructure / Deployment",
-      "type": "category",
-      "description": "Knowledge Card taxonomy category：Infrastructure / Deployment",
-      "origin": "category",
-      "aliases": [],
-      "card_ids": [
-        "github-desktop-commander-remote-desktop-commander",
-        "github-drumih-turbo-fieldfare",
-        "github-dstack-tee-dstack",
-        "github-g36maid-deepseek-harness",
-        "github-hankhuang0516-simulator-manager",
-        "github-hazelnutparadise-syralit",
-        "github-herdrdev-herdr",
-        "github-mars-tw-ai-console",
-        "github-mensfeld-code-on-incus",
-        "github-minijinai75-tavern-claude-bridge",
-        "github-mvschwarz-openrig",
-        "github-paperclipai-paperclip",
-        "github-stablyai-orca",
-        "github-totec448-spec-chat-on-steroids",
-        "openai-com-hugging-face-incident-and-the-road-ahead-0957e3ab",
-        "threads-db-fphwgfos-7d09e0",
-        "threads-dcglstsogz3-fa0168"
       ],
       "card_count": 17
     },
@@ -854,6 +858,21 @@
       "card_count": 4
     },
     {
+      "id": "tag-agent-runtime",
+      "label": "agent-runtime",
+      "type": "topic",
+      "description": "至少出現在 4 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness",
+        "github-nvidia-openshell",
+        "threads-db-fphwgfos-7d09e0"
+      ],
+      "card_count": 4
+    },
+    {
       "id": "ai-character-interface",
       "label": "AI Character Interface",
       "type": "experience",
@@ -984,20 +1003,6 @@
         "github-herdrdev-herdr",
         "github-mars-tw-ai-console",
         "github-stablyai-orca"
-      ],
-      "card_count": 3
-    },
-    {
-      "id": "tag-agent-runtime",
-      "label": "agent-runtime",
-      "type": "topic",
-      "description": "至少出現在 3 張 Knowledge Cards 的共用技術主題。",
-      "origin": "shared-tag",
-      "aliases": [],
-      "card_ids": [
-        "earendil-works-pi",
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
       ],
       "card_count": 3
     },
@@ -1433,6 +1438,19 @@
       "card_ids": [
         "github-bensonmaxai-line-desktop-mcp",
         "github-desktop-commander-remote-desktop-commander"
+      ],
+      "card_count": 2
+    },
+    {
+      "id": "tag-docker",
+      "label": "Docker",
+      "type": "topic",
+      "description": "至少出現在 2 張 Knowledge Cards 的共用技術主題。",
+      "origin": "shared-tag",
+      "aliases": [],
+      "card_ids": [
+        "github-hkuds-lightrag",
+        "github-nvidia-openshell"
       ],
       "card_count": 2
     },
@@ -4934,6 +4952,18 @@
     },
     {
       "card_id": "github-hkuds-lightrag",
+      "concept_id": "tag-docker",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Docker"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-hkuds-lightrag",
       "concept_id": "tag-docling",
       "strength": 0.9,
       "evidence": [
@@ -7400,6 +7430,78 @@
         {
           "kind": "tag",
           "value": "responsive-design"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-nvidia-openshell",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nvidia-openshell",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nvidia-openshell",
+      "concept_id": "category-infrastructure-deployment",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Infrastructure / Deployment"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "github-nvidia-openshell",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "github-nvidia-openshell",
+      "concept_id": "tag-agent-runtime",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-runtime"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
+      "card_id": "github-nvidia-openshell",
+      "concept_id": "tag-docker",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "Docker"
         }
       ],
       "origin": "shared-tag"
@@ -11027,7 +11129,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 42,
+      "support": 43,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -11058,6 +11160,7 @@
         "github-nanako0129-sepia",
         "github-ncusspm25-opus-mode-for-codex",
         "github-nutlope-hallmark",
+        "github-nvidia-openshell",
         "github-obra-superpowers",
         "github-paperclipai-paperclip",
         "github-roble3-cc-blender-skill",
@@ -11099,6 +11202,19 @@
         "github-tsun-u-memory-toolkit",
         "github-yanjiye-hareno-kairo",
         "threads-dcuhxije1zf-9b4063"
+      ]
+    },
+    {
+      "source": "category-ai-coding-devtools",
+      "target": "tag-agent-runtime",
+      "type": "co_occurs_with",
+      "support": 4,
+      "weight": 1,
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness",
+        "github-nvidia-openshell",
+        "threads-db-fphwgfos-7d09e0"
       ]
     },
     {
@@ -11157,19 +11273,6 @@
         "github-mensfeld-code-on-incus",
         "github-obra-superpowers",
         "github-stablyai-orca"
-      ]
-    },
-    {
-      "source": "category-ai-coding-devtools",
-      "target": "tag-plugin-system",
-      "type": "co_occurs_with",
-      "support": 4,
-      "weight": 1,
-      "card_ids": [
-        "github-herdrdev-herdr",
-        "github-paperclipai-paperclip",
-        "github-santifer-career-ops",
-        "github-totec448-spec-chat-on-steroids"
       ]
     },
     {
@@ -11809,6 +11912,19 @@
     },
     {
       "source": "coding-agent-tooling",
+      "target": "tag-agent-runtime",
+      "type": "co_occurs_with",
+      "support": 4,
+      "weight": 1,
+      "card_ids": [
+        "earendil-works-pi",
+        "github-g36maid-deepseek-harness",
+        "github-nvidia-openshell",
+        "threads-db-fphwgfos-7d09e0"
+      ]
+    },
+    {
+      "source": "coding-agent-tooling",
       "target": "tag-claude-code",
       "type": "co_occurs_with",
       "support": 21,
@@ -11892,19 +12008,6 @@
         "github-ncusspm25-opus-mode-for-codex",
         "github-obra-superpowers",
         "github-totec448-spec-chat-on-steroids"
-      ]
-    },
-    {
-      "source": "coding-agent-tooling",
-      "target": "tag-engineering-discipline",
-      "type": "co_occurs_with",
-      "support": 4,
-      "weight": 1,
-      "card_ids": [
-        "github-ai72dope-codex-engineering-system-zh-tw",
-        "github-mattpocock-skills",
-        "github-ncusspm25-opus-mode-for-codex",
-        "github-obra-superpowers"
       ]
     },
     {
@@ -12048,17 +12151,6 @@
         "github-paperclipai-paperclip",
         "github-santifer-career-ops",
         "github-totec448-spec-chat-on-steroids"
-      ]
-    },
-    {
-      "source": "tag-agent-harness",
-      "target": "tag-agent-runtime",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 0.6667,
-      "card_ids": [
-        "earendil-works-pi",
-        "github-g36maid-deepseek-harness"
       ]
     },
     {
@@ -12265,17 +12357,6 @@
     {
       "source": "tag-agent-runtime",
       "target": "tag-tool-registry",
-      "type": "co_occurs_with",
-      "support": 2,
-      "weight": 1,
-      "card_ids": [
-        "github-g36maid-deepseek-harness",
-        "threads-db-fphwgfos-7d09e0"
-      ]
-    },
-    {
-      "source": "tag-agent-runtime",
-      "target": "tag-web-ui",
       "type": "co_occurs_with",
       "support": 2,
       "weight": 1,
@@ -12848,6 +12929,17 @@
     },
     {
       "source": "tag-engineering-discipline",
+      "target": "tag-tdd",
+      "type": "co_occurs_with",
+      "support": 2,
+      "weight": 0.6667,
+      "card_ids": [
+        "github-ai72dope-codex-engineering-system-zh-tw",
+        "github-mattpocock-skills"
+      ]
+    },
+    {
+      "source": "tag-engineering-discipline",
       "target": "tag-verification",
       "type": "co_occurs_with",
       "support": 2,
@@ -13334,9 +13426,9 @@
     }
   ],
   "stats": {
-    "card_count": 81,
-    "concept_count": 108,
-    "card_concept_edge_count": 699,
-    "concept_relation_edge_count": 220
+    "card_count": 82,
+    "concept_count": 109,
+    "card_concept_edge_count": 706,
+    "concept_relation_edge_count": 219
   }
 }
