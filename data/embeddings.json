@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-11T10:06:13.119Z",
+  "generated_at": "2026-10-18T08:07:28.608Z",
   "provider": "local-transformers",
   "model": "Xenova/multilingual-e5-small",
   "card_count": 84,
