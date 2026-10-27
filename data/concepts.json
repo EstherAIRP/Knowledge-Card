@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-27T02:44:48.073Z",
-  "input_hash": "0c0bd488b8aaaff5ce2c9cd4430d17af66f50612eb8d613b243af14b3ba172d4",
+  "generated_at": "2026-10-27T04:38:32.642Z",
+  "input_hash": "9295fbdfa254f48ec88cffb0db07c12218bf68955f05fda185f73b2e45ba66af",
   "concepts": [
     {
       "id": "category-agent",
@@ -76,9 +76,10 @@
         "threads-dclcucpas-z-66b25b",
         "threads-dcu8czjelom-f2217d",
         "threads-dcuhxije1zf-9b4063",
-        "threads-ddt1gevhcc9-cb2210"
+        "threads-ddt1gevhcc9-cb2210",
+        "threads-de-y7smh-z-05e31b"
       ],
-      "card_count": 66
+      "card_count": 67
     },
     {
       "id": "coding-agent-tooling",
@@ -137,9 +138,10 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063",
-        "threads-ddtlxtnjspv-c8d3ed"
+        "threads-ddtlxtnjspv-c8d3ed",
+        "threads-de-y7smh-z-05e31b"
       ],
-      "card_count": 50
+      "card_count": 51
     },
     {
       "id": "category-ai-coding-devtools",
@@ -192,9 +194,10 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063",
-        "threads-ddtlxtnjspv-c8d3ed"
+        "threads-ddtlxtnjspv-c8d3ed",
+        "threads-de-y7smh-z-05e31b"
       ],
-      "card_count": 44
+      "card_count": 45
     },
     {
       "id": "category-general-tools",
@@ -577,7 +580,7 @@
       "id": "tag-agent-skills",
       "label": "agent-skills",
       "type": "topic",
-      "description": "至少出現在 12 張 Knowledge Cards 的共用技術主題。",
+      "description": "至少出現在 13 張 Knowledge Cards 的共用技術主題。",
       "origin": "shared-tag",
       "aliases": [],
       "card_ids": [
@@ -592,9 +595,10 @@
         "github-roble3-cc-blender-skill",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
+        "github-virgiliojr94-book-to-skill",
+        "threads-de-y7smh-z-05e31b"
       ],
-      "card_count": 12
+      "card_count": 13
     },
     {
       "id": "category-image-generation",
@@ -11005,6 +11009,54 @@
       "origin": "shared-tag"
     },
     {
+      "card_id": "threads-de-y7smh-z-05e31b",
+      "concept_id": "category-agent",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "Agent"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-de-y7smh-z-05e31b",
+      "concept_id": "category-ai-coding-devtools",
+      "strength": 1,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "category"
+    },
+    {
+      "card_id": "threads-de-y7smh-z-05e31b",
+      "concept_id": "coding-agent-tooling",
+      "strength": 0.78,
+      "evidence": [
+        {
+          "kind": "category",
+          "value": "AI Coding / DevTools"
+        }
+      ],
+      "origin": "promoted"
+    },
+    {
+      "card_id": "threads-de-y7smh-z-05e31b",
+      "concept_id": "tag-agent-skills",
+      "strength": 0.9,
+      "evidence": [
+        {
+          "kind": "tag",
+          "value": "agent-skills"
+        }
+      ],
+      "origin": "shared-tag"
+    },
+    {
       "card_id": "threads-dfyr62jb6wr-b921df",
       "concept_id": "agent-memory",
       "strength": 0.78,
@@ -11408,7 +11460,7 @@
       "source": "category-agent",
       "target": "tag-agent-skills",
       "type": "co_occurs_with",
-      "support": 12,
+      "support": 13,
       "weight": 1,
       "card_ids": [
         "github-addyosmani-agent-skills",
@@ -11422,7 +11474,8 @@
         "github-roble3-cc-blender-skill",
         "github-tsun-u-memory-toolkit",
         "github-tsun-u-tsunu-superpowers",
-        "github-virgiliojr94-book-to-skill"
+        "github-virgiliojr94-book-to-skill",
+        "threads-de-y7smh-z-05e31b"
       ]
     },
     {
@@ -11527,7 +11580,7 @@
       "source": "category-ai-coding-devtools",
       "target": "coding-agent-tooling",
       "type": "co_occurs_with",
-      "support": 44,
+      "support": 45,
       "weight": 1,
       "card_ids": [
         "earendil-works-pi",
@@ -11573,7 +11626,8 @@
         "threads-db-wlkkgtu-18d1ea",
         "threads-dcdjlucgrwf-66e463",
         "threads-dcuhxije1zf-9b4063",
-        "threads-ddtlxtnjspv-c8d3ed"
+        "threads-ddtlxtnjspv-c8d3ed",
+        "threads-de-y7smh-z-05e31b"
       ]
     },
     {
@@ -13898,9 +13952,9 @@
     }
   ],
   "stats": {
-    "card_count": 85,
+    "card_count": 86,
     "concept_count": 113,
-    "card_concept_edge_count": 732,
+    "card_concept_edge_count": 736,
     "concept_relation_edge_count": 225
   }
 }
