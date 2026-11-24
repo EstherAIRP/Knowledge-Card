@@ -14,7 +14,7 @@ concurrency:
 jobs:
   validate:
     name: Test, validate, and build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
       TRANSFORMERS_CACHE_DIR: .cache/transformers
@@ -37,7 +37,7 @@ jobs:
           key: transformers-${{ runner.os }}-${{ hashFiles('config/relation-config.yaml', 'package.json') }}
 
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: npm install --no-audit --no-fund --onnxruntime-node-install-cuda=skip
 
       - name: Build embedding index
         run: npm run embeddings:build
