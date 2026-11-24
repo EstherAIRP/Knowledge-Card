@@ -140,7 +140,7 @@ jobs:
 
       - name: Install trusted dependencies
         working-directory: app
-        run: npm install --no-audit --no-fund
+        run: npm install --no-audit --no-fund --onnxruntime-node-install-cuda=skip
 
       - name: Locate request
         id: locate
