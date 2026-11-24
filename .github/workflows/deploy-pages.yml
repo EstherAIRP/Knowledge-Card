@@ -32,7 +32,7 @@ jobs:
   build:
     name: Build release
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     env:
       TRANSFORMERS_CACHE_DIR: .cache/transformers
@@ -230,7 +230,7 @@ jobs:
     name: Deploy to GitHub Pages
     if: github.ref == 'refs/heads/main'
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment:
       name: github-pages
