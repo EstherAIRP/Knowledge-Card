@@ -23,7 +23,7 @@ concurrency:
 jobs:
   gate:
     name: Validate remote ingestion trigger
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     outputs:
@@ -71,7 +71,7 @@ jobs:
   announce:
     name: Publish remote ingestion run pointer
     needs: gate
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       statuses: write
     outputs:
@@ -106,7 +106,7 @@ jobs:
       - gate
       - announce
     if: needs.gate.result == 'success' && (github.event_name == 'pull_request_target' || needs.announce.outputs.status_published == 'true')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
       contents: read
@@ -191,7 +191,7 @@ jobs:
       - gate
       - announce
       - resolve
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       statuses: write
     steps:
@@ -224,7 +224,7 @@ jobs:
       - announce
       - resolve
       - finalize
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
       pull-requests: write
