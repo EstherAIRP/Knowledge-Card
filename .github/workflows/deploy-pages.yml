@@ -85,7 +85,7 @@ jobs:
           key: transformers-${{ runner.os }}-${{ hashFiles('config/relation-config.yaml', 'package.json') }}
 
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: npm install --no-audit --no-fund --onnxruntime-node-install-cuda=skip
 
       - name: Validate Knowledge Cards
         run: npm run validate
