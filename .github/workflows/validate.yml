@@ -14,7 +14,7 @@ concurrency:
 jobs:
   validate:
     name: Test, validate, and build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
       TRANSFORMERS_CACHE_DIR: .cache/transformers
